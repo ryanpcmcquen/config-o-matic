@@ -14,7 +14,6 @@ $FLUXBOXCONF="https://raw.github.com/ryanpcmcquen/linuxTweaks/master/restoreFlux
 $GITNAME="Ryan Q"
 $GITEMAIL="ryan.q@linux.com"
 $GITIGGLO=""
-$GITCONF="https://raw.github.com/ryanpcmcquen/linuxTweaks/master/.gitconfig"
 
 
 if [ ! $UID != 0 ]; then
@@ -30,7 +29,15 @@ wget -N $BASHRC -P ~/
 wget -N $BASHPR -P ~/
 wget -N $VIMRC -P ~/
 
-wget -N $GITCONF -P ~/
+wget -N $GITIGGLO -P ~/
+
+## git
+
+git config --global user.name "$GITNAME"
+git config --global user.email "$GITEMAIL"
+git config --global credential.helper 'cache --timeout=3600'
+git config --global push.default simple
+git config --global core.excludesfile ~/.gitignore_global
 
 #### you can use this if you have a file that configures all 3
 ###curl $BASHGITVIM | bash
