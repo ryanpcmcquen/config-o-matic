@@ -35,6 +35,9 @@ wget -N $VIMRC -P ~/
 sed -i 's/^#compact/lba32\
 compact/g' /etc/lilo.conf
 
+## set to utf8 console if not set in install
+sed -i 's/^append=" vt.default_utf8=0"/append=" vt.default_utf8=1"/g' /etc/lilo.conf
+
 sed -i 's/^timeout = 50/timeout = 5/g' /etc/lilo.conf
 sed -i 's/^timeout = 1200/timeout = 5/g' /etc/lilo.conf
 
