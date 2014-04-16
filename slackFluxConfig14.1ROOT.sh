@@ -5,16 +5,16 @@
 #$BASHGITVIM="https://raw.github.com/ryanpcmcquen/linuxTweaks/master/bashGitVimROOT.sh"
 
 ## set global config files & variables here:
-$SBOPKGDL="http://sbopkg.googlecode.com/files/sbopkg-0.37.0-noarch-1_cng.tgz"
-$SPPLUSDL="http://sourceforge.net/projects/slackpkgplus/files/slackpkg%2B-1.3.1-noarch-1mt.txz"
+SBOPKGDL="http://sbopkg.googlecode.com/files/sbopkg-0.37.0-noarch-1_cng.tgz"
+SPPLUSDL="http://sourceforge.net/projects/slackpkgplus/files/slackpkg%2B-1.3.1-noarch-1mt.txz"
 
-$BASHRC="https://raw.github.com/ryanpcmcquen/linuxTweaks/master/slackware/root/.bashrc"
-$BASHPR="https://raw.github.com/ryanpcmcquen/linuxTweaks/master/slackware/root/.bash_profile"
+BASHRC="https://raw.github.com/ryanpcmcquen/linuxTweaks/master/slackware/root/.bashrc"
+BASHPR="https://raw.github.com/ryanpcmcquen/linuxTweaks/master/slackware/root/.bash_profile"
 
-$VIMRC="https://raw.github.com/ryanpcmcquen/linuxTweaks/master/.vimrc"
+VIMRC="https://raw.github.com/ryanpcmcquen/linuxTweaks/master/.vimrc"
 
-$GITNAME="Ryan Q"
-$GITEMAIL="ryan.q@linux.com"
+GITNAME="Ryan Q"
+GITEMAIL="ryan.q@linux.com"
 
 
 if [ ! $UID = 0 ]; then
@@ -27,9 +27,9 @@ EOF
 fi
 
 
-wget -N "$BASHRC" -P ~/
-wget -N "$BASHPR" -P ~/
-wget -N "$VIMRC" -P ~/
+wget -N $BASHRC -P ~/
+wget -N $BASHPR -P ~/
+wget -N $VIMRC -P ~/
 
 ## configure lilo
 sed -i 's/^#compact/lba32\
