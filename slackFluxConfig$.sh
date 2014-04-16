@@ -20,8 +20,6 @@ EOF
   exit 1
 fi
 
-mkdir -p ~/.vim/tmp
-
 wget -N $BASHRC -P ~/
 wget -N $BASHPR -P ~/
 wget -N $GITCONF -P ~/
