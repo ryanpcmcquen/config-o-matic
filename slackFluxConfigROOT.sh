@@ -1,6 +1,6 @@
 #!/bin/sh
 
-# curl https://raw.github.com/ryanpcmcquen/linuxTweaks/master/slackware/config-o-matic/slackFluxConfigROOT.sh | bash
+# curl https://raw.github.com/ryanpcmcquen/config-o-matic/master/slackFluxConfigROOT.sh | bash
 
 #$BASHGITVIM="https://raw.github.com/ryanpcmcquen/linuxTweaks/master/bashGitVimROOT.sh"
 
