@@ -24,18 +24,16 @@ EOF
   exit 1
 fi
 
+
 wget -N $BASHRC -P ~/
 wget -N $BASHPR -P ~/
 wget -N $VIMRC -P ~/
 
-
-## git
-
+## git config
 git config --global user.name "$GITNAME"
 git config --global user.email "$GITEMAIL"
 git config --global credential.helper 'cache --timeout=3600'
 git config --global push.default simple
-
 
 #### you can use this if you have a file that configures all 3
 ###curl $BASHGITVIM | bash
