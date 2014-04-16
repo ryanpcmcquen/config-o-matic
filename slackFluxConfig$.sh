@@ -22,24 +22,14 @@ fi
 
 wget -N $BASHRC -P ~/
 wget -N $BASHPR -P ~/
-wget -N $GITCONF -P ~/
 wget -N $VIMRC -P ~/
+
+wget -N $GITCONF -P ~/
 
 #### you can use this if you have a file that configures all 3
 ###curl $BASHGITVIM | bash
 
 curl $FLUXBOXCONF | bash
-
-## numix theme
-#wget -N http://box-look.org/CONTENT/content-files/159716-numixpeg.tar.gz -P ~/
-#tar xf ~/159716-numixpeg.tar.gz -C ~/.fluxbox/styles
-#echo "session.styleFile: /home/ry/.fluxbox/styles/numixpeg" >> ~/.fluxbox/init
-
-## just dark theme
-#wget -N http://box-look.org/CONTENT/content-files/163116-Just.tgz -P ~/
-#tar xf ~/163116-Just.tgz -C ~/.fluxbox/styles
-#echo "session.styleFile: /home/ry/.fluxbox/styles/Just" >> ~/.fluxbox/init
-#rm ~/163116-Just.tgz
 
 ## dyne theme
 wget -N http://box-look.org/CONTENT/content-files/61999-Dyne-fluxbox.tar.gz -P ~/
