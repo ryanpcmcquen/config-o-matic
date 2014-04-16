@@ -7,9 +7,15 @@
 
 $BASHRC="https://raw.github.com/ryanpcmcquen/linuxTweaks/master/slackware/normal/.bashrc"
 $BASHPR="https://raw.github.com/ryanpcmcquen/linuxTweaks/master/slackware/normal/.bash_profile"
-$GITCONF="https://raw.github.com/ryanpcmcquen/linuxTweaks/master/.gitconfig"
+
 $VIMRC="https://raw.github.com/ryanpcmcquen/linuxTweaks/master/.vimrc"
 $FLUXBOXCONF="https://raw.github.com/ryanpcmcquen/linuxTweaks/master/restoreFluxbox.sh"
+
+$GITNAME="Ryan Q"
+$GITEMAIL="ryan.q@linux.com"
+$GITIGGLO=""
+$GITCONF="https://raw.github.com/ryanpcmcquen/linuxTweaks/master/.gitconfig"
+
 
 if [ ! $UID != 0 ]; then
 cat << EOF
