@@ -27,9 +27,9 @@ EOF
 fi
 
 
-wget -N $BASHRC -P ~/
-wget -N $BASHPR -P ~/
-wget -N $VIMRC -P ~/
+wget -N "$BASHRC" -P ~/
+wget -N "$BASHPR" -P ~/
+wget -N "$VIMRC" -P ~/
 
 ## configure lilo
 sed -i 's/^#compact/lba32\
