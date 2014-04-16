@@ -5,14 +5,14 @@
 #### set your global config files & variables here:
 ###$BASHGITVIM="https://raw.github.com/ryanpcmcquen/linuxTweaks/master/bashGitVimNORMAL.sh"
 
-$BASHRC="https://raw.github.com/ryanpcmcquen/linuxTweaks/master/slackware/normal/.bashrc"
-$BASHPR="https://raw.github.com/ryanpcmcquen/linuxTweaks/master/slackware/normal/.bash_profile"
+BASHRC="https://raw.github.com/ryanpcmcquen/linuxTweaks/master/slackware/normal/.bashrc"
+BASHPR="https://raw.github.com/ryanpcmcquen/linuxTweaks/master/slackware/normal/.bash_profile"
 
-$VIMRC="https://raw.github.com/ryanpcmcquen/linuxTweaks/master/.vimrc"
-$FLUXBOXCONF="https://raw.github.com/ryanpcmcquen/linuxTweaks/master/restoreFluxbox.sh"
+VIMRC="https://raw.github.com/ryanpcmcquen/linuxTweaks/master/.vimrc"
+FLUXBOXCONF="https://raw.github.com/ryanpcmcquen/linuxTweaks/master/restoreFluxbox.sh"
 
-$GITNAME="Ryan Q"
-$GITEMAIL="ryan.q@linux.com"
+GITNAME="Ryan Q"
+GITEMAIL="ryan.q@linux.com"
 
 
 if [ ! $UID != 0 ]; then
