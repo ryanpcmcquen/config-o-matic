@@ -16,6 +16,8 @@ VIMRC="https://raw.github.com/ryanpcmcquen/linuxTweaks/master/.vimrc"
 GITNAME="Ryan Q"
 GITEMAIL="ryan.q@linux.com"
 
+TOUCHPCONF="https://raw.github.com/ryanpcmcquen/linuxTweaks/master/51-synaptics.conf"
+
 
 if [ ! $UID = 0 ]; then
   cat << EOF
@@ -60,6 +62,8 @@ git config --global user.name "$GITNAME"
 git config --global user.email "$GITEMAIL"
 git config --global credential.helper 'cache --timeout=3600'
 git config --global push.default simple
+
+wget -N $TOUCHPCONF -P /etc/X11/xorg.conf.d/
 
 wget -N $SBOPKGDL -P ~/
 wget -N $SPPLUSDL -P ~/
