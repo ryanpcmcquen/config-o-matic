@@ -19,6 +19,7 @@ GITEMAIL="ryan.q@linux.com"
 
 TOUCHPCONF="https://raw.github.com/ryanpcmcquen/linuxTweaks/master/51-synaptics.conf"
 
+
 if [ ! $UID = 0 ]; then
   cat << EOF
 
