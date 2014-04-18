@@ -6,7 +6,7 @@
 
 ## set global config files & variables here:
 SBOPKGDL="http://sbopkg.googlecode.com/files/sbopkg-0.37.0-noarch-1_cng.tgz"
-SPPLUSDL="http://sourceforge.net/projects/slackpkgplus/files/slackpkg%2B-1.3.1-noarch-1mt.txz"
+SPPLUSDL="http://sourceforge.net/projects/slackpkgplus/files/slackpkg%2B-1.3.1-noarch-3mt.txz"
 
 BASHRC="https://raw.github.com/ryanpcmcquen/linuxTweaks/master/slackware/root/.bashrc"
 BASHPR="https://raw.github.com/ryanpcmcquen/linuxTweaks/master/slackware/root/.bash_profile"
