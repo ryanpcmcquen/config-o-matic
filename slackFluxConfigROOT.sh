@@ -78,8 +78,9 @@ installpkg ~/*.t?z
 mv /etc/slackpkg/slackpkgplus.conf /etc/slackpkg/slackpkgplus.conf.old
 wget -N $SPPLUSCONF -P /etc/slackpkg/
 
-rm ~/sbopkg-0.37.0-noarch-1_cng.tgz
-rm ~/slackpkg+-1.3.1-noarch-1mt.txz
+rm ~/*.t?z
+
+
 
 
 #################
