@@ -7,7 +7,9 @@
 ## set global config files & variables here:
 SBOPKGDL="http://sbopkg.googlecode.com/files/sbopkg-0.37.0-noarch-1_cng.tgz"
 SPPLUSDL="http://sourceforge.net/projects/slackpkgplus/files/slackpkg%2B-1.3.1-noarch-3mt.txz"
-SPPLUSCONF="https://raw.github.com/ryanpcmcquen/linuxTweaks/master/slackware/slackpkgplus.conf"
+SPPLUSCONF64="https://raw.github.com/ryanpcmcquen/linuxTweaks/master/slackware/64/slackpkgplus.conf"
+SPPLUSCONF32="https://raw.github.com/ryanpcmcquen/linuxTweaks/master/slackware/32/slackpkgplus.conf"
+
 
 BASHRC="https://raw.github.com/ryanpcmcquen/linuxTweaks/master/slackware/root/.bashrc"
 BASHPR="https://raw.github.com/ryanpcmcquen/linuxTweaks/master/slackware/root/.bash_profile"
@@ -76,7 +78,13 @@ wget -N $SPPLUSDL -P ~/
 installpkg ~/*.t?z
 
 mv /etc/slackpkg/slackpkgplus.conf /etc/slackpkg/slackpkgplus.conf.old
-wget -N $SPPLUSCONF -P /etc/slackpkg/
+
+if [ "$( uname -m )" == "x86_64" ]; then
+  wget -N $SPPLUSCONF64 -P /etc/slackpkg/
+else
+  wget -N $SPPLUSCONF32 -P /etc/slackpkg/
+fi
+
 
 rm ~/*.t?z
 
