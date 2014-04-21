@@ -19,3 +19,6 @@ current:
 Normal user (14.1 or current):
 
     $ curl https://raw.github.com/ryanpcmcquen/config-o-matic/master/slackFluxConfig$.sh | bash
+
+
+config-o-matic takes a text-oriented approach to system provisioning, for this reason, fluxbox is our current DE of choice. You may remove the flubox config url if you do not wish to use fluxbox. ;-)
