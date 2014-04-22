@@ -6,7 +6,7 @@
 
 ## set global config files & variables here:
 SBOPKGDL="http://sbopkg.googlecode.com/files/sbopkg-0.37.0-noarch-1_cng.tgz"
-SPPLUSDL="http://sourceforge.net/projects/slackpkgplus/files/slackpkg%2B-1.3.1-noarch-3mt.txz"
+SPPLUSDL="http://sourceforge.net/projects/slackpkgplus/files/slackpkg%2B-1.3.1-noarch-4mt.txz"
 SPPLUSCONF64="https://raw.github.com/ryanpcmcquen/linuxTweaks/master/slackware/64/slackpkgplus.conf"
 SPPLUSCONF32="https://raw.github.com/ryanpcmcquen/linuxTweaks/master/slackware/32/slackpkgplus.conf"
 
