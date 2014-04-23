@@ -40,10 +40,3 @@ git config --global push.default simple
 
 curl $FLUXBOXCONF | bash
 
-## dyne theme
-wget -N http://box-look.org/CONTENT/content-files/61999-Dyne-fluxbox.tar.gz -P ~/
-tar xf ~/61999-Dyne-fluxbox.tar.gz -C ~/.fluxbox/styles
-echo "session.styleFile: /home/ry/.fluxbox/styles/Dyne" >> ~/.fluxbox/init
-
-rm ~/61999-Dyne-fluxbox.tar.gz
-
