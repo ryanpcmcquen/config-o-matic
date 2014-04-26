@@ -1,25 +1,25 @@
 #!/bin/sh
 
-# curl https://raw.github.com/ryanpcmcquen/config-o-matic/master/slackFluxConfigROOT.sh | bash
+# curl https://raw2.github.com/ryanpcmcquen/config-o-matic/master/slackFluxConfigROOT.sh | bash
 
-#$BASHGITVIM="https://raw.github.com/ryanpcmcquen/linuxTweaks/master/bashGitVimROOT.sh"
+#$BASHGITVIM="https://raw2.github.com/ryanpcmcquen/linuxTweaks/master/bashGitVimROOT.sh"
 
 ## set global config files & variables here:
 SBOPKGDL="http://sbopkg.googlecode.com/files/sbopkg-0.37.0-noarch-1_cng.tgz"
 SPPLUSDL="http://sourceforge.net/projects/slackpkgplus/files/slackpkg%2B-1.3.1-noarch-4mt.txz"
-SPPLUSCONF64="https://raw.github.com/ryanpcmcquen/linuxTweaks/master/slackware/64/slackpkgplus.conf"
-SPPLUSCONF32="https://raw.github.com/ryanpcmcquen/linuxTweaks/master/slackware/32/slackpkgplus.conf"
+SPPLUSCONF64="https://raw2.github.com/ryanpcmcquen/linuxTweaks/master/slackware/64/slackpkgplus.conf"
+SPPLUSCONF32="https://raw2.github.com/ryanpcmcquen/linuxTweaks/master/slackware/32/slackpkgplus.conf"
 
 
-BASHRC="https://raw.github.com/ryanpcmcquen/linuxTweaks/master/slackware/root/.bashrc"
-BASHPR="https://raw.github.com/ryanpcmcquen/linuxTweaks/master/slackware/root/.bash_profile"
+BASHRC="https://raw2.github.com/ryanpcmcquen/linuxTweaks/master/slackware/root/.bashrc"
+BASHPR="https://raw2.github.com/ryanpcmcquen/linuxTweaks/master/slackware/root/.bash_profile"
 
-VIMRC="https://raw.github.com/ryanpcmcquen/linuxTweaks/master/.vimrc"
+VIMRC="https://raw2.github.com/ryanpcmcquen/linuxTweaks/master/.vimrc"
 
 GITNAME="Ryan Q"
 GITEMAIL="ryan.q@linux.com"
 
-TOUCHPCONF="https://raw.github.com/ryanpcmcquen/linuxTweaks/master/51-synaptics.conf"
+TOUCHPCONF="https://raw2.github.com/ryanpcmcquen/linuxTweaks/master/51-synaptics.conf"
 
 
 if [ ! $UID = 0 ]; then
