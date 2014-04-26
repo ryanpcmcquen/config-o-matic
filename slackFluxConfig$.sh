@@ -1,15 +1,15 @@
 #!/bin/sh
 
-# curl https://raw.github.com/ryanpcmcquen/linuxTweaks/master/slackware/config-o-matic/slackFluxConfig$.sh | bash
+# curl https://raw2.github.com/ryanpcmcquen/linuxTweaks/master/slackware/config-o-matic/slackFluxConfig$.sh | bash
 
 #### set your global config files & variables here:
-###$BASHGITVIM="https://raw.github.com/ryanpcmcquen/linuxTweaks/master/bashGitVimNORMAL.sh"
+###$BASHGITVIM="https://raw2.github.com/ryanpcmcquen/linuxTweaks/master/bashGitVimNORMAL.sh"
 
-BASHRC="https://raw.github.com/ryanpcmcquen/linuxTweaks/master/slackware/normal/.bashrc"
-BASHPR="https://raw.github.com/ryanpcmcquen/linuxTweaks/master/slackware/normal/.bash_profile"
+BASHRC="https://raw2.github.com/ryanpcmcquen/linuxTweaks/master/slackware/normal/.bashrc"
+BASHPR="https://raw2.github.com/ryanpcmcquen/linuxTweaks/master/slackware/normal/.bash_profile"
 
-VIMRC="https://raw.github.com/ryanpcmcquen/linuxTweaks/master/.vimrc"
-FLUXBOXCONF="https://raw.github.com/ryanpcmcquen/linuxTweaks/master/restoreFluxbox.sh"
+VIMRC="https://raw2.github.com/ryanpcmcquen/linuxTweaks/master/.vimrc"
+FLUXBOXCONF="https://raw2.github.com/ryanpcmcquen/linuxTweaks/master/restoreFluxbox.sh"
 
 GITNAME="Ryan Q"
 GITEMAIL="ryan.q@linux.com"
