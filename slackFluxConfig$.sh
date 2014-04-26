@@ -34,6 +34,8 @@ git config --global user.name "$GITNAME"
 git config --global user.email "$GITEMAIL"
 git config --global credential.helper 'cache --timeout=3600'
 git config --global push.default simple
+git config --global core.pager "less -r"
+
 
 #### you can use this if you have a file that configures all 3
 ###curl $BASHGITVIM | bash
