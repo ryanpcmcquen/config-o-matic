@@ -66,6 +66,8 @@ git config --global user.name "$GITNAME"
 git config --global user.email "$GITEMAIL"
 git config --global credential.helper 'cache --timeout=3600'
 git config --global push.default simple
+git config --global core.pager "less -r"
+
 
 wget -N $TOUCHPCONF -P /etc/X11/xorg.conf.d/
 
