@@ -96,7 +96,8 @@ fi
 
 rm ~/*.t?z
 
-
+sed -i 's/^BATCH=off/BATCH=on/g' /etc/slackpkg/slackpkg.conf
+sed -i 's/^DEFAULT_ANSWER=n/DEFAULT_ANSWER=y/g' /etc/slackpkg/slackpkg.conf
 
 
 #################
