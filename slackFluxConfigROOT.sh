@@ -103,7 +103,7 @@ sed -i 's/^DEFAULT_ANSWER=n/DEFAULT_ANSWER=y/g' /etc/slackpkg/slackpkg.conf
 slackpkg update gpg; slackpkg update; slackpkg install-new
 slackpkg upgrade-all; slackpkg clean-system
 
-slackpkg install wicd chromium vlc ffmpeg copy-client
+slackpkg install wicd msb chromium vlc ffmpeg copy-client
 
 chmod -x /etc/rc.d/rc.networkmanager
 
