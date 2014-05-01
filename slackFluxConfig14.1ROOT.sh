@@ -7,6 +7,9 @@
 ## set global config files & variables here:
 SBOPKGDL="http://sbopkg.googlecode.com/files/sbopkg-0.37.0-noarch-1_cng.tgz"
 SPPLUSDL="http://sourceforge.net/projects/slackpkgplus/files/slackpkg%2B-1.3.1-noarch-4mt.txz"
+SPPLUSCONF64="https://raw2.github.com/ryanpcmcquen/linuxTweaks/master/slackware/64/14.1/slackpkgplus.conf"
+SPPLUSCONF32="https://raw2.github.com/ryanpcmcquen/linuxTweaks/master/slackware/32/14.1/slackpkgplus.conf"
+
 
 BASHRC="https://raw2.github.com/ryanpcmcquen/linuxTweaks/master/slackware/root/.bashrc"
 BASHPR="https://raw2.github.com/ryanpcmcquen/linuxTweaks/master/slackware/root/.bash_profile"
@@ -83,21 +86,21 @@ rm ~/*.t?z
 sed -i 's/^BATCH=off/BATCH=on/g' /etc/slackpkg/slackpkg.conf
 sed -i 's/^DEFAULT_ANSWER=n/DEFAULT_ANSWER=y/g' /etc/slackpkg/slackpkg.conf
 
+
+if [ "$( uname -m )" == "x86_64" && "$MATE" == "y" ]; then
+  wget -N $SPPLUSCONF64 -P /etc/slackpkg/
+else
+  wget -N $SPPLUSCONF32 -P /etc/slackpkg/
+fi
+
+
 slackpkg update gpg; slackpkg update; slackpkg install-new
 slackpkg upgrade-all; slackpkg clean-system
 
 
-#slackpkg install wicd chromium vlc ffmpeg copy-client
-
-## install mate
-#slackpkg install msb
-
-
-#read -p "Do you want to install Mate? (y/n) " RESP
-
 slackpkg install wicd chromium vlc ffmpeg copy-client
 
-if [ "$MATE" = "y" ]; then
+if [ "$MATE" == "y" ]; then
   slackpkg install msb
 fi
 
@@ -109,3 +112,11 @@ echo " "
 echo "You should now run 'adduser', if you have not."
 
 
+
+## noise
+#slackpkg install wicd chromium vlc ffmpeg copy-client
+
+## install mate
+#slackpkg install msb
+
+#read -p "Do you want to install Mate? (y/n) " RESP
