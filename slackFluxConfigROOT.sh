@@ -114,8 +114,8 @@ slackpkg upgrade-all; slackpkg clean-system
 
 slackpkg install wicd chromium vlc ffmpeg copy-client
 
-if [ "echo $MATE" == "y" ]; then
-  slackpkg install msb wicd chromium vlc ffmpeg copy-client
+if [ $MATE == "y" ]; then
+  slackpkg install msb
 fi
 
 
