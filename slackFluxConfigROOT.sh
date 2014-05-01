@@ -2,6 +2,10 @@
 
 # curl https://raw2.github.com/ryanpcmcquen/config-o-matic/master/slackFluxConfigROOT.sh | bash
 
+## w/Mate
+# export MATE=true; curl https://raw2.github.com/ryanpcmcquen/config-o-matic/master/slackFluxConfigROOT.sh | bash
+
+
 #$BASHGITVIM="https://raw2.github.com/ryanpcmcquen/linuxTweaks/master/bashGitVimROOT.sh"
 
 ## set global config files & variables here:
@@ -101,14 +105,12 @@ sed -i 's/^DEFAULT_ANSWER=n/DEFAULT_ANSWER=y/g' /etc/slackpkg/slackpkg.conf
 slackpkg update gpg; slackpkg update; slackpkg install-new
 slackpkg upgrade-all; slackpkg clean-system
 
-
+## you should comment this out if you don't want these ;-)
 slackpkg install wicd chromium vlc ffmpeg copy-client
 
 
 if [ "$MATE" = true ]; then
-  slackpkg install msb #wicd chromium vlc ffmpeg copy-client
-#else
-#  slackpkg install wicd chromium vlc ffmpeg copy-client
+  slackpkg install msb
 fi
 
 
@@ -120,27 +122,3 @@ echo " "
 echo "You should now run 'adduser', if you have not."
 
 
-
-
-#################
-#####DOESN'T WORK
-#################
-##sed -i 's/^#PKGS_PRIORITY=( myrepo:.* )/\
-##PKGS_PRIORITY=( alienbob-current:.* restricted-current:.* )/g' /etc/slackpkg/slackpkgplus.conf
-#
-##sed -i "s|^#MIRRORPLUS\['zerouno']=http://www.z01.eu/repo-slack/slackware64-current/|\
-##\
-##\
-###MIRRORPLUS\['zerouno']=http://www.z01.eu/repo-slack/slackware64-current/\
-##\
-##\
-##MIRRORPLUS\['alienbob-current']=http://taper.alienbase.nl/mirrors/people/alien/sbrepos/current/x86_64/\
-##\
-##\
-##MIRRORPLUS\['restricted-current']=http://taper.alienbase.nl/mirrors/people/alien/restricted_sbrepos/current/x86_64/|g" /etc/slackpkg/slackpkgplus.conf
-#
-#
-##sed -i "s|^#MIRRORPLUS\['zerouno']=http://www.z01.eu/repo-slack/slackware64-current/\
-##|MIRRORPLUS\['alienbob-current']=http://taper.alienbase.nl/mirrors/people/alien/sbrepos/current/x86_64/\n&\
-##MIRRORPLUS\['restricted-current']=http://taper.alienbase.nl/mirrors/people/alien/restricted_sbrepos/current/x86_64/|g" /etc/slackpkg/slackpkgplus.conf
-#
