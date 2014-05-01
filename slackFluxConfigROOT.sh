@@ -123,7 +123,7 @@ chmod -x /etc/rc.d/rc.networkmanager
 
 
 echo "Thank you for using config-o-matic!"
-echo " "
+
 echo "You should now run 'adduser', if you have not."
 
 
