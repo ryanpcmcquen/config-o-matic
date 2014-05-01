@@ -14,7 +14,7 @@ Configure Slackware installs in no time with config-o-matic! (patent pending)
 
 14.1 w/Mate:
 
-    # MATE=y curl https://raw2.github.com/ryanpcmcquen/config-o-matic/master/slackFluxConfig14.1ROOT.sh | bash
+    # export MATE=true; curl https://raw2.github.com/ryanpcmcquen/config-o-matic/master/slackFluxConfig14.1ROOT.sh | bash
 
 current:
 
@@ -22,7 +22,7 @@ current:
 
 current w/Mate:
 
-    # MATE=y curl https://raw2.github.com/ryanpcmcquen/config-o-matic/master/slackFluxConfigROOT.sh | bash
+    # export MATE=true; curl https://raw2.github.com/ryanpcmcquen/config-o-matic/master/slackFluxConfigROOT.sh | bash
 
 Normal user (14.1 or current):
 
@@ -30,3 +30,7 @@ Normal user (14.1 or current):
 
 
 config-o-matic takes a text-oriented approach to system provisioning, for this reason, fluxbox is our current DE of choice. You may remove the flubox config url if you do not wish to use fluxbox. ;-)
+
+#NOTE:
+You should either fork this project or download it and set it to YOUR config files, just running my scripts will set up my preferred configs.
+
