@@ -98,6 +98,7 @@ fi
 
 rm ~/*.t?z
 
+
 ## set slackpkg to non-interactive mode so we can install packages without delay
 sed -i 's/^BATCH=off/BATCH=on/g' /etc/slackpkg/slackpkg.conf
 sed -i 's/^DEFAULT_ANSWER=n/DEFAULT_ANSWER=y/g' /etc/slackpkg/slackpkg.conf
@@ -105,8 +106,12 @@ sed -i 's/^DEFAULT_ANSWER=n/DEFAULT_ANSWER=y/g' /etc/slackpkg/slackpkg.conf
 slackpkg update gpg; slackpkg update; slackpkg install-new
 slackpkg upgrade-all; slackpkg clean-system
 
-## you should comment this out if you don't want these ;-)
-slackpkg install wicd chromium vlc ffmpeg copy-client
+## you should export VANILLA=true; if you don't want these ;-)
+if [ "$VANILLA" = true ]; then
+  echo "You have gone vanilla."
+else
+  slackpkg install wicd chromium vlc ffmpeg copy-client
+fi
 
 
 if [ "$MATE" = true ]; then
