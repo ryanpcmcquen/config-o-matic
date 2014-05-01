@@ -42,5 +42,8 @@ git config --global core.pager "less -r"
 ###curl $BASHGITVIM | bash
 
 curl $FLUXBOXCONF | bash
-curl $MATECONF | bash
+
+if [ ! -z "$( whereis mate )" ]; then
+  curl $MATECONF | bash
+fi
 
