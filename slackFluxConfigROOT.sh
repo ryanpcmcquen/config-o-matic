@@ -112,7 +112,7 @@ slackpkg install wicd chromium vlc ffmpeg copy-client
 
 #read -p "Do you want to install Mate? (y/n) " RESP
 
-if [ "$MATE" = "y" ]; then
+if [ "$MATE" == "y" ]; then
   slackpkg install msb
 fi
 
