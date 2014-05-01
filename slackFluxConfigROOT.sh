@@ -111,6 +111,7 @@ if [ "$VANILLA" = true ]; then
   echo "You have gone vanilla."
 else
   slackpkg install wicd chromium vlc ffmpeg copy-client
+  chmod -x /etc/rc.d/rc.networkmanager
 fi
 
 
@@ -119,11 +120,7 @@ if [ "$MATE" = true ]; then
 fi
 
 
-chmod -x /etc/rc.d/rc.networkmanager
-
-
 echo "Thank you for using config-o-matic!"
-
 echo "You should now run 'adduser', if you have not."
 
 
