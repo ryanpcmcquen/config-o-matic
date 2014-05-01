@@ -101,21 +101,14 @@ sed -i 's/^DEFAULT_ANSWER=n/DEFAULT_ANSWER=y/g' /etc/slackpkg/slackpkg.conf
 slackpkg update gpg; slackpkg update; slackpkg install-new
 slackpkg upgrade-all; slackpkg clean-system
 
-#slackpkg install wicd chromium vlc ffmpeg copy-client
 
-## install mate
-#slackpkg install msb
-
-#slackpkg install wicd chromium vlc ffmpeg copy-client
-
-#read -p "Do you want to install Mate? (y/n) " RESP
-
+slackpkg install wicd chromium vlc ffmpeg copy-client
 
 
 if [ "$MATE" = true ]; then
-  slackpkg install msb wicd chromium vlc ffmpeg copy-client
-else
-  slackpkg install wicd chromium vlc ffmpeg copy-client
+  slackpkg install msb #wicd chromium vlc ffmpeg copy-client
+#else
+#  slackpkg install wicd chromium vlc ffmpeg copy-client
 fi
 
 
