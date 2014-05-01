@@ -92,7 +92,7 @@ sed -i 's/^DEFAULT_ANSWER=n/DEFAULT_ANSWER=y/g' /etc/slackpkg/slackpkg.conf
 
 if [ "$( uname -m )" == "x86_64" && "$MATE" = true ]; then
   wget -N $SPPLUSCONF64 -P /etc/slackpkg/
-else
+elif [ "$MATE" = true ]; then
   wget -N $SPPLUSCONF32 -P /etc/slackpkg/
 fi
 
@@ -101,8 +101,12 @@ slackpkg update gpg; slackpkg update; slackpkg install-new
 slackpkg upgrade-all; slackpkg clean-system
 
 
-## you should comment this out if you don't want these ;-)
-slackpkg install wicd chromium vlc ffmpeg copy-client
+## you should export VANILLA=true; if you don't want these ;-)
+if [ "$VANILLA" = true ]; then
+  echo "You have gone vanilla."
+else
+  slackpkg install wicd chromium vlc ffmpeg copy-client
+fi
 
 
 if [ "$MATE" = true ]; then
