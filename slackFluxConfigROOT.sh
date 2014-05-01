@@ -25,9 +25,9 @@ TOUCHPCONF="https://raw2.github.com/ryanpcmcquen/linuxTweaks/master/51-synaptics
 if [ ! $UID = 0 ]; then
   cat << EOF
 
-This script must be run as root.
+  This script must be run as root.
 
-EOF
+  EOF
   exit 1
 fi
 
@@ -87,7 +87,7 @@ installpkg ~/*.t?z
 
 mv /etc/slackpkg/slackpkgplus.conf /etc/slackpkg/slackpkgplus.conf.old
 
-if [ "$( uname -m )" == "x86_64" ]; then
+if [ "$( uname -m )" = "x86_64" ]; then
   wget -N $SPPLUSCONF64 -P /etc/slackpkg/
 else
   wget -N $SPPLUSCONF32 -P /etc/slackpkg/
@@ -114,7 +114,7 @@ slackpkg upgrade-all; slackpkg clean-system
 
 
 
-if [ "$( echo $MATE )" == "y" ]; then
+if [ ! $MATE = "y" ]; then
   slackpkg install msb wicd chromium vlc ffmpeg copy-client
 else
   slackpkg install wicd chromium vlc ffmpeg copy-client
