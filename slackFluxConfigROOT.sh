@@ -24,7 +24,7 @@ TOUCHPCONF="https://raw2.github.com/ryanpcmcquen/linuxTweaks/master/51-synaptics
 
 if [ ! $UID = 0 ]; then
   cat << EOF
-  This script must be run as root.
+This script must be run as root.
 EOF
   exit 1
 fi
