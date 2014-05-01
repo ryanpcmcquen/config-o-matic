@@ -2,6 +2,9 @@
 
 # curl https://raw2.github.com/ryanpcmcquen/config-o-matic/master/slackFluxConfig14.1ROOT.sh | bash
 
+## w/Mate
+# export MATE=true; curl https://raw2.github.com/ryanpcmcquen/config-o-matic/master/slackFluxConfig14.1ROOT.sh | bash
+
 #$BASHGITVIM="https://raw2.github.com/ryanpcmcquen/linuxTweaks/master/bashGitVimROOT.sh"
 
 ## set global config files & variables here:
@@ -98,9 +101,11 @@ slackpkg update gpg; slackpkg update; slackpkg install-new
 slackpkg upgrade-all; slackpkg clean-system
 
 
+## you should comment this out if you don't want these ;-)
 slackpkg install wicd chromium vlc ffmpeg copy-client
 
-if [ "$MATE" == "y" ]; then
+
+if [ "$MATE" = true ]; then
   slackpkg install msb
 fi
 
@@ -111,12 +116,3 @@ echo "Thank you for using config-o-matic!"
 echo " "
 echo "You should now run 'adduser', if you have not."
 
-
-
-## noise
-#slackpkg install wicd chromium vlc ffmpeg copy-client
-
-## install mate
-#slackpkg install msb
-
-#read -p "Do you want to install Mate? (y/n) " RESP
