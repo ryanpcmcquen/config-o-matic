@@ -7,6 +7,9 @@ Configure Slackware installs in no time with config-o-matic! (patent pending)
 
 (Note that $ user configuration is the same regardless of using stable or current.)
 
+If you do not want any extra packages, prepend ROOT command with (14.1 or current):
+
+    # export VANILLA=true;
 
 14.1:
 
