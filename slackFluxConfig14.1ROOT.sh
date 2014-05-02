@@ -90,8 +90,9 @@ sed -i 's/^BATCH=off/BATCH=on/g' /etc/slackpkg/slackpkg.conf
 sed -i 's/^DEFAULT_ANSWER=n/DEFAULT_ANSWER=y/g' /etc/slackpkg/slackpkg.conf
 
 
-if [ "$( uname -m )" = "x86_64" && "$MATE" = true ]; then
-  wget -N $SPPLUSCONF64 -P /etc/slackpkg/
+if [ "$( uname -m )" = "x86_64" ]; then
+  if [ "$MATE" = true ]; then
+    wget -N $SPPLUSCONF64 -P /etc/slackpkg/
 elif [ "$MATE" = true ]; then
   wget -N $SPPLUSCONF32 -P /etc/slackpkg/
 fi
