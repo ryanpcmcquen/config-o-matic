@@ -85,11 +85,6 @@ installpkg ~/*.t?z
 rm ~/*.t?z
 
 
-## set slackpkg to non-interactive mode so we can install packages without delay
-sed -i 's/^BATCH=off/BATCH=on/g' /etc/slackpkg/slackpkg.conf
-sed -i 's/^DEFAULT_ANSWER=n/DEFAULT_ANSWER=y/g' /etc/slackpkg/slackpkg.conf
-
-
 if [ "$( uname -m )" = "x86_64" ]; then
   if [ "$MATE" = true ]; then
     wget -N $SPPLUSCONF64 -P /etc/slackpkg/
@@ -99,14 +94,15 @@ elif [ "$MATE" = true ]; then
 fi
 
 
-slackpkg update gpg; slackpkg update; slackpkg install-new
-slackpkg upgrade-all; slackpkg clean-system
-
-
 ## you should export VANILLA=true; if you don't want these ;-)
 if [ "$VANILLA" = true ]; then
   echo "You have gone vanilla."
 else
+  ## set slackpkg to non-interactive mode so we can install packages without delay
+  sed -i 's/^BATCH=off/BATCH=on/g' /etc/slackpkg/slackpkg.conf
+  sed -i 's/^DEFAULT_ANSWER=n/DEFAULT_ANSWER=y/g' /etc/slackpkg/slackpkg.conf
+  slackpkg update gpg; slackpkg update; slackpkg install-new
+  slackpkg upgrade-all; slackpkg clean-system
   slackpkg install wicd chromium vlc ffmpeg copy-client
   chmod -x /etc/rc.d/rc.networkmanager
 fi
