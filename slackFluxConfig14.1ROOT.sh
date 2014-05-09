@@ -13,6 +13,7 @@ SPPLUSDL="http://sourceforge.net/projects/slackpkgplus/files/slackpkg%2B-1.3.1-n
 SPPLUSCONF64="https://raw2.github.com/ryanpcmcquen/linuxTweaks/master/slackware/64/14.1/slackpkgplus.conf"
 SPPLUSCONF32="https://raw2.github.com/ryanpcmcquen/linuxTweaks/master/slackware/32/14.1/slackpkgplus.conf"
 
+INSCRPT="https://raw2.github.com/ryanpcmcquen/linuxTweaks/master/slackware/initscript"
 
 BASHRC="https://raw2.github.com/ryanpcmcquen/linuxTweaks/master/slackware/root/.bashrc"
 BASHPR="https://raw2.github.com/ryanpcmcquen/linuxTweaks/master/slackware/root/.bash_profile"
@@ -84,6 +85,7 @@ installpkg ~/*.t?z
 
 rm ~/*.t?z
 
+wget -N $INSCRPT -P /etc/
 
 if [ "$( uname -m )" = "x86_64" ]; then
   if [ "$MATE" = true ]; then
