@@ -10,6 +10,7 @@ BASHPR="https://raw2.github.com/ryanpcmcquen/linuxTweaks/master/slackware/normal
 
 VIMRC="https://raw2.github.com/ryanpcmcquen/linuxTweaks/master/.vimrc"
 FLUXBOXCONF="https://raw2.github.com/ryanpcmcquen/linuxTweaks/master/restoreFluxbox.sh"
+XFCECONF="https://raw2.github.com/ryanpcmcquen/linuxTweaks/master/xfceSetup.sh"
 MATECONF="https://raw2.github.com/ryanpcmcquen/linuxTweaks/master/mateSetup.sh"
 
 GITNAME="Ryan Q"
@@ -42,6 +43,7 @@ git config --global core.pager "less -r"
 ###curl $BASHGITVIM | bash
 
 curl $FLUXBOXCONF | bash
+curl $XFCECONF | bash
 
 if [ ! -z "$( whereis mate )" ]; then
   curl $MATECONF | bash
