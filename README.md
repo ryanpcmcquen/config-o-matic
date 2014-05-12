@@ -13,23 +13,23 @@ If you do not want any extra packages, prepend ROOT command with (14.1 or curren
 
 14.1:
 
-    # curl https://raw2.github.com/ryanpcmcquen/config-o-matic/master/slackFluxConfig14.1ROOT.sh | bash
+    # curl https://raw2.github.com/ryanpcmcquen/config-o-matic/master/slackFluxConfig14.1ROOT.sh | sh
 
 14.1 w/Mate:
 
-    # export MATE=true; curl https://raw2.github.com/ryanpcmcquen/config-o-matic/master/slackFluxConfig14.1ROOT.sh | bash
+    # export MATE=true; curl https://raw2.github.com/ryanpcmcquen/config-o-matic/master/slackFluxConfig14.1ROOT.sh | sh
 
 current:
 
-    # curl https://raw2.github.com/ryanpcmcquen/config-o-matic/master/slackFluxConfigROOT.sh | bash
+    # curl https://raw2.github.com/ryanpcmcquen/config-o-matic/master/slackFluxConfigROOT.sh | sh
 
 current w/Mate:
 
-    # export MATE=true; curl https://raw2.github.com/ryanpcmcquen/config-o-matic/master/slackFluxConfigROOT.sh | bash
+    # export MATE=true; curl https://raw2.github.com/ryanpcmcquen/config-o-matic/master/slackFluxConfigROOT.sh | sh
 
 Normal user (14.1 or current):
 
-    $ curl https://raw2.github.com/ryanpcmcquen/config-o-matic/master/slackFluxConfig$.sh | bash
+    $ curl https://raw2.github.com/ryanpcmcquen/config-o-matic/master/slackFluxConfig$.sh | sh
 
 
 config-o-matic takes a text-oriented approach to system provisioning, for this reason, fluxbox is our current DE of choice. You may remove the flubox config url if you do not wish to use fluxbox. ;-)
