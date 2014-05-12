@@ -49,3 +49,6 @@ if [ ! -z "$( whereis mate )" ]; then
   curl $MATECONF | bash
 fi
 
+##need to improve checking for mate install, will test this
+##ls /var/log/packages/ | grep pluma
+
