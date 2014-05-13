@@ -45,12 +45,10 @@ git config --global core.pager "less -r"
 curl $FLUXBOXCONF | bash
 curl $XFCECONF | bash
 
-if [ ! -z "$( whereis mate )" ]; then
+if [ ! -z "$( ls /var/log/packages/ | grep pluma )" ]; then
   curl $MATECONF | bash
 fi
 
-##need to improve checking for mate install, will test this
-##ls /var/log/packages/ | grep pluma
 
 rm ~/.local/share/applications/userapp-Firefox-*.desktop
 
