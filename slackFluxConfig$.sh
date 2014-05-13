@@ -52,3 +52,5 @@ fi
 ##need to improve checking for mate install, will test this
 ##ls /var/log/packages/ | grep pluma
 
+rm ~/.local/share/applications/userapp-Firefox-*.desktop
+
