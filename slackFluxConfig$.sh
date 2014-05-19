@@ -52,3 +52,6 @@ fi
 
 rm ~/.local/share/applications/userapp-Firefox-*.desktop
 
+echo "Thank you for using config-o-matic!"
+echo "P.S. If you are using fluxbox, you should install lxterminal with sbopkg."
+
