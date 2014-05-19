@@ -1,9 +1,9 @@
 #!/bin/sh
 
-# curl https://raw2.github.com/ryanpcmcquen/config-o-matic/master/slackFluxConfigROOT.sh | bash
+# curl https://raw2.github.com/ryanpcmcquen/config-o-matic/master/slackConfigROOT.sh | sh
 
 ## w/Mate
-# export MATE=true; curl https://raw2.github.com/ryanpcmcquen/config-o-matic/master/slackFluxConfigROOT.sh | bash
+# export MATE=true; curl https://raw2.github.com/ryanpcmcquen/config-o-matic/master/slackConfigROOT.sh | sh
 
 
 #$BASHGITVIM="https://raw2.github.com/ryanpcmcquen/linuxTweaks/master/bashGitVimROOT.sh"
