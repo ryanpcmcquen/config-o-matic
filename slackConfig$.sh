@@ -1,6 +1,6 @@
 #!/bin/sh
 
-# curl https://raw2.github.com/ryanpcmcquen/linuxTweaks/master/slackware/config-o-matic/slackFluxConfig$.sh | bash
+# curl https://raw2.github.com/ryanpcmcquen/linuxTweaks/master/slackware/config-o-matic/slackConfig$.sh | bash
 
 #### set your global config files & variables here:
 ###$BASHGITVIM="https://raw2.github.com/ryanpcmcquen/linuxTweaks/master/bashGitVimNORMAL.sh"
