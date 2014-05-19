@@ -9,9 +9,14 @@ BASHRC="https://raw2.github.com/ryanpcmcquen/linuxTweaks/master/slackware/normal
 BASHPR="https://raw2.github.com/ryanpcmcquen/linuxTweaks/master/slackware/normal/.bash_profile"
 
 VIMRC="https://raw2.github.com/ryanpcmcquen/linuxTweaks/master/.vimrc"
+
 FLUXBOXCONF="https://raw2.github.com/ryanpcmcquen/linuxTweaks/master/restoreFluxbox.sh"
+GKRELLCONF="https://raw2.github.com/ryanpcmcquen/linuxTweaks/master/gkrellmConfig.sh"
+
 XFCECONF="https://raw2.github.com/ryanpcmcquen/linuxTweaks/master/xfceSetup.sh"
+
 MATECONF="https://raw2.github.com/ryanpcmcquen/linuxTweaks/master/mateSetup.sh"
+
 
 GITNAME="Ryan Q"
 GITEMAIL="ryan.q@linux.com"
@@ -42,11 +47,12 @@ git config --global core.pager "less -r"
 #### you can use this if you have a file that configures all 3
 ###curl $BASHGITVIM | bash
 
-curl $FLUXBOXCONF | bash
-curl $XFCECONF | bash
+curl $FLUXBOXCONF | sh
+curl $GKRELLCONF | sh
+curl $XFCECONF | sh
 
 if [ ! -z "$( ls /var/log/packages/ | grep pluma )" ]; then
-  curl $MATECONF | bash
+  curl $MATECONF | sh
 fi
 
 
