@@ -108,6 +108,7 @@ else
   chmod -x /etc/rc.d/rc.networkmanager
   chmod -x /etc/rc.d/rc.wireless
   chmod -x /etc/rc.d/rc.inet*
+  wget -N https://raw2.github.com/ryanpcmcquen/linuxTweaks/master/slackware/clocksync -P /etc/cron.daily/
   sbopkg -B -r; sbopkg -B -i superkey-launch -i lxterminal
 fi
 
