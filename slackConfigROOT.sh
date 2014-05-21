@@ -121,6 +121,9 @@ else
   #wget -N https://raw2.github.com/ryanpcmcquen/linuxTweaks/master/slackware/clocksync -P /etc/cron.daily/
   
   ## set up ntp daemon (the good way)
+  ntpdate 0.pool.ntp.org
+  ntpdate 1.pool.ntp.org
+  hwclock --systohc
   sed -i 's/#server pool.ntp.org iburst / \
   server 0.pool.ntp.org iburst \
   server 1.pool.ntp.org iburst \
