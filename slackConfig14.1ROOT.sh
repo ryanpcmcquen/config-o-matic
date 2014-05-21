@@ -108,7 +108,19 @@ else
   chmod -x /etc/rc.d/rc.networkmanager
   chmod -x /etc/rc.d/rc.wireless
   chmod -x /etc/rc.d/rc.inet*
-  wget -N https://raw2.github.com/ryanpcmcquen/linuxTweaks/master/slackware/clocksync -P /etc/cron.daily/
+  
+  ## ntp cron job (the bad way)
+  #wget -N https://raw2.github.com/ryanpcmcquen/linuxTweaks/master/slackware/clocksync -P /etc/cron.daily/
+  
+  ## set up ntp daemon (the good way)
+  sed -i 's/#server pool.ntp.org iburst \
+  server 0.pool.ntp.org iburst \
+  server 1.pool.ntp.org iburst \
+  server 2.pool.ntp.org iburst \
+  server 3.pool.ntp.org iburst \
+  /g' /etc/ntp.conf
+  chmod +x /etc/rc.d/rc.ntpd
+  
   sbopkg -B -r; sbopkg -B -i superkey-launch -i lxterminal
 fi
 
