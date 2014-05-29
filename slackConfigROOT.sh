@@ -124,6 +124,7 @@ else
   #wget -N https://raw2.github.com/ryanpcmcquen/linuxTweaks/master/slackware/clocksync -P /etc/cron.daily/
   
   ## set up ntp daemon (the good way)
+  /etc/rc.d/rc.ntpd stop
   ntpdate 0.pool.ntp.org
   ntpdate 1.pool.ntp.org
   hwclock --systohc
@@ -134,7 +135,8 @@ else
   server 3.pool.ntp.org iburst \
   /g' /etc/ntp.conf
   chmod +x /etc/rc.d/rc.ntpd
-  
+  /etc/rc.d/rc.ntpd start
+
   sbopkg -B -r; sbopkg -B -i superkey-launch -i lxterminal
 fi
 
