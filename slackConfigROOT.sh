@@ -108,14 +108,19 @@ if [ "$VANILLA" = true ]; then
   echo "You have gone vanilla."
 else
   ## set slackpkg to non-interactive mode to run without prompting
-  #sed -i 's/^BATCH=off/BATCH=on/g' /etc/slackpkg/slackpkg.conf
-  #sed -i 's/^DEFAULT_ANSWER=n/DEFAULT_ANSWER=y/g' /etc/slackpkg/slackpkg.conf
-  BATCH=on DEFAULT_ANSWER=y slackpkg update gpg && \
-  BATCH=on DEFAULT_ANSWER=y slackpkg update && \
-  BATCH=on DEFAULT_ANSWER=y slackpkg install-new && \
-  BATCH=on DEFAULT_ANSWER=y slackpkg upgrade-all
+  sed -i 's/^BATCH=off/BATCH=on/g' /etc/slackpkg/slackpkg.conf
+  sed -i 's/^DEFAULT_ANSWER=n/DEFAULT_ANSWER=y/g' /etc/slackpkg/slackpkg.conf
+
+  slackpkg update gpg && \
+  slackpkg update && \
+  slackpkg install-new && \
+  slackpkg upgrade-all
   
-  BATCH=on DEFAULT_ANSWER=y slackpkg install wicd ffmpeg vlc chromium copy-client
+  slackpkg install wicd ffmpeg vlc chromium copy-client
+  
+  ## set slackpkg back to normal
+  sed -i 's/^BATCH=on/BATCH=off/g' /etc/slackpkg/slackpkg.conf
+  sed -i 's/^DEFAULT_ANSWER=y/DEFAULT_ANSWER=n/g' /etc/slackpkg/slackpkg.conf
   
   chmod -x /etc/rc.d/rc.networkmanager
   chmod -x /etc/rc.d/rc.wireless
