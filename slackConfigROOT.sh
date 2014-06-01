@@ -110,7 +110,10 @@ else
   ## set slackpkg to non-interactive mode so we can install packages without delay
   #sed -i 's/^BATCH=off/BATCH=on/g' /etc/slackpkg/slackpkg.conf
   #sed -i 's/^DEFAULT_ANSWER=n/DEFAULT_ANSWER=y/g' /etc/slackpkg/slackpkg.conf
-  BATCH=on DEFAULT_ANSWER=y slackpkg update gpg && slackpkg update && slackpkg install-new && slackpkg upgrade-all
+  BATCH=on DEFAULT_ANSWER=y slackpkg update gpg && \
+  BATCH=on DEFAULT_ANSWER=y slackpkg update && \
+  BATCH=on DEFAULT_ANSWER=y slackpkg install-new && \
+  BATCH=on DEFAULT_ANSWER=y slackpkg upgrade-all
   
   #BATCH=on DEFAULT_ANSWER=y slackpkg update gpg && BATCH=on DEFAULT_ANSWER=y slackpkg update && \
   #BATCH=on DEFAULT_ANSWER=y slackpkg install-new && BATCH=on DEFAULT_ANSWER=y slackpkg upgrade-all
