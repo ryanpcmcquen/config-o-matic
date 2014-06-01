@@ -104,7 +104,7 @@ fi
 if [ "$VANILLA" = true ]; then
   echo "You have gone vanilla."
 else
-  ## set slackpkg to non-interactive mode so we can install packages without delay
+  ## set slackpkg to non-interactive mode to run without prompting
   #sed -i 's/^BATCH=off/BATCH=on/g' /etc/slackpkg/slackpkg.conf
   #sed -i 's/^DEFAULT_ANSWER=n/DEFAULT_ANSWER=y/g' /etc/slackpkg/slackpkg.conf
   BATCH=on DEFAULT_ANSWER=y slackpkg update gpg && \
