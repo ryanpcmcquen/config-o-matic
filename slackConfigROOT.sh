@@ -72,8 +72,8 @@ sed -i 's_^# http://ftp.osuosl.org/.2/slackware/slackware64-current/_http://ftp.
 wget -N $BASHRC -P ~/
 wget -N $BASHPR -P ~/
 
-mkdir -p ~/.vim/colors/
-wget -N https://raw.githubusercontent.com/flazz/vim-colorschemes/master/colors/c.vim -P ~/.vim/colors
+#mkdir -p ~/.vim/colors/
+#wget -N https://raw.githubusercontent.com/flazz/vim-colorschemes/master/colors/c.vim -P ~/.vim/colors
 wget -N $VIMRC -P ~/
 
 ## git config
