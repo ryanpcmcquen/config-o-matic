@@ -140,7 +140,17 @@ else
   chmod +x /etc/rc.d/rc.ntpd
   /etc/rc.d/rc.ntpd start
 
-  sbopkg -B -r; sbopkg -B -i superkey-launch -i lxterminal
+
+  sbopkg -B -r
+  
+  if [ -z "$( ls /var/log/packages/ | grep superkey-launch )" ]; then
+    sbopkg -B -i superkey-launch
+  fi
+  
+  if [ -z "$( ls /var/log/packages/ | grep lxterminal )" ]; then
+    sbopkg -B -i lxterminal
+  fi
+  
 fi
 
 
