@@ -140,7 +140,7 @@ else
   chmod +x /etc/rc.d/rc.ntpd
   /etc/rc.d/rc.ntpd start
 
-
+  ## sync the slackbuilds.org repo
   sbopkg -B -r
   
   if [ -z "$( ls /var/log/packages/ | grep superkey-launch )" ]; then
@@ -151,6 +151,14 @@ else
     sbopkg -B -i lxterminal
   fi
   
+  if [ -z "$( ls /var/log/packages/ | grep dwm )" ]; then
+    sbopkg -B -i dwm
+  fi
+
+  if [ -z "$( ls /var/log/packages/ | grep dmenu )" ]; then
+    sbopkg -B -i dmenu
+  fi
+
 fi
 
 
