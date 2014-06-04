@@ -40,8 +40,8 @@ wget -N $BASHRC -P ~/
 wget -N $BASHPR -P ~/
 
 
-mkdir -p ~/.vim/colors/
-wget -N https://raw.githubusercontent.com/flazz/vim-colorschemes/master/colors/c.vim -P ~/.vim/colors
+#mkdir -p ~/.vim/colors/
+#wget -N https://raw.githubusercontent.com/flazz/vim-colorschemes/master/colors/c.vim -P ~/.vim/colors
 wget -N $VIMRC -P ~/
 
 ## configure lilo
