@@ -52,7 +52,10 @@ git config --global core.pager "less -r"
 
 curl $FLUXBOXCONF | sh
 curl $GKRELLCONF | sh
-curl $XFCECONF | sh
+
+if [ ! -z "$( ls /var/log/packages/ | grep Thunar )" ]; then
+  curl $XFCECONF | sh
+fi
 
 if [ ! -z "$( ls /var/log/packages/ | grep pluma )" ]; then
   curl $MATECONF | sh
