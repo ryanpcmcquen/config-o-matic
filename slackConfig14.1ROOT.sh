@@ -64,9 +64,6 @@ sed -i 's/#\[0-9]+_SBo/\
 \[0-9]+_SBo\
 sbopkg/g' /etc/slackpkg/blacklist
 
-### 64 or 32 mirrorbrain
-##sed -i 's_^# http://mirrors.slackware.com/slackware/slackware-14.1/_http://mirrors.slackware.com/slackware/slackware-14.1/_g' /etc/slackpkg/mirrors
-##sed -i 's_^# http://mirrors.slackware.com/slackware/slackware64-14.1/_http://mirrors.slackware.com/slackware/slackware64-14.1/_g' /etc/slackpkg/mirrors
 
 ### undo current
 sed -i 's_^http://ftp.osuosl.org/.2/slackware/slackware-current/_# http://ftp.osuosl.org/.2/slackware/slackware-current/_g' /etc/slackpkg/mirrors
