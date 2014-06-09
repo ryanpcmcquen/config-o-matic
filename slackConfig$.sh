@@ -13,6 +13,8 @@ VIMRC="https://raw2.github.com/ryanpcmcquen/linuxTweaks/master/.vimrc"
 FLUXBOXCONF="https://raw2.github.com/ryanpcmcquen/linuxTweaks/master/restoreFluxbox.sh"
 GKRELLCONF="https://raw2.github.com/ryanpcmcquen/linuxTweaks/master/gkrellmConfig.sh"
 
+KDECONF="https://raw2.github.com/ryanpcmcquen/linuxTweaks/master/kdeSetup.sh"
+
 XFCECONF="https://raw2.github.com/ryanpcmcquen/linuxTweaks/master/xfceSetup.sh"
 
 MATECONF="https://raw2.github.com/ryanpcmcquen/linuxTweaks/master/mateSetup.sh"
@@ -52,6 +54,10 @@ git config --global core.pager "less -r"
 
 curl $FLUXBOXCONF | sh
 curl $GKRELLCONF | sh
+
+if [ ! -z "$( ls /var/log/packages/ | grep kdelibs )" ]; then
+  curl $KDECONF | sh
+fi
 
 if [ ! -z "$( ls /var/log/packages/ | grep Thunar )" ]; then
   curl $XFCECONF | sh
