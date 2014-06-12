@@ -1,9 +1,6 @@
 #!/bin/sh
 
-# curl https://raw2.github.com/ryanpcmcquen/config-o-matic/master/slackConfig14.1ROOT.sh | sh
-
-## w/Mate
-# export MATE=true; curl https://raw2.github.com/ryanpcmcquen/config-o-matic/master/slackConfig14.1ROOT.sh | sh
+# wget -N https://raw2.github.com/ryanpcmcquen/config-o-matic/master/slackConfig14.1ROOT.sh; sh slackConfig14.1ROOT.sh; rm slackConfig14.1ROOT.sh
 
 #$BASHGITVIM="https://raw2.github.com/ryanpcmcquen/linuxTweaks/master/bashGitVimROOT.sh"
 
@@ -46,7 +43,6 @@ case $response in
     echo You are not going vanilla.;
     ;;
 esac
-
 
 read -r -p "Would you like to install Mate? [y/N]: " response
 case $response in
@@ -176,16 +172,17 @@ else
     sbopkg -B -i dmenu
   fi
 
-  ## set slackpkg back to normal
-  sed -i 's/^BATCH=on/BATCH=off/g' /etc/slackpkg/slackpkg.conf
-  sed -i 's/^DEFAULT_ANSWER=y/DEFAULT_ANSWER=n/g' /etc/slackpkg/slackpkg.conf
-
 fi
 
 
 if [ "$MATE" = true ]; then
   slackpkg install msb
 fi
+
+
+## set slackpkg back to normal
+sed -i 's/^BATCH=on/BATCH=off/g' /etc/slackpkg/slackpkg.conf
+sed -i 's/^DEFAULT_ANSWER=y/DEFAULT_ANSWER=n/g' /etc/slackpkg/slackpkg.conf
 
 
 echo "Thank you for using config-o-matic!"
