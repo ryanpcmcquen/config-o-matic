@@ -12,17 +12,17 @@ If you do not want any extra packages, choose vanilla on ROOT script.
 14.1:
 
     #
-    curl https://raw2.github.com/ryanpcmcquen/config-o-matic/master/slackConfig14.1ROOT.sh | sh
+    curl https://raw2.github.com/ryanpcmcquen/config-o-matic/master/slackConfig14.1ROOT.sh; sh slackConfig14.1ROOT.sh; rm slackConfig14.1ROOT.sh
 
 current:
 
     #
-    curl https://raw2.github.com/ryanpcmcquen/config-o-matic/master/slackConfigROOT.sh | sh
+    curl https://raw2.github.com/ryanpcmcquen/config-o-matic/master/slackConfigROOT.sh; sh slackConfigROOT.sh; rm slackConfigROOT.sh
 
 Normal user (14.1 or current):
 
     $
-    curl https://raw2.github.com/ryanpcmcquen/config-o-matic/master/slackConfig$.sh | sh
+    curl https://raw2.github.com/ryanpcmcquen/config-o-matic/master/slackConfig$.sh; sh slackConfig$.sh; rm slackConfig$.sh
 
 
 config-o-matic takes a text-oriented approach to system provisioning, for this reason, Fluxbox, KDE, XFCE and Mate are our current DE's of choice. You may remove any of the DE config url's if you do not use those environments.  ;^)
