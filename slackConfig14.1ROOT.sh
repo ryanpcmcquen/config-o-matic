@@ -37,11 +37,11 @@ fi
 
 read -r -p "Would you like to go vanilla? [y/N]: " response
 response=${response,,}
-if [[ $response =~ ^(yes|y)$ ]]; then
-    export VANILLA=true;
-    echo "You are going vanilla."
+if [ "$response" -eq ^(yes|y)$ ]; then
+  export VANILLA=true;
+  echo "You are going vanilla."
 else
-    echo "You are not going vanilla."
+  echo "You are not going vanilla."
 fi
 
 #read -r -p "Would you like to go vanilla? [y/N]: " response
