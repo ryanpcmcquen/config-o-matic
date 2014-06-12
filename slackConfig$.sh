@@ -1,9 +1,10 @@
 #!/bin/sh
 
-# curl https://raw2.github.com/ryanpcmcquen/linuxTweaks/master/slackware/config-o-matic/slackConfig$.sh | bash
+# curl https://raw2.github.com/ryanpcmcquen/linuxTweaks/master/slackware/config-o-matic/slackConfig$.sh | sh
+
+###$BASHGITVIM="https://raw2.github.com/ryanpcmcquen/linuxTweaks/master/bashGitVimNORMAL.sh"
 
 #### set your global config files & variables here:
-###$BASHGITVIM="https://raw2.github.com/ryanpcmcquen/linuxTweaks/master/bashGitVimNORMAL.sh"
 
 BASHRC="https://raw2.github.com/ryanpcmcquen/linuxTweaks/master/slackware/normal/.bashrc"
 BASHPR="https://raw2.github.com/ryanpcmcquen/linuxTweaks/master/slackware/normal/.bash_profile"
@@ -18,7 +19,6 @@ KDECONF="https://raw2.github.com/ryanpcmcquen/linuxTweaks/master/kdeSetup.sh"
 XFCECONF="https://raw2.github.com/ryanpcmcquen/linuxTweaks/master/xfceSetup.sh"
 
 MATECONF="https://raw2.github.com/ryanpcmcquen/linuxTweaks/master/mateSetup.sh"
-
 
 GITNAME="Ryan Q"
 GITEMAIL="ryan.q@linux.com"
@@ -37,8 +37,6 @@ fi
 wget -N $BASHRC -P ~/
 wget -N $BASHPR -P ~/
 
-#mkdir -p ~/.vim/colors/
-#wget -N https://raw.githubusercontent.com/flazz/vim-colorschemes/master/colors/c.vim -P ~/.vim/colors
 wget -N $VIMRC -P ~/
 
 ## git config
@@ -55,6 +53,7 @@ git config --global core.pager "less -r"
 curl $FLUXBOXCONF | sh
 curl $GKRELLCONF | sh
 
+
 if [ ! -z "$( ls /var/log/packages/ | grep kdelibs )" ]; then
   curl $KDECONF | sh
 fi
@@ -69,6 +68,7 @@ fi
 
 
 rm ~/.local/share/applications/userapp-Firefox-*.desktop
+
 
 echo "Thank you for using config-o-matic!"
 
