@@ -36,7 +36,7 @@ EOF
 fi
 
 read -r -p "Would you like to go vanilla? [y/N]: " response
-if [[ $response =~ ^([yY][eE][sS]|[yY])$ ]]
+if [[ $response =~ ^([yY][eE][sS]|[yY])$ ]];
 #read -r -p "Would you like to go vanilla? [y/N]: " response
 #case $response in
 #  [yY][eE][sS]|[yY])
