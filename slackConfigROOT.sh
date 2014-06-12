@@ -1,10 +1,6 @@
 #!/bin/sh
 
-# curl https://raw2.github.com/ryanpcmcquen/config-o-matic/master/slackConfigROOT.sh | sh
-
-## w/Mate
-# export MATE=true; curl https://raw2.github.com/ryanpcmcquen/config-o-matic/master/slackConfigROOT.sh | sh
-
+# wget -N https://raw2.github.com/ryanpcmcquen/config-o-matic/master/slackConfigROOT.sh; sh slackConfigROOT.sh; rm slackConfigROOT.sh
 
 #$BASHGITVIM="https://raw2.github.com/ryanpcmcquen/linuxTweaks/master/bashGitVimROOT.sh"
 
@@ -49,7 +45,6 @@ case $response in
     echo You are not going vanilla.;
     ;;
 esac
-
 
 read -r -p "Would you like to install Mate? [y/N]: " response
 case $response in
@@ -152,10 +147,6 @@ else
   
   slackpkg install wicd ffmpeg vlc chromium copy-client
   
-  ## set slackpkg back to normal
-  sed -i 's/^BATCH=on/BATCH=off/g' /etc/slackpkg/slackpkg.conf
-  sed -i 's/^DEFAULT_ANSWER=y/DEFAULT_ANSWER=n/g' /etc/slackpkg/slackpkg.conf
-  
   chmod -x /etc/rc.d/rc.networkmanager
   chmod -x /etc/rc.d/rc.wireless
   chmod -x /etc/rc.d/rc.inet*
@@ -204,6 +195,12 @@ if [ "$MATE" = true ]; then
 fi
 
 
+## set slackpkg back to normal
+sed -i 's/^BATCH=on/BATCH=off/g' /etc/slackpkg/slackpkg.conf
+sed -i 's/^DEFAULT_ANSWER=y/DEFAULT_ANSWER=n/g' /etc/slackpkg/slackpkg.conf
+
+
 echo "Thank you for using config-o-matic!"
 echo "You should now run 'adduser', if you have not."
+
 
