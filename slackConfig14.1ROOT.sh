@@ -36,32 +36,28 @@ EOF
 fi
 
 
+read -r -p "Would you like to go vanilla? [y/N]: " response
+case $response in
+  [yY][eE][sS]|[yY])
+    export VANILLA=true;
+    echo You are going vanilla.;
+    ;;
+  *)
+    echo You are not going vanilla.;
+    ;;
+esac
 
 
-
-echo "Would you like to go vanilla? [y/N]: "
-read response
-if [ "$response" -eq ^(yes|y)$ ]; then
-  export VANILLA=true;
-  echo "You are going vanilla."
-else
-  echo "You are not going vanilla."
-fi
-
-#read -r -p "Would you like to go vanilla? [y/N]: " response
-#if [ "$response" =~ "^([yY][eE][sS]||[yY])$" ]; then
-
-#read -r -p "Would you like to install Mate? [y/N]: " response
-#case $response in
-#  [yY][eE][sS]|[yY])
-#    export MATE=true;
-#    echo You have chosen to install Mate.;
-#    ;;
-#  *)
-#    echo You are not installing Mate.;
-#    ;;
-#esac
-
+read -r -p "Would you like to install Mate? [y/N]: " response
+case $response in
+  [yY][eE][sS]|[yY])
+    export MATE=true;
+    echo You have chosen to install Mate.;
+    ;;
+  *)
+    echo You are not installing Mate.;
+    ;;
+esac
 
 
 wget -N $BASHRC -P ~/
@@ -194,21 +190,5 @@ fi
 
 echo "Thank you for using config-o-matic!"
 echo "You should now run 'adduser', if you have not."
-
-
-
-### cruft
-
-
-#read -r -p "Would you like to go vanilla? [y/N]: " response
-#case $response in
-#  [yY][eE][sS]|[yY])
-
-
-#    ;;
-#  *)
-#    ;;
-#esac
-
 
 
