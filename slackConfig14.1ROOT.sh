@@ -35,14 +35,34 @@ EOF
   exit 1
 fi
 
-read -r -p "Would you like to go vanilla? [y/N]: " response
-response=${response,,}
-if [ "$response" -eq ^(yes|y)$ ]; then
-  export VANILLA=true;
-  echo "You are going vanilla."
-else
-  echo "You are not going vanilla."
-fi
+
+
+pause() {
+  REPLY=Y
+  while [ "$REPLY" == "Y" ] || [ "$REPLY" != "y" ]
+  do
+    echo -e "\t\tPress 'y' to continue\t\t\tPress 'n' to quit"
+    read -n1 -s
+      case "$REPLY" in
+      "n")  exit                      ;;
+      "N")  echo "lowercase please."   ;; 
+      "y")  export VANILLA=true       ;;
+      "Y")  echo "lowercase please."   ;;
+      * )  echo "Invalid Option"      ;;
+  esac
+  done
+}
+
+pause
+
+#read -r -p "Would you like to go vanilla? [y/N]: " response
+#response=${response,,}
+#if [ "$response" -eq ^(yes|y)$ ]; then
+#  export VANILLA=true;
+#  echo "You are going vanilla."
+#else
+#  echo "You are not going vanilla."
+#fi
 
 #read -r -p "Would you like to go vanilla? [y/N]: " response
 #if [ "$response" =~ "^([yY][eE][sS]||[yY])$" ]; then
