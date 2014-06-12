@@ -154,10 +154,7 @@ else
   /etc/rc.d/rc.ntpd start
 
   ## sync the slackbuilds.org repo
-  ## by running this through curl it allows the directory creation to happen automatically
-  curl https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/slackware/sbopkgSync.sh | sh
-  ## the old way
-  #sbopkg -B -r
+  sbopkg -B -r
   
   if [ -z "$( ls /var/log/packages/ | grep superkey-launch )" ]; then
     sbopkg -B -i superkey-launch
