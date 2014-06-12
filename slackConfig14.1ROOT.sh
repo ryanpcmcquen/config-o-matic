@@ -36,8 +36,7 @@ EOF
 fi
 
 read -r -p "Would you like to go vanilla? [y/N]: " response
-if [[ $response =~ ^([yY][eE][sS]|[yY])$ ]];
-then
+if [[ $response =~ ^([yY][eE][sS]|[yY])$ ]]; then
     export VANILLA=true;
     echo You are going vanilla.;
 else
