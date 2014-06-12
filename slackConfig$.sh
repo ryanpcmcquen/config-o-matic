@@ -71,5 +71,7 @@ rm ~/.local/share/applications/userapp-Firefox-*.desktop
 
 
 echo "Thank you for using config-o-matic!"
+echo
+echo "You should now reboot."
 
 
