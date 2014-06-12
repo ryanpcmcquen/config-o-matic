@@ -37,18 +37,11 @@ fi
 
 read -r -p "Would you like to go vanilla? [y/N]: " response
 if [[ $response =~ ^([yY][eE][sS]|[yY])$ ]];
-#read -r -p "Would you like to go vanilla? [y/N]: " response
-#case $response in
-#  [yY][eE][sS]|[yY])
 then
     export VANILLA=true;
     echo You are going vanilla.;
-#    ;;
-#  *)
 else
     echo You are not going vanilla.;
-#    ;;
-#esac
 fi
 
 #read -r -p "Would you like to install Mate? [y/N]: " response
@@ -194,4 +187,21 @@ fi
 
 echo "Thank you for using config-o-matic!"
 echo "You should now run 'adduser', if you have not."
+
+
+
+### cruft
+
+
+#read -r -p "Would you like to go vanilla? [y/N]: " response
+#case $response in
+#  [yY][eE][sS]|[yY])
+
+
+#    ;;
+#  *)
+#    ;;
+#esac
+
+
 
