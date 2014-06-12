@@ -136,10 +136,6 @@ else
   
   slackpkg install wicd ffmpeg vlc chromium copy-client
   
-  ## set slackpkg back to normal
-  sed -i 's/^BATCH=on/BATCH=off/g' /etc/slackpkg/slackpkg.conf
-  sed -i 's/^DEFAULT_ANSWER=y/DEFAULT_ANSWER=n/g' /etc/slackpkg/slackpkg.conf
-  
   chmod -x /etc/rc.d/rc.networkmanager
   chmod -x /etc/rc.d/rc.wireless
   chmod -x /etc/rc.d/rc.inet*
@@ -179,6 +175,10 @@ else
   if [ -z "$( ls /var/log/packages/ | grep dmenu )" ]; then
     sbopkg -B -i dmenu
   fi
+
+  ## set slackpkg back to normal
+  sed -i 's/^BATCH=on/BATCH=off/g' /etc/slackpkg/slackpkg.conf
+  sed -i 's/^DEFAULT_ANSWER=y/DEFAULT_ANSWER=n/g' /etc/slackpkg/slackpkg.conf
 
 fi
 
