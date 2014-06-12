@@ -36,12 +36,16 @@ EOF
 fi
 
 read -r -p "Would you like to go vanilla? [y/N]: " response
-if [ "$response" =~ "^([yY][eE][sS]||[yY])$" ]; then
+response=${response,,}
+if [[ $response =~ ^(yes|y)$ ]]; then
     export VANILLA=true;
     echo "You are going vanilla."
 else
     echo "You are not going vanilla."
 fi
+
+#read -r -p "Would you like to go vanilla? [y/N]: " response
+#if [ "$response" =~ "^([yY][eE][sS]||[yY])$" ]; then
 
 #read -r -p "Would you like to install Mate? [y/N]: " response
 #case $response in
