@@ -148,6 +148,7 @@ else
   slackpkg install wicd ffmpeg vlc chromium copy-client
   
   chmod -x /etc/rc.d/rc.networkmanager
+  #sed -i '' 's/^\([^#]\)/#\1/g' rc.inet1.conf
 
   ## ntp cron job (the bad way)
   #wget -N https://raw2.github.com/ryanpcmcquen/linuxTweaks/master/slackware/clocksync -P /etc/cron.daily/
