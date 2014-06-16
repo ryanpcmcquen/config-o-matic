@@ -52,6 +52,7 @@ git config --global core.pager "less -r"
 
 if [ ! -z "$( ls -a ~/ | grep .fluxbox )" ]; then
   curl $FLUXBOXCONF | sh
+  gkrellm &
 fi
 
 if [ ! -z "$( ls -a ~/ | grep .gkrellm2 )" ]; then
