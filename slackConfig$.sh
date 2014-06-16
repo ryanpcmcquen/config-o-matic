@@ -50,9 +50,13 @@ git config --global core.pager "less -r"
 #### you can use this if you have a file that configures all 3
 ###curl $BASHGITVIM | bash
 
-curl $FLUXBOXCONF | sh
-curl $GKRELLCONF | sh
+if [ ! -z "$( ls -a ~/ | grep .fluxbox )" ]; then
+  curl $FLUXBOXCONF | sh
+fi
 
+if [ ! -z "$( ls -a ~/ | grep .gkrellm2 )" ]; then
+  curl $GKRELLCONF | sh
+fi
 
 if [ ! -z "$( ls /var/log/packages/ | grep kdelibs )" ]; then
   curl $KDECONF | sh
