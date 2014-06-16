@@ -206,7 +206,7 @@ echo "(e.g. You should use uxterm, instead of xterm)."
 echo "Thank you for using config-o-matic!"
 echo "You should now run 'adduser', if you have not."
 echo
-echo "You should then run the $ user script."
+echo "You should then run the $ user script AFTER rebooting."
 
 
 
