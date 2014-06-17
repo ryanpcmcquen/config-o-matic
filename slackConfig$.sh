@@ -51,6 +51,8 @@ git config --global core.pager "less -r"
 ###curl $BASHGITVIM | bash
 
 gkrellm &
+  wget -N https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/slackware/gkrellm2/user-config \
+  -P ~/.gkrellm2/
 curl $GKRELLCONF | sh
 
 if [ ! -z "$( ls -a ~/ | grep .fluxbox )" ]; then
