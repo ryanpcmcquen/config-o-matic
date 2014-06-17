@@ -198,7 +198,7 @@ sed -i 's/^DEFAULT_ANSWER=y/DEFAULT_ANSWER=n/g' /etc/slackpkg/slackpkg.conf
 echo
 echo
 echo "************************************"
-echo "***********CONFIG-O-MATIC***********"
+echo "********** CONFIG-O-MATIC **********"
 echo "************************************"
 echo
 echo "Your system is now set to UTF-8."
