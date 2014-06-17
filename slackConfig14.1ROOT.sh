@@ -153,6 +153,17 @@ else
   chmod +x /etc/rc.d/rc.ntpd
   /etc/rc.d/rc.ntpd start
 
+  ## create sbopkg directories
+  mkdir -pv /var/lib/sbopkg/SBo/14.1/
+  mkdir -pv /var/lib/sbopkg/queues/
+  mkdir -pv /var/log/sbopkg/
+  mkdir -pv /var/cache/sbopkg/
+  mkdir -pv /tmp/SBo/
+  ## reverse
+  #rm -rfv /var/lib/sbopkg/
+  #rm -rfv /var/log/sbopkg/
+  #rm -rfv /var/cache/sbopkg/
+  #rm -rfv /tmp/SBo/
   ## sync the slackbuilds.org repo
   sbopkg -B -r
   
