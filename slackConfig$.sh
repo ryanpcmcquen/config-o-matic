@@ -74,7 +74,8 @@ fi
 
 rm ~/.local/share/applications/userapp-Firefox-*.desktop
 
-
+echo
+echo
 echo "************************************"
 echo "***********CONFIG-O-MATIC***********"
 echo "************************************"
