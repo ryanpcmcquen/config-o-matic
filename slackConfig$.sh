@@ -77,7 +77,7 @@ rm ~/.local/share/applications/userapp-Firefox-*.desktop
 echo
 echo
 echo "************************************"
-echo "***********CONFIG-O-MATIC***********"
+echo "********** CONFIG-O-MATIC **********"
 echo "************************************"
 echo
 echo "Thank you for using config-o-matic!"
