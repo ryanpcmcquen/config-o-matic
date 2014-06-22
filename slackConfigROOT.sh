@@ -145,7 +145,7 @@ else
   slackpkg install-new && \
   slackpkg upgrade-all
   
-  slackpkg install wicd ffmpeg vlc chromium copy-client
+  slackpkg install wicd ffmpeg vlc chromium
   
   chmod -x /etc/rc.d/rc.networkmanager
   sed -i 's/^\([^#]\)/#\1/g' /etc/rc.d/rc.inet1.conf
@@ -196,6 +196,10 @@ else
 
   if [ -z "$( ls /var/log/packages/ | grep dmenu )" ]; then
     sbopkg -B -i dmenu
+  fi
+  
+  if [ -z "$( ls /var/log/packages/ | grep copy )" ]; then
+    sbopkg -B -i copy
   fi
 
 fi
