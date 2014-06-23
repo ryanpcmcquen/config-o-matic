@@ -150,8 +150,7 @@ if [ "$NEARFREE" = true ]; then
   bluez-firmware ipw2100-fw ipw2200-fw trn zd1211-firmware \
   xfractint xgames xv
 
-  echo "You have become NEARFREE, to update your kernel,\
-  head to freeslack.net."
+  echo "You have become NEARFREE, to update your kernel, head to freeslack.net."
 
 elif [ "$VANILLA" = true ]; then
   echo "You have gone VANILLA."
