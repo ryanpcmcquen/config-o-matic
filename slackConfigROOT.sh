@@ -35,28 +35,46 @@ EOF
 fi
 
 
-read -r -p "Would you like to go vanilla? [y/N]: " response
+read -r -p "Would you like to remove most non-free packages? \
+(follows freeslack.net, but keeps the kernel, not valid with other options) \
+[y/N]: " response
 case $response in
   [yY][eE][sS]|[yY])
-    export VANILLA=true;
-    echo You are going vanilla.;
+    export NEARFREE=true;
+    echo You are becoming NEARFREE.;
     ;;
   *)
-    echo You are not going vanilla.;
+    echo You are not becoming NEARFREE.;
     ;;
 esac
 
-read -r -p "Would you like to install Mate? [y/N]: " response
-case $response in
-  [yY][eE][sS]|[yY])
-    export MATE=true;
-    echo You have chosen to install Mate.;
-    ;;
-  *)
-    echo You are not installing Mate.;
-    ;;
-esac
 
+if [ "$NEARFREE" != true ]; then
+  read -r -p "Would you like to go vanilla? [y/N]: " response
+  case $response in
+    [yY][eE][sS]|[yY])
+      export VANILLA=true;
+      echo You are going VANILLA.;
+      ;;
+    *)
+      echo You are not going VANILLA.;
+      ;;
+  esac
+fi
+
+
+if [ "$NEARFREE" != true ]; then
+  read -r -p "Would you like to install Mate? [y/N]: " response
+  case $response in
+    [yY][eE][sS]|[yY])
+      export MATE=true;
+      echo You have chosen to install Mate.;
+      ;;
+    *)
+      echo You are not installing Mate.;
+      ;;
+  esac
+fi
 
 ## configure lilo
 sed -i 's/^#compact/lba32\
@@ -108,19 +126,21 @@ git config --global core.pager "less -r"
 wget -N $TOUCHPCONF -P /etc/X11/xorg.conf.d/
 
 wget -N $SBOPKGDL -P ~/
-wget -N $SPPLUSDL -P ~/
+if [ "$NEARFREE" != true ]; then
+  wget -N $SPPLUSDL -P ~/
+fi
 
 installpkg ~/*.t?z
 
 mv /etc/slackpkg/slackpkgplus.conf /etc/slackpkg/slackpkgplus.conf.old
 
-if [ "$( uname -m )" = "x86_64" ]; then
+if [ "$( uname -m )" = "x86_64" ] && [ "$NEARFREE" != true ]; then
   if [ "$MATE" = true ]; then
     wget -N $SPPLUSMATECONF64 -P /etc/slackpkg/
   else
     wget -N $SPPLUSCONF64 -P /etc/slackpkg/
   fi
-else
+elif [ "$NEARFREE" != true ]; then
   if [ "$MATE" = true ]; then
     wget -N $SPPLUSMATECONF32 -P /etc/slackpkg/
   else
@@ -132,9 +152,23 @@ rm ~/*.t?z
 
 wget -N $INSCRPT -P /etc/
 
-## you should export VANILLA=true; if you don't want these ;-)
-if [ "$VANILLA" = true ]; then
-  echo "You have gone vanilla."
+if [ "$NEARFREE" = true ]; then
+  removepkg getty-ps lha unarj zoo amp \
+  bluez-firmware ipw2100-fw ipw2200-fw trn zd1211-firmware \
+  xfractint xgames xv
+
+  ## set slackpkg to non-interactive mode to run without prompting
+  sed -i 's/^BATCH=off/BATCH=on/g' /etc/slackpkg/slackpkg.conf
+  sed -i 's/^DEFAULT_ANSWER=n/DEFAULT_ANSWER=y/g' /etc/slackpkg/slackpkg.conf
+  
+  slackpkg blacklist getty-ps lha unarj zoo amp \
+  bluez-firmware ipw2100-fw ipw2200-fw trn zd1211-firmware \
+  xfractint xgames xv
+
+  echo "You have become NEARFREE, to update your kernel, head to freeslack.net."
+
+elif [ "$VANILLA" = true ]; then
+  echo "You have gone VANILLA."
 else
   ## set slackpkg to non-interactive mode to run without prompting
   sed -i 's/^BATCH=off/BATCH=on/g' /etc/slackpkg/slackpkg.conf
@@ -205,7 +239,7 @@ else
 fi
 
 
-if [ "$MATE" = true ]; then
+if [ "$MATE" = true ] && [ "$NEARFREE" != true ]; then
   slackpkg install msb
 fi
 
