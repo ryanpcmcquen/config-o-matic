@@ -7,7 +7,10 @@ Configure Slackware installs in no time with config-o-matic! (patent pending)
 
 (Note that $ user configuration is the same regardless of using stable or current.)
 
-If you do not want any extra packages, choose vanilla on ROOT script.
+If you do not want any extra packages, choose VANILLA on ROOT script.
+
+NEARFREE option now to remove all non-free packages except the kernel. At this time,
+NEARFREE is not valid with any other options.
 
 14.1:
 
