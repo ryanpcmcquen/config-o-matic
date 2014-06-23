@@ -33,8 +33,8 @@ EOF
 fi
 
 
-read -r -p "Would you like to remove most non-free packages? \
-(follows freeslack.net, but keeps the kernel, not valid with other options) \
+read -r -p "Would you like to become NEARFREE? \
+(follows freeslack.net, but keeps kernel, not valid with other options) \
 [y/N]: " response
 case $response in
   [yY][eE][sS]|[yY])
@@ -48,7 +48,7 @@ esac
 
 
 if [ "$NEARFREE" != true ]; then
-  read -r -p "Would you like to go vanilla? [y/N]: " response
+  read -r -p "Would you like to go VANILLA? [y/N]: " response
   case $response in
     [yY][eE][sS]|[yY])
       export VANILLA=true;
