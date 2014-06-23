@@ -34,15 +34,15 @@ fi
 
 
 read -r -p "Would you like to remove most non-free packages? \
-(follows freeslack.net, but keeps the kernel) \
+(follows freeslack.net, but keeps the kernel, not valid with other options) \
 [y/N]: " response
 case $response in
   [yY][eE][sS]|[yY])
     export NEARFREE=true;
-    echo You are going nearfree.;
+    echo You are becoming NEARFREE.;
     ;;
   *)
-    echo You are not going nearfree.;
+    echo You are not becoming NEARFREE.;
     ;;
 esac
 
@@ -52,10 +52,10 @@ if [ "$NEARFREE" != true ]; then
   case $response in
     [yY][eE][sS]|[yY])
       export VANILLA=true;
-      echo You are going vanilla.;
+      echo You are going VANILLA.;
       ;;
     *)
-      echo You are not going vanilla.;
+      echo You are not going VANILLA.;
       ;;
   esac
 fi
@@ -150,11 +150,11 @@ if [ "$NEARFREE" = true ]; then
   bluez-firmware ipw2100-fw ipw2200-fw trn zd1211-firmware \
   xfractint xgames xv
 
-  echo "You have gone nearly free, to update your kernel, \
+  echo "You have become NEARFREE, to update your kernel,\
   head to freeslack.net."
 
 elif [ "$VANILLA" = true ]; then
-  echo "You have gone vanilla."
+  echo "You have gone VANILLA."
 else
   ## set slackpkg to non-interactive mode to run without prompting
   sed -i 's/^BATCH=off/BATCH=on/g' /etc/slackpkg/slackpkg.conf
