@@ -2,9 +2,9 @@
 
 # wget -N https://raw2.github.com/ryanpcmcquen/config-o-matic/master/slackConfigROOT.sh; sh slackConfigROOT.sh; rm slackConfigROOT.sh
 
-#$BASHGITVIM="https://raw2.github.com/ryanpcmcquen/linuxTweaks/master/bashGitVimROOT.sh"
+## BASHGITVIM="https://raw2.github.com/ryanpcmcquen/linuxTweaks/master/bashGitVimROOT.sh"
 
-## set global config files & variables here:
+## set config files here:
 SBOPKGDL="http://sbopkg.googlecode.com/files/sbopkg-0.37.0-noarch-1_cng.tgz"
 SPPLUSDL="http://sourceforge.net/projects/slackpkgplus/files/slackpkg%2B-1.3.1-noarch-4mt.txz"
 SPPLUSCONF64="https://raw2.github.com/ryanpcmcquen/linuxTweaks/master/slackware/64/slackpkgplus.conf"
@@ -259,8 +259,8 @@ echo "Your system is now set to UTF-8."
 echo "(e.g. You should use uxterm, instead of xterm)."
 echo "Thank you for using config-o-matic!"
 echo "You should now run 'adduser', if you have not."
+echo "Then you should run the $ user script."
 echo
-echo "You should then run the $ user script AFTER rebooting."
 
 
 
