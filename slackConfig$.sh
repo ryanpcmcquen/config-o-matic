@@ -2,9 +2,9 @@
 
 # curl https://raw2.github.com/ryanpcmcquen/linuxTweaks/master/slackware/config-o-matic/slackConfig$.sh | sh
 
-###$BASHGITVIM="https://raw2.github.com/ryanpcmcquen/linuxTweaks/master/bashGitVimNORMAL.sh"
+### BASHGITVIM="https://raw2.github.com/ryanpcmcquen/linuxTweaks/master/bashGitVimNORMAL.sh"
 
-#### set your global config files & variables here:
+#### set your config files here:
 
 BASHRC="https://raw2.github.com/ryanpcmcquen/linuxTweaks/master/slackware/normal/.bashrc"
 BASHPR="https://raw2.github.com/ryanpcmcquen/linuxTweaks/master/slackware/normal/.bash_profile"
@@ -48,7 +48,7 @@ git config --global core.pager "less -r"
 
 
 #### you can use this if you have a file that configures all 3
-###curl $BASHGITVIM | bash
+### curl $BASHGITVIM | bash
 
 gkrellm &
   wget -N https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/slackware/gkrellm2/user-config \
