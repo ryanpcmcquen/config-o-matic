@@ -243,7 +243,7 @@ echo "Your system is now set to UTF-8."
 echo "(e.g. You should use uxterm, instead of xterm)."
 echo "Thank you for using config-o-matic!"
 echo "You should now run 'adduser', if you have not."
-echo "Then you should now run the $ user script."
+echo "Then you should run the $ user script."
 echo
 
 
