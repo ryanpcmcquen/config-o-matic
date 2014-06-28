@@ -139,16 +139,16 @@ fi
 
 if [ "$NEARFREE" = true ]; then
   removepkg getty-ps lha unarj zoo amp \
-  bluez-firmware ipw2100-fw ipw2200-fw trn zd1211-firmware \
-  xfractint xgames xv
+  bluez-firmware ipw2100-fw ipw2200-fw trn \
+  zd1211-firmware xfractint xgames xv
 
   ## set slackpkg to non-interactive mode to run without prompting
   sed -i 's/^BATCH=off/BATCH=on/g' /etc/slackpkg/slackpkg.conf
   sed -i 's/^DEFAULT_ANSWER=n/DEFAULT_ANSWER=y/g' /etc/slackpkg/slackpkg.conf
-  
+
   slackpkg blacklist getty-ps lha unarj zoo amp \
-  bluez-firmware ipw2100-fw ipw2200-fw trn zd1211-firmware \
-  xfractint xgames xv
+  bluez-firmware ipw2100-fw ipw2200-fw trn \
+  zd1211-firmware xfractint xgames xv
 
   echo "You have become NEARFREE, to update your kernel, head to freeslack.net."
 
@@ -163,16 +163,16 @@ else
   slackpkg update && \
   slackpkg install-new && \
   slackpkg upgrade-all
-  
+
   slackpkg install wicd ffmpeg vlc chromium
-  
+
   chmod -x /etc/rc.d/rc.networkmanager
   sed -i 's/^\([^#]\)/#\1/g' /etc/rc.d/rc.inet1.conf
   sed -i 's/^\([^#]\)/#\1/g' /etc/rc.d/rc.wireless.conf
 
   ## ntp cron job (the bad way)
   #wget -N https://raw2.github.com/ryanpcmcquen/linuxTweaks/master/slackware/clocksync -P /etc/cron.daily/
-  
+
   ## set up ntp daemon (the good way)
   /etc/rc.d/rc.ntpd stop
   ntpdate 0.pool.ntp.org
@@ -200,15 +200,15 @@ else
   #rm -rfv /tmp/SBo/
   ## sync the slackbuilds.org repo
   sbopkg -B -r
-  
+
   if [ -z "$( ls /var/log/packages/ | grep superkey-launch )" ]; then
     sbopkg -B -i superkey-launch
   fi
-  
+
   if [ -z "$( ls /var/log/packages/ | grep lxterminal )" ]; then
     sbopkg -B -i lxterminal
   fi
-  
+
   if [ -z "$( ls /var/log/packages/ | grep dwm )" ]; then
     sbopkg -B -i dwm
   fi
@@ -227,12 +227,12 @@ else
   if [ -z "$( ls /var/log/packages/ | grep copy )" ]; then
     sbopkg -B -i copy
   fi
-  
+
   ## because QtCurve looks amazing
   if [ -z "$( ls /var/log/packages/ | grep QtCurve-KDE4 )" ]; then
     sbopkg -B -i QtCurve-KDE4
   fi
-  
+
   if [ -z "$( ls /var/log/packages/ | grep QtCurve-Gtk2 )" ]; then
     sbopkg -B -i QtCurve-Gtk2
   fi
