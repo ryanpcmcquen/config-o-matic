@@ -246,7 +246,9 @@ else
   mv ./numix-icon-theme-circle/Numix-Circle/ /usr/share/icons/
   rm -rf ./numix-icon-theme-circle/
 
-
+  git clone https://github.com/shimmerproject/Numix.git
+  mv ./Numix/ /usr/share/themes/
+  rm -rf ./Numix/
 
   wget -N https://raw.githubusercontent.com/numixproject/numix-kde-theme/master/Numix.colors -P /usr/share/apps/color-schemes/
   mv /usr/share/apps/color-schemes/Numix.colors /usr/share/apps/color-schemes/Numix-KDE.colors
