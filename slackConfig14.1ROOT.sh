@@ -217,6 +217,13 @@ else
     sbopkg -B -i dmenu
   fi
 
+  ## this library is necessary for some games,
+  ## doesn't hurt to have it  ; ^)
+  if [ -z "$( ls /var/log/packages/ | grep libtxc_dxtn )" ]; then
+    sbopkg -B -i libtxc_dxtn
+  fi
+
+  ## file syncing service
   if [ -z "$( ls /var/log/packages/ | grep copy )" ]; then
     sbopkg -B -i copy
   fi
