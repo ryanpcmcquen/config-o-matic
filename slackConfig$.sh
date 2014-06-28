@@ -74,6 +74,8 @@ fi
 
 rm ~/.local/share/applications/userapp-Firefox-*.desktop
 
+superkey-launch &
+
 echo
 echo
 echo "************************************"
