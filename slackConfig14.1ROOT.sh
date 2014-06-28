@@ -227,6 +227,27 @@ else
   if [ -z "$( ls /var/log/packages/ | grep copy )" ]; then
     sbopkg -B -i copy
   fi
+  
+  ## because QtCurve looks amazing
+  if [ -z "$( ls /var/log/packages/ | grep QtCurve-KDE4 )" ]; then
+    sbopkg -B -i QtCurve-KDE4
+  fi
+  
+  if [ -z "$( ls /var/log/packages/ | grep QtCurve-Gtk2 )" ]; then
+    sbopkg -B -i QtCurve-Gtk2
+  fi
+
+  ## numix icons are dead sexy
+  git clone https://github.com/numixproject/numix-icon-theme.git
+  mv ./numix-icon-theme/Numix/ /usr/share/icons/
+  rm -rf ./numix-icon-theme/
+
+  git clone https://github.com/numixproject/numix-icon-theme-circle.git
+  mv ./numix-icon-theme-circle/Numix-Circle/ /usr/share/icons/
+  rm -rf ./numix-icon-theme-circle/
+
+  wget -N https://raw.githubusercontent.com/numixproject/numix-kde-theme/master/Numix.colors -P /usr/share/apps/color-schemes/
+  wget -N https://raw.githubusercontent.com/numixproject/numix-kde-theme/master/Numix.qtcurve -P /usr/share/apps/QtCurve/
 
 fi
 
