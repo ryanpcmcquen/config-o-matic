@@ -218,9 +218,6 @@ else
 
   if [ -z "$( ls /var/log/packages/ | grep superkey-launch )" ]; then
     sbopkg -B -i superkey-launch
-    ## untested
-    #echo "superkey-launch" > /etc/rc.d/rc.superkey-launch
-    #chmod +x /etc/rc.d/rc.superkey-launch
   fi
 
   if [ -z "$( ls /var/log/packages/ | grep lxterminal )" ]; then
