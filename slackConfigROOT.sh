@@ -213,8 +213,11 @@ else
   #rm -rfv /var/log/sbopkg/
   #rm -rfv /var/cache/sbopkg/
   #rm -rfv /tmp/SBo/
-  ## sync the slackbuilds.org repo
+  ## check for sbopkg update,
+  ## then sync the slackbuilds.org repo
+  sbopkg -B -u
   sbopkg -B -r
+
 
   if [ -z "$( ls /var/log/packages/ | grep superkey-launch )" ]; then
     sbopkg -B -i superkey-launch
