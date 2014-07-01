@@ -12,6 +12,8 @@ BASHPR="https://raw2.github.com/ryanpcmcquen/linuxTweaks/master/slackware/normal
 VIMRC="https://raw2.github.com/ryanpcmcquen/linuxTweaks/master/.vimrc"
 
 FLUXBOXCONF="https://raw2.github.com/ryanpcmcquen/linuxTweaks/master/restoreFluxbox.sh"
+
+GKRELLCFIL="https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/slackware/gkrellm2/user-config"
 GKRELLCONF="https://raw2.github.com/ryanpcmcquen/linuxTweaks/master/gkrellmConfig.sh"
 
 KDECONF="https://raw2.github.com/ryanpcmcquen/linuxTweaks/master/kdeSetup.sh"
@@ -33,6 +35,7 @@ EOF
   exit 1
 fi
 
+gkrellm &
 
 wget -N $BASHRC -P ~/
 wget -N $BASHPR -P ~/
@@ -48,11 +51,10 @@ git config --global core.pager "less -r"
 
 
 #### you can use this if you have a file that configures all 3
-### curl $BASHGITVIM | bash
+### curl $BASHGITVIM | sh
 
-gkrellm &
-  wget -N https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/slackware/gkrellm2/user-config \
-  -P ~/.gkrellm2/
+
+wget -N $GKRELLCFIL -P ~/.gkrellm2/
 curl $GKRELLCONF | sh
 
 if [ ! -z "$( ls -a ~/ | grep .fluxbox )" ]; then
