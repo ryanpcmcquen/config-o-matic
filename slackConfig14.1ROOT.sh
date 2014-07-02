@@ -108,6 +108,11 @@ sed -i 's_^http://ftp.osuosl.org/.2/slackware/slackware64-current/_# http://ftp.
 sed -i 's_^# http://ftp.osuosl.org/.2/slackware/slackware-14.1/_http://ftp.osuosl.org/.2/slackware/slackware-14.1/_g' /etc/slackpkg/mirrors
 sed -i 's_^# http://ftp.osuosl.org/.2/slackware/slackware64-14.1/_http://ftp.osuosl.org/.2/slackware/slackware64-14.1/_g' /etc/slackpkg/mirrors
 
+
+## set tmux scrollback value
+tmux set-option -g history-limit 99999
+
+
 ## git config
 git config --global user.name "$GITNAME"
 git config --global user.email "$GITEMAIL"
