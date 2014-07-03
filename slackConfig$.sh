@@ -43,7 +43,7 @@ wget -N $BASHPR -P ~/
 wget -N $VIMRC -P ~/
 
 ## set tmux scrollback value
-tmux set-option -g history-limit 99999
+tmux set-option -g history-limit 9999
 
 ## git config
 git config --global user.name "$GITNAME"
