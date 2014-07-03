@@ -80,6 +80,11 @@ wget -N $BASHPR -P ~/
 
 wget -N $VIMRC -P ~/
 
+
+## set tmux scrollback value
+tmux set-option -g history-limit 9999
+
+
 ## configure lilo
 sed -i 's/^#compact/lba32\
 compact/g' /etc/lilo.conf
@@ -107,10 +112,6 @@ sed -i 's_^http://ftp.osuosl.org/.2/slackware/slackware64-current/_# http://ftp.
 ### osuosl mirrors are stable and fast (they are used for the changelogs), choose mirrorbrain if you are far from oregon
 sed -i 's_^# http://ftp.osuosl.org/.2/slackware/slackware-14.1/_http://ftp.osuosl.org/.2/slackware/slackware-14.1/_g' /etc/slackpkg/mirrors
 sed -i 's_^# http://ftp.osuosl.org/.2/slackware/slackware64-14.1/_http://ftp.osuosl.org/.2/slackware/slackware64-14.1/_g' /etc/slackpkg/mirrors
-
-
-## set tmux scrollback value
-tmux set-option -g history-limit 99999
 
 
 ## git config
