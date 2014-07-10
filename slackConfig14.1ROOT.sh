@@ -237,8 +237,10 @@ else
   fi
 
   ## because QtCurve looks amazing
-  if [ -z "$( ls /var/log/packages/ | grep QtCurve-KDE4 )" ]; then
-    sbopkg -B -i QtCurve-KDE4
+  if [ ! -z "$( ls /var/log/packages/ | grep kdelibs )" ]; then
+    if [ -z "$( ls /var/log/packages/ | grep QtCurve-KDE4 )" ]; then
+      sbopkg -B -i QtCurve-KDE4
+    fi
   fi
 
   if [ -z "$( ls /var/log/packages/ | grep QtCurve-Gtk2 )" ]; then
