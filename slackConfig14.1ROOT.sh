@@ -270,7 +270,7 @@ else
   tar xf ~/Caledonia_Official_Wallpaper_Collection-1.5.tar.gz
   mv ~/Caledonia_Official_Wallpaper_Collection/* /usr/share/wallpapers/
   rm -rf ~/Caledonia_Official_Wallpaper_Collection/
-  rm -rf ~/Caledonia_Official_Wallpaper_Collection-1.5.tar.gz
+  rm ~/Caledonia_Official_Wallpaper_Collection-1.5.tar.gz
 
 fi
 
