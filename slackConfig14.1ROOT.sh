@@ -23,6 +23,10 @@ GITEMAIL="ryan.q@linux.com"
 TOUCHPCONF="https://raw2.github.com/ryanpcmcquen/linuxTweaks/master/51-synaptics.conf"
 
 
+CALPLAS="Caledonia-1.6.2.tar.gz"
+CALWALL="Caledonia_Official_Wallpaper_Collection-1.5.tar.gz"
+
+
 if [ ! $UID = 0 ]; then
   cat << EOF
 
@@ -266,16 +270,16 @@ else
   mv /usr/share/apps/QtCurve/Numix.qtcurve /usr/share/apps/QtCurve/Numix-KDE.qtcurve
 
   ## caledonia kde theme
-  wget -N http://sourceforge.net/projects/caledonia/files/Caledonia%20%28Plasma-KDE%20Theme%29/Caledonia-1.6.2.tar.gz -P ~/
-  tar xf ~/Caledonia-1.6.2.tar.gz -C /usr/share/apps/desktoptheme/
-  rm ~/Caledonia-1.6.2.tar.gz
+  wget -N http://sourceforge.net/projects/caledonia/files/Caledonia%20%28Plasma-KDE%20Theme%29/$CALPLAS -P ~/
+  tar xf ~/$CALPLAS -C /usr/share/apps/desktoptheme/
+  rm ~/$CALPLAS
 
   ## get caledonia wallpapers, who doesn't like nice wallpapers?
-  wget -N http://sourceforge.net/projects/caledonia/files/Caledonia%20Official%20Wallpapers/Caledonia_Official_Wallpaper_Collection-1.5.tar.gz -P ~/
-  tar xf ~/Caledonia_Official_Wallpaper_Collection-1.5.tar.gz
+  wget -N http://sourceforge.net/projects/caledonia/files/Caledonia%20Official%20Wallpapers/$CALWALL -P ~/
+  tar xf ~/$CALWALL
   cp -r ~/Caledonia_Official_Wallpaper_Collection/* /usr/share/wallpapers/
   rm -rf ~/Caledonia_Official_Wallpaper_Collection/
-  rm ~/Caledonia_Official_Wallpaper_Collection-1.5.tar.gz
+  rm ~/$CALWALL
 
   ## a few numix wallpapers also
   wget -N http://fc03.deviantart.net/fs71/f/2013/305/3/6/numix___halloween___wallpaper_by_satya164-d6skv0g.zip -P ~/
