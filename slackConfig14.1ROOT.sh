@@ -265,6 +265,11 @@ else
   wget -N https://raw.githubusercontent.com/numixproject/numix-kde-theme/master/Numix.qtcurve -P /usr/share/apps/QtCurve/
   mv /usr/share/apps/QtCurve/Numix.qtcurve /usr/share/apps/QtCurve/Numix-KDE.qtcurve
 
+  ## caledonia kde theme
+  wget -N http://sourceforge.net/projects/caledonia/files/Caledonia%20%28Plasma-KDE%20Theme%29/Caledonia-1.6.2.tar.gz -P ~/
+  tar xf ~/Caledonia-1.6.2.tar.gz -C /usr/share/apps/desktoptheme/
+  rm ~/Caledonia-1.6.2.tar.gz
+
   ## get caledonia wallpapers, who doesn't like nice wallpapers?
   wget -N http://sourceforge.net/projects/caledonia/files/Caledonia%20Official%20Wallpapers/Caledonia_Official_Wallpaper_Collection-1.5.tar.gz -P ~/
   tar xf ~/Caledonia_Official_Wallpaper_Collection-1.5.tar.gz
