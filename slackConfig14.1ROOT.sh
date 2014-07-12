@@ -289,6 +289,9 @@ else
   unzip numix___halloween___wallpaper_by_satya164-d6skv0g.zip
   unzip numix___fragmented_space_by_me4oslav-d6l8ihd.zip
   unzip numix___name_of_the_doctor___wallpaper_by_satya164-d6hvzh7.zip
+  rm numix___halloween___wallpaper_by_satya164-d6skv0g.zip
+  rm numix___fragmented_space_by_me4oslav-d6l8ihd.zip
+  rm numix___name_of_the_doctor___wallpaper_by_satya164-d6hvzh7.zip
 
   cp ~/*.png /usr/share/wallpapers/
   #cp ~/*.png /usr/share/backgrounds/
