@@ -184,11 +184,12 @@ else
   sed -i 's/^DEFAULT_ANSWER=n/DEFAULT_ANSWER=y/g' /etc/slackpkg/slackpkg.conf
 
   slackpkg update gpg && \
-  slackpkg update && \
-  slackpkg install-new && \
-  slackpkg upgrade-all
+  slackpkg update
 
   slackpkg install wicd ffmpeg vlc chromium
+
+  slackpkg install-new && \
+  slackpkg upgrade-all
 
   chmod -x /etc/rc.d/rc.networkmanager
   sed -i 's/^\([^#]\)/#\1/g' /etc/rc.d/rc.inet1.conf
