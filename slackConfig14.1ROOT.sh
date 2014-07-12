@@ -297,6 +297,8 @@ else
   #cp ~/*.png /usr/share/backgrounds/
   cp ~/*.jpg /usr/share/wallpapers/
   #cp ~/*.jpg /usr/share/backgrounds/
+  rm ~/*.jpg
+  rm ~/*.png
 
 fi
 
