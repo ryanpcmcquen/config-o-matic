@@ -169,7 +169,8 @@ else
   sed -i 's/^BATCH=off/BATCH=on/g' /etc/slackpkg/slackpkg.conf
   sed -i 's/^DEFAULT_ANSWER=n/DEFAULT_ANSWER=y/g' /etc/slackpkg/slackpkg.conf
 
-  ## although it seems sloppy to do this twice,
+
+  ## although it seems sloppy to update twice,
   ## this prevents breakage if slackpkg gets updated
   slackpkg update gpg && slackpkg update
   slackpkg install-new && slackpkg upgrade-all
