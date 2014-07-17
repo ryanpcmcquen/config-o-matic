@@ -183,13 +183,15 @@ else
   sed -i 's/^BATCH=off/BATCH=on/g' /etc/slackpkg/slackpkg.conf
   sed -i 's/^DEFAULT_ANSWER=n/DEFAULT_ANSWER=y/g' /etc/slackpkg/slackpkg.conf
 
-  slackpkg update gpg && \
-  slackpkg update
 
+  ## although it seems sloppy to update twice,
+  ## this prevents breakage if slackpkg gets updated
+  slackpkg update gpg && slackpkg update
+  slackpkg install-new && slackpkg upgrade-all
+
+  slackpkg update gpg && slackpkg update
   slackpkg install wicd ffmpeg vlc chromium
 
-  slackpkg install-new && \
-  slackpkg upgrade-all
 
   chmod -x /etc/rc.d/rc.networkmanager
   sed -i 's/^\([^#]\)/#\1/g' /etc/rc.d/rc.inet1.conf
