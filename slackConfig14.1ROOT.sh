@@ -228,8 +228,8 @@ else
     sbopkg -B -i OpenAL
   fi
 
-  if [ -z "$( ls /var/log/packages/ | grep lxterminal )" ]; then
-    sbopkg -B -i lxterminal
+  if [ -z "$( ls /var/log/packages/ | grep roxterm )" ]; then
+    sbopkg -B -i roxterm
   fi
 
   if [ -z "$( ls /var/log/packages/ | grep dwm )" ]; then
@@ -256,14 +256,26 @@ else
     sbopkg -B -i QtCurve-Gtk2
   fi
 
-  ## numix icons are dead sexy
+  ## numix stuff is dead sexy
   git clone https://github.com/numixproject/numix-icon-theme.git
   mv ./numix-icon-theme/Numix/ /usr/share/icons/
   rm -rf ./numix-icon-theme/
 
+  git clone https://github.com/numixproject/numix-icon-theme-bevel.git
+  mv ./numix-icon-theme-bevel/Numix-Bevel/ /usr/share/icons/
+  rm -rf ./numix-icon-theme-bevel/
+
   git clone https://github.com/numixproject/numix-icon-theme-circle.git
   mv ./numix-icon-theme-circle/Numix-Circle/ /usr/share/icons/
   rm -rf ./numix-icon-theme-circle/
+
+  git clone https://github.com/numixproject/numix-icon-theme-shine.git
+  mv ./numix-icon-theme-shine/Numix-Shine/ /usr/share/icons/
+  rm -rf ./numix-icon-theme-shine/
+
+  git clone https://github.com/numixproject/numix-icon-theme-utouch.git
+  mv ./numix-icon-theme-utouch/Numix-uTouch/ /usr/share/icons/
+  rm -rf ./numix-icon-theme-utouch/
 
   git clone https://github.com/shimmerproject/Numix.git
   mv ./Numix/ /usr/share/themes/
