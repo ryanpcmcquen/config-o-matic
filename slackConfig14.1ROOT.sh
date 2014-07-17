@@ -218,6 +218,16 @@ else
     sbopkg -B -i superkey-launch
   fi
 
+  ## this library is necessary for some games,
+  ## doesn't hurt to have it  ; ^)
+  if [ -z "$( ls /var/log/packages/ | grep libtxc_dxtn )" ]; then
+    sbopkg -B -i libtxc_dxtn
+  fi
+
+  if [ -z "$( ls /var/log/packages/ | grep OpenAL )" ]; then
+    sbopkg -B -i OpenAL
+  fi
+
   if [ -z "$( ls /var/log/packages/ | grep lxterminal )" ]; then
     sbopkg -B -i lxterminal
   fi
@@ -228,12 +238,6 @@ else
 
   if [ -z "$( ls /var/log/packages/ | grep dmenu )" ]; then
     sbopkg -B -i dmenu
-  fi
-
-  ## this library is necessary for some games,
-  ## doesn't hurt to have it  ; ^)
-  if [ -z "$( ls /var/log/packages/ | grep libtxc_dxtn )" ]; then
-    sbopkg -B -i libtxc_dxtn
   fi
 
   ## file syncing service
