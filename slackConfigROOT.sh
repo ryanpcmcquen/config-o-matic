@@ -192,6 +192,10 @@ else
   slackpkg update gpg && slackpkg update
   slackpkg install wicd ffmpeg vlc chromium
 
+  ## need this for steam
+  wget -N http://mirrors.slackware.com/slackware/slackware-current/slackware/x/libxshmfence-1.1-i486-1.txz -P ~/
+  installpkg ~/libxshmfence-1.1-i486-1.txz
+  rm ~/libxshmfence-1.1-i486-1.txz
 
   chmod -x /etc/rc.d/rc.networkmanager
   sed -i 's/^\([^#]\)/#\1/g' /etc/rc.d/rc.inet1.conf
