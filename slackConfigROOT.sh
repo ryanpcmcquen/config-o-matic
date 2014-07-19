@@ -30,6 +30,8 @@ TOUCHPCONF="https://raw2.github.com/ryanpcmcquen/linuxTweaks/master/51-synaptics
 CALPLAS="Caledonia-1.6.2.tar.gz"
 CALWALL="Caledonia_Official_Wallpaper_Collection-1.5.tar.gz"
 
+LIBXSHM="libxshmfence-1.1-i486-1.txz"
+
 
 if [ ! $UID = 0 ]; then
   cat << EOF
@@ -193,9 +195,11 @@ else
   slackpkg install wicd ffmpeg vlc chromium
 
   ## need this for steam
-  wget -N http://mirrors.slackware.com/slackware/slackware-current/slackware/x/libxshmfence-1.1-i486-1.txz -P ~/
-  installpkg ~/libxshmfence-1.1-i486-1.txz
-  rm ~/libxshmfence-1.1-i486-1.txz
+  if [ "$( uname -m )" = "x86_64" ]
+    wget -N http://mirrors.slackware.com/slackware/slackware-current/slackware/x/$LIBXSHM -P ~/
+    installpkg ~/$LIBXSHM
+    rm ~/$LIBXSHM
+  fi
 
   chmod -x /etc/rc.d/rc.networkmanager
   sed -i 's/^\([^#]\)/#\1/g' /etc/rc.d/rc.inet1.conf
