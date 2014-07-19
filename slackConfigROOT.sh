@@ -199,7 +199,7 @@ else
   slackpkg install wicd ffmpeg vlc chromium
 
   ## need this for steam
-  if [ "$( uname -m )" = "x86_64" ]
+  if [ "$( uname -m )" = "x86_64" ]; then
     wget -N http://mirrors.slackware.com/slackware/slackware-current/slackware/x/$LIBXSHM -P ~/
     installpkg ~/$LIBXSHM
     rm ~/$LIBXSHM
