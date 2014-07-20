@@ -189,6 +189,7 @@ else
     wget -N http://mirrors.slackware.com/slackware/slackware-current/slackware/x/$LIBXSHM -P ~/
     installpkg ~/$LIBXSHM
     rm ~/$LIBXSHM
+    slackpkg blacklist libxshmfence
   fi
 
   chmod -x /etc/rc.d/rc.networkmanager
