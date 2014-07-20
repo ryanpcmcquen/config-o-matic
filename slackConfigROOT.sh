@@ -258,10 +258,6 @@ else
     sbopkg -B -i OpenAL
   fi
 
-  if [ -z "$( ls /var/log/packages/ | grep roxterm )" ]; then
-    sbopkg -B -i roxterm
-  fi
-
   if [ -z "$( ls /var/log/packages/ | grep dwm )" ]; then
     sbopkg -B -i dwm
   fi
