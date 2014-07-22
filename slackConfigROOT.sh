@@ -196,7 +196,7 @@ else
   sed -i 's/^BATCH=off/BATCH=on/g' /etc/slackpkg/slackpkg.conf
   sed -i 's/^DEFAULT_ANSWER=n/DEFAULT_ANSWER=y/g' /etc/slackpkg/slackpkg.conf
   slackpkg update gpg && slackpkg update
-  slackpkg install wicd ffmpeg vlc chromium
+  slackpkg install wicd vlc chromium
 
   ## need this for steam
   if [ "$( uname -m )" = "x86_64" ]; then
@@ -252,6 +252,18 @@ else
   ## doesn't hurt to have it  ; ^)
   if [ -z "$( ls /var/log/packages/ | grep libtxc_dxtn )" ]; then
     sbopkg -B -i libtxc_dxtn
+  fi
+
+  if [ -z "$( ls /var/log/packages/ | grep lame )" ]; then
+    sbopkg -B -i lame
+  fi
+
+  if [ -z "$( ls /var/log/packages/ | grep x264 )" ]; then
+    sbopkg -B -i x264
+  fi
+
+  if [ -z "$( ls /var/log/packages/ | grep ffmpeg )" ]; then
+    sbopkg -B -i ffmpeg
   fi
 
   if [ -z "$( ls /var/log/packages/ | grep OpenAL )" ]; then
