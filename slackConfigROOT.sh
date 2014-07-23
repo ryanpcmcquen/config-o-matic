@@ -31,7 +31,9 @@ GETEXTRA="https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/slac
 CALPLAS="Caledonia-1.6.2.tar.gz"
 CALWALL="Caledonia_Official_Wallpaper_Collection-1.5.tar.gz"
 
-LIBXSHM="libxshmfence-1.1-i486-1.txz"
+
+## eric hameleers has updated multilib to include this package
+#LIBXSHM="libxshmfence-1.1-i486-1.txz"
 
 
 if [ ! $UID = 0 ]; then
@@ -201,13 +203,15 @@ else
   slackpkg update gpg && slackpkg update
   slackpkg install wicd vlc chromium
 
-  ## need this for steam
-  if [ "$( uname -m )" = "x86_64" ]; then
-    wget -N http://mirrors.slackware.com/slackware/slackware-current/slackware/x/$LIBXSHM -P ~/
-    installpkg ~/$LIBXSHM
-    rm ~/$LIBXSHM
-    slackpkg blacklist libxshmfence
-  fi
+
+  ## eric hameleers has updated multilib to include this package
+#  if [ "$( uname -m )" = "x86_64" ]; then
+#    wget -N http://mirrors.slackware.com/slackware/slackware-current/slackware/x/$LIBXSHM -P ~/
+#    installpkg ~/$LIBXSHM
+#    rm ~/$LIBXSHM
+#    slackpkg blacklist libxshmfence
+#  fi
+
 
   chmod -x /etc/rc.d/rc.networkmanager
   sed -i 's/^\([^#]\)/#\1/g' /etc/rc.d/rc.inet1.conf
