@@ -26,6 +26,7 @@ GITEMAIL="ryan.q@linux.com"
 
 TOUCHPCONF="https://raw2.github.com/ryanpcmcquen/linuxTweaks/master/51-synaptics.conf"
 
+GETEXTRA="https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/slackware/getExtraSlackBuildsCURRENT.sh"
 
 CALPLAS="Caledonia-1.6.2.tar.gz"
 CALWALL="Caledonia_Official_Wallpaper_Collection-1.5.tar.gz"
@@ -181,6 +182,8 @@ if [ "$NEARFREE" = true ]; then
 elif [ "$VANILLA" = true ]; then
   echo "You have gone VANILLA."
 else
+  curl $GETEXTRA | sh
+
   ## set slackpkg to non-interactive mode to run without prompting
   sed -i 's/^BATCH=off/BATCH=on/g' /etc/slackpkg/slackpkg.conf
   sed -i 's/^DEFAULT_ANSWER=n/DEFAULT_ANSWER=y/g' /etc/slackpkg/slackpkg.conf
