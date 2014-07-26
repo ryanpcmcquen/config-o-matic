@@ -186,6 +186,12 @@ elif [ "$VANILLA" = true ]; then
 else
   curl $GETEXTRA | sh
 
+  ## slackbuilds repo
+  git clone git://slackbuilds.org/slackbuilds.git
+
+  ## my slackbuilds
+  git clone https://github.com/ryanpcmcquen/ryanpc-slackbuilds.git
+
   ## set slackpkg to non-interactive mode to run without prompting
   sed -i 's/^BATCH=off/BATCH=on/g' /etc/slackpkg/slackpkg.conf
   sed -i 's/^DEFAULT_ANSWER=n/DEFAULT_ANSWER=y/g' /etc/slackpkg/slackpkg.conf
