@@ -111,11 +111,15 @@ sbopkg/g' /etc/slackpkg/blacklist
 
 
 ### undo 14.1 mirrors
-sed -i 's_^http://ftp.osuosl.org/.2/slackware/slackware-14.1/_# http://ftp.osuosl.org/.2/slackware/slackware-14.1/_g' /etc/slackpkg/mirrors
-sed -i 's_^http://ftp.osuosl.org/.2/slackware/slackware64-14.1/_# http://ftp.osuosl.org/.2/slackware/slackware64-14.1/_g' /etc/slackpkg/mirrors
+sed -i \
+'s_^http://ftp.osuosl.org/.2/slackware/slackware-14.1/_# http://ftp.osuosl.org/.2/slackware/slackware-14.1/_g' /etc/slackpkg/mirrors
+sed -i \
+'s_^http://ftp.osuosl.org/.2/slackware/slackware64-14.1/_# http://ftp.osuosl.org/.2/slackware/slackware64-14.1/_g' /etc/slackpkg/mirrors
 ### osuosl mirrors are stable and fast (they are used for the changelogs), choose mirrorbrain if you are far from oregon
-sed -i 's_^# http://ftp.osuosl.org/.2/slackware/slackware-current/_http://ftp.osuosl.org/.2/slackware/slackware-current/_g' /etc/slackpkg/mirrors
-sed -i 's_^# http://ftp.osuosl.org/.2/slackware/slackware64-current/_http://ftp.osuosl.org/.2/slackware/slackware64-current/_g' /etc/slackpkg/mirrors
+sed -i \
+'s_^# http://ftp.osuosl.org/.2/slackware/slackware-current/_http://ftp.osuosl.org/.2/slackware/slackware-current/_g' /etc/slackpkg/mirrors
+sed -i \
+'s_^# http://ftp.osuosl.org/.2/slackware/slackware64-current/_http://ftp.osuosl.org/.2/slackware/slackware64-current/_g' /etc/slackpkg/mirrors
 
 
 wget -N $BASHRC -P ~/
@@ -135,6 +139,12 @@ git config --global user.email "$GITEMAIL"
 git config --global credential.helper 'cache --timeout=3600'
 git config --global push.default simple
 git config --global core.pager "less -r"
+
+## sbo git hooks
+wget -N https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/slackware/sbo/hooks/commit-msg \
+  -P /usr/share/git-core/templates/hooks/
+wget -N https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/slackware/sbo/hooks/pre-commit \
+  -P /usr/share/git-core/templates/hooks/
 
 
 wget -N $TOUCHPCONF -P /etc/X11/xorg.conf.d/
@@ -223,8 +233,6 @@ else
   sed -i 's/^\([^#]\)/#\1/g' /etc/rc.d/rc.inet1.conf
   sed -i 's/^\([^#]\)/#\1/g' /etc/rc.d/rc.wireless.conf
 
-  ## ntp cron job (the bad way)
-  #wget -N https://raw2.github.com/ryanpcmcquen/linuxTweaks/master/slackware/clocksync -P /etc/cron.daily/
 
   ## set up ntp daemon (the good way)
   /etc/rc.d/rc.ntpd stop
@@ -265,6 +273,10 @@ else
   ## doesn't hurt to have it  ; ^)
   if [ -z "$( ls /var/log/packages/ | grep libtxc_dxtn )" ]; then
     sbopkg -B -i libtxc_dxtn
+  fi
+
+  if [ -z "$( ls /var/log/packages/ | grep tinyterm )" ]; then
+    sbopkg -B -i tinyterm
   fi
 
   if [ -z "$( ls /var/log/packages/ | grep lame )" ]; then
@@ -333,27 +345,34 @@ else
   mv ./Numix/ /usr/share/themes/
   rm -rf ./Numix/
 
-  wget -N https://raw.githubusercontent.com/numixproject/numix-kde-theme/master/Numix.colors -P /usr/share/apps/color-schemes/
+  wget -N \
+  https://raw.githubusercontent.com/numixproject/numix-kde-theme/master/Numix.colors -P /usr/share/apps/color-schemes/
   mv /usr/share/apps/color-schemes/Numix.colors /usr/share/apps/color-schemes/Numix-KDE.colors
-  wget -N https://raw.githubusercontent.com/numixproject/numix-kde-theme/master/Numix.qtcurve -P /usr/share/apps/QtCurve/
+  wget -N \
+  https://raw.githubusercontent.com/numixproject/numix-kde-theme/master/Numix.qtcurve -P /usr/share/apps/QtCurve/
   mv /usr/share/apps/QtCurve/Numix.qtcurve /usr/share/apps/QtCurve/Numix-KDE.qtcurve
 
   ## caledonia kde theme
-  wget -N http://sourceforge.net/projects/caledonia/files/Caledonia%20%28Plasma-KDE%20Theme%29/$CALPLAS -P ~/
+  wget -N \
+  http://sourceforge.net/projects/caledonia/files/Caledonia%20%28Plasma-KDE%20Theme%29/$CALPLAS -P ~/
   tar xf ~/$CALPLAS -C /usr/share/apps/desktoptheme/
   rm ~/$CALPLAS
 
   ## get caledonia wallpapers, who doesn't like nice wallpapers?
-  wget -N http://sourceforge.net/projects/caledonia/files/Caledonia%20Official%20Wallpapers/$CALWALL -P ~/
+  wget -N \
+  http://sourceforge.net/projects/caledonia/files/Caledonia%20Official%20Wallpapers/$CALWALL -P ~/
   tar xf ~/$CALWALL
   cp -r ~/Caledonia_Official_Wallpaper_Collection/* /usr/share/wallpapers/
   rm -rf ~/Caledonia_Official_Wallpaper_Collection/
   rm ~/$CALWALL
 
   ## a few numix wallpapers also
-  wget -N http://fc03.deviantart.net/fs71/f/2013/305/3/6/numix___halloween___wallpaper_by_satya164-d6skv0g.zip -P ~/
-  wget -N http://fc00.deviantart.net/fs70/f/2013/249/7/6/numix___fragmented_space_by_me4oslav-d6l8ihd.zip -P ~/
-  wget -N http://fc09.deviantart.net/fs70/f/2013/224/b/6/numix___name_of_the_doctor___wallpaper_by_satya164-d6hvzh7.zip -P ~/
+  wget -N \
+  http://fc03.deviantart.net/fs71/f/2013/305/3/6/numix___halloween___wallpaper_by_satya164-d6skv0g.zip -P ~/
+  wget -N \
+  http://fc00.deviantart.net/fs70/f/2013/249/7/6/numix___fragmented_space_by_me4oslav-d6l8ihd.zip -P ~/
+  wget -N \
+  http://fc09.deviantart.net/fs70/f/2013/224/b/6/numix___name_of_the_doctor___wallpaper_by_satya164-d6hvzh7.zip -P ~/
   unzip numix___halloween___wallpaper_by_satya164-d6skv0g.zip
   unzip numix___fragmented_space_by_me4oslav-d6l8ihd.zip
   unzip numix___name_of_the_doctor___wallpaper_by_satya164-d6hvzh7.zip
