@@ -251,6 +251,22 @@ else
     sbopkg -B -i superkey-launch
   fi
 
+  if [ -z "$( ls /var/log/packages/ | grep imlib2 )" ]; then
+    sbopkg -B -i imlib2
+  fi
+
+  if [ -z "$( ls /var/log/packages/ | grep giblib )" ]; then
+    sbopkg -B -i giblib
+  fi
+
+  if [ -z "$( ls /var/log/packages/ | grep scrot )" ]; then
+    sbopkg -B -i scrot
+  fi
+
+  if [ -z "$( ls /var/log/packages/ | grep screenfetch )" ]; then
+    sbopkg -B -i screenfetch
+  fi
+
   ## this library is necessary for some games,
   ## doesn't hurt to have it  ; ^)
   if [ -z "$( ls /var/log/packages/ | grep libtxc_dxtn )" ]; then
