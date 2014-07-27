@@ -9,7 +9,7 @@ Configure Slackware installs in no time with config-o-matic! (patent pending)
 
 3 options are presented when running the ROOT script:
 
-1. NEARFREE: Follows http://freeslack.net/, but does not remove the kernel.
+1. NEARFREE: Follows http://freeslack.net/, but does not remove the kernel. This is NOT compatible with other options.
 2. VANILLA: Does not install any extra packages.
 3. MATE: Installs the Mate desktop environment.
 
