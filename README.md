@@ -1,16 +1,19 @@
-##config-o-matic
+#config-o-matic
 
-Slackware is easy to configure with config-o-matic.
 Configure Slackware installs in no time with config-o-matic! (patent pending)
 
-(Now supports 32 and 64 bit!)
+- Now supports 32 and 64 bit!
 
-(Note that $ user configuration is the same regardless of using stable or current.)
+- Note that $ user configuration is the same regardless of using stable or current.
 
-If you do not want any extra packages, choose VANILLA on ROOT script.
 
-NEARFREE option now to remove all non-free packages except the kernel. At this time,
-NEARFREE is not valid with any other options.
+3 options are presented when running the ROOT script:
+
+1. NEARFREE: Follows freeslack.net, but does not remove the kernel.
+2. VANILLA: Does not install any extra packages.
+3. MATE: Installs the Mate desktop environment.
+
+Choosing 'no' on all 3 is considered the 'normal' route.
 
 
 ###STABLE
