@@ -324,6 +324,14 @@ else
     sbopkg -B -i copy
   fi
 
+  if [ -z "$( ls /var/log/packages/ | grep murrine )" ]; then
+    sbopkg -B -i murrine
+  fi
+
+  if [ -z "$( ls /var/log/packages/ | grep murrine-themes )" ]; then
+    sbopkg -B -i murrine-themes
+  fi
+
   ## because QtCurve looks amazing
   if [ ! -z "$( ls /var/log/packages/ | grep kdelibs )" ]; then
     if [ -z "$( ls /var/log/packages/ | grep QtCurve-KDE4 )" ]; then
