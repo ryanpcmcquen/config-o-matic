@@ -55,6 +55,21 @@ case $response in
 esac
 
 
+read -r -p "Would you like to install Wicd? \
+(NetworkManager will be disabled, and you may need to manually adjust \
+autostart settings) \
+ [y/N]: " response
+case $response in
+  [yY][eE][sS]|[yY])
+    export WICD=true;
+    echo You are installing Wicd.;
+    ;;
+  *)
+    echo You are not installing Wicd.;
+    ;;
+esac
+
+
 if [ "$NEARFREE" != true ]; then
   read -r -p "Would you like to go VANILLA? [y/N]: " response
   case $response in
@@ -161,6 +176,8 @@ elif [ "$MATE" = true ] && [ "$NEARFREE" != true ]; then
   wget -N $SPPLUSCONF32 -P /etc/slackpkg/
 fi
 
+
+
 if [ "$NEARFREE" = true ]; then
   removepkg getty-ps lha unarj zoo amp \
   bluez-firmware ipw2100-fw ipw2200-fw trn \
@@ -191,7 +208,6 @@ else
   sed -i 's/^BATCH=off/BATCH=on/g' /etc/slackpkg/slackpkg.conf
   sed -i 's/^DEFAULT_ANSWER=n/DEFAULT_ANSWER=y/g' /etc/slackpkg/slackpkg.conf
 
-
   ## although it seems sloppy to update twice,
   ## this prevents breakage if slackpkg gets updated
   slackpkg update gpg && slackpkg update
@@ -202,20 +218,15 @@ else
   sed -i 's/^BATCH=off/BATCH=on/g' /etc/slackpkg/slackpkg.conf
   sed -i 's/^DEFAULT_ANSWER=n/DEFAULT_ANSWER=y/g' /etc/slackpkg/slackpkg.conf
   slackpkg update gpg && slackpkg update
-  slackpkg install wicd vlc chromium
+  slackpkg install vlc chromium
 
   ## eric hameleers has updated multilib to include this package
-#  if [ "$( uname -m )" = "x86_64" ]; then
-#    wget -N http://mirrors.slackware.com/slackware/slackware-current/slackware/x/$LIBXSHM -P ~/
-#    installpkg ~/$LIBXSHM
-#    rm ~/$LIBXSHM
-#    slackpkg blacklist libxshmfence
-#  fi
-
-  chmod -x /etc/rc.d/rc.networkmanager
-  sed -i 's/^\([^#]\)/#\1/g' /etc/rc.d/rc.inet1.conf
-  sed -i 's/^\([^#]\)/#\1/g' /etc/rc.d/rc.wireless.conf
-
+  #  if [ "$( uname -m )" = "x86_64" ]; then
+  #    wget -N http://mirrors.slackware.com/slackware/slackware-current/slackware/x/$LIBXSHM -P ~/
+  #    installpkg ~/$LIBXSHM
+  #    rm ~/$LIBXSHM
+  #    slackpkg blacklist libxshmfence
+  #  fi
 
   ## set up ntp daemon (the good way)
   /etc/rc.d/rc.ntpd stop
@@ -392,6 +403,15 @@ else
   rm ~/*.jpg
   rm ~/*.png
 
+fi
+
+
+
+if ["$WICD" = true ]; then
+  slackpkg install wicd
+  chmod -x /etc/rc.d/rc.networkmanager
+  sed -i 's/^\([^#]\)/#\1/g' /etc/rc.d/rc.inet1.conf
+  sed -i 's/^\([^#]\)/#\1/g' /etc/rc.d/rc.wireless.conf
 fi
 
 
