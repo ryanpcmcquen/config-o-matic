@@ -408,6 +408,7 @@ fi
 
 
 if ["$WICD" = true ]; then
+  slackpkg update gpg && slackpkg update
   slackpkg install wicd
   chmod -x /etc/rc.d/rc.networkmanager
   sed -i 's/^\([^#]\)/#\1/g' /etc/rc.d/rc.inet1.conf
@@ -416,6 +417,7 @@ fi
 
 
 if [ "$MATE" = true ] && [ "$NEARFREE" != true ]; then
+  slackpkg update gpg && slackpkg update
   slackpkg install msb
 fi
 

@@ -58,6 +58,21 @@ case $response in
 esac
 
 
+read -r -p "Would you like to install Wicd? \
+(NetworkManager will be disabled, and you may need to manually adjust \
+autostart settings) \
+ [y/N]: " response
+case $response in
+  [yY][eE][sS]|[yY])
+    export WICD=true;
+    echo You are installing Wicd.;
+    ;;
+  *)
+    echo You are not installing Wicd.;
+    ;;
+esac
+
+
 if [ "$NEARFREE" != true ]; then
   read -r -p "Would you like to go VANILLA? [y/N]: " response
   case $response in
@@ -217,22 +232,15 @@ else
   sed -i 's/^BATCH=off/BATCH=on/g' /etc/slackpkg/slackpkg.conf
   sed -i 's/^DEFAULT_ANSWER=n/DEFAULT_ANSWER=y/g' /etc/slackpkg/slackpkg.conf
   slackpkg update gpg && slackpkg update
-  slackpkg install wicd vlc chromium
-
+  slackpkg install vlc chromium
 
   ## eric hameleers has updated multilib to include this package
-#  if [ "$( uname -m )" = "x86_64" ]; then
-#    wget -N http://mirrors.slackware.com/slackware/slackware-current/slackware/x/$LIBXSHM -P ~/
-#    installpkg ~/$LIBXSHM
-#    rm ~/$LIBXSHM
-#    slackpkg blacklist libxshmfence
-#  fi
-
-
-  chmod -x /etc/rc.d/rc.networkmanager
-  sed -i 's/^\([^#]\)/#\1/g' /etc/rc.d/rc.inet1.conf
-  sed -i 's/^\([^#]\)/#\1/g' /etc/rc.d/rc.wireless.conf
-
+  #  if [ "$( uname -m )" = "x86_64" ]; then
+  #    wget -N http://mirrors.slackware.com/slackware/slackware-current/slackware/x/$LIBXSHM -P ~/
+  #    installpkg ~/$LIBXSHM
+  #    rm ~/$LIBXSHM
+  #    slackpkg blacklist libxshmfence
+  #  fi
 
   ## set up ntp daemon (the good way)
   /etc/rc.d/rc.ntpd stop
@@ -263,7 +271,6 @@ else
   ## then sync the slackbuilds.org repo
   sbopkg -B -u
   sbopkg -B -r
-
 
   if [ -z "$( ls /var/log/packages/ | grep superkey-launch )" ]; then
     sbopkg -B -i superkey-launch
@@ -414,7 +421,18 @@ else
 fi
 
 
+
+if ["$WICD" = true ]; then
+  slackpkg update gpg && slackpkg update
+  slackpkg install wicd
+  chmod -x /etc/rc.d/rc.networkmanager
+  sed -i 's/^\([^#]\)/#\1/g' /etc/rc.d/rc.inet1.conf
+  sed -i 's/^\([^#]\)/#\1/g' /etc/rc.d/rc.wireless.conf
+fi
+
+
 if [ "$MATE" = true ] && [ "$NEARFREE" != true ]; then
+  slackpkg update gpg && slackpkg update
   slackpkg install msb
 fi
 
