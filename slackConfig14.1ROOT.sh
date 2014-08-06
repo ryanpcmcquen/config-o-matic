@@ -153,6 +153,9 @@ wget -N https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/slackw
   -P /usr/share/git-core/templates/hooks/
 wget -N https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/slackware/sbo/hooks/pre-commit \
   -P /usr/share/git-core/templates/hooks/
+  ## this is just in case permissions are incorrect,
+  ## these files should already be 755  ;^)
+  chmod 755 /usr/share/git-core/templates/hooks/*
 
 
 wget -N $TOUCHPCONF -P /etc/X11/xorg.conf.d/
