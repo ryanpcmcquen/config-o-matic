@@ -7,12 +7,12 @@ Configure Slackware installs in no time with config-o-matic! (patent pending)
 
 4 options are presented when running the ROOT script:
 
-1. WICD: Installs Wicd, disables NetworkManager.
-2. NEARFREE: Follows http://freeslack.net/, but does not remove the kernel. This is NOT compatible with other options (except WICD).
+1. NEARFREE: Follows http://freeslack.net/, but does not remove the kernel. This is NOT compatible with other options (except WICD).
+2. WICD: Installs Wicd, disables NetworkManager.
 3. VANILLA: Does not install any extra packages.
 4. MATE: Installs the Mate desktop environment.
 
-Choosing 'no' on 2-4 is considered the 'normal' route.
+Choosing 'no' on 1|3|4 is considered the 'normal' route. WICD is independent of other options.
 
 
 ###STABLE
