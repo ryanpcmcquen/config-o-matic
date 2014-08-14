@@ -22,7 +22,7 @@ XFCECONF="https://raw2.github.com/ryanpcmcquen/linuxTweaks/master/xfceSetup.sh"
 
 MATECONF="https://raw2.github.com/ryanpcmcquen/linuxTweaks/master/mateSetup.sh"
 
-GITNAME="Ryan Q"
+GITNAME="Ryan P.C. McQuen"
 GITEMAIL="ryan.q@linux.com"
 
 
