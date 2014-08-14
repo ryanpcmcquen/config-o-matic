@@ -44,6 +44,18 @@ EOF
 fi
 
 
+echo
+echo
+echo "*************************************************************"
+echo "*************************************************************"
+echo "********          WELCOME TO                         ********"
+echo "********              CONFIG-O-MATIC                 ********"
+echo "*************************************************************"
+echo "*************************************************************"
+echo
+echo
+
+
 read -r -p "Would you like to become NEARFREE? \
 (follows freeslack.net, but keeps kernel, not valid with other options) \
 [y/N]: " response
