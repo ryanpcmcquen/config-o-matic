@@ -140,12 +140,13 @@ sed -i \
 wget -N $BASHRC -P ~/
 wget -N $BASHPR -P ~/
 
-
 wget -N $VIMRC -P ~/
 
 
 ## set tmux scrollback value
 tmux set-option -g history-limit 9999
+## set to xterm otherwise vi will break
+tmux set-option -g default-terminal xterm-color
 
 
 ## git config
