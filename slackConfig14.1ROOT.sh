@@ -217,6 +217,9 @@ else
 
   ## slackbuilds repo
   git clone git://slackbuilds.org/slackbuilds.git
+  cd ~/slackbuilds/
+  git remote add hub https://github.com/ryanpcmcquen/slackbuilds-dot-org.git
+  cd
 
   ## my slackbuilds
   git clone https://github.com/ryanpcmcquen/ryanpc-slackbuilds.git
