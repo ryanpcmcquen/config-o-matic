@@ -17,7 +17,7 @@ BASHPR="https://raw2.github.com/ryanpcmcquen/linuxTweaks/master/slackware/root/.
 
 VIMRC="https://raw2.github.com/ryanpcmcquen/linuxTweaks/master/.vimrc"
 
-GITNAME="Ryan Q"
+GITNAME="Ryan P.C. McQuen"
 GITEMAIL="ryan.q@linux.com"
 
 TOUCHPCONF="https://raw2.github.com/ryanpcmcquen/linuxTweaks/master/51-synaptics.conf"
