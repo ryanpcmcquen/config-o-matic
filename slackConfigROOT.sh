@@ -441,7 +441,7 @@ fi
 
 
 
-if ["$WICD" = true ]; then
+if [ "$WICD" = true ]; then
   slackpkg update gpg && slackpkg update
   slackpkg install wicd
   chmod -x /etc/rc.d/rc.networkmanager
