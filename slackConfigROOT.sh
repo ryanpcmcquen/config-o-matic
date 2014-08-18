@@ -28,7 +28,7 @@ TOUCHPCONF="https://raw2.github.com/ryanpcmcquen/linuxTweaks/master/51-synaptics
 
 GETEXTRA="https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/slackware/getExtraSlackBuildsCURRENT.sh"
 
-CALPLAS="Caledonia-1.6.2.tar.gz"
+CALPLAS="Caledonia-1.9.tar.gz"
 CALWALL="Caledonia_Official_Wallpaper_Collection-1.5.tar.gz"
 
 
