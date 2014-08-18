@@ -228,8 +228,8 @@ else
   curl $GETEXTRA | sh
 
   ## slackbuilds repo
-  git clone git://slackbuilds.org/slackbuilds.git
-  cd ~/slackbuilds/
+  git clone git://slackbuilds.org/slackbuilds.git sbo
+  cd ~/sbo/
   git remote add hub https://github.com/ryanpcmcquen/slackbuilds-dot-org.git
   cd
 
