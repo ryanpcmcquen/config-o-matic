@@ -138,9 +138,7 @@ esac
 
 wget -N $BASHRC -P ~/
 wget -N $BASHPR -P ~/
-
 wget -N $VIMRC -P ~/
-
 
 ## set tmux scrollback value
 tmux set-option -g history-limit 9999
@@ -168,7 +166,6 @@ sed -i 's/#\[0-9]+_SBo/\
 \[0-9]+_SBo\
 sbopkg/g' /etc/slackpkg/blacklist
 
-
 ### undo current
 sed -i \
 's_^http://ftp.osuosl.org/.2/slackware/slackware-current/_# http://ftp.osuosl.org/.2/slackware/slackware-current/_g' /etc/slackpkg/mirrors
@@ -179,7 +176,6 @@ sed -i \
 's_^# http://ftp.osuosl.org/.2/slackware/slackware-14.1/_http://ftp.osuosl.org/.2/slackware/slackware-14.1/_g' /etc/slackpkg/mirrors
 sed -i \
 's_^# http://ftp.osuosl.org/.2/slackware/slackware64-14.1/_http://ftp.osuosl.org/.2/slackware/slackware64-14.1/_g' /etc/slackpkg/mirrors
-
 
 ## git config
 git config --global user.name "$GITNAME"
@@ -196,7 +192,6 @@ wget -N https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/slackw
   ## this is just in case permissions are incorrect,
   ## these files should already be 755  ;^)
   chmod 755 /usr/share/git-core/templates/hooks/*
-
 
 wget -N $TOUCHPCONF -P /etc/X11/xorg.conf.d/
 
@@ -218,7 +213,6 @@ if [ "$( uname -m )" = "x86_64" ] && [ "$NEARFREE" != true ]; then
 elif [ "$MATE" = true ] && [ "$NEARFREE" != true ]; then
   wget -N $SPPLUSCONF32 -P /etc/slackpkg/
 fi
-
 
 
 if [ "$NEARFREE" = true ]; then
@@ -391,7 +385,7 @@ if [ "$MATE" = true ] && [ "$NEARFREE" != true ]; then
 fi
 
 
-if [ "$SBOGIT" = true ]; then
+if [ "$SBOGIT" = true ] && [ "$NEARFREE" != true ]; then
   ## slackbuilds repo
   git clone git://slackbuilds.org/slackbuilds.git sbo
   cd ~/sbo/
