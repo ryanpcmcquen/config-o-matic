@@ -5,16 +5,13 @@ Configure Slackware installs in no time with config-o-matic! (patent pending)
 - Now supports 32 and 64 bit!
 
 
-6 options are presented when running the ROOT script:
+5 options are presented when running the ROOT script:
 
 1. WICD: Installs Wicd, disables NetworkManager.
-2. NEARFREE: Follows http://freeslack.net/, but does not remove the kernel. This is NOT compatible with VANILLA, MATE and SBOGIT. If you select NEARFREE, you will NOT be presented with incompatible options.
-3. VANILLA: Does not install any extra packages.
+2. NEARFREE: Follows http://freeslack.net/, but does not remove the kernel. This is NOT compatible with MISCELLANY, MATE and SBOGIT. If you select NEARFREE, you will NOT be presented with incompatible options.
+3. MISCELLANY: Installs a lot of additional packages, themes and miscellany.
 4. MATE: Installs the Mate desktop environment.
 5. SBOGIT: Clones the SBo git repo and my slackbuild repo into /root/.
-6. THEMES: Installs a bunch of Caledonia and Numix wallpapers/themes/icons (all GPL).
-
-Choosing 'no' for NEARFREE, VANILLA and MATE is considered the 'normal' route. It will install a lot of additional packages, themes and miscellany.
 
 
 ###STABLE
