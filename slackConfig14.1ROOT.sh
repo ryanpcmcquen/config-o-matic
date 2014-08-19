@@ -66,7 +66,6 @@ case $response in
     ;;
 esac
 
-
 read -r -p "Would you like to become NEARFREE? \
 (follows freeslack.net, but keeps kernel, not valid with other options) \
 [y/N]: " response
@@ -79,7 +78,6 @@ case $response in
     echo You are not becoming NEARFREE.;
     ;;
 esac
-
 
 if [ "$NEARFREE" != true ]; then
   read -r -p "Would you like to install additional packages, themes and miscellany? [y/N]: " response
@@ -94,7 +92,6 @@ if [ "$NEARFREE" != true ]; then
   esac
 fi
 
-
 if [ "$NEARFREE" != true ]; then
   read -r -p "Would you like to install Mate? [y/N]: " response
   case $response in
@@ -107,7 +104,6 @@ if [ "$NEARFREE" != true ]; then
       ;;
   esac
 fi
-
 
 if [ "$NEARFREE" != true ]; then
   read -r -p "Would you like to install additional git repos? [y/N]: " response
@@ -429,12 +425,10 @@ if [ "$WICD" = true ]; then
   sed -i 's/^\([^#]\)/#\1/g' /etc/rc.d/rc.wireless.conf
 fi
 
-
 if [ "$MATE" = true ] && [ "$NEARFREE" != true ]; then
   slackpkg update gpg && slackpkg update
   slackpkg install msb
 fi
-
 
 if [ "$SBOGIT" = true ] && [ "$NEARFREE" != true ]; then
   ## slackbuilds repo
@@ -451,6 +445,7 @@ fi
 ## set slackpkg back to normal
 sed -i 's/^BATCH=on/BATCH=off/g' /etc/slackpkg/slackpkg.conf
 sed -i 's/^DEFAULT_ANSWER=y/DEFAULT_ANSWER=n/g' /etc/slackpkg/slackpkg.conf
+
 
 echo
 echo
