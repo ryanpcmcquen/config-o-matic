@@ -53,20 +53,6 @@ echo
 echo
 
 
-read -r -p "Would you like to become NEARFREE? \
-(follows freeslack.net, but keeps kernel, not valid with other options) \
-[y/N]: " response
-case $response in
-  [yY][eE][sS]|[yY])
-    export NEARFREE=true;
-    echo You are becoming NEARFREE.;
-    ;;
-  *)
-    echo You are not becoming NEARFREE.;
-    ;;
-esac
-
-
 read -r -p "Would you like to install Wicd? \
 (NetworkManager will be disabled, and you may need to manually adjust \
 autostart settings) \
@@ -78,6 +64,20 @@ case $response in
     ;;
   *)
     echo You are not installing Wicd.;
+    ;;
+esac
+
+
+read -r -p "Would you like to become NEARFREE? \
+(follows freeslack.net, but keeps kernel, not valid with other options) \
+[y/N]: " response
+case $response in
+  [yY][eE][sS]|[yY])
+    export NEARFREE=true;
+    echo You are becoming NEARFREE.;
+    ;;
+  *)
+    echo You are not becoming NEARFREE.;
     ;;
 esac
 
@@ -108,6 +108,32 @@ if [ "$NEARFREE" != true ]; then
       ;;
   esac
 fi
+
+
+if [ "$NEARFREE" != true ]; then
+  read -r -p "Would you like to install additional git repos? [y/N]: " response
+  case $response in
+    [yY][eE][sS]|[yY])
+      export SBOGIT=true;
+      echo You have chosen to install additional git repos.;
+      ;;
+    *)
+      echo You are not installing additional git repos.;
+      ;;
+  esac
+fi
+
+
+read -r -p "Would you like to install additional themes (numix, caledonia)? [y/N]: " response
+case $response in
+  [yY][eE][sS]|[yY])
+    export THEMES=true;
+    echo You are installing additional themes.;
+    ;;
+  *)
+    echo You are not installing additional themes.;
+    ;;
+esac
 
 
 wget -N $BASHRC -P ~/
@@ -214,15 +240,6 @@ elif [ "$VANILLA" = true ]; then
   echo "You have gone VANILLA."
 else
   curl $GETEXTRA | sh
-
-  ## slackbuilds repo
-  git clone git://slackbuilds.org/slackbuilds.git sbo
-  cd ~/sbo/
-  git remote add hub https://github.com/ryanpcmcquen/slackbuilds-dot-org.git
-  cd
-
-  ## my slackbuilds
-  git clone https://github.com/ryanpcmcquen/ryanpc-slackbuilds.git
 
   ## set slackpkg to non-interactive mode to run without prompting
   sed -i 's/^BATCH=off/BATCH=on/g' /etc/slackpkg/slackpkg.conf
@@ -356,6 +373,37 @@ else
     sbopkg -B -i QtCurve-Gtk2
   fi
 
+fi
+
+
+if [ "$WICD" = true ]; then
+  slackpkg update gpg && slackpkg update
+  slackpkg install wicd
+  chmod -x /etc/rc.d/rc.networkmanager
+  sed -i 's/^\([^#]\)/#\1/g' /etc/rc.d/rc.inet1.conf
+  sed -i 's/^\([^#]\)/#\1/g' /etc/rc.d/rc.wireless.conf
+fi
+
+
+if [ "$MATE" = true ] && [ "$NEARFREE" != true ]; then
+  slackpkg update gpg && slackpkg update
+  slackpkg install msb
+fi
+
+
+if [ "$SBOGIT" = true ]; then
+  ## slackbuilds repo
+  git clone git://slackbuilds.org/slackbuilds.git sbo
+  cd ~/sbo/
+  git remote add hub https://github.com/ryanpcmcquen/slackbuilds-dot-org.git
+  cd
+
+  ## my slackbuilds
+  git clone https://github.com/ryanpcmcquen/ryanpc-slackbuilds.git
+fi
+
+
+if [ "$THEMES" = true ]; then
   ## numix stuff is dead sexy
   git clone https://github.com/numixproject/numix-icon-theme.git
   mv ./numix-icon-theme/Numix/ /usr/share/icons/
@@ -422,23 +470,6 @@ else
   #cp ~/*.jpg /usr/share/backgrounds/
   rm ~/*.jpg
   rm ~/*.png
-
-fi
-
-
-
-if [ "$WICD" = true ]; then
-  slackpkg update gpg && slackpkg update
-  slackpkg install wicd
-  chmod -x /etc/rc.d/rc.networkmanager
-  sed -i 's/^\([^#]\)/#\1/g' /etc/rc.d/rc.inet1.conf
-  sed -i 's/^\([^#]\)/#\1/g' /etc/rc.d/rc.wireless.conf
-fi
-
-
-if [ "$MATE" = true ] && [ "$NEARFREE" != true ]; then
-  slackpkg update gpg && slackpkg update
-  slackpkg install msb
 fi
 
 
