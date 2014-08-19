@@ -119,6 +119,7 @@ if [ "$NEARFREE" != true ]; then
   esac
 fi
 
+
 ## configure lilo
 sed -i 's/^#compact/lba32\
 compact/g' /etc/lilo.conf
@@ -222,12 +223,9 @@ if [ "$NEARFREE" = true ]; then
 
   echo "You have become NEARFREE, to update your kernel, head to freeslack.net."
 elif [ "$MISCELLANY" = true ]; then
-  curl $GETEXTRA | sh
-
   ## set slackpkg to non-interactive mode to run without prompting
   sed -i 's/^BATCH=off/BATCH=on/g' /etc/slackpkg/slackpkg.conf
   sed -i 's/^DEFAULT_ANSWER=n/DEFAULT_ANSWER=y/g' /etc/slackpkg/slackpkg.conf
-
 
   ## although it seems sloppy to update twice,
   ## this prevents breakage if slackpkg gets updated
@@ -441,7 +439,9 @@ if [ "$MATE" = true ] && [ "$NEARFREE" != true ]; then
   slackpkg install msb
 fi
 
-if [ "$SBOGIT" = true ] && [ "$NEARFREE" != true ]; then
+if [ "$SCRIPTS" = true ] && [ "$NEARFREE" != true ]; then
+  curl $GETEXTRA | sh
+
   ## slackbuilds repo
   git clone git://slackbuilds.org/slackbuilds.git sbo
   cd ~/sbo/
