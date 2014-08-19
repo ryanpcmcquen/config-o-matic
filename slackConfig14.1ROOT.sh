@@ -212,8 +212,6 @@ if [ "$NEARFREE" = true ]; then
 
   echo "You have become NEARFREE, to update your kernel, head to freeslack.net."
 elif [ "$MISCELLANY" = true ]; then
-  curl $GETEXTRA | sh
-
   ## set slackpkg to non-interactive mode to run without prompting
   sed -i 's/^BATCH=off/BATCH=on/g' /etc/slackpkg/slackpkg.conf
   sed -i 's/^DEFAULT_ANSWER=n/DEFAULT_ANSWER=y/g' /etc/slackpkg/slackpkg.conf
@@ -431,6 +429,8 @@ if [ "$MATE" = true ] && [ "$NEARFREE" != true ]; then
 fi
 
 if [ "$SBOGIT" = true ] && [ "$NEARFREE" != true ]; then
+  curl $GETEXTRA | sh
+
   ## slackbuilds repo
   git clone git://slackbuilds.org/slackbuilds.git sbo
   cd ~/sbo/
