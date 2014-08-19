@@ -12,7 +12,7 @@ Configure Slackware installs in no time with config-o-matic! (patent pending)
 3. VANILLA: Does not install any extra packages.
 4. MATE: Installs the Mate desktop environment.
 
-Choosing 'no' for NEARFREE, VANILLA and MATE is considered the 'normal' route.
+Choosing 'no' for NEARFREE, VANILLA and MATE is considered the 'normal' route. It will install a lot of additional packages, themes and miscellany.
 
 
 ###STABLE
