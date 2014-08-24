@@ -7,6 +7,10 @@
 ## set config files here:
 SBOPKGDL="http://sbopkg.googlecode.com/files/sbopkg-0.37.0-noarch-1_cng.tgz"
 SPPLUSDL="http://sourceforge.net/projects/slackpkgplus/files/slackpkg%2B-1.3.2-noarch-1mt.txz"
+
+SPPLUSMATECONF64="https://raw2.github.com/ryanpcmcquen/linuxTweaks/master/slackware/64/14.1/mate/slackpkgplus.conf"
+SPPLUSMLIBCONF64="https://raw2.github.com/ryanpcmcquen/linuxTweaks/master/slackware/64/14.1/multilib/slackpkgplus.conf"
+
 SPPLUSCONF64="https://raw2.github.com/ryanpcmcquen/linuxTweaks/master/slackware/64/14.1/slackpkgplus.conf"
 SPPLUSCONF32="https://raw2.github.com/ryanpcmcquen/linuxTweaks/master/slackware/32/14.1/slackpkgplus.conf"
 
@@ -105,6 +109,19 @@ if [ "$NEARFREE" != true ]; then
   esac
 fi
 
+if [ "$NEARFREE" != true ] && [ "$MATE" != true ] && [ "$( uname -m )" = "x86_64" ]; then
+  read -r -p "Would you like to go MULTILIB? [y/N]: " response
+  case $response in
+    [yY][eE][sS]|[yY])
+      export MULTILIB=true;
+      echo You have chosen to go MULTILIB.;
+      ;;
+    *)
+      echo You are not going MULTILIB.;
+      ;;
+  esac
+fi
+
 if [ "$NEARFREE" != true ]; then
   read -r -p "Would you like to install additional SCRIPTS? [y/N]: " response
   case $response in
@@ -188,8 +205,14 @@ rm ~/*.t?z
 
 wget -N $INSCRPT -P /etc/
 
+## set slackpkg to non-interactive mode to run without prompting
+sed -i 's/^BATCH=off/BATCH=on/g' /etc/slackpkg/slackpkg.conf
+sed -i 's/^DEFAULT_ANSWER=n/DEFAULT_ANSWER=y/g' /etc/slackpkg/slackpkg.conf
+
 if [ "$( uname -m )" = "x86_64" ] && [ "$NEARFREE" != true ]; then
   if [ "$MATE" = true ]; then
+    wget -N $SPPLUSCONF64 -P /etc/slackpkg/
+  elif [ "$MULTILIB" = true ]; then
     wget -N $SPPLUSCONF64 -P /etc/slackpkg/
   fi
 elif [ "$MATE" = true ] && [ "$NEARFREE" != true ]; then
@@ -202,21 +225,12 @@ if [ "$NEARFREE" = true ]; then
   bluez-firmware ipw2100-fw ipw2200-fw trn \
   zd1211-firmware xfractint xgames xv
 
-  ## set slackpkg to non-interactive mode to run without prompting
-  sed -i 's/^BATCH=off/BATCH=on/g' /etc/slackpkg/slackpkg.conf
-  sed -i 's/^DEFAULT_ANSWER=n/DEFAULT_ANSWER=y/g' /etc/slackpkg/slackpkg.conf
-
   slackpkg blacklist getty-ps lha unarj zoo amp \
   bluez-firmware ipw2100-fw ipw2200-fw trn \
   zd1211-firmware xfractint xgames xv
 
   echo "You have become NEARFREE, to update your kernel, head to freeslack.net."
 elif [ "$MISCELLANY" = true ]; then
-  ## set slackpkg to non-interactive mode to run without prompting
-  sed -i 's/^BATCH=off/BATCH=on/g' /etc/slackpkg/slackpkg.conf
-  sed -i 's/^DEFAULT_ANSWER=n/DEFAULT_ANSWER=y/g' /etc/slackpkg/slackpkg.conf
-
-  ## although it seems sloppy to update twice,
   ## this prevents breakage if slackpkg gets updated
   slackpkg update gpg && slackpkg update
   slackpkg install-new && slackpkg upgrade-all
@@ -423,9 +437,24 @@ if [ "$WICD" = true ]; then
   sed -i 's/^\([^#]\)/#\1/g' /etc/rc.d/rc.wireless.conf
 fi
 
-if [ "$MATE" = true ] && [ "$NEARFREE" != true ]; then
+if [ "$MATE" = true ] && [ "$NEARFREE" != true ] && [ "$MULTILIB" != true ]; then
+  slackpkg update gpg && slackpkg update
+  slackpkg install-new && slackpkg upgrade-all
+  ## set slackpkg to non-interactive mode to run without prompting
+  sed -i 's/^BATCH=off/BATCH=on/g' /etc/slackpkg/slackpkg.conf
+  sed -i 's/^DEFAULT_ANSWER=n/DEFAULT_ANSWER=y/g' /etc/slackpkg/slackpkg.conf
   slackpkg update gpg && slackpkg update
   slackpkg install msb
+fi
+
+if [ "$MATE" != true ] && [ "$NEARFREE" != true ] && [ "$MULTILIB" = true ] && [ "$( uname -m )" = "x86_64" ]; then
+  slackpkg update gpg && slackpkg update
+  slackpkg install-new && slackpkg upgrade-all
+  ## set slackpkg to non-interactive mode to run without prompting
+  sed -i 's/^BATCH=off/BATCH=on/g' /etc/slackpkg/slackpkg.conf
+  sed -i 's/^DEFAULT_ANSWER=n/DEFAULT_ANSWER=y/g' /etc/slackpkg/slackpkg.conf
+  slackpkg update gpg && slackpkg update
+  slackpkg install multilib
 fi
 
 if [ "$SCRIPTS" = true ] && [ "$NEARFREE" != true ]; then
