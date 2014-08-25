@@ -7,11 +7,13 @@
 ## set config files here:
 SBOPKGDL="http://sbopkg.googlecode.com/files/sbopkg-0.37.0-noarch-1_cng.tgz"
 SPPLUSDL="http://sourceforge.net/projects/slackpkgplus/files/slackpkg%2B-1.3.2-noarch-1mt.txz"
-SPPLUSCONF64="https://raw2.github.com/ryanpcmcquen/linuxTweaks/master/slackware/64/slackpkgplus.conf"
-SPPLUSCONF32="https://raw2.github.com/ryanpcmcquen/linuxTweaks/master/slackware/32/slackpkgplus.conf"
 
-SPPLUSMATECONF64="https://raw2.github.com/ryanpcmcquen/linuxTweaks/master/slackware/64/mate/slackpkgplus.conf"
-SPPLUSMATECONF32="https://raw2.github.com/ryanpcmcquen/linuxTweaks/master/slackware/32/mate/slackpkgplus.conf"
+SPPLUSCONF64="https://raw2.github.com/ryanpcmcquen/linuxTweaks/master/slackware/64/current/slackpkgplus.conf"
+SPPLUSMATECONF64="https://raw2.github.com/ryanpcmcquen/linuxTweaks/master/slackware/64/current/mate/slackpkgplus.conf"
+SPPLUSMLIBCONF64="https://raw2.github.com/ryanpcmcquen/linuxTweaks/master/slackware/64/current/multilib/slackpkgplus.conf"
+
+SPPLUSCONF32="https://raw2.github.com/ryanpcmcquen/linuxTweaks/master/slackware/32/current/slackpkgplus.conf"
+SPPLUSMATECONF32="https://raw2.github.com/ryanpcmcquen/linuxTweaks/master/slackware/32/current/mate/slackpkgplus.conf"
 
 INSCRPT="https://raw2.github.com/ryanpcmcquen/linuxTweaks/master/slackware/initscript"
 
@@ -94,7 +96,7 @@ if [ "$NEARFREE" != true ]; then
 fi
 
 if [ "$NEARFREE" != true ]; then
-  read -r -p "Would you like to install MATE? [y/N]: " response
+  read -r -p "Would you like to install MATE? (choose no if you want MULTILIB) [y/N]: " response
   case $response in
     [yY][eE][sS]|[yY])
       export MATE=true;
@@ -102,6 +104,19 @@ if [ "$NEARFREE" != true ]; then
       ;;
     *)
       echo You are not installing MATE.;
+      ;;
+  esac
+fi
+
+if [ "$NEARFREE" != true ] && [ "$MATE" != true ] && [ "$( uname -m )" = "x86_64" ]; then
+  read -r -p "Would you like to go MULTILIB? [y/N]: " response
+  case $response in
+    [yY][eE][sS]|[yY])
+      export MULTILIB=true;
+      echo You have chosen to go MULTILIB.;
+      ;;
+    *)
+      echo You are not going MULTILIB.;
       ;;
   esac
 fi
@@ -180,54 +195,46 @@ wget -N https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/slackw
   chmod 755 /usr/share/git-core/templates/hooks/*
 
 wget -N $TOUCHPCONF -P /etc/X11/xorg.conf.d/
+wget -N $INSCRPT -P /etc/
 
 wget -N $SBOPKGDL -P ~/
 if [ "$NEARFREE" != true ]; then
   wget -N $SPPLUSDL -P ~/
 fi
-
 installpkg ~/*.t?z
-
 mv /etc/slackpkg/slackpkgplus.conf /etc/slackpkg/slackpkgplus.conf.old
-
-if [ "$( uname -m )" = "x86_64" ] && [ "$NEARFREE" != true ]; then
-  if [ "$MATE" = true ]; then
-    wget -N $SPPLUSMATECONF64 -P /etc/slackpkg/
-  else
-    wget -N $SPPLUSCONF64 -P /etc/slackpkg/
-  fi
-elif [ "$NEARFREE" != true ]; then
-  if [ "$MATE" = true ]; then
-    wget -N $SPPLUSMATECONF32 -P /etc/slackpkg/
-  else
-    wget -N $SPPLUSCONF32 -P /etc/slackpkg/
-  fi
-fi
-
 rm ~/*.t?z
 
-wget -N $INSCRPT -P /etc/
+## set slackpkg to non-interactive mode to run without prompting
+sed -i 's/^BATCH=off/BATCH=on/g' /etc/slackpkg/slackpkg.conf
+sed -i 's/^DEFAULT_ANSWER=n/DEFAULT_ANSWER=y/g' /etc/slackpkg/slackpkg.conf
+
+if [ "$NEARFREE" != true ] && [ "$( uname -m )" = "x86_64" ]; then
+  if [ "$MATE" = true ]; then
+    wget -N $SPPLUSMATECONF64 -P /etc/slackpkg/
+  elif [ "$MULTILIB" = true ]; then
+    wget -N $SPPLUSMLIBCONF64 -P /etc/slackpkg/
+  elif [ "$MATE" != true ] && [ "$MULTILIB" != true ] && [ "$MISCELLANY" = true ]; then
+    wget -N $SPPLUSCONF64 -P /etc/slackpkg/
+  fi
+elif [ "$NEARFREE" != true ] && [ "$MATE" = true ]; then
+  wget -N $SPPLUSMATECONF32 -P /etc/slackpkg/
+elif [ "$NEARFREE" != true ] && [ "$MATE" != true ] && [ "$MISCELLANY" = true ]; then
+  wget -N $SPPLUSCONF32 -P /etc/slackpkg/
+fi
+
 
 if [ "$NEARFREE" = true ]; then
   removepkg getty-ps lha unarj zoo amp \
   bluez-firmware ipw2100-fw ipw2200-fw trn \
   zd1211-firmware xfractint xgames xv
 
-  ## set slackpkg to non-interactive mode to run without prompting
-  sed -i 's/^BATCH=off/BATCH=on/g' /etc/slackpkg/slackpkg.conf
-  sed -i 's/^DEFAULT_ANSWER=n/DEFAULT_ANSWER=y/g' /etc/slackpkg/slackpkg.conf
-  
   slackpkg blacklist getty-ps lha unarj zoo amp \
   bluez-firmware ipw2100-fw ipw2200-fw trn \
   zd1211-firmware xfractint xgames xv
 
   echo "You have become NEARFREE, to update your kernel, head to freeslack.net."
 elif [ "$MISCELLANY" = true ]; then
-  ## set slackpkg to non-interactive mode to run without prompting
-  sed -i 's/^BATCH=off/BATCH=on/g' /etc/slackpkg/slackpkg.conf
-  sed -i 's/^DEFAULT_ANSWER=n/DEFAULT_ANSWER=y/g' /etc/slackpkg/slackpkg.conf
-
-  ## although it seems sloppy to update twice,
   ## this prevents breakage if slackpkg gets updated
   slackpkg update gpg && slackpkg update
   slackpkg install-new && slackpkg upgrade-all
@@ -434,12 +441,27 @@ if [ "$WICD" = true ]; then
   sed -i 's/^\([^#]\)/#\1/g' /etc/rc.d/rc.wireless.conf
 fi
 
-if [ "$MATE" = true ] && [ "$NEARFREE" != true ]; then
+if [ "$NEARFREE" != true ] && [ "$MULTILIB" != true ] && [ "$MATE" = true ]; then
+  slackpkg update gpg && slackpkg update
+  slackpkg install-new && slackpkg upgrade-all
+  ## set slackpkg to non-interactive mode to run without prompting
+  sed -i 's/^BATCH=off/BATCH=on/g' /etc/slackpkg/slackpkg.conf
+  sed -i 's/^DEFAULT_ANSWER=n/DEFAULT_ANSWER=y/g' /etc/slackpkg/slackpkg.conf
   slackpkg update gpg && slackpkg update
   slackpkg install msb
 fi
 
-if [ "$SCRIPTS" = true ] && [ "$NEARFREE" != true ]; then
+if [ "$NEARFREE" != true ] && [ "$MATE" != true ] && [ "$MULTILIB" = true ] && [ "$( uname -m )" = "x86_64" ]; then
+  slackpkg update gpg && slackpkg update
+  slackpkg install-new && slackpkg upgrade-all
+  ## set slackpkg to non-interactive mode to run without prompting
+  sed -i 's/^BATCH=off/BATCH=on/g' /etc/slackpkg/slackpkg.conf
+  sed -i 's/^DEFAULT_ANSWER=n/DEFAULT_ANSWER=y/g' /etc/slackpkg/slackpkg.conf
+  slackpkg update gpg && slackpkg update
+  slackpkg install multilib
+fi
+
+if [ "$NEARFREE" != true ] && [ "$SCRIPTS" = true ]; then
   curl $GETEXTRA | sh
 
   ## slackbuilds repo
