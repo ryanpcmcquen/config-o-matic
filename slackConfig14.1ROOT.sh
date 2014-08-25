@@ -98,7 +98,7 @@ if [ "$NEARFREE" != true ]; then
 fi
 
 if [ "$NEARFREE" != true ]; then
-  read -r -p "Would you like to install MATE? [y/N]: " response
+  read -r -p "Would you like to install MATE? (choose no if you want MULTILIB) [y/N]: " response
   case $response in
     [yY][eE][sS]|[yY])
       export MATE=true;
@@ -194,17 +194,14 @@ wget -N https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/slackw
   chmod 755 /usr/share/git-core/templates/hooks/*
 
 wget -N $TOUCHPCONF -P /etc/X11/xorg.conf.d/
+wget -N $INSCRPT -P /etc/
 
 wget -N $SBOPKGDL -P ~/
 if [ "$NEARFREE" != true ]; then
   wget -N $SPPLUSDL -P ~/
 fi
-
 installpkg ~/*.t?z
-
 rm ~/*.t?z
-
-wget -N $INSCRPT -P /etc/
 
 ## set slackpkg to non-interactive mode to run without prompting
 sed -i 's/^BATCH=off/BATCH=on/g' /etc/slackpkg/slackpkg.conf
