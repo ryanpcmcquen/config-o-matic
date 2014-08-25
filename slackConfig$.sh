@@ -96,7 +96,7 @@ fi
 
 rm ~/.local/share/applications/userapp-Firefox-*.desktop
 
-if [ -z "$( ls /var/log/packages/ | grep superkey-launch )" ]; then
+if [ ! -z "$( ls /var/log/packages/ | grep superkey-launch )" ]; then
   superkey-launch &
 fi
 
