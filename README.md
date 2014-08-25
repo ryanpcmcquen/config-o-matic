@@ -5,13 +5,14 @@ Configure Slackware installs in no time with config-o-matic! (patent pending)
 - Now supports 32 and 64 bit!
 
 
-5 options are presented when running the ROOT script:
+6 options are presented when running the ROOT script:
 
 1. WICD: Installs Wicd, disables NetworkManager.
 2. NEARFREE: Follows http://freeslack.net/, but does not remove the kernel. This is NOT compatible with MISCELLANY, MATE and SCRIPTS. If you select NEARFREE, you will NOT be presented with incompatible options.
 3. MISCELLANY: Installs a lot of additional packages, themes and miscellany.
 4. MATE: Installs the Mate desktop environment.
-5. SCRIPTS: Installs /extra/, the SBo git repo, and my SlackBuild repo into /root/.
+5. MULTILIB: Installs 32-bit compatibility files for a 64-bit system, a la Eric Hameleers. NOT compatible with MATE.
+6. SCRIPTS: Installs /extra/, the SBo git repo, and my SlackBuild repo into /root/.
 
 
 ###STABLE
