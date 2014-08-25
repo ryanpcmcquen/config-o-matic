@@ -210,7 +210,7 @@ wget -N $INSCRPT -P /etc/
 sed -i 's/^BATCH=off/BATCH=on/g' /etc/slackpkg/slackpkg.conf
 sed -i 's/^DEFAULT_ANSWER=n/DEFAULT_ANSWER=y/g' /etc/slackpkg/slackpkg.conf
 
-if [ "$( uname -m )" = "x86_64" ] && [ "$NEARFREE" != true ]; then
+if [ "$NEARFREE" != true ] && [ "$( uname -m )" = "x86_64" ]; then
   if [ "$MATE" = true ]; then
     wget -N $SPPLUSMATECONF64 -P /etc/slackpkg/
   elif [ "$MULTILIB" = true ]; then
@@ -218,7 +218,7 @@ if [ "$( uname -m )" = "x86_64" ] && [ "$NEARFREE" != true ]; then
   elif [ "$MATE" != true ] && [ "$MULTILIB" != true ] && [ "$MISCELLANY" = true ]; then
     wget -N $SPPLUSCONF64 -P /etc/slackpkg/
   fi
-elif [ "$MATE" = true ] && [ "$NEARFREE" != true ]; then
+elif [ "$NEARFREE" != true ] && [ "$MATE" = true ]; then
   wget -N $SPPLUSMATECONF32 -P /etc/slackpkg/
 elif [ "$MATE" != true ] && [ "$NEARFREE" != true ] && [ "$MISCELLANY" = true ]; then
   wget -N $SPPLUSCONF32 -P /etc/slackpkg/
@@ -442,7 +442,7 @@ if [ "$WICD" = true ]; then
   sed -i 's/^\([^#]\)/#\1/g' /etc/rc.d/rc.wireless.conf
 fi
 
-if [ "$MATE" = true ] && [ "$NEARFREE" != true ] && [ "$MULTILIB" != true ]; then
+if [ "$NEARFREE" != true ] && [ "$MULTILIB" != true ] && [ "$MATE" = true ]; then
   slackpkg update gpg && slackpkg update
   slackpkg install-new && slackpkg upgrade-all
   ## set slackpkg to non-interactive mode to run without prompting
@@ -462,7 +462,7 @@ if [ "$MATE" != true ] && [ "$NEARFREE" != true ] && [ "$MULTILIB" = true ] && [
   slackpkg install multilib
 fi
 
-if [ "$SCRIPTS" = true ] && [ "$NEARFREE" != true ]; then
+if [ "$NEARFREE" != true ] && [ "$SCRIPTS" = true ]; then
   curl $GETEXTRA | sh
 
   ## slackbuilds repo
