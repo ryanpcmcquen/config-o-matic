@@ -211,8 +211,10 @@ sed -i 's/^DEFAULT_ANSWER=n/DEFAULT_ANSWER=y/g' /etc/slackpkg/slackpkg.conf
 
 if [ "$( uname -m )" = "x86_64" ] && [ "$NEARFREE" != true ]; then
   if [ "$MATE" = true ]; then
-    wget -N $SPPLUSCONF64 -P /etc/slackpkg/
+    wget -N $SPPLUSMATECONF64 -P /etc/slackpkg/
   elif [ "$MULTILIB" = true ]; then
+    wget -N $SPPLUSMLIBCONF64 -P /etc/slackpkg/
+  else
     wget -N $SPPLUSCONF64 -P /etc/slackpkg/
   fi
 elif [ "$MATE" = true ] && [ "$NEARFREE" != true ]; then
