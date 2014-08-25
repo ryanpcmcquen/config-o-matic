@@ -10,8 +10,9 @@ SPPLUSDL="http://sourceforge.net/projects/slackpkgplus/files/slackpkg%2B-1.3.2-n
 
 SPPLUSMATECONF64="https://raw2.github.com/ryanpcmcquen/linuxTweaks/master/slackware/64/14.1/mate/slackpkgplus.conf"
 SPPLUSMLIBCONF64="https://raw2.github.com/ryanpcmcquen/linuxTweaks/master/slackware/64/14.1/multilib/slackpkgplus.conf"
-
 SPPLUSCONF64="https://raw2.github.com/ryanpcmcquen/linuxTweaks/master/slackware/64/14.1/slackpkgplus.conf"
+
+SPPLUSMATECONF32="https://raw2.github.com/ryanpcmcquen/linuxTweaks/master/slackware/32/14.1/mate/slackpkgplus.conf"
 SPPLUSCONF32="https://raw2.github.com/ryanpcmcquen/linuxTweaks/master/slackware/32/14.1/slackpkgplus.conf"
 
 INSCRPT="https://raw2.github.com/ryanpcmcquen/linuxTweaks/master/slackware/initscript"
@@ -214,10 +215,12 @@ if [ "$( uname -m )" = "x86_64" ] && [ "$NEARFREE" != true ]; then
     wget -N $SPPLUSMATECONF64 -P /etc/slackpkg/
   elif [ "$MULTILIB" = true ]; then
     wget -N $SPPLUSMLIBCONF64 -P /etc/slackpkg/
-  else
+  elif [ "$MATE" != true ] && [ "$MULTILIB" != true ] && [ "$MISCELLANY" = true ]; then
     wget -N $SPPLUSCONF64 -P /etc/slackpkg/
   fi
 elif [ "$MATE" = true ] && [ "$NEARFREE" != true ]; then
+  wget -N $SPPLUSMATECONF32 -P /etc/slackpkg/
+elif [ "$MATE" != true ] && [ "$NEARFREE" != true ] && [ "$MISCELLANY" = true ]; then
   wget -N $SPPLUSCONF32 -P /etc/slackpkg/
 fi
 
