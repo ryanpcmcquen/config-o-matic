@@ -96,7 +96,10 @@ fi
 
 rm ~/.local/share/applications/userapp-Firefox-*.desktop
 
-superkey-launch &
+if [ -z "$( ls /var/log/packages/ | grep superkey-launch )" ]; then
+  superkey-launch &
+fi
+
 
 echo
 echo
