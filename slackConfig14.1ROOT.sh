@@ -220,7 +220,7 @@ if [ "$NEARFREE" != true ] && [ "$( uname -m )" = "x86_64" ]; then
   fi
 elif [ "$NEARFREE" != true ] && [ "$MATE" = true ]; then
   wget -N $SPPLUSMATECONF32 -P /etc/slackpkg/
-elif [ "$MATE" != true ] && [ "$NEARFREE" != true ] && [ "$MISCELLANY" = true ]; then
+elif [ "$NEARFREE" != true ] && [ "$MATE" != true ] && [ "$MISCELLANY" = true ]; then
   wget -N $SPPLUSCONF32 -P /etc/slackpkg/
 fi
 
@@ -452,7 +452,7 @@ if [ "$NEARFREE" != true ] && [ "$MULTILIB" != true ] && [ "$MATE" = true ]; the
   slackpkg install msb
 fi
 
-if [ "$MATE" != true ] && [ "$NEARFREE" != true ] && [ "$MULTILIB" = true ] && [ "$( uname -m )" = "x86_64" ]; then
+if [ "$NEARFREE" != true ] && [ "$MATE" != true ] && [ "$MULTILIB" = true ] && [ "$( uname -m )" = "x86_64" ]; then
   slackpkg update gpg && slackpkg update
   slackpkg install-new && slackpkg upgrade-all
   ## set slackpkg to non-interactive mode to run without prompting
