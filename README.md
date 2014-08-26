@@ -5,30 +5,26 @@ Configure Slackware installs in no time with config-o-matic! (patent pending)
 - Now supports 32 and 64 bit!
 
 
-6 options are presented when running the ROOT script:
+7 options are presented when running the ROOT script:
 
-1. WICD: Installs Wicd, disables NetworkManager.
-2. NEARFREE: Follows http://freeslack.net/, but does not remove the kernel. This is NOT compatible with MISCELLANY, MATE and SCRIPTS. If you select NEARFREE, you will NOT be presented with incompatible options.
-3. MISCELLANY: Installs a lot of additional packages, themes and miscellany.
-4. MATE: Installs the Mate desktop environment.
-5. MULTILIB: Installs 32-bit compatibility files for a 64-bit system, a la Eric Hameleers. NOT compatible with MATE.
-6. SCRIPTS: Installs /extra/, the SBo git repo, and my SlackBuild repo into /root/.
+1. CURRENT: Switches to slackware-current/slackware64-current mirrors instead of stable.
+2. WICD: Installs Wicd, disables NetworkManager.
+3. NEARFREE: Follows http://freeslack.net/, but does not remove the kernel. This is NOT compatible with MISCELLANY, MATE, MULTILIB and SCRIPTS. If you select NEARFREE, you will NOT be presented with incompatible options.
+4. MISCELLANY: Installs a lot of additional packages, themes and miscellany.
+5. MATE: Installs the Mate desktop environment. NOT compatible with MULTILIB.
+6. MULTILIB: Installs 32-bit compatibility files for a 64-bit system, a la Eric Hameleers. NOT compatible with MATE.
+7. SCRIPTS: Installs /extra/, the SBo git repo, and my SlackBuild repo into /root/.
 
 
 ###STABLE
 
 
-14.1:
-
-    #
-    wget -N https://raw2.github.com/ryanpcmcquen/config-o-matic/stable/slackConfig14.1ROOT.sh; sh slackConfig14.1ROOT.sh; rm slackConfig14.1ROOT.sh
-
-current:
+Root user:
 
     #
     wget -N https://raw2.github.com/ryanpcmcquen/config-o-matic/stable/slackConfigROOT.sh; sh slackConfigROOT.sh; rm slackConfigROOT.sh
 
-Normal user (14.1 or current):
+Normal user:
 
     $
     wget -N https://raw2.github.com/ryanpcmcquen/config-o-matic/stable/slackConfig$.sh; sh slackConfig$.sh; rm slackConfig$.sh
@@ -37,17 +33,12 @@ Normal user (14.1 or current):
 ###CRAZY
 
 
-14.1:
-
-    #
-    wget -N https://raw2.github.com/ryanpcmcquen/config-o-matic/master/slackConfig14.1ROOT.sh; sh slackConfig14.1ROOT.sh; rm slackConfig14.1ROOT.sh
-
-current:
+Root user:
 
     #
     wget -N https://raw2.github.com/ryanpcmcquen/config-o-matic/master/slackConfigROOT.sh; sh slackConfigROOT.sh; rm slackConfigROOT.sh
 
-Normal user (14.1 or current):
+Normal user:
 
     $
     wget -N https://raw2.github.com/ryanpcmcquen/config-o-matic/master/slackConfig$.sh; sh slackConfig$.sh; rm slackConfig$.sh
