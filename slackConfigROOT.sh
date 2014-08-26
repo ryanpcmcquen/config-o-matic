@@ -249,8 +249,8 @@ rm ~/*.t?z
 sed -i 's/^BATCH=off/BATCH=on/g' /etc/slackpkg/slackpkg.conf
 sed -i 's/^DEFAULT_ANSWER=n/DEFAULT_ANSWER=y/g' /etc/slackpkg/slackpkg.conf
 
-if [ "$CURRENT" = true ]; then
-  if [ "$NEARFREE" != true ] && [ "$( uname -m )" = "x86_64" ]; then
+if [ "$NEARFREE" != true ] && [ "$CURRENT" = true ]; then
+  if [ "$( uname -m )" = "x86_64" ]; then
     if [ "$MATE" = true ]; then
       wget -N $SPPLUSMATECUR64 -P /etc/slackpkg/
     elif [ "$MULTILIB" = true ]; then
@@ -258,13 +258,13 @@ if [ "$CURRENT" = true ]; then
     elif [ "$MATE" != true ] && [ "$MULTILIB" != true ] && [ "$MISCELLANY" = true ]; then
       wget -N $SPPLUSCUR64 -P /etc/slackpkg/
     fi
-  elif [ "$NEARFREE" != true ] && [ "$MATE" = true ]; then
+  elif [ "$MATE" = true ]; then
     wget -N $SPPLUSMATECUR32 -P /etc/slackpkg/
-  elif [ "$NEARFREE" != true ] && [ "$MATE" != true ] && [ "$MISCELLANY" = true ]; then
+  elif [ "$MATE" != true ] && [ "$MISCELLANY" = true ]; then
     wget -N $SPPLUSCUR32 -P /etc/slackpkg/
   fi
-else
-  if [ "$NEARFREE" != true ] && [ "$( uname -m )" = "x86_64" ]; then
+elif [ "$NEARFREE" != true ]; then
+  if [ "$( uname -m )" = "x86_64" ]; then
     if [ "$MATE" = true ]; then
       wget -N $SPPLUSMATESTA64 -P /etc/slackpkg/
     elif [ "$MULTILIB" = true ]; then
@@ -272,9 +272,9 @@ else
     elif [ "$MATE" != true ] && [ "$MULTILIB" != true ] && [ "$MISCELLANY" = true ]; then
       wget -N $SPPLUSSTA64 -P /etc/slackpkg/
     fi
-  elif [ "$NEARFREE" != true ] && [ "$MATE" = true ]; then
+  elif [ "$MATE" = true ]; then
     wget -N $SPPLUSMATESTA32 -P /etc/slackpkg/
-  elif [ "$NEARFREE" != true ] && [ "$MATE" != true ] && [ "$MISCELLANY" = true ]; then
+  elif [ "$MATE" != true ] && [ "$MISCELLANY" = true ]; then
     wget -N $SPPLUSSTA32 -P /etc/slackpkg/
   fi
 fi
