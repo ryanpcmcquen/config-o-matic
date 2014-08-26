@@ -8,12 +8,23 @@
 SBOPKGDL="http://sbopkg.googlecode.com/files/sbopkg-0.37.0-noarch-1_cng.tgz"
 SPPLUSDL="http://sourceforge.net/projects/slackpkgplus/files/slackpkg%2B-1.3.2-noarch-1mt.txz"
 
-SPPLUSCONF64="https://raw2.github.com/ryanpcmcquen/linuxTweaks/master/slackware/64/current/slackpkgplus.conf"
-SPPLUSMATECONF64="https://raw2.github.com/ryanpcmcquen/linuxTweaks/master/slackware/64/current/mate/slackpkgplus.conf"
-SPPLUSMLIBCONF64="https://raw2.github.com/ryanpcmcquen/linuxTweaks/master/slackware/64/current/multilib/slackpkgplus.conf"
+## STABLE
+SPPLUSSTA64="https://raw2.github.com/ryanpcmcquen/linuxTweaks/master/slackware/64/14.1/slackpkgplus.conf"
+SPPLUSMATESTA64="https://raw2.github.com/ryanpcmcquen/linuxTweaks/master/slackware/64/14.1/mate/slackpkgplus.conf"
+SPPLUSMLIBSTA64="https://raw2.github.com/ryanpcmcquen/linuxTweaks/master/slackware/64/14.1/multilib/slackpkgplus.conf"
 
-SPPLUSCONF32="https://raw2.github.com/ryanpcmcquen/linuxTweaks/master/slackware/32/current/slackpkgplus.conf"
-SPPLUSMATECONF32="https://raw2.github.com/ryanpcmcquen/linuxTweaks/master/slackware/32/current/mate/slackpkgplus.conf"
+## CURRENT
+SPPLUSCUR64="https://raw2.github.com/ryanpcmcquen/linuxTweaks/master/slackware/64/current/slackpkgplus.conf"
+SPPLUSMATECUR64="https://raw2.github.com/ryanpcmcquen/linuxTweaks/master/slackware/64/current/mate/slackpkgplus.conf"
+SPPLUSMLIBCUR64="https://raw2.github.com/ryanpcmcquen/linuxTweaks/master/slackware/64/current/multilib/slackpkgplus.conf"
+
+## STABLE
+SPPLUSMATESTA32="https://raw2.github.com/ryanpcmcquen/linuxTweaks/master/slackware/32/14.1/mate/slackpkgplus.conf"
+SPPLUSSTA32="https://raw2.github.com/ryanpcmcquen/linuxTweaks/master/slackware/32/14.1/slackpkgplus.conf"
+
+## CURRENT
+SPPLUSCUR32="https://raw2.github.com/ryanpcmcquen/linuxTweaks/master/slackware/32/current/slackpkgplus.conf"
+SPPLUSMATECUR32="https://raw2.github.com/ryanpcmcquen/linuxTweaks/master/slackware/32/current/mate/slackpkgplus.conf"
 
 INSCRPT="https://raw2.github.com/ryanpcmcquen/linuxTweaks/master/slackware/initscript"
 
@@ -27,7 +38,8 @@ GITEMAIL="ryan.q@linux.com"
 
 TOUCHPCONF="https://raw2.github.com/ryanpcmcquen/linuxTweaks/master/51-synaptics.conf"
 
-GETEXTRA="https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/slackware/getExtraSlackBuildsCURRENT.sh"
+GETEXTRASTA="https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/slackware/getExtraSlackBuildsSTABLE.sh"
+GETEXTRACUR="https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/slackware/getExtraSlackBuildsCURRENT.sh"
 
 CALPLAS="Caledonia-1.9.tar.gz"
 CALWALL="Caledonia_Official_Wallpaper_Collection-1.5.tar.gz"
@@ -54,6 +66,19 @@ echo "*************************************************************"
 echo
 echo
 
+
+read -r -p "Would you like to switch to -CURRENT? \
+(if no you will stay on STABLE) \
+[y/N]: " response
+case $response in
+  [yY][eE][sS]|[yY])
+    export CURRENT=true;
+    echo You are switching to -CURRENT.;
+    ;;
+  *)
+    echo You are going STABLE.;
+    ;;
+esac
 
 read -r -p "Would you like to install WICD? \
 (NetworkManager will be disabled, and you may need to manually adjust \
@@ -151,27 +176,45 @@ lilo
 sed -i 's/^export LANG=en_US/#export LANG=en_US/g' /etc/profile.d/lang.sh
 sed -i 's/^#export LANG=en_US.UTF-8/export LANG=en_US.UTF-8/g' /etc/profile.d/lang.sh
 
-## adjust slackpkg blacklist
-sed -i 's/^aaa_elflibs/#aaa_elflibs/g' /etc/slackpkg/blacklist
+if [ "$CURRENT" = true ]; then
+  ## adjust slackpkg blacklist
+  sed -i 's/^aaa_elflibs/#aaa_elflibs/g' /etc/slackpkg/blacklist
+fi
 
 sed -i 's/#\[0-9]+_SBo/\
 \[0-9]+_SBo\
 sbopkg/g' /etc/slackpkg/blacklist
 
-### undo 14.1 mirrors
-sed -i \
-'s_^http://ftp.osuosl.org/.2/slackware/slackware-14.1/_# http://ftp.osuosl.org/.2/slackware/slackware-14.1/_g' /etc/slackpkg/mirrors
-sed -i \
-'s_^http://ftp.osuosl.org/.2/slackware/slackware64-14.1/_# http://ftp.osuosl.org/.2/slackware/slackware64-14.1/_g' /etc/slackpkg/mirrors
-### osuosl mirrors are stable and fast (they are used for the changelogs), choose mirrorbrain if you are far from oregon
-sed -i \
-'s_^# http://ftp.osuosl.org/.2/slackware/slackware-current/_http://ftp.osuosl.org/.2/slackware/slackware-current/_g' /etc/slackpkg/mirrors
-sed -i \
-'s_^# http://ftp.osuosl.org/.2/slackware/slackware64-current/_http://ftp.osuosl.org/.2/slackware/slackware64-current/_g' /etc/slackpkg/mirrors
+if [ "$CURRENT" = true ]; then
+  ### undo 14.1 mirrors
+  sed -i \
+  's_^http://ftp.osuosl.org/.2/slackware/slackware-14.1/_# http://ftp.osuosl.org/.2/slackware/slackware-14.1/_g' /etc/slackpkg/mirrors
+  sed -i \
+  's_^http://ftp.osuosl.org/.2/slackware/slackware64-14.1/_# http://ftp.osuosl.org/.2/slackware/slackware64-14.1/_g' /etc/slackpkg/mirrors
+  ### osuosl mirrors are stable and fast (they are used for the changelogs), choose mirrorbrain if you are far from oregon
+  sed -i \
+  's_^# http://ftp.osuosl.org/.2/slackware/slackware-current/_http://ftp.osuosl.org/.2/slackware/slackware-current/_g' /etc/slackpkg/mirrors
+  sed -i \
+  's_^# http://ftp.osuosl.org/.2/slackware/slackware64-current/_http://ftp.osuosl.org/.2/slackware/slackware64-current/_g' /etc/slackpkg/mirrors
+else
+  ### undo current
+  sed -i \
+  's_^http://ftp.osuosl.org/.2/slackware/slackware-current/_# http://ftp.osuosl.org/.2/slackware/slackware-current/_g' /etc/slackpkg/mirrors
+  sed -i \
+  's_^http://ftp.osuosl.org/.2/slackware/slackware64-current/_# http://ftp.osuosl.org/.2/slackware/slackware64-current/_g' /etc/slackpkg/mirrors
+  ### osuosl mirrors are stable and fast (they are used for the changelogs), choose mirrorbrain if you are far from oregon
+  sed -i \
+  's_^# http://ftp.osuosl.org/.2/slackware/slackware-14.1/_http://ftp.osuosl.org/.2/slackware/slackware-14.1/_g' /etc/slackpkg/mirrors
+  sed -i \
+  's_^# http://ftp.osuosl.org/.2/slackware/slackware64-14.1/_http://ftp.osuosl.org/.2/slackware/slackware64-14.1/_g' /etc/slackpkg/mirrors
+fi
 
 wget -N $BASHRC -P ~/
 wget -N $BASHPR -P ~/
 wget -N $VIMRC -P ~/
+
+wget -N $TOUCHPCONF -P /etc/X11/xorg.conf.d/
+wget -N $INSCRPT -P /etc/
 
 ## set tmux scrollback value
 tmux set-option -g history-limit 9999
@@ -191,11 +234,8 @@ wget -N https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/slackw
 wget -N https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/slackware/sbo/hooks/pre-commit \
   -P /usr/share/git-core/templates/hooks/
   ## this is just in case permissions are incorrect,
-  ## these files should already be 755 ;^)
+  ## these files should already be 755  ;^)
   chmod 755 /usr/share/git-core/templates/hooks/*
-
-wget -N $TOUCHPCONF -P /etc/X11/xorg.conf.d/
-wget -N $INSCRPT -P /etc/
 
 wget -N $SBOPKGDL -P ~/
 if [ "$NEARFREE" != true ]; then
@@ -209,20 +249,35 @@ rm ~/*.t?z
 sed -i 's/^BATCH=off/BATCH=on/g' /etc/slackpkg/slackpkg.conf
 sed -i 's/^DEFAULT_ANSWER=n/DEFAULT_ANSWER=y/g' /etc/slackpkg/slackpkg.conf
 
-if [ "$NEARFREE" != true ] && [ "$( uname -m )" = "x86_64" ]; then
-  if [ "$MATE" = true ]; then
-    wget -N $SPPLUSMATECONF64 -P /etc/slackpkg/
-  elif [ "$MULTILIB" = true ]; then
-    wget -N $SPPLUSMLIBCONF64 -P /etc/slackpkg/
-  elif [ "$MATE" != true ] && [ "$MULTILIB" != true ] && [ "$MISCELLANY" = true ]; then
-    wget -N $SPPLUSCONF64 -P /etc/slackpkg/
+if [ "$CURRENT" = true ]; then
+  if [ "$NEARFREE" != true ] && [ "$( uname -m )" = "x86_64" ]; then
+    if [ "$MATE" = true ]; then
+      wget -N $SPPLUSMATECUR64 -P /etc/slackpkg/
+    elif [ "$MULTILIB" = true ]; then
+      wget -N $SPPLUSMLIBCUR64 -P /etc/slackpkg/
+    elif [ "$MATE" != true ] && [ "$MULTILIB" != true ] && [ "$MISCELLANY" = true ]; then
+      wget -N $SPPLUSCUR64 -P /etc/slackpkg/
+    fi
+  elif [ "$NEARFREE" != true ] && [ "$MATE" = true ]; then
+    wget -N $SPPLUSMATECUR32 -P /etc/slackpkg/
+  elif [ "$NEARFREE" != true ] && [ "$MATE" != true ] && [ "$MISCELLANY" = true ]; then
+    wget -N $SPPLUSCUR32 -P /etc/slackpkg/
   fi
-elif [ "$NEARFREE" != true ] && [ "$MATE" = true ]; then
-  wget -N $SPPLUSMATECONF32 -P /etc/slackpkg/
-elif [ "$NEARFREE" != true ] && [ "$MATE" != true ] && [ "$MISCELLANY" = true ]; then
-  wget -N $SPPLUSCONF32 -P /etc/slackpkg/
+else
+  if [ "$NEARFREE" != true ] && [ "$( uname -m )" = "x86_64" ]; then
+    if [ "$MATE" = true ]; then
+      wget -N $SPPLUSMATESTA64 -P /etc/slackpkg/
+    elif [ "$MULTILIB" = true ]; then
+      wget -N $SPPLUSMLIBSTA64 -P /etc/slackpkg/
+    elif [ "$MATE" != true ] && [ "$MULTILIB" != true ] && [ "$MISCELLANY" = true ]; then
+      wget -N $SPPLUSSTA64 -P /etc/slackpkg/
+    fi
+  elif [ "$NEARFREE" != true ] && [ "$MATE" = true ]; then
+    wget -N $SPPLUSMATESTA32 -P /etc/slackpkg/
+  elif [ "$NEARFREE" != true ] && [ "$MATE" != true ] && [ "$MISCELLANY" = true ]; then
+    wget -N $SPPLUSSTA32 -P /etc/slackpkg/
+  fi
 fi
-
 
 if [ "$NEARFREE" = true ]; then
   removepkg getty-ps lha unarj zoo amp \
@@ -462,7 +517,11 @@ if [ "$NEARFREE" != true ] && [ "$MATE" != true ] && [ "$MULTILIB" = true ] && [
 fi
 
 if [ "$NEARFREE" != true ] && [ "$SCRIPTS" = true ]; then
-  curl $GETEXTRA | sh
+  if [ "$CURRENT" = true ]; then
+    curl $GETEXTRACUR | sh
+  else
+    curl $GETEXTRASTA | sh
+  fi
 
   ## slackbuilds repo
   git clone git://slackbuilds.org/slackbuilds.git sbo
