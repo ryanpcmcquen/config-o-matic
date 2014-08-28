@@ -242,7 +242,7 @@ if [ "$NEARFREE" != true ]; then
   wget -N $SPPLUSDL -P ~/
 fi
 installpkg ~/*.t?z
-mv /etc/slackpkg/slackpkgplus.conf /etc/slackpkg/slackpkgplus.conf.old
+cp /etc/slackpkg/slackpkgplus.conf /etc/slackpkg/slackpkgplus.conf.old
 rm ~/*.t?z
 
 ## set slackpkg to non-interactive mode to run without prompting
