@@ -5,15 +5,21 @@ Configure Slackware installs in no time with config-o-matic! (patent pending)
 - Now supports 32 and 64 bit!
 
 
-7 options are presented when running the ROOT script:
+8 options are presented when running the ROOT script:
 
-1. CURRENT: Switches to slackware-current/slackware64-current mirrors instead of stable.
-2. WICD: Installs Wicd, disables NetworkManager.
-3. NEARFREE: Follows http://freeslack.net/, but does not remove the kernel. This is NOT compatible with MISCELLANY, MATE, MULTILIB and SCRIPTS. If you select NEARFREE, you will NOT be presented with incompatible options.
-4. MISCELLANY: Installs a lot of additional packages, themes and miscellany.
-5. MATE: Installs the Mate desktop environment. NOT compatible with MULTILIB.
-6. MULTILIB: Installs 32-bit compatibility files for a 64-bit system, a la Eric Hameleers. NOT compatible with MATE.
-7. SCRIPTS: Installs /extra/, the SBo git repo, and my SlackBuild repo into /root/.
+1. ASOUNDRC: Installs a ~/.asoundrc file that will change the primary sound output. Usually comps with HDMI ports have the HDMI output as primary which means your speakers will be muted until you install this file. You can see the file here: https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/slackware/.asoundrc
+
+  - If everything breaks after downloading the file just remove it with:
+
+    rm ~/.asoundrc
+
+2. CURRENT: Switches to slackware-current/slackware64-current mirrors instead of stable.
+3. WICD: Installs Wicd, disables NetworkManager.
+4. NEARFREE: Follows http://freeslack.net/, but does not remove the kernel. This is NOT compatible with MISCELLANY, MATE, MULTILIB and SCRIPTS. If you select NEARFREE, you will NOT be presented with incompatible options.
+5. MISCELLANY: Installs a lot of additional packages, themes and miscellany.
+6. MATE: Installs the Mate desktop environment. NOT compatible with MULTILIB.
+7. MULTILIB: Installs 32-bit compatibility files for a 64-bit system, a la Eric Hameleers. NOT compatible with MATE.
+8. SCRIPTS: Installs /extra/, the SBo git repo, and my SlackBuild repo into /root/.
 
 
 ###STABLE
