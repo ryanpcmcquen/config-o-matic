@@ -402,6 +402,18 @@ elif [ "$MISCELLANY" = true ]; then
     sbopkg -B -i OpenAL
   fi
 
+  if [ -z "$( ls /var/log/packages/ | grep SDL_gfx )" ]; then
+    sbopkg -B -i SDL_gfx
+  fi
+
+  if [ -z "$( ls /var/log/packages/ | grep SDL_sound )" ]; then
+    sbopkg -B -i SDL_sound
+  fi
+
+  if [ -z "$( ls /var/log/packages/ | grep SDL_Pango )" ]; then
+    sbopkg -B -i SDL_Pango
+  fi
+
   if [ -z "$( ls /var/log/packages/ | grep dwm )" ]; then
     sbopkg -B -i dwm
   fi
