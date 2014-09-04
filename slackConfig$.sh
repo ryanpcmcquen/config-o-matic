@@ -47,6 +47,9 @@ echo "*************************************************************"
 echo
 echo
 
+## not really necessary, but maybe someday  ;-)
+cd
+
 
 read -r -p "Do you need a .ASOUNDRC? \
 (usually comps with HDMI ports do, you can always 'rm ~/.asoundrc' if sound breaks) \
