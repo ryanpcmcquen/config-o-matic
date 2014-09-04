@@ -484,6 +484,10 @@ elif [ "$MISCELLANY" = true ]; then
   tar xf ~/$CALPLAS -C /usr/share/apps/desktoptheme/
   rm ~/$CALPLAS
 
+  ## caledonia color scheme
+  wget -N http://sourceforge.net/projects/caledonia/files/Caledonia%20Color%20Scheme/Caledonia.colors \
+  -P /usr/share/apps/color-schemes/
+
   ## get caledonia wallpapers, who doesn't like nice wallpapers?
   wget -N \
   http://sourceforge.net/projects/caledonia/files/Caledonia%20Official%20Wallpapers/$CALWALL -P ~/
