@@ -562,6 +562,9 @@ if [ "$NEARFREE" != true ] && [ "$SCRIPTS" = true ]; then
   git remote add hub https://github.com/ryanpcmcquen/slackbuilds-dot-org.git
   cd
 
+  ## bumblebee/nvidia scripts
+  git clone https://github.com/WhiteWolf1776/Bumblebee-SlackBuilds.git
+
   ## my slackbuilds
   git clone https://github.com/ryanpcmcquen/ryanpc-slackbuilds.git
 fi
