@@ -185,7 +185,12 @@ sed -i 's/^#compact/lba32\
 compact/g' /etc/lilo.conf
 
 ## set to utf8 console if not set in install
-sed -i 's/^append=" vt.default_utf8=0"/append=" vt.default_utf8=1"/g' /etc/lilo.conf
+#sed -i 's/^append=" vt.default_utf8=0"/append=" vt.default_utf8=1"/g' /etc/lilo.conf
+## set to utf8 and pass acpi kernel params
+## these seem to fix brightness key issues
+## on some comps and have no negative
+## effects on others (in my testing at least)
+sed -i 's/^append=" vt.default_utf8=[0-9]"/append=" vt.default_utf8=1 acpi_osi=linux acpi_backlight=vendor"/g' /etc/lilo.conf
 
 sed -i 's/^timeout = 50/timeout = 5/g' /etc/lilo.conf
 sed -i 's/^timeout = 1200/timeout = 5/g' /etc/lilo.conf
