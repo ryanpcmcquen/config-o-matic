@@ -561,9 +561,9 @@ fi
 
 if [ "$NEARFREE" != true ] && [ "$SCRIPTS" = true ]; then
   if [ "$CURRENT" = true ]; then
-    curl $GETEXTRACUR | sh
+    wget -N $GETEXTRACUR -P ~/
   else
-    curl $GETEXTRASTA | sh
+    wget -N $GETEXTRASTA -P ~/
   fi
 
   ## slackbuilds repo
@@ -573,7 +573,12 @@ if [ "$NEARFREE" != true ] && [ "$SCRIPTS" = true ]; then
   cd
 
   ## bumblebee/nvidia scripts
-  git clone https://github.com/WhiteWolf1776/Bumblebee-SlackBuilds.git
+  if [ "$NEARFREE" != true ] && [ "$MULTILIB" != true ]; then
+    wget -N https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/slackware/bumblebeeSetup.sh -P ~/
+  fi
+  if [ "$NEARFREE" != true ] && [ "$MATE" != true ] && [ "$MULTILIB" = true ] && [ "$( uname -m )" = "x86_64" ]; then
+    wget -N https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/slackware/bumblebeeMultilibSetup.sh -P ~/
+  fi
 
   ## my slackbuilds
   git clone https://github.com/ryanpcmcquen/ryanpc-slackbuilds.git
