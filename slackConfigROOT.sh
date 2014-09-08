@@ -38,6 +38,8 @@ GITEMAIL="ryan.q@linux.com"
 
 TOUCHPCONF="https://raw2.github.com/ryanpcmcquen/linuxTweaks/master/51-synaptics.conf"
 
+ALSOFTRC="https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/.alsoftrc"
+
 GETEXTRASTA="https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/slackware/getExtraSlackBuildsSTABLE.sh"
 GETEXTRACUR="https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/slackware/getExtraSlackBuildsCURRENT.sh"
 
@@ -238,6 +240,8 @@ fi
 wget -N $BASHRC -P ~/
 wget -N $BASHPR -P ~/
 wget -N $VIMRC -P ~/
+
+wget -N $ALSOFTRC -P ~/
 
 wget -N $TOUCHPCONF -P /etc/X11/xorg.conf.d/
 wget -N $INSCRPT -P /etc/
