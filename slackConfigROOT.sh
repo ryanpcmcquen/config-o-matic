@@ -391,9 +391,16 @@ elif [ "$MISCELLANY" = true ]; then
     sbopkg -B -i libtxc_dxtn
   fi
 
-  if [ -z "$( ls /var/log/packages/ | grep tinyterm )" ]; then
-    sbopkg -B -i tinyterm
+  if [ -z "$( ls /var/log/packages/ | grep lxterminal )" ]; then
+    sbopkg -B -i lxterminal
   fi
+
+  ## this is a decent replacement for lxterminal,
+  ## which was not compiling on current for a while ...
+  ## but lxterminal is better
+  #if [ -z "$( ls /var/log/packages/ | grep tinyterm )" ]; then
+  #  sbopkg -B -i tinyterm
+  #fi
 
   if [ -z "$( ls /var/log/packages/ | grep lame )" ]; then
     sbopkg -B -i lame
