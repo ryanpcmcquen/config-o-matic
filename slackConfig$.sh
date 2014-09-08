@@ -11,6 +11,8 @@ BASHPR="https://raw2.github.com/ryanpcmcquen/linuxTweaks/master/slackware/normal
 
 VIMRC="https://raw2.github.com/ryanpcmcquen/linuxTweaks/master/.vimrc"
 
+ALSOFTRC="https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/.alsoftrc"
+
 FLUXBOXCONF="https://raw2.github.com/ryanpcmcquen/linuxTweaks/master/restoreFluxbox.sh"
 
 GKRELLCFIL="https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/slackware/gkrellm2/user-config"
@@ -74,6 +76,8 @@ wget -N $BASHRC -P ~/
 wget -N $BASHPR -P ~/
 
 wget -N $VIMRC -P ~/
+
+wget -N $ALSOFTRC -P ~/
 
 
 ## set tmux scrollback value
