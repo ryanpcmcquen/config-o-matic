@@ -53,23 +53,6 @@ echo
 cd
 
 
-read -r -p "Do you need a .ASOUNDRC? \
-(usually comps with HDMI ports do, you can always 'rm ~/.asoundrc' if sound breaks) \
-[y/N]: " response
-case $response in
-  [yY][eE][sS]|[yY])
-    export ASOUNDRC=true;
-    echo You are installing ~/.asoundrc;
-    ;;
-  *)
-    echo You are not installing ~/.asoundrc;
-    ;;
-esac
-if [ "$ASOUNDRC" = true ]; then
-  wget -N https://raw2.github.com/ryanpcmcquen/linuxTweaks/master/slackware/.asoundrc -P ~/
-fi
-
-
 gkrellm &
 
 wget -N $BASHRC -P ~/
