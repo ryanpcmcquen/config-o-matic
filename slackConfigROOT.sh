@@ -498,6 +498,11 @@ elif [ "$MISCELLANY" = true ]; then
     sbopkg -B -i QtCurve-Gtk2
   fi
 
+  ## grab latest steam package
+  wget -r -np -A.tgz http://www.slackware.com/~alien/slackbuilds/steamclient/pkg/current/
+  mv ~/www.slackware.com/\~alien/slackbuilds/steamclient/pkg/current/*.tgz ~/
+  rm -rf ~/www.slackware.com/
+
   ## numix stuff is dead sexy
   git clone https://github.com/numixproject/numix-icon-theme.git
   mv ./numix-icon-theme/Numix/ /usr/share/icons/
