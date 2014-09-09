@@ -38,7 +38,8 @@ GITEMAIL="ryan.q@linux.com"
 
 TOUCHPCONF="https://raw2.github.com/ryanpcmcquen/linuxTweaks/master/51-synaptics.conf"
 
-ALSOFTRC="https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/.alsoftrc"
+ASOUNDCONF="https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/asound.conf"
+ALSOFT="https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/alsoft.conf"
 
 GETEXTRASTA="https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/slackware/getExtraSlackBuildsSTABLE.sh"
 GETEXTRACUR="https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/slackware/getExtraSlackBuildsCURRENT.sh"
@@ -72,20 +73,22 @@ echo
 cd
 
 
-read -r -p "Do you need a .ASOUNDRC? \
-(usually comps with HDMI ports do, you can always 'rm ~/.asoundrc' if sound breaks) \
+read -r -p "Do you need an ASOUND.CONF? \
+(usually comps with HDMI ports do, you can always 'rm /etc/asound.conf' if sound breaks) \
 [y/N]: " response
 case $response in
   [yY][eE][sS]|[yY])
-    export ASOUNDRC=true;
-    echo You are installing ~/.asoundrc;
+    export ASOUND=true;
+    echo You are installing /etc/asound.conf;
     ;;
   *)
-    echo You are not installing ~/.asoundrc;
+    echo You are not installing /etc/asound.conf;
     ;;
 esac
-if [ "$ASOUNDRC" = true ]; then
-  wget -N https://raw2.github.com/ryanpcmcquen/linuxTweaks/master/slackware/.asoundrc -P ~/
+if [ "$ASOUND" = true ]; then
+  wget -N $ASOUNDCONF -P ~/
+  mkdir -p /etc/openal/
+  wget -N $ALSOFT -P /etc/openal/
 fi
 
 
@@ -240,8 +243,6 @@ fi
 wget -N $BASHRC -P ~/
 wget -N $BASHPR -P ~/
 wget -N $VIMRC -P ~/
-
-wget -N $ALSOFTRC -P ~/
 
 wget -N $TOUCHPCONF -P /etc/X11/xorg.conf.d/
 wget -N $INSCRPT -P /etc/
