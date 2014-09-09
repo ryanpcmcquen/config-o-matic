@@ -87,8 +87,9 @@ case $response in
 esac
 if [ "$ASOUND" = true ]; then
   wget -N $ASOUNDCONF -P ~/
-  mkdir -p /etc/openal/
-  wget -N $ALSOFT -P /etc/openal/
+  ## not going to use this for now
+  #mkdir -p /etc/openal/
+  #wget -N $ALSOFT -P /etc/openal/
 fi
 
 
@@ -439,6 +440,25 @@ elif [ "$MISCELLANY" = true ]; then
 
   if [ -z "$( ls /var/log/packages/ | grep SDL_sound )" ]; then
     sbopkg -B -i SDL_sound
+  fi
+
+  if [ -z "$( ls /var/log/packages/ | grep orc )" ]; then
+    sbopkg -B -i orc
+  fi
+
+  if [ -z "$( ls /var/log/packages/ | grep speex )" ]; then
+    sbopkg -B -i speex
+  fi
+
+  if [ -z "$( ls /var/log/packages/ | grep json-c )" ]; then
+    sbopkg -B -i json-c
+  fi
+
+  ## i hate pulseaudio, but sound doesn't work in some games without it
+  if [ -z "$( ls /var/log/packages/ | grep pulseaudio )" ]; then
+    groupadd -g 216 pulse
+    useradd -g pulse -u 216 -d /var/lib/pulse pulse
+    sbopkg -B -i pulseaudio
   fi
 
   ## doesn't compile on current
