@@ -505,9 +505,16 @@ elif [ "$MISCELLANY" = true ]; then
   fi
 
   ## grab latest steam package
-  wget -r -np -A.tgz http://www.slackware.com/~alien/slackbuilds/steamclient/pkg/current/
-  mv ~/www.slackware.com/\~alien/slackbuilds/steamclient/pkg/current/*.tgz ~/
-  rm -rf ~/www.slackware.com/
+  if [ -z "$( ls /var/log/packages/ | grep steamclient )" ]; then
+    wget -r -np -A.tgz http://www.slackware.com/~alien/slackbuilds/steamclient/pkg/current/
+    mv ~/www.slackware.com/\~alien/slackbuilds/steamclient/pkg/current/*.tgz ~/
+    rm -rf ~/www.slackware.com/
+    installpkg ~/steamclient-*.tgz
+    if [ -z "$( cat /etc/slackpkg/blacklist | grep steamclient )" ]; then
+      echo steamclient >> /etc/slackpkg/blacklist
+    fi
+    rm ~/steamclient-*.tgz
+  fi
 
   ## numix stuff is dead sexy
   git clone https://github.com/numixproject/numix-icon-theme.git
