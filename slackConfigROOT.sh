@@ -41,6 +41,8 @@ TOUCHPCONF="https://raw2.github.com/ryanpcmcquen/linuxTweaks/master/51-synaptics
 ASOUNDCONF="https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/asound.conf"
 ALSOFT="https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/alsoft.conf"
 
+ASOUNDPULSECONF="https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/pulseaudio/asound.conf"
+
 GETEXTRASTA="https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/slackware/getExtraSlackBuildsSTABLE.sh"
 GETEXTRACUR="https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/slackware/getExtraSlackBuildsCURRENT.sh"
 
@@ -459,6 +461,8 @@ elif [ "$MISCELLANY" = true ]; then
     groupadd -g 216 pulse
     useradd -g pulse -u 216 -d /var/lib/pulse pulse
     sbopkg -B -i pulseaudio
+    chmod +x /etc/rc.d/rc.pulseaudio
+    wget -N $ASOUNDPULSECONF -P /etc/
   fi
 
   ## doesn't compile on current
