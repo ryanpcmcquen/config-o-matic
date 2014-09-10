@@ -75,25 +75,27 @@ echo
 cd
 
 
-read -r -p "Do you need an ASOUND.CONF? \
-(usually comps with HDMI ports do, you can always 'rm /etc/asound.conf' if sound breaks) \
-[y/N]: " response
-case $response in
-  [yY][eE][sS]|[yY])
-    export ASOUND=true;
-    echo You are installing /etc/asound.conf;
-    ;;
-  *)
-    echo You are not installing /etc/asound.conf;
-    ;;
-esac
-if [ "$ASOUND" = true ]; then
-  wget -N $ASOUNDCONF -P ~/
-  ## not going to use this for now
+#read -r -p "Do you need an ASOUND.CONF? \
+#(usually comps with HDMI ports do, you can always 'rm /etc/asound.conf' if sound breaks) \
+#[y/N]: " response
+#case $response in
+#  [yY][eE][sS]|[yY])
+#    export ASOUND=true;
+#    echo You are installing /etc/asound.conf;
+#    ;;
+#  *)
+#    echo You are not installing /etc/asound.conf;
+#    ;;
+#esac
+#if [ "$ASOUND" = true ]; then
+  #wget -N $ASOUNDCONF -P /etc/
   #mkdir -p /etc/openal/
   #wget -N $ALSOFT -P /etc/openal/
-fi
+#fi
 
+if [ ! -z "$( aplay -l | grep Analog | grep 'card 1' )" ]; then
+  wget -N $ASOUNDCONF -P /etc/
+fi
 
 read -r -p "Would you like to switch to -CURRENT? \
 (if no you will stay on STABLE) \
