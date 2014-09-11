@@ -75,24 +75,6 @@ echo
 cd
 
 
-#read -r -p "Do you need an ASOUND.CONF? \
-#(usually comps with HDMI ports do, you can always 'rm /etc/asound.conf' if sound breaks) \
-#[y/N]: " response
-#case $response in
-#  [yY][eE][sS]|[yY])
-#    export ASOUND=true;
-#    echo You are installing /etc/asound.conf;
-#    ;;
-#  *)
-#    echo You are not installing /etc/asound.conf;
-#    ;;
-#esac
-#if [ "$ASOUND" = true ]; then
-  #wget -N $ASOUNDCONF -P /etc/
-  #mkdir -p /etc/openal/
-  #wget -N $ALSOFT -P /etc/openal/
-#fi
-
 if [ -z "$( ls /etc/asound.conf )" ] && [ ! -z "$( aplay -l | grep Analog | grep 'card 1' )" ]; then
   wget -N $ASOUNDCONF -P /etc/
 fi
@@ -149,6 +131,17 @@ if [ "$NEARFREE" != true ]; then
       ;;
   esac
 fi
+
+read -r -p "Do you need PULSEAUDIO? [y/N]: " response
+case $response in
+  [yY][eE][sS]|[yY])
+    export PULSEAUDIO=true;
+    echo You are installing PULSEAUDIO;
+    ;;
+  *)
+    echo You are not installing PULSEAUDIO;
+    ;;
+esac
 
 if [ "$NEARFREE" != true ]; then
   read -r -p "Would you like to install MATE? (choose no if you want MULTILIB) [y/N]: " response
@@ -454,28 +447,6 @@ elif [ "$MISCELLANY" = true ]; then
     sbopkg -B -i orc
   fi
 
-  if [ -z "$( ls /var/log/packages/ | grep speex )" ]; then
-    sbopkg -B -i speex
-  fi
-
-  if [ -z "$( ls /var/log/packages/ | grep json-c )" ]; then
-    sbopkg -B -i json-c
-  fi
-
-  ## i hate pulseaudio, but sound doesn't work in some games without it
-  if [ -z "$( ls /var/log/packages/ | grep pulseaudio )" ]; then
-    groupadd -g 216 pulse
-    useradd -g pulse -u 216 -d /var/lib/pulse pulse
-    sbopkg -B -i pulseaudio
-    chmod +x /etc/rc.d/rc.pulseaudio
-    wget -N $ASOUNDPULSECONF -P /etc/
-  fi
-
-  ## doesn't compile on current
-  #if [ -z "$( ls /var/log/packages/ | grep SDL_Pango )" ]; then
-  #  sbopkg -B -i SDL_Pango
-  #fi
-
   if [ -z "$( ls /var/log/packages/ | grep dwm )" ]; then
     sbopkg -B -i dwm
   fi
@@ -592,6 +563,30 @@ elif [ "$MISCELLANY" = true ]; then
   rm ~/*.png
 else
   echo "You have gone VANILLA."
+fi
+
+
+if [ "$PULSEAUDIO" = true ]; then
+  if [ -z "$( ls /var/log/packages/ | grep json-c )" ]; then
+    sbopkg -B -i json-c
+  fi
+
+  if [ -z "$( ls /var/log/packages/ | grep speex )" ]; then
+    sbopkg -B -i speex
+  fi
+
+  ## i hate pulseaudio, but sound doesn't work in some games without it
+  if [ -z "$( ls /var/log/packages/ | grep pulseaudio )" ]; then
+    groupadd -g 216 pulse
+    useradd -g pulse -u 216 -d /var/lib/pulse pulse
+    sbopkg -B -i pulseaudio
+    chmod +x /etc/rc.d/rc.pulseaudio
+    wget -N $ASOUNDPULSECONF -P /etc/
+  fi
+
+  if [ -z "$( ls /var/log/packages/ | grep alsa-plugins )" ]; then
+    sbopkg -B -i alsa-plugins
+  fi
 fi
 
 
