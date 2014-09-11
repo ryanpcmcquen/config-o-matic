@@ -93,7 +93,7 @@ cd
   #wget -N $ALSOFT -P /etc/openal/
 #fi
 
-if [ ! -z "$( aplay -l | grep Analog | grep 'card 1' )" ]; then
+if [ -z "$( ls /etc/asound.conf )" ] && [ ! -z "$( aplay -l | grep Analog | grep 'card 1' )" ]; then
   wget -N $ASOUNDCONF -P /etc/
 fi
 
