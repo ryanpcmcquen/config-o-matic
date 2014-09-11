@@ -422,6 +422,10 @@ elif [ "$MISCELLANY" = true ]; then
     sbopkg -B -i spacefm
   fi
 
+  if [ -z "$( ls /var/log/packages/ | grep mirage )" ]; then
+    sbopkg -B -i mirage
+  fi
+
   if [ -z "$( ls /var/log/packages/ | grep lame )" ]; then
     sbopkg -B -i lame
   fi
