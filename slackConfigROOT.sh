@@ -135,7 +135,7 @@ fi
 read -r -p "Do you need PULSEAUDIO? [y/N]: " response
 case $response in
   [yY][eE][sS]|[yY])
-    export PULSEAUDIO=true;
+    export PULSECRAPIO=true;
     echo You are installing PULSEAUDIO.;
     ;;
   *)
@@ -562,7 +562,7 @@ else
 fi
 
 
-if [ "$PULSEAUDIO" = true ]; then
+if [ "$PULSECRAPIO" = true ]; then
   if [ -z "$( ls /var/log/packages/ | grep json-c )" ]; then
     sbopkg -B -i json-c
   fi
