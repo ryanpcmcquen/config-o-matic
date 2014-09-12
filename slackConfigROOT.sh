@@ -372,6 +372,10 @@ elif [ "$MISCELLANY" = true ]; then
     sbopkg -B -i superkey-launch
   fi
 
+  if [ -z "$( ls /var/log/packages/ | grep orc )" ]; then
+    sbopkg -B -i orc
+  fi
+
   if [ -z "$( ls /var/log/packages/ | grep imlib2 )" ]; then
     sbopkg -B -i imlib2
   fi
@@ -392,31 +396,6 @@ elif [ "$MISCELLANY" = true ]; then
   ## doesn't hurt to have it  ; ^)
   if [ -z "$( ls /var/log/packages/ | grep libtxc_dxtn )" ]; then
     sbopkg -B -i libtxc_dxtn
-  fi
-
-  ## i love lxterminal, but it is buggy
-  #if [ -z "$( ls /var/log/packages/ | grep lxterminal )" ]; then
-  #  sbopkg -B -i lxterminal
-  #fi
-
-  if [ -z "$( ls /var/log/packages/ | grep tinyterm )" ]; then
-    sbopkg -B -i tinyterm
-  fi
-
-  if [ -z "$( ls /var/log/packages/ | grep leafpad )" ]; then
-    sbopkg -B -i leafpad
-  fi
-
-  if [ -z "$( ls /var/log/packages/ | grep udevil )" ]; then
-    sbopkg -B -i udevil
-  fi
-
-  if [ -z "$( ls /var/log/packages/ | grep spacefm )" ]; then
-    sbopkg -B -i spacefm
-  fi
-
-  if [ -z "$( ls /var/log/packages/ | grep mirage )" ]; then
-    sbopkg -B -i mirage
   fi
 
   if [ -z "$( ls /var/log/packages/ | grep lame )" ]; then
@@ -443,23 +422,6 @@ elif [ "$MISCELLANY" = true ]; then
     sbopkg -B -i SDL_sound
   fi
 
-  if [ -z "$( ls /var/log/packages/ | grep orc )" ]; then
-    sbopkg -B -i orc
-  fi
-
-  if [ -z "$( ls /var/log/packages/ | grep dwm )" ]; then
-    sbopkg -B -i dwm
-  fi
-
-  if [ -z "$( ls /var/log/packages/ | grep dmenu )" ]; then
-    sbopkg -B -i dmenu
-  fi
-
-  ## file syncing service
-  if [ -z "$( ls /var/log/packages/ | grep copy )" ]; then
-    sbopkg -B -i copy
-  fi
-
   if [ -z "$( ls /var/log/packages/ | grep murrine )" ]; then
     sbopkg -B -i murrine
   fi
@@ -478,6 +440,40 @@ elif [ "$MISCELLANY" = true ]; then
   if [ -z "$( ls /var/log/packages/ | grep QtCurve-Gtk2 )" ]; then
     sbopkg -B -i QtCurve-Gtk2
   fi
+
+  if [ -z "$( ls /var/log/packages/ | grep dwm )" ]; then
+    sbopkg -B -i dwm
+  fi
+
+  if [ -z "$( ls /var/log/packages/ | grep dmenu )" ]; then
+    sbopkg -B -i dmenu
+  fi
+
+  if [ -z "$( ls /var/log/packages/ | grep tinyterm )" ]; then
+    sbopkg -B -i tinyterm
+  fi
+
+  if [ -z "$( ls /var/log/packages/ | grep leafpad )" ]; then
+    sbopkg -B -i leafpad
+  fi
+
+  if [ -z "$( ls /var/log/packages/ | grep udevil )" ]; then
+    sbopkg -B -i udevil
+  fi
+
+  if [ -z "$( ls /var/log/packages/ | grep spacefm )" ]; then
+    sbopkg -B -i spacefm
+  fi
+
+  if [ -z "$( ls /var/log/packages/ | grep mirage )" ]; then
+    sbopkg -B -i mirage
+  fi
+
+  ## file syncing service
+  if [ -z "$( ls /var/log/packages/ | grep copy )" ]; then
+    sbopkg -B -i copy
+  fi
+
 
   ## grab latest steam package
   if [ -z "$( ls /var/log/packages/ | grep steamclient )" ]; then
