@@ -136,10 +136,10 @@ read -r -p "Do you need PULSEAUDIO? [y/N]: " response
 case $response in
   [yY][eE][sS]|[yY])
     export PULSEAUDIO=true;
-    echo You are installing PULSEAUDIO;
+    echo You are installing PULSEAUDIO.;
     ;;
   *)
-    echo You are not installing PULSEAUDIO;
+    echo You are not installing PULSEAUDIO.;
     ;;
 esac
 
