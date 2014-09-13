@@ -276,9 +276,9 @@ rm ~/*.t?z
 
 ## gkrellm theme
 mkdir -p /usr/share/gkrellm2/themes/
-wget -N https://github.com/ryanpcmcquen/themes/raw/master/null-gkrellm.tar.gz -P ~/
-tar xf ~/null-gkrellm.tar.gz -C /usr/share/gkrellm2/themes/
-rm ~/null-gkrellm.tar.gz
+wget -N https://github.com/ryanpcmcquen/themes/raw/master/egan-gkrellm.tar.gz -P ~/
+tar xf ~/egan-gkrellm.tar.gz -C /usr/share/gkrellm2/themes/
+rm ~/egan-gkrellm.tar.gz
 
 
 ## set slackpkg to non-interactive mode to run without prompting
