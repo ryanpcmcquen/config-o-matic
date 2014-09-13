@@ -14,6 +14,7 @@ VIMRC="https://raw2.github.com/ryanpcmcquen/linuxTweaks/master/.vimrc"
 FLUXBOXCONF="https://raw2.github.com/ryanpcmcquen/linuxTweaks/master/restoreFluxbox.sh"
 
 GKRELLCFIL="https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/slackware/gkrellm2/user-config"
+GKRELLTFIL="https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/slackware/gkrellm2/theme_config"
 GKRELLCONF="https://raw2.github.com/ryanpcmcquen/linuxTweaks/master/gkrellmConfig.sh"
 
 KDECONF="https://raw2.github.com/ryanpcmcquen/linuxTweaks/master/kdeSetup.sh"
@@ -78,6 +79,7 @@ git config --global core.pager "less -r"
 
 
 wget -N $GKRELLCFIL -P ~/.gkrellm2/
+wget -N $GKRELLTFIL -P ~/.gkrellm2/
 curl $GKRELLCONF | sh
 
 if [ ! -z "$( ls -a ~/ | grep .fluxbox )" ]; then
