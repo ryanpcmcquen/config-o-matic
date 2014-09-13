@@ -274,6 +274,13 @@ installpkg ~/*.t?z
 cp /etc/slackpkg/slackpkgplus.conf /etc/slackpkg/slackpkgplus.conf.old
 rm ~/*.t?z
 
+## gkrellm theme
+mkdir -p /usr/share/gkrellm2/themes/
+wget -N http://gkrellm.srcbox.net/gkrellm-hardware.tar.gz -P ~/
+tar xf ~/gkrellm-hardware.tar.gz -C /usr/share/gkrellm2/themes/
+rm ~/gkrellm-hardware.tar.gz
+
+
 ## set slackpkg to non-interactive mode to run without prompting
 sed -i 's/^BATCH=off/BATCH=on/g' /etc/slackpkg/slackpkg.conf
 sed -i 's/^DEFAULT_ANSWER=n/DEFAULT_ANSWER=y/g' /etc/slackpkg/slackpkg.conf
