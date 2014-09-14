@@ -107,7 +107,7 @@ case $response in
 esac
 
 read -r -p "Would you like to become NEARFREE? \
-(follows freeslack.net, but keeps kernel, not valid with other options) \
+(follows freeslack.net, but keeps kernel, not valid with most of the other options) \
 [y/N]: " response
 case $response in
   [yY][eE][sS]|[yY])
@@ -116,30 +116,6 @@ case $response in
     ;;
   *)
     echo You are not becoming NEARFREE.;
-    ;;
-esac
-
-if [ "$NEARFREE" != true ]; then
-  read -r -p "Would you like to install additional packages, themes and MISCELLANY? [y/N]: " response
-  case $response in
-    [yY][eE][sS]|[yY])
-      export MISCELLANY=true;
-      echo You are installing MISCELLANY.;
-      ;;
-    *)
-      echo You are going VANILLA.;
-      ;;
-  esac
-fi
-
-read -r -p "Do you need PULSEAUDIO? [y/N]: " response
-case $response in
-  [yY][eE][sS]|[yY])
-    export PULSECRAPIO=true;
-    echo You are installing PULSEAUDIO.;
-    ;;
-  *)
-    echo You are not installing PULSEAUDIO.;
     ;;
 esac
 
@@ -168,6 +144,30 @@ if [ "$NEARFREE" != true ] && [ "$MATE" != true ] && [ "$( uname -m )" = "x86_64
       ;;
   esac
 fi
+
+if [ "$NEARFREE" != true ]; then
+  read -r -p "Would you like to install additional packages, themes and MISCELLANY? [y/N]: " response
+  case $response in
+    [yY][eE][sS]|[yY])
+      export MISCELLANY=true;
+      echo You are installing MISCELLANY.;
+      ;;
+    *)
+      echo You are going VANILLA.;
+      ;;
+  esac
+fi
+
+read -r -p "Do you need PULSEAUDIO? [y/N]: " response
+case $response in
+  [yY][eE][sS]|[yY])
+    export PULSECRAPIO=true;
+    echo You are installing PULSEAUDIO.;
+    ;;
+  *)
+    echo You are not installing PULSEAUDIO.;
+    ;;
+esac
 
 if [ "$NEARFREE" != true ]; then
   read -r -p "Would you like to install additional SCRIPTS? [y/N]: " response
@@ -285,6 +285,7 @@ rm ~/egan-gkrellm.tar.gz
 sed -i 's/^BATCH=off/BATCH=on/g' /etc/slackpkg/slackpkg.conf
 sed -i 's/^DEFAULT_ANSWER=n/DEFAULT_ANSWER=y/g' /etc/slackpkg/slackpkg.conf
 
+
 if [ "$NEARFREE" != true ] && [ "$CURRENT" = true ]; then
   if [ "$( uname -m )" = "x86_64" ]; then
     if [ "$MATE" = true ]; then
@@ -314,6 +315,28 @@ elif [ "$NEARFREE" != true ]; then
     wget -N $SPPLUSSTA32 -P /etc/slackpkg/
   fi
 fi
+
+
+if [ "$NEARFREE" != true ] && [ "$MULTILIB" != true ] && [ "$MATE" = true ]; then
+  slackpkg update gpg && slackpkg update
+  slackpkg install-new && slackpkg upgrade-all
+  ## set slackpkg to non-interactive mode to run without prompting
+  sed -i 's/^BATCH=off/BATCH=on/g' /etc/slackpkg/slackpkg.conf
+  sed -i 's/^DEFAULT_ANSWER=n/DEFAULT_ANSWER=y/g' /etc/slackpkg/slackpkg.conf
+  slackpkg update gpg && slackpkg update
+  slackpkg install msb
+fi
+
+if [ "$NEARFREE" != true ] && [ "$MATE" != true ] && [ "$MULTILIB" = true ] && [ "$( uname -m )" = "x86_64" ]; then
+  slackpkg update gpg && slackpkg update
+  slackpkg install-new && slackpkg upgrade-all
+  ## set slackpkg to non-interactive mode to run without prompting
+  sed -i 's/^BATCH=off/BATCH=on/g' /etc/slackpkg/slackpkg.conf
+  sed -i 's/^DEFAULT_ANSWER=n/DEFAULT_ANSWER=y/g' /etc/slackpkg/slackpkg.conf
+  slackpkg update gpg && slackpkg update
+  slackpkg install multilib
+fi
+
 
 if [ "$NEARFREE" = true ]; then
   removepkg getty-ps lha unarj zoo amp \
@@ -599,26 +622,6 @@ if [ "$WICD" = true ]; then
   chmod -x /etc/rc.d/rc.networkmanager
   sed -i 's/^\([^#]\)/#\1/g' /etc/rc.d/rc.inet1.conf
   sed -i 's/^\([^#]\)/#\1/g' /etc/rc.d/rc.wireless.conf
-fi
-
-if [ "$NEARFREE" != true ] && [ "$MULTILIB" != true ] && [ "$MATE" = true ]; then
-  slackpkg update gpg && slackpkg update
-  slackpkg install-new && slackpkg upgrade-all
-  ## set slackpkg to non-interactive mode to run without prompting
-  sed -i 's/^BATCH=off/BATCH=on/g' /etc/slackpkg/slackpkg.conf
-  sed -i 's/^DEFAULT_ANSWER=n/DEFAULT_ANSWER=y/g' /etc/slackpkg/slackpkg.conf
-  slackpkg update gpg && slackpkg update
-  slackpkg install msb
-fi
-
-if [ "$NEARFREE" != true ] && [ "$MATE" != true ] && [ "$MULTILIB" = true ] && [ "$( uname -m )" = "x86_64" ]; then
-  slackpkg update gpg && slackpkg update
-  slackpkg install-new && slackpkg upgrade-all
-  ## set slackpkg to non-interactive mode to run without prompting
-  sed -i 's/^BATCH=off/BATCH=on/g' /etc/slackpkg/slackpkg.conf
-  sed -i 's/^DEFAULT_ANSWER=n/DEFAULT_ANSWER=y/g' /etc/slackpkg/slackpkg.conf
-  slackpkg update gpg && slackpkg update
-  slackpkg install multilib
 fi
 
 if [ "$NEARFREE" != true ] && [ "$SCRIPTS" = true ]; then
