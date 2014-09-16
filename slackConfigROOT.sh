@@ -465,6 +465,9 @@ elif [ "$MISCELLANY" = true ]; then
     if [ -z "$( ls /var/log/packages/ | grep QtCurve-KDE4 )" ]; then
       sbopkg -B -i QtCurve-KDE4
     fi
+    if [ -z "$( ls /var/log/packages/ | grep kde-gtk-config )" ]; then
+      sbopkg -B -i kde-gtk-config
+    fi
   fi
 
   if [ -z "$( ls /var/log/packages/ | grep QtCurve-Gtk2 )" ]; then
