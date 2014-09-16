@@ -32,6 +32,7 @@ BASHRC="https://raw2.github.com/ryanpcmcquen/linuxTweaks/master/slackware/root/.
 BASHPR="https://raw2.github.com/ryanpcmcquen/linuxTweaks/master/slackware/root/.bash_profile"
 
 VIMRC="https://raw2.github.com/ryanpcmcquen/linuxTweaks/master/.vimrc"
+VIMCOLOR="https://raw.githubusercontent.com/ryanpcmcquen/vim-plain/master/colors/elvis.vim"
 
 GITNAME="Ryan P.C. McQuen"
 GITEMAIL="ryan.q@linux.com"
@@ -241,6 +242,8 @@ fi
 wget -N $BASHRC -P ~/
 wget -N $BASHPR -P ~/
 wget -N $VIMRC -P ~/
+mkdir -p ~/.vim/colors/
+wget -N $VIMCOLOR -P ~/.vim/colors/
 
 wget -N $TOUCHPCONF -P /etc/X11/xorg.conf.d/
 wget -N $INSCRPT -P /etc/
