@@ -652,6 +652,9 @@ if [ "$NEARFREE" != true ] && [ "$SCRIPTS" = true ]; then
     wget -N https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/slackware/bumblebeeMultilibSetup.sh -P ~/
   fi
 
+  ## slackbook.org
+  git clone https://github.com/ryanpcmcquen/slackbook.org.git
+
   ## my slackbuilds
   git clone https://github.com/ryanpcmcquen/ryanpc-slackbuilds.git
 fi
