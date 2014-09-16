@@ -10,6 +10,7 @@ BASHRC="https://raw2.github.com/ryanpcmcquen/linuxTweaks/master/slackware/normal
 BASHPR="https://raw2.github.com/ryanpcmcquen/linuxTweaks/master/slackware/normal/.bash_profile"
 
 VIMRC="https://raw2.github.com/ryanpcmcquen/linuxTweaks/master/.vimrc"
+VIMCOLOR="https://raw.githubusercontent.com/ryanpcmcquen/vim-plain/master/colors/elvis.vim"
 
 FLUXBOXCONF="https://raw2.github.com/ryanpcmcquen/linuxTweaks/master/restoreFluxbox.sh"
 
@@ -58,6 +59,8 @@ wget -N $BASHRC -P ~/
 wget -N $BASHPR -P ~/
 
 wget -N $VIMRC -P ~/
+mkdir -p ~/.vim/colors/
+wget -N $VIMCOLOR -P ~/.vim/colors/
 
 
 ## set tmux scrollback value
