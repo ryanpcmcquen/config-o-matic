@@ -657,6 +657,9 @@ if [ "$NEARFREE" != true ] && [ "$SCRIPTS" = true ]; then
 
   ## my slackbuilds
   git clone https://github.com/ryanpcmcquen/ryanpc-slackbuilds.git
+
+  ## my linuxTweaks
+  git clone https://github.com/ryanpcmcquen/linuxTweaks.git
 fi
 
 
