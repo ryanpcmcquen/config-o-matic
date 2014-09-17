@@ -655,6 +655,9 @@ if [ "$NEARFREE" != true ] && [ "$SCRIPTS" = true ]; then
     wget -N https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/slackware/bumblebeeMultilibSetup.sh -P ~/
   fi
 
+  ## auto generic-kernel script
+  wget -N https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/slackware/switchToGenericKernel.sh -P ~/
+
   ## slackbook.org
   git clone https://github.com/ryanpcmcquen/slackbook.org.git
 
