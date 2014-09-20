@@ -85,6 +85,8 @@ wget -N $GKRELLCFIL -P ~/.gkrellm2/
 wget -N $GKRELLTFIL -P ~/.gkrellm2/
 curl $GKRELLCONF | sh
 
+pkill gkrellm &
+
 if [ ! -z "$( ls -a ~/ | grep .fluxbox )" ]; then
   curl $FLUXBOXCONF | sh
 fi
