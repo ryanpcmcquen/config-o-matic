@@ -190,22 +190,24 @@ if [ ! -z "$( ls /boot/efi/EFI/boot/ )" ]; then
   wget -N https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/slackware/EFI/lilo -P /sbin/
 fi
 
-
-## configure lilo
-sed -i 's/^#compact/lba32\
-compact/g' /etc/lilo.conf
-
-### set to utf8 console if not set in install
-### no longer needed with below command
-##sed -i 's/^append=" vt.default_utf8=0"/append=" vt.default_utf8=1"/g' /etc/lilo.conf
-
-## set to utf8 and pass acpi kernel params
-## these fix brightness key issues on some comps
-## and have no negative effects on others (in my testing at least)
-sed -i 's/^append=" vt.default_utf8=[0-9]"/append=" vt.default_utf8=1 acpi_osi=linux acpi_backlight=vendor"/g' /etc/lilo.conf
-
-sed -i 's/^timeout = 50/timeout = 5/g' /etc/lilo.conf
-sed -i 's/^timeout = 1200/timeout = 5/g' /etc/lilo.conf
+## no need to run this on efi
+if [ ! -z "$( ls /etc/lilo.conf )" ]; then
+  ## configure lilo
+  sed -i 's/^#compact/lba32\
+  compact/g' /etc/lilo.conf
+  
+  ### set to utf8 console if not set in install
+  ### no longer needed with below command
+  ##sed -i 's/^append=" vt.default_utf8=0"/append=" vt.default_utf8=1"/g' /etc/lilo.conf
+  
+  ## set to utf8 and pass acpi kernel params
+  ## these fix brightness key issues on some comps
+  ## and have no negative effects on others (in my testing at least)
+  sed -i 's/^append=" vt.default_utf8=[0-9]"/append=" vt.default_utf8=1 acpi_osi=linux acpi_backlight=vendor"/g' /etc/lilo.conf
+  
+  sed -i 's/^timeout = 50/timeout = 5/g' /etc/lilo.conf
+  sed -i 's/^timeout = 1200/timeout = 5/g' /etc/lilo.conf
+fi
 
 lilo
 
