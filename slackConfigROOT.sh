@@ -184,6 +184,13 @@ if [ "$NEARFREE" != true ]; then
 fi
 
 
+## detect efi and replace lilo with a script that works
+if [ ! -z "$( ls /boot/efi/EFI/boot/ )" ]; then
+  cp /sbin/lilo /sbin/lilo.orig
+  wget -N https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/slackware/EFI/lilo -P /sbin/
+fi
+
+
 ## configure lilo
 sed -i 's/^#compact/lba32\
 compact/g' /etc/lilo.conf
