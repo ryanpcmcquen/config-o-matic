@@ -675,7 +675,7 @@ if [ "$WICD" = true ]; then
   slackpkg install wicd
   chmod -x /etc/rc.d/rc.networkmanager
   sed -i 's/^\([^#]\)/#\1/g' /etc/rc.d/rc.inet1.conf
-  sed -i 's/^\([^#]\)/#\1/g' /etc/rc.d/rc.wireless.conf
+  #sed -i 's/^\([^#]\)/#\1/g' /etc/rc.d/rc.wireless.conf
 fi
 
 
