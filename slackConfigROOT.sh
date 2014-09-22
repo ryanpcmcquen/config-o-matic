@@ -635,14 +635,6 @@ if [ "$PULSECRAPIO" = true ]; then
 fi
 
 
-if [ "$WICD" = true ]; then
-  slackpkg update gpg && slackpkg update
-  slackpkg install wicd
-  chmod -x /etc/rc.d/rc.networkmanager
-  sed -i 's/^\([^#]\)/#\1/g' /etc/rc.d/rc.inet1.conf
-  sed -i 's/^\([^#]\)/#\1/g' /etc/rc.d/rc.wireless.conf
-fi
-
 if [ "$NEARFREE" != true ] && [ "$SCRIPTS" = true ]; then
   if [ "$CURRENT" = true ]; then
     wget -N $GETEXTRACUR -P ~/
@@ -675,6 +667,15 @@ if [ "$NEARFREE" != true ] && [ "$SCRIPTS" = true ]; then
 
   ## my linuxTweaks
   git clone https://github.com/ryanpcmcquen/linuxTweaks.git
+fi
+
+
+if [ "$WICD" = true ]; then
+  slackpkg update gpg && slackpkg update
+  slackpkg install wicd
+  chmod -x /etc/rc.d/rc.networkmanager
+  sed -i 's/^\([^#]\)/#\1/g' /etc/rc.d/rc.inet1.conf
+  sed -i 's/^\([^#]\)/#\1/g' /etc/rc.d/rc.wireless.conf
 fi
 
 
