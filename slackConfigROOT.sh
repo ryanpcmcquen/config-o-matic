@@ -17,6 +17,7 @@ SPPLUSMLIBSTA64="https://raw2.github.com/ryanpcmcquen/linuxTweaks/master/slackwa
 SPPLUSCUR64="https://raw2.github.com/ryanpcmcquen/linuxTweaks/master/slackware/64/current/slackpkgplus.conf"
 SPPLUSMATECUR64="https://raw2.github.com/ryanpcmcquen/linuxTweaks/master/slackware/64/current/mate/slackpkgplus.conf"
 SPPLUSMLIBCUR64="https://raw2.github.com/ryanpcmcquen/linuxTweaks/master/slackware/64/current/multilib/slackpkgplus.conf"
+SPPLUSMLIBMATECUR64="https://raw2.github.com/ryanpcmcquen/linuxTweaks/master/slackware/64/current/multilib-mate/slackpkgplus.conf"
 
 ## STABLE
 SPPLUSMATESTA32="https://raw2.github.com/ryanpcmcquen/linuxTweaks/master/slackware/32/14.1/mate/slackpkgplus.conf"
