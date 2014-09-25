@@ -12,6 +12,7 @@ SPPLUSDL="http://sourceforge.net/projects/slackpkgplus/files/slackpkg%2B-1.3.2-n
 SPPLUSSTA64="https://raw2.github.com/ryanpcmcquen/linuxTweaks/master/slackware/64/14.1/slackpkgplus.conf"
 SPPLUSMATESTA64="https://raw2.github.com/ryanpcmcquen/linuxTweaks/master/slackware/64/14.1/mate/slackpkgplus.conf"
 SPPLUSMLIBSTA64="https://raw2.github.com/ryanpcmcquen/linuxTweaks/master/slackware/64/14.1/multilib/slackpkgplus.conf"
+SPPLUSMLIBMATESTA64="https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/slackware/64/14.1/multilib-mate/slackpkgplus.conf"
 
 ## CURRENT
 SPPLUSCUR64="https://raw2.github.com/ryanpcmcquen/linuxTweaks/master/slackware/64/current/slackpkgplus.conf"
@@ -122,7 +123,7 @@ case $response in
 esac
 
 if [ "$NEARFREE" != true ]; then
-  read -r -p "Would you like to install MATE? (choose no if you want MULTILIB) [y/N]: " response
+  read -r -p "Would you like to install MATE? [y/N]: " response
   case $response in
     [yY][eE][sS]|[yY])
       export MATE=true;
@@ -134,7 +135,7 @@ if [ "$NEARFREE" != true ]; then
   esac
 fi
 
-if [ "$NEARFREE" != true ] && [ "$MATE" != true ] && [ "$( uname -m )" = "x86_64" ]; then
+if [ "$NEARFREE" != true ] && [ "$( uname -m )" = "x86_64" ]; then
   read -r -p "Would you like to go MULTILIB? [y/N]: " response
   case $response in
     [yY][eE][sS]|[yY])
@@ -301,7 +302,9 @@ sed -i 's/^DEFAULT_ANSWER=n/DEFAULT_ANSWER=y/g' /etc/slackpkg/slackpkg.conf
 
 if [ "$NEARFREE" != true ] && [ "$CURRENT" = true ]; then
   if [ "$( uname -m )" = "x86_64" ]; then
-    if [ "$MATE" = true ]; then
+    if [ "$MATE" = true ] && [ "$MULTILIB" = true ]; then
+      wget -N $SPPLUSMLIBMATECUR64 -P /etc/slackpkg/
+    elif [ "$MATE" = true ]; then
       wget -N $SPPLUSMATECUR64 -P /etc/slackpkg/
     elif [ "$MULTILIB" = true ]; then
       wget -N $SPPLUSMLIBCUR64 -P /etc/slackpkg/
@@ -315,7 +318,9 @@ if [ "$NEARFREE" != true ] && [ "$CURRENT" = true ]; then
   fi
 elif [ "$NEARFREE" != true ]; then
   if [ "$( uname -m )" = "x86_64" ]; then
-    if [ "$MATE" = true ]; then
+    if [ "$MATE" = true ] && [ "$MULTILIB" = true ]; then
+      wget -N $SPPLUSMLIBMATESTA64 -P /etc/slackpkg/
+    elif [ "$MATE" = true ]; then
       wget -N $SPPLUSMATESTA64 -P /etc/slackpkg/
     elif [ "$MULTILIB" = true ]; then
       wget -N $SPPLUSMLIBSTA64 -P /etc/slackpkg/
@@ -330,7 +335,7 @@ elif [ "$NEARFREE" != true ]; then
 fi
 
 
-if [ "$NEARFREE" != true ] && [ "$MULTILIB" != true ] && [ "$MATE" = true ]; then
+if [ "$NEARFREE" != true ] && [ "$MATE" = true ]; then
   slackpkg update gpg && slackpkg update
   slackpkg install-new && slackpkg upgrade-all
   ## set slackpkg to non-interactive mode to run without prompting
@@ -340,7 +345,7 @@ if [ "$NEARFREE" != true ] && [ "$MULTILIB" != true ] && [ "$MATE" = true ]; the
   slackpkg install msb
 fi
 
-if [ "$NEARFREE" != true ] && [ "$MATE" != true ] && [ "$MULTILIB" = true ] && [ "$( uname -m )" = "x86_64" ]; then
+if [ "$NEARFREE" != true ] && [ "$MULTILIB" = true ] && [ "$( uname -m )" = "x86_64" ]; then
   slackpkg update gpg && slackpkg update
   slackpkg install-new && slackpkg upgrade-all
   ## set slackpkg to non-interactive mode to run without prompting
@@ -650,11 +655,8 @@ if [ "$NEARFREE" != true ] && [ "$SCRIPTS" = true ]; then
   cd
 
   ## bumblebee/nvidia scripts
-  if [ "$NEARFREE" != true ] && [ "$MULTILIB" != true ]; then
-    wget -N https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/slackware/bumblebeeSetup.sh -P ~/
-  fi
-  if [ "$NEARFREE" != true ] && [ "$MATE" != true ] && [ "$MULTILIB" = true ] && [ "$( uname -m )" = "x86_64" ]; then
-    wget -N https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/slackware/bumblebeeMultilibSetup.sh -P ~/
+  if [ "$NEARFREE" != true ]; then
+    wget -N https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/slackware/crazybee.sh -P ~/
   fi
 
   ## auto generic-kernel script
