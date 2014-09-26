@@ -262,7 +262,7 @@ wget -N $INSCRPT -P /etc/
 ## set tmux scrollback value
 tmux set-option -g history-limit 9999
 ## set to xterm otherwise vi will break
-tmux set-option -g default-terminal xterm-color
+tmux set-option -g default-terminal screen
 
 ## git config
 git config --global user.name "$GITNAME"
