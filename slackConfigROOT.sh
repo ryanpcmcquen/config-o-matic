@@ -250,6 +250,21 @@ else
   's_^# http://ftp.osuosl.org/.2/slackware/slackware64-14.1/_http://ftp.osuosl.org/.2/slackware/slackware64-14.1/_g' /etc/slackpkg/mirrors
 fi
 
+
+if [ -z "$( cat /etc/profile | grep 'export EDITOR' && cat /etc/profile | grep 'export VISUAL' )" ]; then
+  echo"
+  export EDITOR=vim
+  export VISUAL=vim
+  " >> /etc/profile
+fi
+
+if [ -z "$( cat /etc/profile | grep 'alias ls=' )" ]; then
+  echo "
+  alias ls='ls --color=auto'
+  " >> /etc/profile
+fi
+
+
 wget -N $BASHRC -P ~/
 wget -N $BASHPR -P ~/
 wget -N $VIMRC -P ~/
@@ -261,7 +276,7 @@ wget -N $INSCRPT -P /etc/
 
 ## set tmux scrollback value
 tmux set-option -g history-limit 9999
-## set to xterm otherwise vi will break
+## set to screen otherwise vim will break
 tmux set-option -g default-terminal screen
 
 ## git config
