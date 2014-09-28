@@ -252,16 +252,16 @@ fi
 
 
 if [ -z "$( cat /etc/profile | grep 'export EDITOR' && cat /etc/profile | grep 'export VISUAL' )" ]; then
-  echo"\
-export EDITOR=vim \
-export VISUAL=vim \
-" >> /etc/profile
+  echo >> /etc/profile
+  echo "export EDITOR=vim" >> /etc/profile
+  echo "export VISUAL=vim" >> /etc/profile
+  echo >> /etc/profile
 fi
 
 if [ -z "$( cat /etc/profile | grep 'alias ls=' )" ]; then
-  echo "\
-alias ls='ls --color=auto' \
-" >> /etc/profile
+  echo >> /etc/profile
+  echo "alias ls='ls --color=auto'" >> /etc/profile
+  echo >> /etc/profile
 fi
 
 
