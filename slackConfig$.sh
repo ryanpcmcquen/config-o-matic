@@ -65,7 +65,7 @@ wget -N $VIMCOLOR -P ~/.vim/colors/
 
 ## set tmux scrollback value
 tmux set-option -g history-limit 9999
-## set to xterm otherwise vi will break
+## set to screen otherwise vim will break
 tmux set-option -g default-terminal screen
 
 
