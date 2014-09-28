@@ -252,16 +252,16 @@ fi
 
 
 if [ -z "$( cat /etc/profile | grep 'export EDITOR' && cat /etc/profile | grep 'export VISUAL' )" ]; then
-  echo"
-  export EDITOR=vim
-  export VISUAL=vim
-  " >> /etc/profile
+  echo"\
+export EDITOR=vim \
+export VISUAL=vim \
+" >> /etc/profile
 fi
 
 if [ -z "$( cat /etc/profile | grep 'alias ls=' )" ]; then
-  echo "
-  alias ls='ls --color=auto'
-  " >> /etc/profile
+  echo "\
+alias ls='ls --color=auto' \
+" >> /etc/profile
 fi
 
 
@@ -523,8 +523,8 @@ elif [ "$MISCELLANY" = true ]; then
     sbopkg -B -i tinyterm
   fi
 
-  if [ -z "$( ls /var/log/packages/ | grep leafpad )" ]; then
-    sbopkg -B -i leafpad
+  if [ -z "$( ls /var/log/packages/ | grep medit )" ]; then
+    sbopkg -B -i medit
   fi
 
   if [ -z "$( ls /var/log/packages/ | grep udevil )" ]; then
