@@ -161,16 +161,18 @@ if [ "$NEARFREE" != true ]; then
   esac
 fi
 
-read -r -p "Do you need PULSEAUDIO? [y/N]: " response
-case $response in
-  [yY][eE][sS]|[yY])
-    export PULSECRAPIO=true;
-    echo You are installing PULSEAUDIO.;
-    ;;
-  *)
-    echo You are not installing PULSEAUDIO.;
-    ;;
-esac
+if [ "$NEARFREE" != true ]; then
+  read -r -p "Do you need PULSEAUDIO? [y/N]: " response
+  case $response in
+    [yY][eE][sS]|[yY])
+      export PULSECRAPIO=true;
+      echo You are installing PULSEAUDIO.;
+      ;;
+    *)
+      echo You are not installing PULSEAUDIO.;
+      ;;
+  esac
+fi
 
 if [ "$NEARFREE" != true ]; then
   read -r -p "Would you like to install additional SCRIPTS? [y/N]: " response
@@ -632,7 +634,7 @@ else
 fi
 
 
-if [ "$PULSECRAPIO" = true ]; then
+if [ "$NEARFREE" != true ] && [ "$PULSECRAPIO" = true ]; then
   if [ -z "$( ls /var/log/packages/ | grep json-c )" ]; then
     sbopkg -B -i json-c
   fi
