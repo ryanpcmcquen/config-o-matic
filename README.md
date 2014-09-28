@@ -10,7 +10,7 @@ Configure Slackware installs in no time with config-o-matic! (patent pending)
 
 1. CURRENT: Switches to slackware-current/slackware64-current mirrors instead of stable.
 2. WICD: Installs Wicd, disables NetworkManager.
-3. NEARFREE: Follows http://freeslack.net/, but does not remove the kernel. This is NOT compatible with MISCELLANY, MATE, MULTILIB and SCRIPTS. If you select NEARFREE, you will NOT be presented with incompatible options.
+3. NEARFREE: Follows http://freeslack.net/, but does not remove the kernel. This is NOT compatible with MISCELLANY, MATE, MULTILIB, PULSEAUDIO and SCRIPTS. If you select NEARFREE, you will NOT be presented with incompatible options.
 4. MATE: Installs the Mate desktop environment.
 5. MULTILIB: Installs 32-bit compatibility files for a 64-bit system, a la Eric Hameleers.
 6. MISCELLANY: Installs a lot of additional packages, themes and miscellany.
