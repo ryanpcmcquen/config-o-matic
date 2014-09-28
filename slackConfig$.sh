@@ -95,12 +95,12 @@ if [ ! -z "$( ls /var/log/packages/ | grep kdelibs )" ]; then
   curl $KDECONF | sh
 fi
 
-if [ ! -z "$( ls /var/log/packages/ | grep Thunar )" ]; then
-  curl $XFCECONF | sh
-fi
-
 if [ ! -z "$( ls /var/log/packages/ | grep pluma )" ]; then
   curl $MATECONF | sh
+fi
+
+if [ ! -z "$( ls /var/log/packages/ | grep Thunar )" ]; then
+  curl $XFCECONF | sh
 fi
 
 
