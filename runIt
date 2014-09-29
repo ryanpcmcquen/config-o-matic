@@ -3,12 +3,12 @@
 # curl https://raw.githubusercontent.com/ryanpcmcquen/config-o-matic/master/runIt | sh
 
 if [ ! $UID = 0 ]; then
-  cd; wget -N https://raw2.github.com/ryanpcmcquen/config-o-matic/stable/slackConfigROOT.sh; sh slackConfigROOT.sh; rm slackConfigROOT.sh
+  cd; wget -N https://raw2.github.com/ryanpcmcquen/config-o-matic/stable/slackConfig$.sh; sh slackConfig$.sh; rm slackConfig$.sh
 fi
 
 
 if [ ! $UID != 0 ]; then
-  cd; wget -N https://raw2.github.com/ryanpcmcquen/config-o-matic/stable/slackConfig$.sh; sh slackConfig$.sh; rm slackConfig$.sh
+  cd; wget -N https://raw2.github.com/ryanpcmcquen/config-o-matic/stable/slackConfigROOT.sh; sh slackConfigROOT.sh; rm slackConfigROOT.sh
 fi
 
 
