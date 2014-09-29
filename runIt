@@ -1,0 +1,21 @@
+#!/bin/sh
+
+
+if [ ! $UID = 0 ]; then
+  cat << EOF
+cd; wget -N https://raw2.github.com/ryanpcmcquen/config-o-matic/stable/slackConfigROOT.sh; sh slackConfigROOT.sh; rm slackConfigROOT.sh
+EOF
+  exit 1
+fi
+
+
+if [ ! $UID != 0 ]; then
+cat << EOF
+
+cd; wget -N https://raw2.github.com/ryanpcmcquen/config-o-matic/stable/slackConfig$.sh; sh slackConfig$.sh; rm slackConfig$.sh
+
+EOF
+  exit 1
+fi
+
+
