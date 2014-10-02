@@ -302,7 +302,6 @@ if [ "$NEARFREE" != true ]; then
   wget -N $SPPLUSDL -P ~/
 fi
 installpkg ~/*.t?z
-cp /etc/slackpkg/slackpkgplus.conf /etc/slackpkg/slackpkgplus.conf.old
 rm ~/*.t?z
 
 ## gkrellm theme
@@ -318,36 +317,27 @@ sed -i 's/^DEFAULT_ANSWER=n/DEFAULT_ANSWER=y/g' /etc/slackpkg/slackpkg.conf
 
 
 if [ -z "$( ls /etc/slackpkg/slackpkgplus.conf.old )" ] && [ "$NEARFREE" != true ] && [ "$CURRENT" = true ]; then
+  cp /etc/slackpkg/slackpkgplus.conf /etc/slackpkg/slackpkgplus.conf.old
+  sed -i 's@slackpkgplus restricted alienbob slacky@slackpkgplus alienbob @g' /etc/slackpkg/slackpkgplus.conf
+  echo >> /etc/slackpkg/slackpkgplus.conf
+  echo #PKGS_PRIORITY=( multilib:.* alienbob-current:.* restricted-current:.* )
+  echo #PKGS_PRIORITY=( alienbob-current:.* restricted-current:.* )
+  echo #PKGS_PRIORITY=( multilib:.* ktown:.* alienbob-current:.* restricted-current:.* )
+  echo #PKGS_PRIORITY=( ktown:.* alienbob-current:.* restricted-current:.* )
+  echo
+  echo #PKGS_PRIORITY=( multilib:.* alienbob-current:.* )
+  echo PKGS_PRIORITY=( alienbob-current:.* )
+  echo #PKGS_PRIORITY=( multilib:.* ktown:.* alienbob-current:.* )
+  echo #PKGS_PRIORITY=( ktown:.* alienbob-current:.* )
   if [ "$( uname -m )" = "x86_64" ]; then
-    if [ "$MATE" = true ] && [ "$MULTILIB" = true ]; then
-      wget -N $SPPLUSMLIBMATECUR64 -P /etc/slackpkg/
-    elif [ "$MATE" = true ]; then
-      wget -N $SPPLUSMATECUR64 -P /etc/slackpkg/
-    elif [ "$MULTILIB" = true ]; then
-      wget -N $SPPLUSMLIBCUR64 -P /etc/slackpkg/
-    elif [ "$MATE" != true ] && [ "$MULTILIB" != true ] && [ "$MISCELLANY" = true ]; then
-      wget -N $SPPLUSCUR64 -P /etc/slackpkg/
-    fi
-  elif [ "$MATE" = true ]; then
-    wget -N $SPPLUSMATECUR32 -P /etc/slackpkg/
-  elif [ "$MATE" != true ] && [ "$MISCELLANY" = true ]; then
-    wget -N $SPPLUSCUR32 -P /etc/slackpkg/
+  
+  else
   fi
 elif [ -z "$( ls /etc/slackpkg/slackpkgplus.conf.old )" ] && [ "$NEARFREE" != true ]; then
+  cp /etc/slackpkg/slackpkgplus.conf /etc/slackpkg/slackpkgplus.conf.old
+  sed -i 's@slackpkgplus restricted alienbob slacky@slackpkgplus alienbob @g' /etc/slackpkg/slackpkgplus.conf
   if [ "$( uname -m )" = "x86_64" ]; then
-    if [ "$MATE" = true ] && [ "$MULTILIB" = true ]; then
-      wget -N $SPPLUSMLIBMATESTA64 -P /etc/slackpkg/
-    elif [ "$MATE" = true ]; then
-      wget -N $SPPLUSMATESTA64 -P /etc/slackpkg/
-    elif [ "$MULTILIB" = true ]; then
-      wget -N $SPPLUSMLIBSTA64 -P /etc/slackpkg/
-    elif [ "$MATE" != true ] && [ "$MULTILIB" != true ] && [ "$MISCELLANY" = true ]; then
-      wget -N $SPPLUSSTA64 -P /etc/slackpkg/
-    fi
-  elif [ "$MATE" = true ]; then
-    wget -N $SPPLUSMATESTA32 -P /etc/slackpkg/
-  elif [ "$MATE" != true ] && [ "$MISCELLANY" = true ]; then
-    wget -N $SPPLUSSTA32 -P /etc/slackpkg/
+  else
   fi
 fi
 
