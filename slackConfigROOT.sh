@@ -317,7 +317,7 @@ sed -i 's/^BATCH=off/BATCH=on/g' /etc/slackpkg/slackpkg.conf
 sed -i 's/^DEFAULT_ANSWER=n/DEFAULT_ANSWER=y/g' /etc/slackpkg/slackpkg.conf
 
 
-if [ "$NEARFREE" != true ] && [ "$CURRENT" = true ]; then
+if [ -z "$( ls /etc/slackpkg/slackpkgplus.conf.old )" ] && [ "$NEARFREE" != true ] && [ "$CURRENT" = true ]; then
   if [ "$( uname -m )" = "x86_64" ]; then
     if [ "$MATE" = true ] && [ "$MULTILIB" = true ]; then
       wget -N $SPPLUSMLIBMATECUR64 -P /etc/slackpkg/
@@ -333,7 +333,7 @@ if [ "$NEARFREE" != true ] && [ "$CURRENT" = true ]; then
   elif [ "$MATE" != true ] && [ "$MISCELLANY" = true ]; then
     wget -N $SPPLUSCUR32 -P /etc/slackpkg/
   fi
-elif [ "$NEARFREE" != true ]; then
+elif [ -z "$( ls /etc/slackpkg/slackpkgplus.conf.old )" ] && [ "$NEARFREE" != true ]; then
   if [ "$( uname -m )" = "x86_64" ]; then
     if [ "$MATE" = true ] && [ "$MULTILIB" = true ]; then
       wget -N $SPPLUSMLIBMATESTA64 -P /etc/slackpkg/
