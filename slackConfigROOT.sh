@@ -8,26 +8,6 @@
 SBOPKGDL="http://sbopkg.googlecode.com/files/sbopkg-0.37.0-noarch-1_cng.tgz"
 SPPLUSDL="http://sourceforge.net/projects/slackpkgplus/files/slackpkg%2B-1.3.2-noarch-1mt.txz"
 
-## STABLE
-SPPLUSSTA64="https://raw2.github.com/ryanpcmcquen/linuxTweaks/master/slackware/64/14.1/slackpkgplus.conf"
-SPPLUSMATESTA64="https://raw2.github.com/ryanpcmcquen/linuxTweaks/master/slackware/64/14.1/mate/slackpkgplus.conf"
-SPPLUSMLIBSTA64="https://raw2.github.com/ryanpcmcquen/linuxTweaks/master/slackware/64/14.1/multilib/slackpkgplus.conf"
-SPPLUSMLIBMATESTA64="https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/slackware/64/14.1/multilib-mate/slackpkgplus.conf"
-
-## CURRENT
-SPPLUSCUR64="https://raw2.github.com/ryanpcmcquen/linuxTweaks/master/slackware/64/current/slackpkgplus.conf"
-SPPLUSMATECUR64="https://raw2.github.com/ryanpcmcquen/linuxTweaks/master/slackware/64/current/mate/slackpkgplus.conf"
-SPPLUSMLIBCUR64="https://raw2.github.com/ryanpcmcquen/linuxTweaks/master/slackware/64/current/multilib/slackpkgplus.conf"
-SPPLUSMLIBMATECUR64="https://raw2.github.com/ryanpcmcquen/linuxTweaks/master/slackware/64/current/multilib-mate/slackpkgplus.conf"
-
-## STABLE
-SPPLUSMATESTA32="https://raw2.github.com/ryanpcmcquen/linuxTweaks/master/slackware/32/14.1/mate/slackpkgplus.conf"
-SPPLUSSTA32="https://raw2.github.com/ryanpcmcquen/linuxTweaks/master/slackware/32/14.1/slackpkgplus.conf"
-
-## CURRENT
-SPPLUSCUR32="https://raw2.github.com/ryanpcmcquen/linuxTweaks/master/slackware/32/current/slackpkgplus.conf"
-SPPLUSMATECUR32="https://raw2.github.com/ryanpcmcquen/linuxTweaks/master/slackware/32/current/mate/slackpkgplus.conf"
-
 INSCRPT="https://raw2.github.com/ryanpcmcquen/linuxTweaks/master/slackware/initscript"
 
 BASHRC="https://raw2.github.com/ryanpcmcquen/linuxTweaks/master/slackware/root/.bashrc"
@@ -121,32 +101,6 @@ case $response in
     echo You are not becoming NEARFREE.;
     ;;
 esac
-
-if [ "$NEARFREE" != true ]; then
-  read -r -p "Would you like to install MATE? [y/N]: " response
-  case $response in
-    [yY][eE][sS]|[yY])
-      export MATE=true;
-      echo You have chosen to install MATE.;
-      ;;
-    *)
-      echo You are not installing MATE.;
-      ;;
-  esac
-fi
-
-if [ "$NEARFREE" != true ] && [ "$( uname -m )" = "x86_64" ]; then
-  read -r -p "Would you like to go MULTILIB? [y/N]: " response
-  case $response in
-    [yY][eE][sS]|[yY])
-      export MULTILIB=true;
-      echo You have chosen to go MULTILIB.;
-      ;;
-    *)
-      echo You are not going MULTILIB.;
-      ;;
-  esac
-fi
 
 if [ "$NEARFREE" != true ]; then
   read -r -p "Would you like to install additional packages, themes and MISCELLANY? [y/N]: " response
@@ -316,50 +270,41 @@ sed -i 's/^BATCH=off/BATCH=on/g' /etc/slackpkg/slackpkg.conf
 sed -i 's/^DEFAULT_ANSWER=n/DEFAULT_ANSWER=y/g' /etc/slackpkg/slackpkg.conf
 
 
-if [ -z "$( ls /etc/slackpkg/slackpkgplus.conf.old )" ] && [ "$NEARFREE" != true ] && [ "$CURRENT" = true ]; then
+if [ -z "$( ls /etc/slackpkg/slackpkgplus.conf.old )" ] && [ "$NEARFREE" != true ]; then
   cp /etc/slackpkg/slackpkgplus.conf /etc/slackpkg/slackpkgplus.conf.old
   sed -i 's@slackpkgplus restricted alienbob slacky@slackpkgplus alienbob @g' /etc/slackpkg/slackpkgplus.conf
   echo >> /etc/slackpkg/slackpkgplus.conf
-  echo #PKGS_PRIORITY=( multilib:.* alienbob-current:.* restricted-current:.* )
-  echo #PKGS_PRIORITY=( alienbob-current:.* restricted-current:.* )
-  echo #PKGS_PRIORITY=( multilib:.* ktown:.* alienbob-current:.* restricted-current:.* )
-  echo #PKGS_PRIORITY=( ktown:.* alienbob-current:.* restricted-current:.* )
-  echo
-  echo #PKGS_PRIORITY=( multilib:.* alienbob-current:.* )
-  echo PKGS_PRIORITY=( alienbob-current:.* )
-  echo #PKGS_PRIORITY=( multilib:.* ktown:.* alienbob-current:.* )
-  echo #PKGS_PRIORITY=( ktown:.* alienbob-current:.* )
-  if [ "$( uname -m )" = "x86_64" ]; then
-  
-  else
+  echo >> /etc/slackpkg/slackpkgplus.conf
+  echo "#PKGS_PRIORITY=( multilib:.* alienbob-current:.* restricted-current:.* )" >> /etc/slackpkg/slackpkgplus.conf
+  echo "#PKGS_PRIORITY=( alienbob-current:.* restricted-current:.* )" >> /etc/slackpkg/slackpkgplus.conf
+  echo "#PKGS_PRIORITY=( multilib:.* ktown:.* alienbob-current:.* restricted-current:.* )" >> /etc/slackpkg/slackpkgplus.conf
+  echo "#PKGS_PRIORITY=( ktown:.* alienbob-current:.* restricted-current:.* )" >> /etc/slackpkg/slackpkgplus.conf
+  echo >> /etc/slackpkg/slackpkgplus.conf
+  echo "#PKGS_PRIORITY=( multilib:.* alienbob-current:.* )" >> /etc/slackpkg/slackpkgplus.conf
+  echo "#PKGS_PRIORITY=( multilib:.* ktown:.* alienbob-current:.* )" >> /etc/slackpkg/slackpkgplus.conf
+  echo "#PKGS_PRIORITY=( ktown:.* alienbob-current:.* )" >> /etc/slackpkg/slackpkgplus.conf
+  echo "#REPOPLUS=( slackpkgplus restricted alienbob slacky )" >> /etc/slackpkg/slackpkgplus.conf
+  echo "#REPOPLUS=( slackpkgplus restricted alienbob )" >> /etc/slackpkg/slackpkgplus.conf
+  echo "#REPOPLUS=( slackpkgplus alienbob msb )" >> /etc/slackpkg/slackpkgplus.conf
+  echo >> /etc/slackpkg/slackpkgplus.conf
+  if [ "$CURRENT" = true ]; then
+    echo "PKGS_PRIORITY=( alienbob-current:.* )" >> /etc/slackpkg/slackpkgplus.conf
   fi
-elif [ -z "$( ls /etc/slackpkg/slackpkgplus.conf.old )" ] && [ "$NEARFREE" != true ]; then
-  cp /etc/slackpkg/slackpkgplus.conf /etc/slackpkg/slackpkgplus.conf.old
-  sed -i 's@slackpkgplus restricted alienbob slacky@slackpkgplus alienbob @g' /etc/slackpkg/slackpkgplus.conf
   if [ "$( uname -m )" = "x86_64" ]; then
+    echo >> /etc/slackpkg/slackpkgplus.conf
+    echo "MIRRORPLUS['msb']=http://slackware.org.uk/msb/14.1/1.8/x86_64/" >> /etc/slackpkg/slackpkgplus.conf
+    echo "MIRRORPLUS['ktown']=http://taper.alienbase.nl/mirrors/alien-kde/current/latest/x86_64/" >> /etc/slackpkg/slackpkgplus.conf
+    echo "MIRRORPLUS['alienbob-current']=http://taper.alienbase.nl/mirrors/people/alien/sbrepos/current/x86_64/" >> /etc/slackpkg/slackpkgplus.conf
+    echo "MIRRORPLUS['restricted-current']=http://taper.alienbase.nl/mirrors/people/alien/restricted_sbrepos/current/x86_64/" >> /etc/slackpkg/slackpkgplus.conf
+    echo >> /etc/slackpkg/slackpkgplus.conf
   else
+    echo >> /etc/slackpkg/slackpkgplus.conf
+    echo "MIRRORPLUS['msb']=http://slackware.org.uk/msb/14.1/1.8/x86/" >> /etc/slackpkg/slackpkgplus.conf
+    echo "MIRRORPLUS['ktown']=http://taper.alienbase.nl/mirrors/alien-kde/current/latest/x86/" >> /etc/slackpkg/slackpkgplus.conf
+    echo "MIRRORPLUS['alienbob-current']=http://taper.alienbase.nl/mirrors/people/alien/sbrepos/current/x86/" >> /etc/slackpkg/slackpkgplus.conf
+    echo "MIRRORPLUS['restricted-current']=http://taper.alienbase.nl/mirrors/people/alien/restricted_sbrepos/current/x86/" >> /etc/slackpkg/slackpkgplus.conf
+    echo >> /etc/slackpkg/slackpkgplus.conf
   fi
-fi
-
-
-if [ "$NEARFREE" != true ] && [ "$MATE" = true ]; then
-  slackpkg update gpg && slackpkg update
-  slackpkg install-new && slackpkg upgrade-all
-  ## set slackpkg to non-interactive mode to run without prompting
-  sed -i 's/^BATCH=off/BATCH=on/g' /etc/slackpkg/slackpkg.conf
-  sed -i 's/^DEFAULT_ANSWER=n/DEFAULT_ANSWER=y/g' /etc/slackpkg/slackpkg.conf
-  slackpkg update gpg && slackpkg update
-  slackpkg install msb
-fi
-
-if [ "$NEARFREE" != true ] && [ "$MULTILIB" = true ] && [ "$( uname -m )" = "x86_64" ]; then
-  slackpkg update gpg && slackpkg update
-  slackpkg install-new && slackpkg upgrade-all
-  ## set slackpkg to non-interactive mode to run without prompting
-  sed -i 's/^BATCH=off/BATCH=on/g' /etc/slackpkg/slackpkg.conf
-  sed -i 's/^DEFAULT_ANSWER=n/DEFAULT_ANSWER=y/g' /etc/slackpkg/slackpkg.conf
-  slackpkg update gpg && slackpkg update
-  slackpkg install multilib
 fi
 
 
