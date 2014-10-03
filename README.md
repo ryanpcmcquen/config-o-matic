@@ -5,7 +5,7 @@ Configure Slackware installs in no time with config-o-matic! (patent pending)
 - Now supports 32 and 64 bit!
 
 
-8 options are presented when running the ROOT script:
+Options presented when running the ROOT script:
 
 
 1. CURRENT: Switches to slackware-current/slackware64-current mirrors instead of stable.
@@ -44,7 +44,7 @@ Normal user:
     cd; wget -N https://raw2.github.com/ryanpcmcquen/config-o-matic/master/slackConfig$.sh; sh slackConfig$.sh; rm slackConfig$.sh
 
 
-config-o-matic takes a text-oriented approach to system provisioning, for this reason, Fluxbox, KDE, Mate and XFCE are our current DE's of choice. You may remove any of the DE config url's if you do not use those environments.  ;^)
+config-o-matic takes a text-oriented approach to system provisioning, for this reason, Fluxbox, KDE, Mate and XFCE are our current DE's of choice. You may remove any of the DE config url's if you do not use those environments (although config-o-matic will try to detect them).  ;^)
 
 #NOTES:
  - You should either fork this project or download it and set it to YOUR config files, just running my scripts will set up my preferred configs.
