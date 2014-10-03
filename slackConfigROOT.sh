@@ -584,8 +584,9 @@ if [ "$NEARFREE" != true ] && [ "$PULSECRAPIO" = true ]; then
     useradd -g pulse -u 216 -d /var/lib/pulse pulse
     sbopkg -B -i pulseaudio
     chmod +x /etc/rc.d/rc.pulseaudio
-    wget -N $ASOUNDPULSECONF -P /etc/
   fi
+
+  wget -N $ASOUNDPULSECONF -P /etc/
 
   if [ -z "$( ls /var/log/packages/ | grep alsa-plugins )" ]; then
     sbopkg -B -i alsa-plugins
