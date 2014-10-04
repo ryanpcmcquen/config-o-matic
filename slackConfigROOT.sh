@@ -649,6 +649,11 @@ echo
 echo "Your system is now set to UTF-8."
 echo "(e.g. You should use uxterm, instead of xterm)."
 echo "Thank you for using config-o-matic!"
+echo
+if [ "$NEARFREE" != true ]; then
+  echo "Don't forget to set up repos in /etc/slackpkg/slackpkgplus.conf such as MULTILIB"
+  echo
+fi
 echo "You should now run 'adduser', if you have not."
 echo "Then you should run the $ user script."
 echo
