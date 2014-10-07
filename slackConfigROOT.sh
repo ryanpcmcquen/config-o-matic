@@ -272,7 +272,7 @@ sed -i 's/^DEFAULT_ANSWER=n/DEFAULT_ANSWER=y/g' /etc/slackpkg/slackpkg.conf
 
 if [ -z "$( ls /etc/slackpkg/slackpkgplus.conf.old )" ] && [ "$NEARFREE" != true ]; then
   cp /etc/slackpkg/slackpkgplus.conf /etc/slackpkg/slackpkgplus.conf.old
-  sed -i 's@slackpkgplus restricted alienbob slacky@slackpkgplus alienbob @g' /etc/slackpkg/slackpkgplus.conf
+  sed -i 's@slackpkgplus restricted alienbob slacky@slackpkgplus alienbob@g' /etc/slackpkg/slackpkgplus.conf
   echo >> /etc/slackpkg/slackpkgplus.conf
   echo >> /etc/slackpkg/slackpkgplus.conf
   echo "#PKGS_PRIORITY=( multilib:.* alienbob-current:.* restricted-current:.* )" >> /etc/slackpkg/slackpkgplus.conf
