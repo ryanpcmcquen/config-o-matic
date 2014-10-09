@@ -225,6 +225,13 @@ if [ -z "$( cat /etc/profile | grep 'alias ls=' )" ]; then
   echo >> /etc/profile
 fi
 
+if [ -z "$( cat /etc/profile | grep 'MAKEOPTS' )" ]; then
+  echo >> /etc/profile
+  echo 'if [ "$( nproc )" != 1 ]; then' >> /etc/profile
+  echo '  export MAKEOPTS="-j$( expr $( nproc ) / 2 )"' >> /etc/profile
+  echo 'fi' >> /etc/profile
+  echo >> /etc/profile
+fi
 
 wget -N $BASHRC -P ~/
 wget -N $BASHPR -P ~/
@@ -636,7 +643,6 @@ if [ "$WICD" = true ]; then
   slackpkg install wicd
   chmod -x /etc/rc.d/rc.networkmanager
   sed -i 's/^\([^#]\)/#\1/g' /etc/rc.d/rc.inet1.conf
-  #sed -i 's/^\([^#]\)/#\1/g' /etc/rc.d/rc.wireless.conf
 fi
 
 
