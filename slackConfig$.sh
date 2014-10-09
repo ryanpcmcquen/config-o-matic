@@ -71,12 +71,6 @@ mkdir -p ~/.vim/colors/
 wget -N $VIMCOLOR -P ~/.vim/colors/
 
 
-## set tmux scrollback value
-tmux set-option -g history-limit 9999
-## set to screen otherwise vim will break
-tmux set-option -g default-terminal screen
-
-
 ## git config
 git config --global user.name "$GITNAME"
 git config --global user.email "$GITEMAIL"
