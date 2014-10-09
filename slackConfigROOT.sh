@@ -233,6 +233,9 @@ if [ -z "$( cat /etc/profile | grep 'MAKEOPTS' )" ]; then
   echo >> /etc/profile
 fi
 
+## otherwise all our new stuff won't load until we log in again  ;^)
+source /etc/profile
+
 wget -N $BASHRC -P ~/
 wget -N $BASHPR -P ~/
 wget -N $VIMRC -P ~/
