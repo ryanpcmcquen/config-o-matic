@@ -16,6 +16,8 @@ BASHPR="https://raw2.github.com/ryanpcmcquen/linuxTweaks/master/slackware/root/.
 VIMRC="https://raw2.github.com/ryanpcmcquen/linuxTweaks/master/.vimrc"
 VIMCOLOR="https://raw.githubusercontent.com/ryanpcmcquen/vim-plain/master/colors/elvis.vim"
 
+TMUXCONF="https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/tmux.conf"
+
 GITNAME="Ryan P.C. McQuen"
 GITEMAIL="ryan.q@linux.com"
 
@@ -230,10 +232,8 @@ wget -N $VIMCOLOR -P ~/.vim/colors/
 wget -N $TOUCHPCONF -P /etc/X11/xorg.conf.d/
 wget -N $INSCRPT -P /etc/
 
-## set tmux scrollback value
-tmux set-option -g history-limit 9999
-## set to screen otherwise vim will break
-tmux set-option -g default-terminal screen
+wget -N $TMUXCONF -P /etc/
+
 
 ## git config
 git config --global user.name "$GITNAME"
