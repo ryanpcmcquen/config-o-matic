@@ -31,6 +31,9 @@ ASOUNDPULSECONF="https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/mast
 GETEXTRASTA="https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/slackware/getExtraSlackBuildsSTABLE.sh"
 GETEXTRACUR="https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/slackware/getExtraSlackBuildsCURRENT.sh"
 
+GETSOURCESTA="https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/slackware/getSystemSlackBuildsSTABLE.sh"
+GETSOURCECUR="https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/slackware/getSystemSlackBuildsCURRENT.sh"
+
 CALPLAS="Caledonia-1.9.tar.gz"
 CALWALL="Caledonia_Official_Wallpaper_Collection-1.5.tar.gz"
 
@@ -597,8 +600,10 @@ fi
 if [ "$NEARFREE" != true ] && [ "$SCRIPTS" = true ]; then
   if [ "$CURRENT" = true ]; then
     wget -N $GETEXTRACUR -P ~/
+    wget -N $GETSOURCECUR -P ~/
   else
     wget -N $GETEXTRASTA -P ~/
+    wget -N $GETSOURCESTA -P ~/
   fi
 
   ## slackbuilds repo
