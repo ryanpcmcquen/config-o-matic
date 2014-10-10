@@ -225,10 +225,10 @@ if [ -z "$( cat /etc/profile | grep 'alias ls=' )" ]; then
   echo >> /etc/profile
 fi
 
-if [ -z "$( cat /etc/profile | grep 'MAKEOPTS' )" ]; then
+if [ -z "$( cat /etc/profile | grep 'MAKEFLAGS' )" ]; then
   echo >> /etc/profile
   echo 'if [ "$( nproc )" != 1 ]; then' >> /etc/profile
-  echo '  export MAKEOPTS="-j$( expr $( nproc ) / 2 )"' >> /etc/profile
+  echo '  export MAKEFLAGS="-j$( expr $( nproc ) / 2 )"' >> /etc/profile
   echo 'fi' >> /etc/profile
   echo >> /etc/profile
 fi
