@@ -121,19 +121,6 @@ if [ "$NEARFREE" != true ]; then
 fi
 
 if [ "$NEARFREE" != true ]; then
-  read -r -p "Do you need PULSEAUDIO? [y/N]: " response
-  case $response in
-    [yY][eE][sS]|[yY])
-      export PULSECRAPIO=true;
-      echo You are installing PULSEAUDIO.;
-      ;;
-    *)
-      echo You are not installing PULSEAUDIO.;
-      ;;
-  esac
-fi
-
-if [ "$NEARFREE" != true ]; then
   read -r -p "Would you like to install additional SCRIPTS? [y/N]: " response
   case $response in
     [yY][eE][sS]|[yY])
@@ -142,6 +129,19 @@ if [ "$NEARFREE" != true ]; then
       ;;
     *)
       echo You are not installing additional SCRIPTS.;
+      ;;
+  esac
+fi
+
+if [ "$NEARFREE" != true ]; then
+  read -r -p "Do you need PULSEAUDIO? [y/N]: " response
+  case $response in
+    [yY][eE][sS]|[yY])
+      export PULSECRAPIO=true;
+      echo You are installing PULSEAUDIO.;
+      ;;
+    *)
+      echo You are not installing PULSEAUDIO.;
       ;;
   esac
 fi
