@@ -10,7 +10,7 @@ Options presented when running the ROOT script:
 
 1. CURRENT: Switches to slackware-current/slackware64-current mirrors instead of stable.
 2. WICD: Installs Wicd, disables NetworkManager.
-3. NEARFREE: Follows http://freeslack.net/, but does not remove the kernel. This is NOT compatible with MISCELLANY, PULSEAUDIO and SCRIPTS. If you select NEARFREE, you will NOT be presented with incompatible options.
+3. NEARFREE: Follows http://freeslack.net/, but does not remove the kernel. This is NOT compatible with MISCELLANY, SCRIPTS and PULSEAUDIO. If you select NEARFREE, you will NOT be presented with incompatible options.
 4. MISCELLANY: Installs a lot of additional packages, themes and miscellany.
 5. SCRIPTS: Clones some git repos and helpful scripts into /root/.
 6. PULSEAUDIO: Installs PULSEAUDIO, effectively breaking sound.
