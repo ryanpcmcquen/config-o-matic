@@ -225,16 +225,27 @@ if [ -z "$( cat /etc/profile | grep 'alias ls=' )" ]; then
   echo >> /etc/profile
 fi
 
+## half the cores
+#if [ -z "$( cat /etc/profile | grep 'MAKEFLAGS' )" ]; then
+#  echo >> /etc/profile
+#  echo 'if [ "$( nproc )" != 1 ]; then' >> /etc/profile
+#  echo '  export MAKEFLAGS="-j$( expr $( nproc ) / 2 )"' >> /etc/profile
+#  echo 'fi' >> /etc/profile
+#  echo >> /etc/profile
+#fi
+
+## cores--
 if [ -z "$( cat /etc/profile | grep 'MAKEFLAGS' )" ]; then
   echo >> /etc/profile
   echo 'if [ "$( nproc )" != 1 ]; then' >> /etc/profile
-  echo '  export MAKEFLAGS="-j$( expr $( nproc ) / 2 )"' >> /etc/profile
+  echo '  export MAKEFLAGS="-j$( expr $( nproc ) - 1 )"' >> /etc/profile
   echo 'fi' >> /etc/profile
   echo >> /etc/profile
 fi
 
 ## otherwise all our new stuff won't load until we log in again  ;^)
 source /etc/profile
+
 
 wget -N $BASHRC -P ~/
 wget -N $BASHPR -P ~/
