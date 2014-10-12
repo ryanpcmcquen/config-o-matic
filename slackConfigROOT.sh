@@ -8,7 +8,7 @@
 ## note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files
-CONFIGOMATICVERSION=4.2.0
+CONFIGOMATICVERSION=4.2.1
 
 ## set config files here:
 SBOPKGDL="http://sbopkg.googlecode.com/files/sbopkg-0.37.0-noarch-1_cng.tgz"
@@ -672,6 +672,8 @@ echo >> ~/.config-o-matic_$CONFIGOMATICVERSION
 echo "========================================" >> ~/.config-o-matic_$CONFIGOMATICVERSION
 echo >> ~/.config-o-matic_$CONFIGOMATICVERSION
 echo "CONFIG-O-MATIC $CONFIGOMATICVERSION" >> ~/.config-o-matic_$CONFIGOMATICVERSION
+echo >> ~/.config-o-matic_$CONFIGOMATICVERSION
+echo "BLANK = false" >> ~/.config-o-matic_$CONFIGOMATICVERSION
 echo >> ~/.config-o-matic_$CONFIGOMATICVERSION
 echo >> ~/.config-o-matic_$CONFIGOMATICVERSION
 
