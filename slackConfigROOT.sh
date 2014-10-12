@@ -4,6 +4,12 @@
 
 ## BASHGITVIM="https://raw2.github.com/ryanpcmcquen/linuxTweaks/master/bashGitVimROOT.sh"
 
+## added in 4.2.0
+## note that some configuration options may not match
+## depending on the system, as config-o-matic tries
+## to avoid overwriting most files
+CONFIGOMATICVERSION=4.2.0
+
 ## set config files here:
 SBOPKGDL="http://sbopkg.googlecode.com/files/sbopkg-0.37.0-noarch-1_cng.tgz"
 SPPLUSDL="http://sourceforge.net/projects/slackpkgplus/files/slackpkg%2B-1.3.2-noarch-1mt.txz"
@@ -660,6 +666,28 @@ sed -i 's/^BATCH=on/BATCH=off/g' /etc/slackpkg/slackpkg.conf
 sed -i 's/^DEFAULT_ANSWER=y/DEFAULT_ANSWER=n/g' /etc/slackpkg/slackpkg.conf
 
 
+
+## create an info file
+echo >> ~/.config-o-matic_$CONFIGOMATICVERSION
+echo "========================================" >> ~/.config-o-matic_$CONFIGOMATICVERSION
+echo >> ~/.config-o-matic_$CONFIGOMATICVERSION
+echo "CONFIG-O-MATIC $CONFIGOMATICVERSION" >> ~/.config-o-matic_$CONFIGOMATICVERSION
+echo >> ~/.config-o-matic_$CONFIGOMATICVERSION
+echo >> ~/.config-o-matic_$CONFIGOMATICVERSION
+
+echo "CURRENT = $CURRENT" >> ~/.config-o-matic_$CONFIGOMATICVERSION
+echo "WICD = $WICD" >> ~/.config-o-matic_$CONFIGOMATICVERSION
+echo "NEARFREE = $NEARFREE" >> ~/.config-o-matic_$CONFIGOMATICVERSION
+echo "MISCELLANY = $MISCELLANY" >> ~/.config-o-matic_$CONFIGOMATICVERSION
+echo "SCRIPTS = $SCRIPTS" >> ~/.config-o-matic_$CONFIGOMATICVERSION
+echo "PULSEAUDIO = $PULSECRAPIO" >> ~/.config-o-matic_$CONFIGOMATICVERSION
+
+echo >> ~/.config-o-matic_$CONFIGOMATICVERSION
+echo "========================================" >> ~/.config-o-matic_$CONFIGOMATICVERSION
+echo >> ~/.config-o-matic_$CONFIGOMATICVERSION
+
+
+## thanks!
 echo
 echo
 echo "************************************"
