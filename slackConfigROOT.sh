@@ -8,7 +8,7 @@
 ## note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files
-CONFIGOMATICVERSION=4.2.1
+CONFIGOMATICVERSION=4.2.2
 
 ## set config files here:
 SBOPKGDL="http://sbopkg.googlecode.com/files/sbopkg-0.37.0-noarch-1_cng.tgz"
@@ -297,7 +297,7 @@ sed -i 's/^DEFAULT_ANSWER=n/DEFAULT_ANSWER=y/g' /etc/slackpkg/slackpkg.conf
 
 if [ -z "$( ls /etc/slackpkg/slackpkgplus.conf.old )" ] && [ "$NEARFREE" != true ]; then
   cp /etc/slackpkg/slackpkgplus.conf /etc/slackpkg/slackpkgplus.conf.old
-  sed -i 's@slackpkgplus restricted alienbob slacky@slackpkgplus alienbob@g' /etc/slackpkg/slackpkgplus.conf
+  sed -i 's@REPOPLUS=( slackpkgplus restricted alienbob slacky )@#REPOPLUS=( slackpkgplus restricted alienbob slacky )@g' /etc/slackpkg/slackpkgplus.conf
   echo >> /etc/slackpkg/slackpkgplus.conf
   echo >> /etc/slackpkg/slackpkgplus.conf
   echo "#PKGS_PRIORITY=( multilib:.* alienbob-current:.* restricted-current:.* )" >> /etc/slackpkg/slackpkgplus.conf
@@ -309,8 +309,11 @@ if [ -z "$( ls /etc/slackpkg/slackpkgplus.conf.old )" ] && [ "$NEARFREE" != true
   echo "#PKGS_PRIORITY=( multilib:.* ktown:.* alienbob-current:.* )" >> /etc/slackpkg/slackpkgplus.conf
   echo "#PKGS_PRIORITY=( ktown:.* alienbob-current:.* )" >> /etc/slackpkg/slackpkgplus.conf
   echo "#REPOPLUS=( slackpkgplus restricted alienbob slacky )" >> /etc/slackpkg/slackpkgplus.conf
+  echo "#REPOPLUS=( slackpkgplus restricted alienbob msb )" >> /etc/slackpkg/slackpkgplus.conf
   echo "#REPOPLUS=( slackpkgplus restricted alienbob )" >> /etc/slackpkg/slackpkgplus.conf
-  echo "#REPOPLUS=( slackpkgplus alienbob msb )" >> /etc/slackpkg/slackpkgplus.conf
+  echo "#REPOPLUS=( slackpkgplus alienbob )" >> /etc/slackpkg/slackpkgplus.conf
+  echo >> /etc/slackpkg/slackpkgplus.conf
+  echo "REPOPLUS=( slackpkgplus alienbob msb )" >> /etc/slackpkg/slackpkgplus.conf
   echo >> /etc/slackpkg/slackpkgplus.conf
   if [ "$CURRENT" = true ]; then
     echo "PKGS_PRIORITY=( alienbob-current:.* )" >> /etc/slackpkg/slackpkgplus.conf
