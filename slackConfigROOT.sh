@@ -8,7 +8,7 @@
 ## note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files
-CONFIGOMATICVERSION=4.2.3
+CONFIGOMATICVERSION=4.2.4
 
 ## set config files here:
 SBOPKGDL="http://sbopkg.googlecode.com/files/sbopkg-0.37.0-noarch-1_cng.tgz"
@@ -73,7 +73,7 @@ if [ ! -z "$( aplay -l | grep Analog | grep 'card 1' )" ]; then
   wget -N $ASOUNDCONF -P /etc/
 fi
 
-read -r -p "Would you like to switch to -CURRENT? \
+read -p "Would you like to switch to -CURRENT? \
 (if no you will stay on STABLE) \
 [y/N]: " response
 case $response in
@@ -86,7 +86,7 @@ case $response in
     ;;
 esac
 
-read -r -p "Would you like to install WICD? \
+read -p "Would you like to install WICD? \
 (NetworkManager will be disabled, and you may need to manually adjust \
 autostart settings) \
  [y/N]: " response
@@ -100,7 +100,7 @@ case $response in
     ;;
 esac
 
-read -r -p "Would you like to become NEARFREE? \
+read -p "Would you like to become NEARFREE? \
 (follows freeslack.net, but keeps kernel, not valid with most of the other options) \
 [y/N]: " response
 case $response in
@@ -114,7 +114,7 @@ case $response in
 esac
 
 if [ "$NEARFREE" != true ]; then
-  read -r -p "Would you like to install additional packages, themes and MISCELLANY? [y/N]: " response
+  read -p "Would you like to install additional packages, themes and MISCELLANY? [y/N]: " response
   case $response in
     [yY][eE][sS]|[yY])
       export MISCELLANY=true;
@@ -127,7 +127,7 @@ if [ "$NEARFREE" != true ]; then
 fi
 
 if [ "$NEARFREE" != true ]; then
-  read -r -p "Would you like to install additional SCRIPTS? [y/N]: " response
+  read -p "Would you like to install additional SCRIPTS? [y/N]: " response
   case $response in
     [yY][eE][sS]|[yY])
       export SCRIPTS=true;
@@ -140,7 +140,7 @@ if [ "$NEARFREE" != true ]; then
 fi
 
 if [ "$NEARFREE" != true ]; then
-  read -r -p "Do you need PULSEAUDIO? [y/N]: " response
+  read -p "Do you need PULSEAUDIO? [y/N]: " response
   case $response in
     [yY][eE][sS]|[yY])
       export PULSECRAPIO=true;
@@ -456,6 +456,14 @@ elif [ "$MISCELLANY" = true ]; then
 
   if [ -z "$( ls /var/log/packages/ | grep SDL_sound )" ]; then
     sbopkg -B -i SDL_sound
+  fi
+
+  if [ -z "$( ls /var/log/packages/ | grep optipng )" ]; then
+    sbopkg -B -i optipng
+  fi
+
+  if [ -z "$( ls /var/log/packages/ | grep jpegoptim )" ]; then
+    sbopkg -B -i jpegoptim
   fi
 
   if [ -z "$( ls /var/log/packages/ | grep murrine )" ]; then
