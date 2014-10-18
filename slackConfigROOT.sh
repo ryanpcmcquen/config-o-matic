@@ -8,7 +8,7 @@
 ## note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files
-CONFIGOMATICVERSION=4.2.4
+CONFIGOMATICVERSION=4.2.5
 
 ## set config files here:
 SBOPKGDL="http://sbopkg.googlecode.com/files/sbopkg-0.37.0-noarch-1_cng.tgz"
@@ -458,12 +458,16 @@ elif [ "$MISCELLANY" = true ]; then
     sbopkg -B -i SDL_sound
   fi
 
-  if [ -z "$( ls /var/log/packages/ | grep optipng )" ]; then
-    sbopkg -B -i optipng
-  fi
-
   if [ -z "$( ls /var/log/packages/ | grep jpegoptim )" ]; then
     sbopkg -B -i jpegoptim
+  fi
+
+  if [ -z "$( ls /var/log/packages/ | grep mozjpeg )" ]; then
+    sbopkg -B -i mozjpeg
+  fi
+
+  if [ -z "$( ls /var/log/packages/ | grep optipng )" ]; then
+    sbopkg -B -i optipng
   fi
 
   if [ -z "$( ls /var/log/packages/ | grep murrine )" ]; then
