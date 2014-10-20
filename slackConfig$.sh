@@ -10,7 +10,7 @@ BASHRC="https://raw2.github.com/ryanpcmcquen/linuxTweaks/master/slackware/normal
 BASHPR="https://raw2.github.com/ryanpcmcquen/linuxTweaks/master/slackware/normal/.bash_profile"
 
 VIMRC="https://raw2.github.com/ryanpcmcquen/linuxTweaks/master/.vimrc"
-VIMCOLOR="https://raw.githubusercontent.com/ryanpcmcquen/vim-plain/master/colors/elvis.vim"
+VIMCOLOR="https://raw.githubusercontent.com/ryanpcmcquen/vim-plain/master/colors/vi-clone.vim"
 
 FLUXBOXCONF="https://raw2.github.com/ryanpcmcquen/linuxTweaks/master/restoreFluxbox.sh"
 
