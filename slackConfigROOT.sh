@@ -8,7 +8,7 @@
 ## note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files
-CONFIGOMATICVERSION=4.2.6
+CONFIGOMATICVERSION=4.2.7
 
 ## set config files here:
 SBOPKGDL="http://sbopkg.googlecode.com/files/sbopkg-0.37.0-noarch-1_cng.tgz"
@@ -458,6 +458,7 @@ elif [ "$MISCELLANY" = true ]; then
     sbopkg -B -i SDL_sound
   fi
 
+  ## these 3 are for the image ultimator
   if [ -z "$( ls /var/log/packages/ | grep jpegoptim )" ]; then
     sbopkg -B -i jpegoptim
   fi
@@ -469,6 +470,12 @@ elif [ "$MISCELLANY" = true ]; then
   if [ -z "$( ls /var/log/packages/ | grep optipng )" ]; then
     sbopkg -B -i optipng
   fi
+
+  ## install the image ultimator now that we have the dependencies
+  wget -N https://raw.githubusercontent.com/ryanpcmcquen/image-ultimator/master/imgult
+  install -m755 imgult /usr/local/bin/
+  rm imgult
+
 
   if [ -z "$( ls /var/log/packages/ | grep murrine )" ]; then
     sbopkg -B -i murrine
