@@ -8,7 +8,7 @@
 ## note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files
-CONFIGOMATICVERSION=4.2.7
+CONFIGOMATICVERSION=4.2.8
 
 ## set config files here:
 SBOPKGDL="http://sbopkg.googlecode.com/files/sbopkg-0.37.0-noarch-1_cng.tgz"
@@ -679,7 +679,7 @@ if [ "$NEARFREE" != true ] && [ "$SCRIPTS" = true ]; then
   git clone https://github.com/ryanpcmcquen/ryanpc-slackbuilds.git
 
   ## my linuxTweaks
-  git clone https://github.com/ryanpcmcquen/linuxTweaks.git
+  #git clone https://github.com/ryanpcmcquen/linuxTweaks.git
 fi
 
 
