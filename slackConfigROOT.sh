@@ -8,7 +8,7 @@
 ## note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files
-CONFIGOMATICVERSION=4.3.0
+CONFIGOMATICVERSION=4.3.1
 
 ## set config files here:
 SBOPKGDL="http://sbopkg.googlecode.com/files/sbopkg-0.37.0-noarch-1_cng.tgz"
@@ -296,7 +296,8 @@ if [ -z "$( ls /etc/slackpkg/slackpkgplus.conf.old )" ] && [ "$NEARFREE" != true
   ## mv /etc/slackpkg/slackpkgplus.conf.old /etc/slackpkg/slackpkgplus.conf
   cp /etc/slackpkg/slackpkgplus.conf /etc/slackpkg/slackpkgplus.conf.old
   sed -i 's@REPOPLUS=( slackpkgplus restricted alienbob slacky )@#REPOPLUS=( slackpkgplus restricted alienbob slacky )@g' /etc/slackpkg/slackpkgplus.conf
-  sed -i "s@MIRRORPLUS['slacky']=@#MIRRORPLUS['slacky']=@g" /etc/slackpkg/slackpkgplus.conf
+  sed -i "s@MIRRORPLUS\['slacky'\]@#MIRRORPLUS['slacky']@g" /etc/slackpkg/slackpkgplus.conf
+
   echo >> /etc/slackpkg/slackpkgplus.conf
   echo >> /etc/slackpkg/slackpkgplus.conf
   echo "#PKGS_PRIORITY=( multilib:.* restricted-current:.* alienbob-current:.* )" >> /etc/slackpkg/slackpkgplus.conf
