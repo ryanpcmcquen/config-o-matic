@@ -32,8 +32,6 @@ TOUCHPCONF="https://raw2.github.com/ryanpcmcquen/linuxTweaks/master/51-synaptics
 ASOUNDCONF="https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/asound.conf"
 #ALSOFT="https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/alsoft.conf"
 
-ASOUNDPULSECONF="https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/pulseaudio/asound.conf"
-
 GETEXTRASTA="https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/slackware/getExtraSlackBuildsSTABLE.sh"
 GETEXTRACUR="https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/slackware/getExtraSlackBuildsCURRENT.sh"
 
@@ -644,13 +642,8 @@ if [ "$NEARFREE" != true ] && [ "$PULSECRAPIO" = true ]; then
 
   ## i hate pulseaudio, but sound doesn't work in some games without it
   if [ -z "$( ls /var/log/packages/ | grep pulseaudio )" ]; then
-    groupadd -g 216 pulse
-    useradd -g pulse -u 216 -d /var/lib/pulse pulse
     sbopkg -B -i pulseaudio
-    chmod +x /etc/rc.d/rc.pulseaudio
   fi
-
-  wget -N $ASOUNDPULSECONF -P /etc/
 
   if [ -z "$( ls /var/log/packages/ | grep alsa-plugins )" ]; then
     sbopkg -B -i alsa-plugins
