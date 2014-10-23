@@ -56,10 +56,9 @@ cd
 gkrellm &
 
 
-## this allows us to temporarily change sound setup
-## when pulseaudio breaks things
-if [ ! -z "$( aplay -l | grep Analog | grep 'card 1' )" ]; then
-  wget -N https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/getASOUNDRC.sh -P ~/
+## this allows us to temporarily change sound to pulse
+if [ ! -z "$( ls /var/log/packages/ | grep pulseaudio )" ]; then
+  wget -N https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/getPULSEASOUNDRC.sh -P ~/
 fi
 
 
