@@ -8,7 +8,7 @@
 ## note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files
-CONFIGOMATICVERSION=4.2.9
+CONFIGOMATICVERSION=4.3.0
 
 ## set config files here:
 SBOPKGDL="http://sbopkg.googlecode.com/files/sbopkg-0.37.0-noarch-1_cng.tgz"
@@ -30,7 +30,7 @@ GITEMAIL="ryan.q@linux.com"
 TOUCHPCONF="https://raw2.github.com/ryanpcmcquen/linuxTweaks/master/51-synaptics.conf"
 
 ASOUNDCONF="https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/asound.conf"
-ALSOFT="https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/alsoft.conf"
+#ALSOFT="https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/alsoft.conf"
 
 ASOUNDPULSECONF="https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/pulseaudio/asound.conf"
 
@@ -162,13 +162,9 @@ fi
 ## no need to run this on efi
 if [ ! -z "$( ls /etc/lilo.conf )" ]; then
   ## configure lilo
-  sed -i 's/^#compact/lba32\
-  compact/g' /etc/lilo.conf
-  
-  ### set to utf8 console if not set in install
-  ### no longer needed with below command
-  ##sed -i 's/^append=" vt.default_utf8=0"/append=" vt.default_utf8=1"/g' /etc/lilo.conf
-  
+  sed -i "s/^#compact/lba32\
+  compact/g" /etc/lilo.conf
+
   ## set to utf8 and pass acpi kernel params
   ## these fix brightness key issues on some comps
   ## and have no negative effects on others (in my testing at least)
@@ -189,9 +185,9 @@ if [ "$CURRENT" = true ]; then
   sed -i 's/^aaa_elflibs/#aaa_elflibs/g' /etc/slackpkg/blacklist
 fi
 
-sed -i 's/#\[0-9]+_SBo/\
+sed -i "s/#\[0-9]+_SBo/\
 \[0-9]+_SBo\
-sbopkg/g' /etc/slackpkg/blacklist
+sbopkg/g" /etc/slackpkg/blacklist
 
 if [ "$CURRENT" = true ]; then
   ### undo 14.1 mirrors
@@ -245,7 +241,7 @@ if [ -z "$( cat /etc/profile | grep 'MAKEFLAGS' )" ]; then
 fi
 
 ## otherwise all our new stuff won't load until we log in again  ;^)
-source /etc/profile
+. /etc/profile
 
 
 wget -N $BASHRC -P ~/
@@ -391,12 +387,12 @@ elif [ "$MISCELLANY" = true ]; then
   ntpdate 0.pool.ntp.org
   ntpdate 1.pool.ntp.org
   hwclock --systohc
-  sed -i 's/#server pool.ntp.org iburst / \
+  sed -i "s/#server pool.ntp.org iburst / \
   server 0.pool.ntp.org iburst \
   server 1.pool.ntp.org iburst \
   server 2.pool.ntp.org iburst \
   server 3.pool.ntp.org iburst \
-  /g' /etc/ntp.conf
+  /g" /etc/ntp.conf
   chmod +x /etc/rc.d/rc.ntpd
   /etc/rc.d/rc.ntpd start
 
