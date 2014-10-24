@@ -8,7 +8,7 @@
 ## note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files
-CONFIGOMATICVERSION=4.3.3
+CONFIGOMATICVERSION=4.3.4
 
 ## set config files here:
 SBOPKGDL="http://sbopkg.googlecode.com/files/sbopkg-0.37.0-noarch-1_cng.tgz"
@@ -662,9 +662,6 @@ if [ "$NEARFREE" != true ] && [ "$SCRIPTS" = true ]; then
 
   ## slackbuilds repo
   git clone git://slackbuilds.org/slackbuilds.git sbo
-  cd ~/sbo/
-  git remote add hub https://github.com/ryanpcmcquen/slackbuilds-dot-org.git
-  cd
 
   ## bumblebee/nvidia scripts
   if [ "$NEARFREE" != true ]; then
