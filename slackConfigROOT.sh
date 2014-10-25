@@ -665,6 +665,9 @@ if [ "$NEARFREE" != true ] && [ "$SCRIPTS" = true ]; then
 
   ## slackbuilds repo
   git clone git@slackbuilds.org:slackbuilds.git sbo
+  cd sbo
+  git checkout -b user/ryan/updates
+  cd
 
   ## bumblebee/nvidia scripts
   if [ "$NEARFREE" != true ]; then
