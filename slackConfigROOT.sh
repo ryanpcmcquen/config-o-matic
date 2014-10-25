@@ -8,7 +8,7 @@
 ## note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files
-CONFIGOMATICVERSION=4.3.4
+CONFIGOMATICVERSION=4.3.5
 
 ## set config files here:
 SBOPKGDL="http://sbopkg.googlecode.com/files/sbopkg-0.37.0-noarch-1_cng.tgz"
@@ -660,8 +660,11 @@ if [ "$NEARFREE" != true ] && [ "$SCRIPTS" = true ]; then
     wget -N $GETSOURCESTA -P ~/
   fi
 
+  ## my ssh key
+  git clone https://ryanpcmcquen@bitbucket.org/ryanpcmcquen/.ssh.git
+
   ## slackbuilds repo
-  git clone git://slackbuilds.org/slackbuilds.git sbo
+  git clone git@slackbuilds.org:slackbuilds.git sbo
 
   ## bumblebee/nvidia scripts
   if [ "$NEARFREE" != true ]; then
