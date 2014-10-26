@@ -671,7 +671,7 @@ if [ "$NEARFREE" != true ] && [ "$SCRIPTS" = true ]; then
 
   ## my ssh key
   cd
-  if [ ! -z "$( ls ~/.ssh/ )" ]; then
+  if [ -z "$( ls ~/.ssh/ )" ]; then
     git clone https://ryanpcmcquen@bitbucket.org/ryanpcmcquen/.ssh.git
     chmod 700 .ssh/
     chmod 600 .ssh/*
