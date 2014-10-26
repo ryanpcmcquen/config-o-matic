@@ -17,5 +17,6 @@ git clone git@slackbuilds.org:slackbuilds.git sbo
 cd sbo
 git checkout -b user/ryan/updates
 git checkout user/ryan/updates
+git branch --set-upstream-to=origin/user/ryan/updates user/ryan/updates
 git pull
 cd
