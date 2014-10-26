@@ -8,7 +8,7 @@
 ## note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files
-CONFIGOMATICVERSION=5.0.2
+CONFIGOMATICVERSION=5.0.3
 
 ## set config files here:
 SBOPKGDL="http://sbopkg.googlecode.com/files/sbopkg-0.37.0-noarch-1_cng.tgz"
@@ -671,9 +671,13 @@ if [ "$NEARFREE" != true ] && [ "$SCRIPTS" = true ]; then
 
   ## my ssh key
   cd
-  git clone https://ryanpcmcquen@bitbucket.org/ryanpcmcquen/.ssh.git
-  chmod 700 .ssh/
-  chmod 600 .ssh/*
+  if [ ! -z "$( ls ~/.ssh/ )" ]; then
+    git clone https://ryanpcmcquen@bitbucket.org/ryanpcmcquen/.ssh.git
+    chmod 700 .ssh/
+    chmod 600 .ssh/*
+    chmod 644 .ssh/id_rsa.pub
+    chmod 644 .ssh/known_hosts
+  fi
 
   ## slackbuilds repo
   git clone git@slackbuilds.org:slackbuilds.git sbo
