@@ -8,7 +8,7 @@
 ## note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files
-CONFIGOMATICVERSION=5.0.0
+CONFIGOMATICVERSION=5.0.1
 
 ## set config files here:
 SBOPKGDL="http://sbopkg.googlecode.com/files/sbopkg-0.37.0-noarch-1_cng.tgz"
@@ -677,6 +677,7 @@ if [ "$NEARFREE" != true ] && [ "$SCRIPTS" = true ]; then
   git clone git@slackbuilds.org:slackbuilds.git sbo
   cd sbo
   git checkout -b user/ryan/updates
+  git checkout user/ryan/updates
   git pull
   cd
 
