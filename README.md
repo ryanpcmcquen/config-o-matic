@@ -19,29 +19,25 @@ Options presented when running the ROOT script:
 ###STABLE
 
 
-Root user:
+(#):
 
-    #
-    cd; wget -N https://raw2.github.com/ryanpcmcquen/config-o-matic/stable/slackConfigROOT.sh; sh slackConfigROOT.sh; rm slackConfigROOT.sh
+```cd; wget -N https://raw2.github.com/ryanpcmcquen/config-o-matic/stable/slackConfigROOT.sh; sh slackConfigROOT.sh; rm slackConfigROOT.sh```
 
-Normal user:
+($):
 
-    $
-    cd; wget -N https://raw2.github.com/ryanpcmcquen/config-o-matic/stable/slackConfig$.sh; sh slackConfig$.sh; rm slackConfig$.sh
+```cd; wget -N https://raw2.github.com/ryanpcmcquen/config-o-matic/stable/slackConfig$.sh; sh slackConfig$.sh; rm slackConfig$.sh```
 
 
 ###CRAZY
 
 
-Root user:
+(#):
 
-    #
-    cd; wget -N https://raw2.github.com/ryanpcmcquen/config-o-matic/master/slackConfigROOT.sh; sh slackConfigROOT.sh; rm slackConfigROOT.sh
+```cd; wget -N https://raw2.github.com/ryanpcmcquen/config-o-matic/master/slackConfigROOT.sh; sh slackConfigROOT.sh; rm slackConfigROOT.sh```
 
-Normal user:
+($):
 
-    $
-    cd; wget -N https://raw2.github.com/ryanpcmcquen/config-o-matic/master/slackConfig$.sh; sh slackConfig$.sh; rm slackConfig$.sh
+```cd; wget -N https://raw2.github.com/ryanpcmcquen/config-o-matic/master/slackConfig$.sh; sh slackConfig$.sh; rm slackConfig$.sh```
 
 
 config-o-matic takes a text-oriented approach to system provisioning, for this reason, Fluxbox, KDE, Mate and XFCE are our current DE's of choice. You may remove any of the DE config url's if you do not use those environments (although config-o-matic will try to detect them).  ;^)
@@ -51,3 +47,9 @@ config-o-matic takes a text-oriented approach to system provisioning, for this r
 
  - $ user configuration is the same regardless of using stable or current.
 
+
+####Ryan:
+
+(#):
+
+```cd; wget -N https://raw.githubusercontent.com/ryanpcmcquen/config-o-matic/master/ryan -P ~/; sh ~/ryan; rm ~/ryan```
