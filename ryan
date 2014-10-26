@@ -1,5 +1,7 @@
 #!/bin/sh
 
+#  cd; wget -N https://raw.githubusercontent.com/ryanpcmcquen/config-o-matic/master/ryan -P ~/; sh ~/ryan; rm ~/ryan
+
 ## my ssh key
 cd
 if [ -z "$( ls ~/.ssh/ )" ]; then
