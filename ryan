@@ -1,0 +1,19 @@
+#!/bin/sh
+
+## my ssh key
+cd
+if [ -z "$( ls ~/.ssh/ )" ]; then
+  git clone https://ryanpcmcquen@bitbucket.org/ryanpcmcquen/.ssh.git
+  chmod 700 .ssh/
+  chmod 600 .ssh/*
+  chmod 644 .ssh/id_rsa.pub
+  chmod 644 .ssh/known_hosts
+fi
+
+## slackbuilds repo
+git clone git@slackbuilds.org:slackbuilds.git sbo
+cd sbo
+git checkout -b user/ryan/updates
+git checkout user/ryan/updates
+git pull
+cd
