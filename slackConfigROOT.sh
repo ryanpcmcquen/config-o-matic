@@ -8,7 +8,7 @@
 ## note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files
-CONFIGOMATICVERSION=5.0.4
+CONFIGOMATICVERSION=5.1.0
 
 ## set config files here:
 SBOPKGDL="http://sbopkg.googlecode.com/files/sbopkg-0.37.0-noarch-1_cng.tgz"
@@ -567,26 +567,32 @@ elif [ "$MISCELLANY" = true ]; then
 
   ## numix stuff is dead sexy
   git clone https://github.com/numixproject/numix-icon-theme.git
+  rm -rf /usr/share/icons/Numix/
   mv ./numix-icon-theme/Numix/ /usr/share/icons/
   rm -rf ./numix-icon-theme/
 
   git clone https://github.com/numixproject/numix-icon-theme-bevel.git
+  rm -rf /usr/share/icons/Numix-Bevel/
   mv ./numix-icon-theme-bevel/Numix-Bevel/ /usr/share/icons/
   rm -rf ./numix-icon-theme-bevel/
 
   git clone https://github.com/numixproject/numix-icon-theme-circle.git
+  rm -rf /usr/share/icons/Numix-Circle/
   mv ./numix-icon-theme-circle/Numix-Circle/ /usr/share/icons/
   rm -rf ./numix-icon-theme-circle/
 
   git clone https://github.com/numixproject/numix-icon-theme-shine.git
+  rm -rf /usr/share/icons/Numix-Shine/
   mv ./numix-icon-theme-shine/Numix-Shine/ /usr/share/icons/
   rm -rf ./numix-icon-theme-shine/
 
   git clone https://github.com/numixproject/numix-icon-theme-utouch.git
+  rm -rf /usr/share/icons/Numix-uTouch/
   mv ./numix-icon-theme-utouch/Numix-uTouch/ /usr/share/icons/
   rm -rf ./numix-icon-theme-utouch/
 
   git clone https://github.com/shimmerproject/Numix.git
+  rm -rf /usr/share/themes/Numix/
   mv ./Numix/ /usr/share/themes/
   rm -rf ./Numix/
 
@@ -668,24 +674,6 @@ if [ "$NEARFREE" != true ] && [ "$SCRIPTS" = true ]; then
     wget -N $GETEXTRASTA -P ~/
     wget -N $GETSOURCESTA -P ~/
   fi
-
-  ## my ssh key
-  cd
-  if [ -z "$( ls ~/.ssh/ )" ]; then
-    git clone https://ryanpcmcquen@bitbucket.org/ryanpcmcquen/.ssh.git
-    chmod 700 .ssh/
-    chmod 600 .ssh/*
-    chmod 644 .ssh/id_rsa.pub
-    chmod 644 .ssh/known_hosts
-  fi
-
-  ## slackbuilds repo
-  git clone git@slackbuilds.org:slackbuilds.git sbo
-  cd sbo
-  git checkout -b user/ryan/updates
-  git checkout user/ryan/updates
-  git pull
-  cd
 
   ## bumblebee/nvidia scripts
   if [ "$NEARFREE" != true ]; then
