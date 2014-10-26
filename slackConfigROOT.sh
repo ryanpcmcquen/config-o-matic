@@ -8,7 +8,7 @@
 ## note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files
-CONFIGOMATICVERSION=4.3.6
+CONFIGOMATICVERSION=5.0.0
 
 ## set config files here:
 SBOPKGDL="http://sbopkg.googlecode.com/files/sbopkg-0.37.0-noarch-1_cng.tgz"
@@ -543,6 +543,15 @@ elif [ "$MISCELLANY" = true ]; then
     sbopkg -B -i copy
   fi
 
+  if [ "$( uname -m )" = "x86_64" ]; then
+    if [ -z "$( ls /var/log/packages/ | grep spotify64 )" ]; then
+      sbopkg -B -i spotify64
+    fi
+  else
+    if [ -z "$( ls /var/log/packages/ | grep spotify32 )" ]; then
+      sbopkg -B -i spotify32
+    fi
+  fi
 
   ## grab latest steam package
   if [ -z "$( ls /var/log/packages/ | grep steamclient )" ]; then
@@ -661,12 +670,14 @@ if [ "$NEARFREE" != true ] && [ "$SCRIPTS" = true ]; then
   fi
 
   ## my ssh key
+  cd
   git clone https://ryanpcmcquen@bitbucket.org/ryanpcmcquen/.ssh.git
 
   ## slackbuilds repo
   git clone git@slackbuilds.org:slackbuilds.git sbo
   cd sbo
   git checkout -b user/ryan/updates
+  git pull
   cd
 
   ## bumblebee/nvidia scripts
