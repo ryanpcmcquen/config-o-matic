@@ -8,7 +8,7 @@
 ## note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files
-CONFIGOMATICVERSION=5.2.1
+CONFIGOMATICVERSION=5.2.2
 
 ## set config files here:
 SBOPKGDL="http://sbopkg.googlecode.com/files/sbopkg-0.37.0-noarch-1_cng.tgz"
@@ -380,6 +380,13 @@ if [ -z "$( ls /etc/slackpkg/slackpkgplus.conf.old )" ] && [ "$NEARFREE" != true
     echo >> /etc/slackpkg/slackpkgplus.conf
   fi
 
+fi
+
+
+if [ "$MULTILIB" = true ] && [ "$( uname -m )" = "x86_64" ]; then
+  slackpkg update gpg && slackpkg update
+  slackpkg install-new && slackpkg upgrade-all
+  slackpkg install multilib
 fi
 
 
