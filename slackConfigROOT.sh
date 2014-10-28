@@ -8,7 +8,7 @@
 ## note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files
-CONFIGOMATICVERSION=5.2.3
+CONFIGOMATICVERSION=5.2.4
 
 ## set config files here:
 SBOPKGDL="http://sbopkg.googlecode.com/files/sbopkg-0.37.0-noarch-1_cng.tgz"
@@ -452,70 +452,70 @@ elif [ "$MISCELLANY" = true ]; then
   sbopkg -B -u
   sbopkg -B -r
 
-  if [ -z "$( ls /var/log/packages/ | grep superkey-launch )" ]; then
+  if [ -z "$( ls /var/log/packages/ | grep superkey-launch- )" ]; then
     sbopkg -B -i superkey-launch
   fi
 
-  if [ -z "$( ls /var/log/packages/ | grep orc )" ]; then
+  if [ -z "$( ls /var/log/packages/ | grep orc- )" ]; then
     sbopkg -B -i orc
   fi
 
-  if [ -z "$( ls /var/log/packages/ | grep imlib2 )" ]; then
+  if [ -z "$( ls /var/log/packages/ | grep imlib2- )" ]; then
     sbopkg -B -i imlib2
   fi
 
-  if [ -z "$( ls /var/log/packages/ | grep giblib )" ]; then
+  if [ -z "$( ls /var/log/packages/ | grep giblib- )" ]; then
     sbopkg -B -i giblib
   fi
 
-  if [ -z "$( ls /var/log/packages/ | grep scrot )" ]; then
+  if [ -z "$( ls /var/log/packages/ | grep scrot- )" ]; then
     sbopkg -B -i scrot
   fi
 
-  if [ -z "$( ls /var/log/packages/ | grep screenfetch )" ]; then
+  if [ -z "$( ls /var/log/packages/ | grep screenfetch- )" ]; then
     sbopkg -B -i screenfetch
   fi
 
   ## this library is necessary for some games,
   ## doesn't hurt to have it  ; ^)
-  if [ -z "$( ls /var/log/packages/ | grep libtxc_dxtn )" ]; then
+  if [ -z "$( ls /var/log/packages/ | grep libtxc_dxtn- )" ]; then
     sbopkg -B -i libtxc_dxtn
   fi
 
-  if [ -z "$( ls /var/log/packages/ | grep lame )" ]; then
+  if [ -z "$( ls /var/log/packages/ | grep lame- )" ]; then
     sbopkg -B -i lame
   fi
 
-  if [ -z "$( ls /var/log/packages/ | grep x264 )" ]; then
+  if [ -z "$( ls /var/log/packages/ | grep x264- )" ]; then
     sbopkg -B -i x264
   fi
 
-  if [ -z "$( ls /var/log/packages/ | grep ffmpeg )" ]; then
+  if [ -z "$( ls /var/log/packages/ | grep ffmpeg- )" ]; then
     sbopkg -B -i ffmpeg
   fi
 
-  if [ -z "$( ls /var/log/packages/ | grep OpenAL )" ]; then
+  if [ -z "$( ls /var/log/packages/ | grep OpenAL- )" ]; then
     sbopkg -B -i OpenAL
   fi
 
-  if [ -z "$( ls /var/log/packages/ | grep SDL_gfx )" ]; then
+  if [ -z "$( ls /var/log/packages/ | grep SDL_gfx- )" ]; then
     sbopkg -B -i SDL_gfx
   fi
 
-  if [ -z "$( ls /var/log/packages/ | grep SDL_sound )" ]; then
+  if [ -z "$( ls /var/log/packages/ | grep SDL_sound- )" ]; then
     sbopkg -B -i SDL_sound
   fi
 
   ## these 3 are for the image ultimator
-  if [ -z "$( ls /var/log/packages/ | grep jpegoptim )" ]; then
+  if [ -z "$( ls /var/log/packages/ | grep jpegoptim- )" ]; then
     sbopkg -B -i jpegoptim
   fi
 
-  if [ -z "$( ls /var/log/packages/ | grep mozjpeg )" ]; then
+  if [ -z "$( ls /var/log/packages/ | grep mozjpeg- )" ]; then
     sbopkg -B -i mozjpeg
   fi
 
-  if [ -z "$( ls /var/log/packages/ | grep optipng )" ]; then
+  if [ -z "$( ls /var/log/packages/ | grep optipng- )" ]; then
     sbopkg -B -i optipng
   fi
 
@@ -525,77 +525,77 @@ elif [ "$MISCELLANY" = true ]; then
   rm imgult
 
 
-  if [ -z "$( ls /var/log/packages/ | grep murrine )" ]; then
+  if [ -z "$( ls /var/log/packages/ | grep murrine- )" ]; then
     sbopkg -B -i murrine
   fi
 
-  if [ -z "$( ls /var/log/packages/ | grep murrine-themes )" ]; then
+  if [ -z "$( ls /var/log/packages/ | grep murrine-themes- )" ]; then
     sbopkg -B -i murrine-themes
   fi
 
   ## because QtCurve looks amazing
-  if [ ! -z "$( ls /var/log/packages/ | grep kdelibs )" ]; then
-    if [ -z "$( ls /var/log/packages/ | grep QtCurve-KDE4 )" ]; then
+  if [ ! -z "$( ls /var/log/packages/ | grep kdelibs- )" ]; then
+    if [ -z "$( ls /var/log/packages/ | grep QtCurve-KDE4- )" ]; then
       sbopkg -B -i QtCurve-KDE4
     fi
-    if [ -z "$( ls /var/log/packages/ | grep kde-gtk-config )" ]; then
+    if [ -z "$( ls /var/log/packages/ | grep kde-gtk-config- )" ]; then
       sbopkg -B -i kde-gtk-config
     fi
   fi
 
-  if [ -z "$( ls /var/log/packages/ | grep QtCurve-Gtk2 )" ]; then
+  if [ -z "$( ls /var/log/packages/ | grep QtCurve-Gtk2- )" ]; then
     sbopkg -B -i QtCurve-Gtk2
   fi
 
-  if [ -z "$( ls /var/log/packages/ | grep p7zip )" ]; then
+  if [ -z "$( ls /var/log/packages/ | grep p7zip- )" ]; then
     sbopkg -B -i p7zip
   fi
 
-  if [ -z "$( ls /var/log/packages/ | grep dwm )" ]; then
+  if [ -z "$( ls /var/log/packages/ | grep dwm- )" ]; then
     sbopkg -B -i dwm
   fi
 
-  if [ -z "$( ls /var/log/packages/ | grep dmenu )" ]; then
+  if [ -z "$( ls /var/log/packages/ | grep dmenu- )" ]; then
     sbopkg -B -i dmenu
   fi
 
-  if [ -z "$( ls /var/log/packages/ | grep tinyterm )" ]; then
+  if [ -z "$( ls /var/log/packages/ | grep tinyterm- )" ]; then
     sbopkg -B -i tinyterm
   fi
 
-  if [ -z "$( ls /var/log/packages/ | grep medit )" ]; then
+  if [ -z "$( ls /var/log/packages/ | grep medit- )" ]; then
     sbopkg -B -i medit
   fi
 
-  if [ -z "$( ls /var/log/packages/ | grep udevil )" ]; then
+  if [ -z "$( ls /var/log/packages/ | grep udevil- )" ]; then
     sbopkg -B -i udevil
   fi
 
-  if [ -z "$( ls /var/log/packages/ | grep spacefm )" ]; then
+  if [ -z "$( ls /var/log/packages/ | grep spacefm- )" ]; then
     sbopkg -B -i spacefm
   fi
 
-  if [ -z "$( ls /var/log/packages/ | grep mirage )" ]; then
+  if [ -z "$( ls /var/log/packages/ | grep mirage- )" ]; then
     sbopkg -B -i mirage
   fi
 
   ## file syncing service
-  if [ -z "$( ls /var/log/packages/ | grep copy )" ]; then
+  if [ -z "$( ls /var/log/packages/ | grep copy- )" ]; then
     sbopkg -B -i copy
   fi
 
   if [ "$( uname -m )" = "x86_64" ]; then
-    if [ -z "$( ls /var/log/packages/ | grep spotify64 )" ]; then
+    if [ -z "$( ls /var/log/packages/ | grep spotify64- )" ]; then
       sbopkg -B -i spotify64
     fi
   else
-    if [ -z "$( ls /var/log/packages/ | grep spotify32 )" ]; then
+    if [ -z "$( ls /var/log/packages/ | grep spotify32- )" ]; then
       sbopkg -B -i spotify32
     fi
   fi
 
   ## grab latest steam package
-  if [ -z "$( ls /var/log/packages/ | grep steamclient )" ]; then
+  if [ -z "$( ls /var/log/packages/ | grep steamclient- )" ]; then
     wget -r -np -A.tgz http://www.slackware.com/~alien/slackbuilds/steamclient/pkg/current/
     mv ~/www.slackware.com/\~alien/slackbuilds/steamclient/pkg/current/*.tgz ~/
     rm -rf ~/www.slackware.com/
@@ -688,20 +688,20 @@ fi
 
 
 if [ "$NEARFREE" != true ] && [ "$PULSECRAPIO" = true ]; then
-  if [ -z "$( ls /var/log/packages/ | grep json-c )" ]; then
+  if [ -z "$( ls /var/log/packages/ | grep json-c- )" ]; then
     sbopkg -B -i json-c
   fi
 
-  if [ -z "$( ls /var/log/packages/ | grep speex )" ]; then
+  if [ -z "$( ls /var/log/packages/ | grep speex- )" ]; then
     sbopkg -B -i speex
   fi
 
   ## i hate pulseaudio, but sound doesn't work in some games without it
-  if [ -z "$( ls /var/log/packages/ | grep pulseaudio )" ]; then
+  if [ -z "$( ls /var/log/packages/ | grep pulseaudio- )" ]; then
     sbopkg -B -i pulseaudio
   fi
 
-  if [ -z "$( ls /var/log/packages/ | grep alsa-plugins )" ]; then
+  if [ -z "$( ls /var/log/packages/ | grep alsa-plugins- )" ]; then
     sbopkg -B -i alsa-plugins
   fi
 fi
