@@ -104,6 +104,9 @@ if [ ! -z "$( ls /var/log/packages/ | grep Thunar )" ]; then
   curl $XFCECONF | sh
 fi
 
+## enlightenment config script
+wget -N https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/.e-restore -P ~/
+
 
 rm ~/.local/share/applications/userapp-Firefox-*.desktop
 
