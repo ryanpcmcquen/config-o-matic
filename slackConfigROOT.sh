@@ -8,7 +8,7 @@
 ## note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files
-CONFIGOMATICVERSION=5.2.7
+CONFIGOMATICVERSION=5.2.8
 
 ## set config files here:
 SBOPKGDL="http://sbopkg.googlecode.com/files/sbopkg-0.37.0-noarch-1_cng.tgz"
@@ -767,6 +767,9 @@ echo "WICD = $WICD" >> ~/.config-o-matic_$CONFIGOMATICVERSION
 echo "NEARFREE = $NEARFREE" >> ~/.config-o-matic_$CONFIGOMATICVERSION
 echo "MISCELLANY = $MISCELLANY" >> ~/.config-o-matic_$CONFIGOMATICVERSION
 echo "SCRIPTS = $SCRIPTS" >> ~/.config-o-matic_$CONFIGOMATICVERSION
+if [ "$( uname -m )" = "x86_64" ]; then
+  echo "MULTILIB = $MULTILIB" >> ~/.config-o-matic_$CONFIGOMATICVERSION
+fi
 echo "PULSEAUDIO = $PULSECRAPIO" >> ~/.config-o-matic_$CONFIGOMATICVERSION
 
 echo >> ~/.config-o-matic_$CONFIGOMATICVERSION
