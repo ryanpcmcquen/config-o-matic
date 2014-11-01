@@ -21,5 +21,8 @@ git branch --set-upstream-to=origin/user/ryan/updates user/ryan/updates
 git pull
 cd
 
-pip install asciinema
-asciinema auth
+if [ -z "$( ls /var/log/packages/ | grep pip- )" ]; then
+  pip install asciinema
+  asciinema auth
+fi
+
