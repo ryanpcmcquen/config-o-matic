@@ -52,15 +52,7 @@ echo
 ## not really necessary, but maybe someday  ;-)
 cd
 
-
 gkrellm &
-
-
-## this allows us to temporarily change sound to pulse
-if [ ! -z "$( ls /var/log/packages/ | grep pulseaudio )" ]; then
-  wget -N https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/getPULSEASOUNDRC.sh -P ~/
-fi
-
 
 wget -N $BASHRC -P ~/
 wget -N $BASHPR -P ~/
@@ -69,7 +61,6 @@ wget -N $VIMRC -P ~/
 mkdir -p ~/.vim/colors/
 wget -N $VIMCOLOR -P ~/.vim/colors/
 
-
 ## git config
 git config --global user.name "$GITNAME"
 git config --global user.email "$GITEMAIL"
@@ -77,10 +68,8 @@ git config --global credential.helper 'cache --timeout=3600'
 git config --global push.default simple
 git config --global core.pager "less -r"
 
-
 #### you can use this if you have a file that configures all 3
 ### curl $BASHGITVIM | sh
-
 
 wget -N $GKRELLCFIL -P ~/.gkrellm2/
 wget -N $GKRELLTFIL -P ~/.gkrellm2/
@@ -103,9 +92,6 @@ fi
 if [ ! -z "$( ls /var/log/packages/ | grep Thunar )" ]; then
   curl $XFCECONF | sh
 fi
-
-## enlightenment config script
-wget -N https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/.e-restore -P ~/
 
 rm ~/.local/share/applications/userapp-Firefox-*.desktop
 
