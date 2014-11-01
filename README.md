@@ -13,8 +13,7 @@ Options presented when running the ROOT script:
 3. NEARFREE: Follows http://freeslack.net/, but does not remove the kernel. This is NOT compatible with MISCELLANY, MULTILIB, SCRIPTS and PULSEAUDIO. If you select NEARFREE, you will NOT be presented with incompatible options.
 4. MISCELLANY: Installs a lot of additional packages, themes and miscellany.
 5. SCRIPTS: Clones some git repos and helpful scripts into /root/.
-6. MULTILIB: Adds Eric Hameleer's MULTILIB repo to slackpkg+ and installs/upgrades it.
-7. PULSEAUDIO: Installs PULSEAUDIO, effectively breaking sound.
+6. MULTILIB: Adds Eric Hameleer's MULTILIB repo to slackpkg+ and installs/upgrades it (64 bit only).
 
 
 ###STABLE
