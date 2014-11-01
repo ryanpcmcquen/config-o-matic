@@ -8,7 +8,7 @@
 ## note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files
-CONFIGOMATICVERSION=5.4.2
+CONFIGOMATICVERSION=5.4.3
 
 ## set config files here:
 SBOPKGDL="http://sbopkg.googlecode.com/files/sbopkg-0.37.0-noarch-1_cng.tgz"
@@ -451,6 +451,8 @@ elif [ "$MISCELLANY" = true ]; then
   if [ -z "$( ls /var/log/packages/ | grep pip- )" ]; then
     sbopkg -B -i pip
   fi
+
+  pip install --upgrade asciinema
 
   if [ -z "$( ls /var/log/packages/ | grep node- )" ]; then
     sbopkg -B -i node
