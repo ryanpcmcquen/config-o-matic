@@ -20,3 +20,6 @@ git checkout user/ryan/updates
 git branch --set-upstream-to=origin/user/ryan/updates user/ryan/updates
 git pull
 cd
+
+pip install asciinema
+asciinema auth
