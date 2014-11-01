@@ -8,7 +8,7 @@
 ## note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files
-CONFIGOMATICVERSION=5.4.0
+CONFIGOMATICVERSION=5.4.1
 
 ## set config files here:
 SBOPKGDL="http://sbopkg.googlecode.com/files/sbopkg-0.37.0-noarch-1_cng.tgz"
@@ -610,6 +610,10 @@ elif [ "$MISCELLANY" = true ]; then
     fi
   fi
 
+  if [ -z "$( ls /var/log/packages/ | grep tiled-qt- )" ]; then
+    sbopkg -B -i tiled-qt
+  fi
+
   ## grab latest steam package
   if [ -z "$( ls /var/log/packages/ | grep steamclient- )" ]; then
     wget -r -np -A.tgz http://www.slackware.com/~alien/slackbuilds/steamclient/pkg/current/
@@ -725,6 +729,9 @@ if [ "$NEARFREE" != true ] && [ "$SCRIPTS" = true ]; then
 
   ## my slackbuilds
   git clone https://github.com/ryanpcmcquen/ryanpc-slackbuilds.git
+
+  ## make games!
+  git clone https://github.com/melonjs/melonJS.git
 
   ## my linuxTweaks
   #git clone https://github.com/ryanpcmcquen/linuxTweaks.git
