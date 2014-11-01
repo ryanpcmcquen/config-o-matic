@@ -8,7 +8,7 @@
 ## note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files
-CONFIGOMATICVERSION=5.3.0
+CONFIGOMATICVERSION=5.4.0
 
 ## set config files here:
 SBOPKGDL="http://sbopkg.googlecode.com/files/sbopkg-0.37.0-noarch-1_cng.tgz"
@@ -146,19 +146,6 @@ if [ "$NEARFREE" != true ] && [ "$( uname -m )" = "x86_64" ]; then
       ;;
     *)
       echo You are not going MULTILIB.;
-      ;;
-  esac
-fi
-
-if [ "$NEARFREE" != true ]; then
-  read -p "Do you need PULSEAUDIO? [y/N]: " response
-  case $response in
-    [yY][eE][sS]|[yY])
-      export PULSECRAPIO=true;
-      echo You are installing PULSEAUDIO.;
-      ;;
-    *)
-      echo You are not installing PULSEAUDIO.;
       ;;
   esac
 fi
@@ -386,6 +373,7 @@ fi
 if [ "$MULTILIB" = true ] && [ "$( uname -m )" = "x86_64" ]; then
   slackpkg update gpg && slackpkg update
   slackpkg install-new && slackpkg upgrade-all
+  slackpkg update gpg && slackpkg update
   slackpkg install multilib
   sed -i 's/^BATCH=off/BATCH=on/g' /etc/slackpkg/slackpkg.conf
   sed -i 's/^DEFAULT_ANSWER=n/DEFAULT_ANSWER=y/g' /etc/slackpkg/slackpkg.conf
@@ -456,6 +444,18 @@ elif [ "$MISCELLANY" = true ]; then
     sbopkg -B -i superkey-launch
   fi
 
+  if [ -z "$( ls /var/log/packages/ | grep pysetuptools- )" ]; then
+    sbopkg -B -i pysetuptools
+  fi
+
+  if [ -z "$( ls /var/log/packages/ | grep pip- )" ]; then
+    sbopkg -B -i pip
+  fi
+
+  if [ -z "$( ls /var/log/packages/ | grep node- )" ]; then
+    sbopkg -B -i node
+  fi
+
   if [ -z "$( ls /var/log/packages/ | grep orc- )" ]; then
     sbopkg -B -i orc
   fi
@@ -504,6 +504,14 @@ elif [ "$MISCELLANY" = true ]; then
 
   if [ -z "$( ls /var/log/packages/ | grep SDL_sound- )" ]; then
     sbopkg -B -i SDL_sound
+  fi
+
+  if [ -z "$( ls /var/log/packages/ | grep apulse- )" ]; then
+    if [ "$MULTILIB" != true ]; then
+      COMPAT32=yes sbopkg -B -i apulse
+    else
+      sbopkg -B -i apulse
+    fi
   fi
 
   ## these 3 are for the image ultimator
@@ -565,6 +573,14 @@ elif [ "$MISCELLANY" = true ]; then
 
   if [ -z "$( ls /var/log/packages/ | grep medit- )" ]; then
     sbopkg -B -i medit
+  fi
+
+  if [ -z "$( ls /var/log/packages/ | grep libgnomecanvas- )" ]; then
+    sbopkg -B -i libgnomecanvas
+  fi
+
+  if [ -z "$( ls /var/log/packages/ | grep zenity- )" ]; then
+    sbopkg -B -i zenity
   fi
 
   if [ -z "$( ls /var/log/packages/ | grep udevil- )" ]; then
@@ -687,26 +703,6 @@ else
 fi
 
 
-if [ "$NEARFREE" != true ] && [ "$PULSECRAPIO" = true ]; then
-  if [ -z "$( ls /var/log/packages/ | grep json-c- )" ]; then
-    sbopkg -B -i json-c
-  fi
-
-  if [ -z "$( ls /var/log/packages/ | grep speex- )" ]; then
-    sbopkg -B -i speex
-  fi
-
-  ## i hate pulseaudio, but sound doesn't work in some games without it
-  if [ -z "$( ls /var/log/packages/ | grep pulseaudio- )" ]; then
-    sbopkg -B -i pulseaudio
-  fi
-
-  if [ -z "$( ls /var/log/packages/ | grep alsa-plugins- )" ]; then
-    sbopkg -B -i alsa-plugins
-  fi
-fi
-
-
 if [ "$NEARFREE" != true ] && [ "$SCRIPTS" = true ]; then
   if [ "$CURRENT" = true ]; then
     wget -N $GETEXTRACUR -P ~/
@@ -717,7 +713,7 @@ if [ "$NEARFREE" != true ] && [ "$SCRIPTS" = true ]; then
   fi
 
   ## bumblebee/nvidia scripts
-  if [ "$NEARFREE" != true ]; then
+  if [ ! -z "$( lspci | grep NVIDIA )" ]; then
     wget -N https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/slackware/crazybee.sh -P ~/
   fi
 
@@ -729,9 +725,6 @@ if [ "$NEARFREE" != true ] && [ "$SCRIPTS" = true ]; then
 
   ## my slackbuilds
   git clone https://github.com/ryanpcmcquen/ryanpc-slackbuilds.git
-
-  ## enlightenment!
-  git clone https://github.com/ryanpcmcquen/slackENLIGHTENMENT.git
 
   ## my linuxTweaks
   #git clone https://github.com/ryanpcmcquen/linuxTweaks.git
@@ -749,7 +742,6 @@ fi
 ## set slackpkg back to normal
 sed -i 's/^BATCH=on/BATCH=off/g' /etc/slackpkg/slackpkg.conf
 sed -i 's/^DEFAULT_ANSWER=y/DEFAULT_ANSWER=n/g' /etc/slackpkg/slackpkg.conf
-
 
 
 ## create an info file
@@ -770,7 +762,6 @@ echo "SCRIPTS = $SCRIPTS" >> ~/.config-o-matic_$CONFIGOMATICVERSION
 if [ "$( uname -m )" = "x86_64" ]; then
   echo "MULTILIB = $MULTILIB" >> ~/.config-o-matic_$CONFIGOMATICVERSION
 fi
-echo "PULSEAUDIO = $PULSECRAPIO" >> ~/.config-o-matic_$CONFIGOMATICVERSION
 
 echo >> ~/.config-o-matic_$CONFIGOMATICVERSION
 echo "========================================" >> ~/.config-o-matic_$CONFIGOMATICVERSION
