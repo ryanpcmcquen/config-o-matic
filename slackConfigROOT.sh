@@ -98,46 +98,33 @@ case $response in
     ;;
 esac
 
-read -p "Would you like to become NEARFREE? \
-(follows freeslack.net, but keeps kernel, not valid with most of the other options) \
-[y/N]: " response
+
+
+
+read -p "Would you like to install additional packages, themes and MISCELLANY? [y/N]: " response
 case $response in
   [yY][eE][sS]|[yY])
-    export NEARFREE=true;
-    echo You are becoming NEARFREE.;
+    export MISCELLANY=true;
+    echo You are installing MISCELLANY.;
     ;;
   *)
-    echo You are not becoming NEARFREE.;
+    echo You are going VANILLA.;
     ;;
 esac
 
-if [ "$NEARFREE" != true ]; then
-  read -p "Would you like to install additional packages, themes and MISCELLANY? [y/N]: " response
-  case $response in
-    [yY][eE][sS]|[yY])
-      export MISCELLANY=true;
-      echo You are installing MISCELLANY.;
-      ;;
-    *)
-      echo You are going VANILLA.;
-      ;;
-  esac
-fi
+read -p "Would you like to install additional SCRIPTS? [y/N]: " response
+case $response in
+  [yY][eE][sS]|[yY])
+    export SCRIPTS=true;
+    echo You have chosen to install additional SCRIPTS.;
+    ;;
+  *)
+    echo You are not installing additional SCRIPTS.;
+    ;;
+esac
 
-if [ "$NEARFREE" != true ]; then
-  read -p "Would you like to install additional SCRIPTS? [y/N]: " response
-  case $response in
-    [yY][eE][sS]|[yY])
-      export SCRIPTS=true;
-      echo You have chosen to install additional SCRIPTS.;
-      ;;
-    *)
-      echo You are not installing additional SCRIPTS.;
-      ;;
-  esac
-fi
 
-if [ "$NEARFREE" != true ] && [ "$( uname -m )" = "x86_64" ]; then
+if [ "$( uname -m )" = "x86_64" ]; then
   read -p "Would you like to go MULTILIB? [y/N]: " response
   case $response in
     [yY][eE][sS]|[yY])
@@ -271,9 +258,8 @@ wget -N https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/slackw
   chmod 755 /usr/share/git-core/templates/hooks/*
 
 wget -N $SBOPKGDL -P ~/
-if [ "$NEARFREE" != true ]; then
-  wget -N $SPPLUSDL -P ~/
-fi
+wget -N $SPPLUSDL -P ~/
+
 installpkg ~/*.t?z
 rm ~/*.t?z
 
@@ -289,7 +275,7 @@ sed -i 's/^BATCH=off/BATCH=on/g' /etc/slackpkg/slackpkg.conf
 sed -i 's/^DEFAULT_ANSWER=n/DEFAULT_ANSWER=y/g' /etc/slackpkg/slackpkg.conf
 
 
-if [ -z "$( ls /etc/slackpkg/slackpkgplus.conf.old )" ] && [ "$NEARFREE" != true ]; then
+if [ -z "$( ls /etc/slackpkg/slackpkgplus.conf.old )" ]; then
   ## to reset run:
   ## mv /etc/slackpkg/slackpkgplus.conf.old /etc/slackpkg/slackpkgplus.conf
   cp /etc/slackpkg/slackpkgplus.conf /etc/slackpkg/slackpkgplus.conf.old
@@ -380,17 +366,7 @@ if [ "$MULTILIB" = true ] && [ "$( uname -m )" = "x86_64" ]; then
 fi
 
 
-if [ "$NEARFREE" = true ]; then
-  removepkg getty-ps lha unarj zoo amp \
-  bluez-firmware ipw2100-fw ipw2200-fw trn \
-  zd1211-firmware xfractint xgames xv
-
-  slackpkg blacklist getty-ps lha unarj zoo amp \
-  bluez-firmware ipw2100-fw ipw2200-fw trn \
-  zd1211-firmware xfractint xgames xv
-
-  echo "You have become NEARFREE, to update your kernel, head to freeslack.net."
-elif [ "$MISCELLANY" = true ]; then
+if [ "$MISCELLANY" = true ]; then
   ## this prevents breakage if slackpkg gets updated
   slackpkg update gpg && slackpkg update
   slackpkg install-new && slackpkg upgrade-all
@@ -709,7 +685,7 @@ else
 fi
 
 
-if [ "$NEARFREE" != true ] && [ "$SCRIPTS" = true ]; then
+if [ "$SCRIPTS" = true ]; then
   if [ "$CURRENT" = true ]; then
     wget -N $GETEXTRACUR -P ~/
     wget -N $GETSOURCECUR -P ~/
@@ -747,6 +723,11 @@ if [ "$WICD" = true ]; then
   sed -i 's/^\([^#]\)/#\1/g' /etc/rc.d/rc.inet1.conf
 fi
 
+## let there be sound!
+/etc/rc.d/rc.alsa
+amixer set Master unmute
+amixer set Master 65%
+alsactl store
 
 ## set slackpkg back to normal
 sed -i 's/^BATCH=on/BATCH=off/g' /etc/slackpkg/slackpkg.conf
@@ -765,7 +746,6 @@ echo >> ~/.config-o-matic_$CONFIGOMATICVERSION
 
 echo "CURRENT = $CURRENT" >> ~/.config-o-matic_$CONFIGOMATICVERSION
 echo "WICD = $WICD" >> ~/.config-o-matic_$CONFIGOMATICVERSION
-echo "NEARFREE = $NEARFREE" >> ~/.config-o-matic_$CONFIGOMATICVERSION
 echo "MISCELLANY = $MISCELLANY" >> ~/.config-o-matic_$CONFIGOMATICVERSION
 echo "SCRIPTS = $SCRIPTS" >> ~/.config-o-matic_$CONFIGOMATICVERSION
 if [ "$( uname -m )" = "x86_64" ]; then
@@ -788,10 +768,8 @@ echo "Your system is now set to UTF-8."
 echo "(e.g. You should use uxterm, instead of xterm)."
 echo "Thank you for using config-o-matic!"
 echo
-if [ "$NEARFREE" != true ]; then
-  echo "Don't forget to set up repos in /etc/slackpkg/slackpkgplus.conf such as MULTILIB"
-  echo
-fi
+echo "Don't forget to set up repos in /etc/slackpkg/slackpkgplus.conf such as MULTILIB"
+echo
 echo "You should now run 'adduser', if you have not."
 echo "Then you should run the $ user script."
 echo
