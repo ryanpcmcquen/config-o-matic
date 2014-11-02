@@ -4,16 +4,16 @@ Configure Slackware installs in no time with config-o-matic! (patent pending)
 
 - Now supports 32 and 64 bit!
 
+NEARFREE: This is a separate script that should be run *instead* of the ROOT script. It follows http://freeslack.net/, but does not remove the kernel. This is NOT compatible with MISCELLANY, MULTILIB, SCRIPTS and PULSEAUDIO. If you select NEARFREE, you will NOT be presented with incompatible options.
 
 Options presented when running the ROOT script:
 
 
 1. CURRENT: Switches to slackware-current/slackware64-current mirrors instead of stable.
 2. WICD: Installs Wicd, disables NetworkManager.
-3. NEARFREE: Follows http://freeslack.net/, but does not remove the kernel. This is NOT compatible with MISCELLANY, MULTILIB, SCRIPTS and PULSEAUDIO. If you select NEARFREE, you will NOT be presented with incompatible options.
-4. MISCELLANY: Installs a lot of additional packages, themes and miscellany.
-5. SCRIPTS: Clones some git repos and helpful scripts into /root/.
-6. MULTILIB: Adds Eric Hameleer's MULTILIB repo to slackpkg+ and installs/upgrades it (64 bit only).
+3. MISCELLANY: Installs a lot of additional packages, themes and miscellany.
+4. SCRIPTS: Clones some git repos and helpful scripts into /root/.
+5. MULTILIB: Adds Eric Hameleer's MULTILIB repo to slackpkg+ and installs/upgrades it (64 bit only).
 
 
 ###STABLE
