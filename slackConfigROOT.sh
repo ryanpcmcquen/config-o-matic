@@ -8,7 +8,7 @@
 ## note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files
-CONFIGOMATICVERSION=5.5.2
+CONFIGOMATICVERSION=5.5.3
 
 ## set config files here:
 SBOPKGDL="http://sbopkg.googlecode.com/files/sbopkg-0.37.0-noarch-1_cng.tgz"
@@ -30,7 +30,7 @@ GITEMAIL="ryan.q@linux.com"
 TOUCHPCONF="https://raw2.github.com/ryanpcmcquen/linuxTweaks/master/51-synaptics.conf"
 
 ASOUNDCONF="https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/asound.conf"
-#ALSOFT="https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/alsoft.conf"
+ALSOFTCONF="https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/alsoft.conf"
 
 GETEXTRASTA="https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/slackware/getExtraSlackBuildsSTABLE.sh"
 GETEXTRACUR="https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/slackware/getExtraSlackBuildsCURRENT.sh"
@@ -66,9 +66,9 @@ echo
 ## make sure we are home  ;^)
 cd
 
-
 if [ ! -z "$( aplay -l | grep Analog | grep 'card 1' )" ]; then
   wget -N $ASOUNDCONF -P /etc/
+  wget -N $ALSOFTCONF -P /etc/openal/
 fi
 
 ## sound fix for steam
