@@ -8,7 +8,7 @@
 ## note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files
-CONFIGOMATICVERSION=5.5.3
+CONFIGOMATICVERSION=5.5.4
 
 ## set config files here:
 SBOPKGDL="http://sbopkg.googlecode.com/files/sbopkg-0.37.0-noarch-1_cng.tgz"
@@ -51,6 +51,17 @@ EOF
   exit 1
 fi
 
+## make sure we are home  ;^)
+cd
+
+if [ ! -z "$( aplay -l | grep Analog | grep 'card 1' )" ]; then
+  wget -N $ASOUNDCONF -P /etc/
+  wget -N $ALSOFTCONF -P /etc/openal/
+fi
+
+## sound fix for steam
+ln -sfv /etc/machine-id /var/lib/dbus/machine-id
+
 
 echo
 echo
@@ -63,17 +74,7 @@ echo "*************************************************************"
 echo
 echo
 
-## make sure we are home  ;^)
-cd
-
-if [ ! -z "$( aplay -l | grep Analog | grep 'card 1' )" ]; then
-  wget -N $ASOUNDCONF -P /etc/
-  wget -N $ALSOFTCONF -P /etc/openal/
-fi
-
-## sound fix for steam
-ln -sfv /etc/machine-id /var/lib/dbus/machine-id
-
+## go!
 
 read -p "Would you like to switch to -CURRENT? \
 (if no you will stay on STABLE) \
