@@ -4,7 +4,7 @@ Configure Slackware installs in no time with config-o-matic! (patent pending)
 
 - Now supports 32 and 64 bit!
 
-NEARFREE: This is a separate script that should be run *instead* of the ROOT script. It follows http://freeslack.net/, but does not remove the kernel. This is NOT compatible with MISCELLANY, MULTILIB, SCRIPTS and PULSEAUDIO. If you select NEARFREE, you will NOT be presented with incompatible options.
+NEARFREE: This is a separate script that should be run *instead* of the ROOT script. It follows http://freeslack.net/, but does not remove the kernel.
 
 Options presented when running the ROOT script:
 
