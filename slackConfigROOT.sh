@@ -8,7 +8,7 @@
 ## note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files
-CONFIGOMATICVERSION=5.5.8
+CONFIGOMATICVERSION=5.5.9
 
 ## set config files here:
 SBOPKGDL="http://sbopkg.googlecode.com/files/sbopkg-0.37.0-noarch-1_cng.tgz"
@@ -380,6 +380,9 @@ if [ "$MISCELLANY" = true ]; then
   sed -i 's/^DEFAULT_ANSWER=n/DEFAULT_ANSWER=y/g' /etc/slackpkg/slackpkg.conf
   slackpkg update gpg && slackpkg update
   slackpkg install vlc chromium
+
+  ## grab latest firefox developer edition
+  curl https://raw.githubusercontent.com/ryanpcmcquen/ryanpc-slackbuilds/master/unofficial/fde/getFDE.sh | sh
 
   ## eric hameleers has updated multilib to include this package
   #  if [ "$( uname -m )" = "x86_64" ]; then
