@@ -8,7 +8,7 @@
 ## note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files
-CONFIGOMATICVERSION=5.5.10
+CONFIGOMATICVERSION=5.5.11
 
 ## set config files here:
 SBOPKGDL="http://sbopkg.googlecode.com/files/sbopkg-0.37.0-noarch-1_cng.tgz"
@@ -490,6 +490,14 @@ if [ "$MISCELLANY" = true ]; then
     sbopkg -B -i SDL_sound
   fi
 
+  if [ -z "$( ls /var/log/packages/ | grep apulse- )" ]; then
+    if [ "$MULTILIB" != true ]; then
+      COMPAT32=yes sbopkg -B -i apulse
+    else
+      sbopkg -B -i apulse
+    fi
+  fi
+
   ## these 3 are for the image ultimator
   if [ -z "$( ls /var/log/packages/ | grep jpegoptim- )" ]; then
     sbopkg -B -i jpegoptim
@@ -705,6 +713,9 @@ if [ "$SCRIPTS" = true ]; then
 
   ## my slackbuilds
   git clone https://github.com/ryanpcmcquen/ryanpc-slackbuilds.git
+
+  ## enlightenment!
+  git clone https://github.com/ryanpcmcquen/slackENLIGHTENMENT.git
 
   ## script to install latest firefox developer edition
   wget -N https://raw.githubusercontent.com/ryanpcmcquen/ryanpc-slackbuilds/master/unofficial/fde/getFDE.sh -P ~/
