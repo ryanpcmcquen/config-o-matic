@@ -8,7 +8,7 @@
 ## note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files
-CONFIGOMATICVERSION=5.5.11
+CONFIGOMATICVERSION=5.6.0
 
 ## set config files here:
 SBOPKGDL="http://sbopkg.googlecode.com/files/sbopkg-0.37.0-noarch-1_cng.tgz"
@@ -251,20 +251,37 @@ git config --global credential.helper 'cache --timeout=3600'
 git config --global push.default simple
 git config --global core.pager "less -r"
 
-## sbo git hooks
-wget -N https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/slackware/sbo/hooks/commit-msg \
-  -P /usr/share/git-core/templates/hooks/
-wget -N https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/slackware/sbo/hooks/pre-commit \
-  -P /usr/share/git-core/templates/hooks/
-  ## this is just in case permissions are incorrect,
-  ## these files should already be 755  ;^)
-  chmod 755 /usr/share/git-core/templates/hooks/*
-
+## install sbopkg & slackpkg+
 wget -N $SBOPKGDL -P ~/
 wget -N $SPPLUSDL -P ~/
-
 installpkg ~/*.t?z
 rm ~/*.t?z
+
+## use SBo master git branch instead of a specific version
+wget -N https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/slackware/sbo/90-SBo-master.repo \
+  -P /etc/sbopkg/repos.d/
+
+## use SBo-master as default ...
+## but only comment out the old lines for an easy swap
+if [ -z "$( cat /etc/sbopkg/sbopkg.conf | grep SBo-master )" ]; then
+  sed -i "s@REPO_BRANCH=@#REPO_BRANCH=@g" /etc/sbopkg/sbopkg.conf
+  sed -i "s@REPO_NAME=@#REPO_NAME=@g" /etc/sbopkg/sbopkg.conf
+  echo "REPO_BRANCH=\${REPO_BRANCH:-master}" >> /etc/sbopkg/sbopkg.conf
+  echo "REPO_NAME=\${REPO_NAME:-SBo-master}" >> /etc/sbopkg/sbopkg.conf
+fi
+
+## create sbopkg directories
+mkdir -pv /var/lib/sbopkg/SBo-master/
+mkdir -pv /var/lib/sbopkg/queues/
+mkdir -pv /var/log/sbopkg/
+mkdir -pv /var/cache/sbopkg/
+mkdir -pv /tmp/SBo/
+## reverse
+#rm -rfv /var/lib/sbopkg/
+#rm -rfv /var/log/sbopkg/
+#rm -rfv /var/cache/sbopkg/
+#rm -rfv /tmp/SBo/
+
 
 ## gkrellm theme
 mkdir -p /usr/share/gkrellm2/themes/
@@ -406,17 +423,6 @@ if [ "$MISCELLANY" = true ]; then
   chmod +x /etc/rc.d/rc.ntpd
   /etc/rc.d/rc.ntpd start
 
-  ## create sbopkg directories
-  mkdir -pv /var/lib/sbopkg/SBo/14.1/
-  mkdir -pv /var/lib/sbopkg/queues/
-  mkdir -pv /var/log/sbopkg/
-  mkdir -pv /var/cache/sbopkg/
-  mkdir -pv /tmp/SBo/
-  ## reverse
-  #rm -rfv /var/lib/sbopkg/
-  #rm -rfv /var/log/sbopkg/
-  #rm -rfv /var/cache/sbopkg/
-  #rm -rfv /tmp/SBo/
   ## check for sbopkg update,
   ## then sync the slackbuilds.org repo
   sbopkg -B -u
