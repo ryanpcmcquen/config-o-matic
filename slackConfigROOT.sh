@@ -8,7 +8,7 @@
 ## note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files
-CONFIGOMATICVERSION=5.7.0
+CONFIGOMATICVERSION=5.7.1
 
 
 ## versions!
@@ -193,9 +193,9 @@ sbopkg/g' /etc/slackpkg/blacklist
 if [ "$CURRENT" = true ]; then
   ### undo stable mirrors
   sed -i \
-  's_^http://ftp.osuosl.org/.2/slackware/slackware-$SLACKWARESTABLEVER/_# http://ftp.osuosl.org/.2/slackware/slackware-$SLACKWARESTABLEVER/_g' /etc/slackpkg/mirrors
+  's_^http://ftp.osuosl.org/.2/slackware/slackware-'$SLACKWARESTABLEVER'/_# http://ftp.osuosl.org/.2/slackware/slackware-'$SLACKWARESTABLEVER'/_g' /etc/slackpkg/mirrors
   sed -i \
-  's_^http://ftp.osuosl.org/.2/slackware/slackware64-$SLACKWARESTABLEVER/_# http://ftp.osuosl.org/.2/slackware/slackware64-$SLACKWARESTABLEVER/_g' /etc/slackpkg/mirrors
+  's_^http://ftp.osuosl.org/.2/slackware/slackware64-'$SLACKWARESTABLEVER'/_# http://ftp.osuosl.org/.2/slackware/slackware64-'$SLACKWARESTABLEVER'/_g' /etc/slackpkg/mirrors
   ### osuosl mirrors are stable and fast (they are used for the changelogs), choose mirrorbrain if you are far from oregon
   sed -i \
   's_^# http://ftp.osuosl.org/.2/slackware/slackware-current/_http://ftp.osuosl.org/.2/slackware/slackware-current/_g' /etc/slackpkg/mirrors
@@ -209,9 +209,9 @@ else
   's_^http://ftp.osuosl.org/.2/slackware/slackware64-current/_# http://ftp.osuosl.org/.2/slackware/slackware64-current/_g' /etc/slackpkg/mirrors
   ### osuosl mirrors are stable and fast (they are used for the changelogs), choose mirrorbrain if you are far from oregon
   sed -i \
-  's_^# http://ftp.osuosl.org/.2/slackware/slackware-$SLACKWARESTABLEVER/_http://ftp.osuosl.org/.2/slackware/slackware-$SLACKWARESTABLEVER/_g' /etc/slackpkg/mirrors
+  's_^# http://ftp.osuosl.org/.2/slackware/slackware-'$SLACKWARESTABLEVER'/_http://ftp.osuosl.org/.2/slackware/slackware-'$SLACKWARESTABLEVER'/_g' /etc/slackpkg/mirrors
   sed -i \
-  's_^# http://ftp.osuosl.org/.2/slackware/slackware64-$SLACKWARESTABLEVER/_http://ftp.osuosl.org/.2/slackware/slackware64-$SLACKWARESTABLEVER/_g' /etc/slackpkg/mirrors
+  's_^# http://ftp.osuosl.org/.2/slackware/slackware64-'$SLACKWARESTABLEVER'/_http://ftp.osuosl.org/.2/slackware/slackware64-'$SLACKWARESTABLEVER'/_g' /etc/slackpkg/mirrors
 fi
 
 
@@ -336,7 +336,7 @@ if [ -z "$( ls /etc/slackpkg/slackpkgplus.conf.old )" ]; then
       echo >> /etc/slackpkg/slackpkgplus.conf
       echo "PKGS_PRIORITY=( multilib:.* restricted-current:.* alienbob-current:.* )" >> /etc/slackpkg/slackpkgplus.conf
     else
-      sed -i "s@#MIRRORPLUS\['multilib']=http://taper.alienbase.nl/mirrors/people/alien/multilib/$SLACKWARESTABLEVER/@MIRRORPLUS['multilib']=http://taper.alienbase.nl/mirrors/people/alien/multilib/$SLACKWARESTABLEVER/@g" \
+      sed -i "s@#MIRRORPLUS\['multilib']=http://taper.alienbase.nl/mirrors/people/alien/multilib/'$SLACKWARESTABLEVER'/@MIRRORPLUS['multilib']=http://taper.alienbase.nl/mirrors/people/alien/multilib/'$SLACKWARESTABLEVER'/@g" \
       /etc/slackpkg/slackpkgplus.conf
       echo >> /etc/slackpkg/slackpkgplus.conf
       echo "PKGS_PRIORITY=( multilib:.* )" >> /etc/slackpkg/slackpkgplus.conf
@@ -362,7 +362,7 @@ if [ -z "$( ls /etc/slackpkg/slackpkgplus.conf.old )" ]; then
   
   if [ "$( uname -m )" = "x86_64" ]; then
     echo >> /etc/slackpkg/slackpkgplus.conf
-    echo "#MIRRORPLUS['msb']=http://slackware.org.uk/msb/$SLACKWARESTABLEVER/$MSBVER/x86_64/" >> /etc/slackpkg/slackpkgplus.conf
+    echo "#MIRRORPLUS['msb']=http://slackware.org.uk/msb/'$SLACKWARESTABLEVER'/'$MSBVER'/x86_64/" >> /etc/slackpkg/slackpkgplus.conf
     echo "#MIRRORPLUS['ktown']=http://taper.alienbase.nl/mirrors/alien-kde/current/latest/x86_64/" >> /etc/slackpkg/slackpkgplus.conf
     if [ "$CURRENT" = true ]; then
       echo "MIRRORPLUS['alienbob-current']=http://taper.alienbase.nl/mirrors/people/alien/sbrepos/current/x86_64/" >> /etc/slackpkg/slackpkgplus.conf
@@ -374,7 +374,7 @@ if [ -z "$( ls /etc/slackpkg/slackpkgplus.conf.old )" ]; then
     echo >> /etc/slackpkg/slackpkgplus.conf
   else
     echo >> /etc/slackpkg/slackpkgplus.conf
-    echo "#MIRRORPLUS['msb']=http://slackware.org.uk/msb/$SLACKWARESTABLEVER/$MSBVER/x86/" >> /etc/slackpkg/slackpkgplus.conf
+    echo "#MIRRORPLUS['msb']=http://slackware.org.uk/msb/'$SLACKWARESTABLEVER'/'$MSBVER'/x86/" >> /etc/slackpkg/slackpkgplus.conf
     echo "#MIRRORPLUS['ktown']=http://taper.alienbase.nl/mirrors/alien-kde/current/latest/x86/" >> /etc/slackpkg/slackpkgplus.conf
     if [ "$CURRENT" = true ]; then
       echo "MIRRORPLUS['alienbob-current']=http://taper.alienbase.nl/mirrors/people/alien/sbrepos/current/x86/" >> /etc/slackpkg/slackpkgplus.conf
