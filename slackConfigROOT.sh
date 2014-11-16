@@ -8,7 +8,7 @@
 ## note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files
-CONFIGOMATICVERSION=5.6.0
+CONFIGOMATICVERSION=5.6.1
 
 ## set config files here:
 SBOPKGDL="http://sbopkg.googlecode.com/files/sbopkg-0.37.0-noarch-1_cng.tgz"
@@ -780,8 +780,6 @@ echo
 echo "Your system is now set to UTF-8."
 echo "(e.g. You should use uxterm, instead of xterm)."
 echo "Thank you for using config-o-matic!"
-echo
-echo "Don't forget to set up repos in /etc/slackpkg/slackpkgplus.conf such as MULTILIB"
 echo
 echo "You should now run 'adduser', if you have not."
 echo "Then you should run the $ user script."
