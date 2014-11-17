@@ -8,7 +8,7 @@
 ## note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files
-CONFIGOMATICVERSION=5.7.7
+CONFIGOMATICVERSION=5.7.8
 
 
 ## versions!
@@ -337,7 +337,7 @@ if [ -z "$( ls /etc/slackpkg/slackpkgplus.conf.old )" ]; then
       echo >> /etc/slackpkg/slackpkgplus.conf
       echo "PKGS_PRIORITY=( multilib:.* restricted-current:.* alienbob-current:.* )" >> /etc/slackpkg/slackpkgplus.conf
     else
-      sed -i "s@#MIRRORPLUS\['multilib']=http://taper.alienbase.nl/mirrors/people/alien/multilib/${SLACKWARESTABLEVER}/@MIRRORPLUS['multilib']=http://taper.alienbase.nl/mirrors/people/alien/multilib/${SLACKWARESTABLEVER}/@g" \
+      sed -i "s@#MIRRORPLUS\['multilib']=http://taper.alienbase.nl/mirrors/people/alien/multilib/${SLACKSTAVER}/@MIRRORPLUS['multilib']=http://taper.alienbase.nl/mirrors/people/alien/multilib/${SLACKSTAVER}/@g" \
       /etc/slackpkg/slackpkgplus.conf
       echo >> /etc/slackpkg/slackpkgplus.conf
       echo "PKGS_PRIORITY=( multilib:.* )" >> /etc/slackpkg/slackpkgplus.conf
@@ -363,7 +363,7 @@ if [ -z "$( ls /etc/slackpkg/slackpkgplus.conf.old )" ]; then
   
   if [ "$( uname -m )" = "x86_64" ]; then
     echo >> /etc/slackpkg/slackpkgplus.conf
-    echo "#MIRRORPLUS['msb']=http://slackware.org.uk/msb/${SLACKWARESTABLEVER}/${MSBVER}/x86_64/" >> /etc/slackpkg/slackpkgplus.conf
+    echo "#MIRRORPLUS['msb']=http://slackware.org.uk/msb/${SLACKSTAVER}/${MSBVER}/x86_64/" >> /etc/slackpkg/slackpkgplus.conf
     echo "#MIRRORPLUS['ktown']=http://taper.alienbase.nl/mirrors/alien-kde/current/latest/x86_64/" >> /etc/slackpkg/slackpkgplus.conf
     if [ "$CURRENT" = true ]; then
       echo "MIRRORPLUS['alienbob-current']=http://taper.alienbase.nl/mirrors/people/alien/sbrepos/current/x86_64/" >> /etc/slackpkg/slackpkgplus.conf
@@ -375,7 +375,7 @@ if [ -z "$( ls /etc/slackpkg/slackpkgplus.conf.old )" ]; then
     echo >> /etc/slackpkg/slackpkgplus.conf
   else
     echo >> /etc/slackpkg/slackpkgplus.conf
-    echo "#MIRRORPLUS['msb']=http://slackware.org.uk/msb/${SLACKWARESTABLEVER}/${MSBVER}/x86/" >> /etc/slackpkg/slackpkgplus.conf
+    echo "#MIRRORPLUS['msb']=http://slackware.org.uk/msb/${SLACKSTAVER}/${MSBVER}/x86/" >> /etc/slackpkg/slackpkgplus.conf
     echo "#MIRRORPLUS['ktown']=http://taper.alienbase.nl/mirrors/alien-kde/current/latest/x86/" >> /etc/slackpkg/slackpkgplus.conf
     if [ "$CURRENT" = true ]; then
       echo "MIRRORPLUS['alienbob-current']=http://taper.alienbase.nl/mirrors/people/alien/sbrepos/current/x86/" >> /etc/slackpkg/slackpkgplus.conf
