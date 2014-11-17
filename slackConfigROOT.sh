@@ -8,7 +8,7 @@
 ## note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files
-CONFIGOMATICVERSION=5.7.5
+CONFIGOMATICVERSION=5.7.6
 
 
 ## versions!
@@ -16,10 +16,11 @@ CONFIGOMATICVERSION=5.7.5
 cd
 ## get stable version number
 wget slackware.com -O slackware-home-page.html -P ~/
-cat slackware-home-page.html | grep "is released!" | head -1 | sed 's/Slackware//g' | sed 's/is released!//g' | sed 's/ //g' > ~/SlackwareStableVersion.txt
+cat slackware-home-page.html | grep "is released!" | head -1 | sed 's/Slackware//g' | sed 's/is released!//g' | sed 's/ //g' > ~/SlackwareStableVersion
 rm slackware-home-page.html
 
-SLACKWARESTABLEVER="$( cat ~/SlackwareStableVersion.txt )"
+export SLACKSTAVER=${SLACKSTAVER="$( tr -d '\n\r' < ~/SlackwareStableVersion )"}
+export DASHSLACKSTAVER=${DASHSLACKSTAVER=-"$( tr -d '\n\r' < ~/SlackwareStableVersion )"}
 
 MSBVER=1.8
 
@@ -193,9 +194,9 @@ sbopkg/g' /etc/slackpkg/blacklist
 if [ "$CURRENT" = true ]; then
   ### undo stable mirrors
   sed -i \
-  "s_^http://ftp.osuosl.org/.2/slackware/slackware-${SLACKWARESTABLEVER}/_# http://ftp.osuosl.org/.2/slackware/slackware-${SLACKWARESTABLEVER}/_g" /etc/slackpkg/mirrors
+  "s_^http://ftp.osuosl.org/.2/slackware/slackware${DASHSLACKSTAVER}/_# http://ftp.osuosl.org/.2/slackware/slackware${DASHSLACKSTAVER}/_g" /etc/slackpkg/mirrors
   sed -i \
-  "s_^http://ftp.osuosl.org/.2/slackware/slackware64-${SLACKWARESTABLEVER}/_# http://ftp.osuosl.org/.2/slackware/slackware64-${SLACKWARESTABLEVER}/_g" /etc/slackpkg/mirrors
+  "s_^http://ftp.osuosl.org/.2/slackware/slackware64${DASHSLACKSTAVER}/_# http://ftp.osuosl.org/.2/slackware/slackware64${DASHSLACKSTAVER}/_g" /etc/slackpkg/mirrors
   ### osuosl mirrors are stable and fast (they are used for the changelogs), choose mirrorbrain if you are far from oregon
   sed -i \
   "s_^# http://ftp.osuosl.org/.2/slackware/slackware-current/_http://ftp.osuosl.org/.2/slackware/slackware-current/_g" /etc/slackpkg/mirrors
@@ -209,9 +210,9 @@ else
   "s_^http://ftp.osuosl.org/.2/slackware/slackware64-current/_# http://ftp.osuosl.org/.2/slackware/slackware64-current/_g" /etc/slackpkg/mirrors
   ### osuosl mirrors are stable and fast (they are used for the changelogs), choose mirrorbrain if you are far from oregon
   sed -i \
-  "s_^# http://ftp.osuosl.org/.2/slackware/slackware-${SLACKWARESTABLEVER}/_http://ftp.osuosl.org/.2/slackware/slackware-${SLACKWARESTABLEVER}/_g" /etc/slackpkg/mirrors
+  "s_^# http://ftp.osuosl.org/.2/slackware/slackware${DASHSLACKSTAVER}/_http://ftp.osuosl.org/.2/slackware/slackware${DASHSLACKSTAVER}/_g" /etc/slackpkg/mirrors
   sed -i \
-  "s_^# http://ftp.osuosl.org/.2/slackware/slackware64-${SLACKWARESTABLEVER}/_http://ftp.osuosl.org/.2/slackware/slackware64-${SLACKWARESTABLEVER}/_g" /etc/slackpkg/mirrors
+  "s_^# http://ftp.osuosl.org/.2/slackware/slackware64${DASHSLACKSTAVER}/_http://ftp.osuosl.org/.2/slackware/slackware64${DASHSLACKSTAVER}/_g" /etc/slackpkg/mirrors
 fi
 
 
@@ -782,7 +783,7 @@ echo >> ~/.config-o-matic_$CONFIGOMATICVERSION
 echo "========================================" >> ~/.config-o-matic_$CONFIGOMATICVERSION
 echo >> ~/.config-o-matic_$CONFIGOMATICVERSION
 
-rm ~/SlackwareStableVersion.txt
+rm ~/SlackwareStableVersion
 
 ## thanks!
 echo
