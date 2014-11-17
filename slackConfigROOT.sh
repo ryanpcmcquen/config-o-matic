@@ -8,7 +8,7 @@
 ## note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files
-CONFIGOMATICVERSION=5.7.6
+CONFIGOMATICVERSION=5.7.7
 
 
 ## versions!
@@ -561,6 +561,10 @@ if [ "$MISCELLANY" = true ]; then
 
   if [ -z "$( ls /var/log/packages/ | grep p7zip- )" ]; then
     sbopkg -B -i p7zip
+  fi
+
+  if [ -z "$( ls /var/log/packages/ | grep dmg2img- )" ]; then
+    sbopkg -B -i dmg2img
   fi
 
   if [ -z "$( ls /var/log/packages/ | grep dwm- )" ]; then
