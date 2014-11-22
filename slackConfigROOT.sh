@@ -8,7 +8,7 @@
 ## note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files
-CONFIGOMATICVERSION=5.7.8
+CONFIGOMATICVERSION=5.7.9
 
 
 ## versions!
@@ -50,6 +50,8 @@ GETEXTRACUR="https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/s
 
 GETSOURCESTA="https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/slackware/getSystemSlackBuildsSTABLE.sh"
 GETSOURCECUR="https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/slackware/getSystemSlackBuildsCURRENT.sh"
+
+GETJAVA="https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/slackware/getJavaSlackBuild.sh"
 
 CALPLAS="Caledonia-1.9.tar.gz"
 CALWALL="Caledonia_Official_Wallpaper_Collection-1.5.tar.gz"
@@ -723,6 +725,8 @@ if [ "$SCRIPTS" = true ]; then
     wget -N $GETEXTRASTA -P ~/
     wget -N $GETSOURCESTA -P ~/
   fi
+
+  wget -N $GETJAVA -P ~/
 
   ## bumblebee/nvidia scripts
   if [ ! -z "$( lspci | grep NVIDIA )" ]; then
