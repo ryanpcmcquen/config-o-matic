@@ -12,8 +12,7 @@ Options presented when running the ROOT script:
 1. CURRENT: Switches to slackware-current/slackware64-current mirrors instead of stable.
 2. WICD: Installs Wicd, disables NetworkManager.
 3. MISCELLANY: Installs a lot of additional packages, themes and miscellany.
-4. SCRIPTS: Clones some git repos and helpful scripts into /root/.
-5. MULTILIB: Adds Eric Hameleer's MULTILIB repo to slackpkg+ and installs/upgrades it (64 bit only).
+4. MULTILIB: Adds Eric Hameleer's MULTILIB repo to slackpkg+ and installs/upgrades it (64 bit only).
 
 
 ###STABLE
