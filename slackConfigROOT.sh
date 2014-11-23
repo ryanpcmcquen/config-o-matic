@@ -8,7 +8,7 @@
 ## note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files
-CONFIGOMATICVERSION=5.7.9
+CONFIGOMATICVERSION=5.8.0
 
 
 ## versions!
@@ -117,9 +117,6 @@ case $response in
     ;;
 esac
 
-
-
-
 read -p "Would you like to install additional packages, themes and MISCELLANY? [y/N]: " response
 case $response in
   [yY][eE][sS]|[yY])
@@ -130,18 +127,6 @@ case $response in
     echo You are going VANILLA.;
     ;;
 esac
-
-read -p "Would you like to install additional SCRIPTS? [y/N]: " response
-case $response in
-  [yY][eE][sS]|[yY])
-    export SCRIPTS=true;
-    echo You have chosen to install additional SCRIPTS.;
-    ;;
-  *)
-    echo You are not installing additional SCRIPTS.;
-    ;;
-esac
-
 
 if [ "$( uname -m )" = "x86_64" ]; then
   read -p "Would you like to go MULTILIB? [y/N]: " response
@@ -636,6 +621,8 @@ if [ "$MISCELLANY" = true ]; then
     rm ~/steamclient-*.tgz
   fi
 
+  curl $GETJAVA | sh
+
   ## numix stuff is dead sexy
   git clone https://github.com/numixproject/numix-icon-theme.git
   rm -rf /usr/share/icons/Numix/
@@ -717,38 +704,39 @@ else
 fi
 
 
-if [ "$SCRIPTS" = true ]; then
-  if [ "$CURRENT" = true ]; then
-    wget -N $GETEXTRACUR -P ~/
-    wget -N $GETSOURCECUR -P ~/
-  else
-    wget -N $GETEXTRASTA -P ~/
-    wget -N $GETSOURCESTA -P ~/
-  fi
+## used to be beginning of SCRIPTS
 
-  wget -N $GETJAVA -P ~/
-
-  ## bumblebee/nvidia scripts
-  if [ ! -z "$( lspci | grep NVIDIA )" ]; then
-    wget -N https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/slackware/crazybee.sh -P ~/
-  fi
-
-  ## auto generic-kernel script
-  wget -N https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/slackware/switchToGenericKernel.sh -P ~/
-
-  ## slackbook.org
-  git clone https://github.com/ryanpcmcquen/slackbook.org.git
-
-  ## my slackbuilds
-  git clone https://github.com/ryanpcmcquen/ryanpc-slackbuilds.git
-
-  ## enlightenment!
-  git clone https://github.com/ryanpcmcquen/slackENLIGHTENMENT.git
-
-  ## script to install latest firefox developer edition
-  wget -N https://raw.githubusercontent.com/ryanpcmcquen/ryanpc-slackbuilds/master/unofficial/fde/getFDE.sh -P ~/
-
+if [ "$CURRENT" = true ]; then
+  wget -N $GETEXTRACUR -P ~/
+  wget -N $GETSOURCECUR -P ~/
+else
+  wget -N $GETEXTRASTA -P ~/
+  wget -N $GETSOURCESTA -P ~/
 fi
+
+wget -N $GETJAVA -P ~/
+
+## bumblebee/nvidia scripts
+if [ ! -z "$( lspci | grep NVIDIA )" ]; then
+  wget -N https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/slackware/crazybee.sh -P ~/
+fi
+
+## auto generic-kernel script
+wget -N https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/slackware/switchToGenericKernel.sh -P ~/
+
+## slackbook.org
+git clone https://github.com/ryanpcmcquen/slackbook.org.git
+
+## my slackbuilds
+git clone https://github.com/ryanpcmcquen/ryanpc-slackbuilds.git
+
+## enlightenment!
+git clone https://github.com/ryanpcmcquen/slackENLIGHTENMENT.git
+
+## script to install latest firefox developer edition
+wget -N https://raw.githubusercontent.com/ryanpcmcquen/ryanpc-slackbuilds/master/unofficial/fde/getFDE.sh -P ~/
+
+## used to be end of SCRIPTS
 
 
 if [ "$WICD" = true ]; then
