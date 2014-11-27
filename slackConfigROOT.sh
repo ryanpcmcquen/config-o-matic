@@ -8,11 +8,18 @@
 ## note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files
-CONFIGOMATICVERSION=5.8.0
+CONFIGOMATICVERSION=5.8.1
+
+
+if [ ! $UID = 0 ]; then
+  cat << EOF
+This script must be run as root.
+EOF
+  exit 1
+fi
 
 
 ## versions!
-
 cd
 ## get stable version number
 wget slackware.com -O slackware-home-page.html -P ~/
@@ -59,11 +66,12 @@ CALWALL="Caledonia_Official_Wallpaper_Collection-1.5.tar.gz"
 ## eric hameleers has updated multilib to include this package
 #LIBXSHM="libxshmfence-1.1-i486-1.txz"
 
-if [ ! $UID = 0 ]; then
-  cat << EOF
-This script must be run as root.
-EOF
-  exit 1
+if [ -z "$ARCH" ]; then
+  case "$( uname -m )" in
+    i?86) ARCH=i486 ;;
+    arm*) ARCH=arm ;;
+       *) ARCH=$( uname -m ) ;;
+  esac
 fi
 
 ## make sure we are home  ;^)
@@ -447,8 +455,66 @@ if [ "$MISCELLANY" = true ]; then
     sbopkg -B -i node
   fi
 
+  ## hydrogen
+  if [ -z "$( ls /var/log/packages/ | grep scons- )" ]; then
+    sbopkg -B -i scons
+  fi
+
+  if [ -z "$( ls /var/log/packages/ | grep libtar- )" ]; then
+    sbopkg -B -i libtar
+  fi
+
+  if [ -z "$( ls /var/log/packages/ | grep ladspa_sdk- )" ]; then
+    sbopkg -B -i ladspa_sdk
+  fi
+
+  if [ -z "$( ls /var/log/packages/ | grep liblrdf- )" ]; then
+    sbopkg -B -i liblrdf
+  fi
+
+  if [ -z "$( ls /var/log/packages/ | grep celt- )" ]; then
+    sbopkg -B -i celt
+  fi
+
+  if [ -z "$( ls /var/log/packages/ | grep jack-audio-connection-kit- )" ]; then
+    sbopkg -B -i jack-audio-connection-kit
+  fi
+
+  if [ -z "$( ls /var/log/packages/ | grep lash- )" ]; then
+    sbopkg -B -i lash
+  fi
+
+  if [ -z "$( ls /var/log/packages/ | grep hydrogen- )" ]; then
+    sbopkg -B -i hydrogen
+  fi
+
+
+  if [ -z "$( ls /var/log/packages/ | grep lua- )" ]; then
+    sbopkg -B -i lua
+  fi
+
+  if [ -z "$( ls /var/log/packages/ | grep luajit- )" ]; then
+    sbopkg -B -i luajit
+  fi
+
+  if [ -z "$( ls /var/log/packages/ | grep bullet- )" ]; then
+    sbopkg -B -i bullet
+  fi
+
+  if [ -z "$( ls /var/log/packages/ | grep libwebp- )" ]; then
+    sbopkg -B -i libwebp
+  fi
+
   if [ -z "$( ls /var/log/packages/ | grep orc- )" ]; then
     sbopkg -B -i orc
+  fi
+
+  if [ -z "$( ls /var/log/packages/ | grep gstreamer1- )" ]; then
+    sbopkg -B -i gstreamer1
+  fi
+
+  if [ -z "$( ls /var/log/packages/ | grep gst1-plugins-base- )" ]; then
+    sbopkg -B -i gst1-plugins-base
   fi
 
   if [ -z "$( ls /var/log/packages/ | grep imlib2- )" ]; then
@@ -498,10 +564,33 @@ if [ "$MISCELLANY" = true ]; then
   fi
 
   if [ -z "$( ls /var/log/packages/ | grep apulse- )" ]; then
-    if [ "$MULTILIB" != true ]; then
+    if [ "$MULTILIB" = true ]; then
       COMPAT32=yes sbopkg -B -i apulse
     else
       sbopkg -B -i apulse
+    fi
+  fi
+
+  ## wineing
+  if [ "$MULTILIB" = true ] || [ "$ARCH" = "i486" ]; then
+    if [ -z "$( ls /var/log/packages/ | grep webcore-fonts- )" ]; then
+      sbopkg -B -i webcore-fonts
+    fi
+
+    if [ -z "$( ls /var/log/packages/ | grep fontforge- )" ]; then
+      sbopkg -B -i fontforge
+    fi
+
+    if [ -z "$( ls /var/log/packages/ | grep cabextract- )" ]; then
+      sbopkg -B -i cabextract
+    fi
+
+    if [ -z "$( ls /var/log/packages/ | grep wine- )" ]; then
+      sbopkg -B -i wine
+    fi
+
+    if [ -z "$( ls /var/log/packages/ | grep winetricks- )" ]; then
+      sbopkg -B -i winetricks
     fi
   fi
 
