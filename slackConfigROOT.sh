@@ -8,7 +8,7 @@
 ## note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files
-CONFIGOMATICVERSION=5.8.1
+CONFIGOMATICVERSION=5.8.2
 
 
 if [ ! $UID = 0 ]; then
@@ -437,6 +437,7 @@ if [ "$MISCELLANY" = true ]; then
   sbopkg -B -u
   sbopkg -B -r
 
+
   if [ -z "$( ls /var/log/packages/ | grep superkey-launch- )" ]; then
     sbopkg -B -i superkey-launch
   fi
@@ -487,7 +488,7 @@ if [ "$MISCELLANY" = true ]; then
   if [ -z "$( ls /var/log/packages/ | grep hydrogen- )" ]; then
     sbopkg -B -i hydrogen
   fi
-
+  ##
 
   if [ -z "$( ls /var/log/packages/ | grep lua- )" ]; then
     sbopkg -B -i lua
@@ -593,6 +594,101 @@ if [ "$MISCELLANY" = true ]; then
       sbopkg -B -i winetricks
     fi
   fi
+  ##
+
+  ## scribus
+  if [ -z "$( ls /var/log/packages/ | grep cppunit- )" ]; then
+    sbopkg -B -i cppunit
+  fi
+
+  if [ -z "$( ls /var/log/packages/ | grep podofo- )" ]; then
+    sbopkg -B -i podofo
+  fi
+
+  if [ -z "$( ls /var/log/packages/ | grep scribus- )" ]; then
+    sbopkg -B -i scribus
+  fi
+  ##
+
+  ## inkscape
+  if [ -z "$( ls /var/log/packages/ | grep gts- )" ]; then
+    sbopkg -B -i gts
+  fi
+
+  if [ -z "$( ls /var/log/packages/ | grep graphviz- )" ]; then
+    sbopkg -B -i graphviz
+  fi
+
+  if [ -z "$( ls /var/log/packages/ | grep libwpg- )" ]; then
+    sbopkg -B -i libwpg
+  fi
+
+  if [ -z "$( ls /var/log/packages/ | grep numpy- )" ]; then
+    sbopkg -B -i numpy
+  fi
+
+  if [ -z "$( ls /var/log/packages/ | grep BeautifulSoup- )" ]; then
+    sbopkg -B -i BeautifulSoup
+  fi
+
+  if [ -z "$( ls /var/log/packages/ | grep lxml- )" ]; then
+    sbopkg -B -i lxml
+  fi
+
+  if [ -z "$( ls /var/log/packages/ | grep libsigc++- )" ]; then
+    sbopkg -B -i libsigc++
+  fi
+
+  if [ -z "$( ls /var/log/packages/ | grep glibmm- )" ]; then
+    sbopkg -B -i glibmm
+  fi
+
+  if [ -z "$( ls /var/log/packages/ | grep cairomm- )" ]; then
+    sbopkg -B -i cairomm
+  fi
+
+  if [ -z "$( ls /var/log/packages/ | grep pangomm- )" ]; then
+    sbopkg -B -i pangomm
+  fi
+
+  if [ -z "$( ls /var/log/packages/ | grep atkmm- )" ]; then
+    sbopkg -B -i atkmm
+  fi
+
+  if [ -z "$( ls /var/log/packages/ | grep mm-common- )" ]; then
+    sbopkg -B -i mm-common
+  fi
+
+  if [ -z "$( ls /var/log/packages/ | grep gtkmm- )" ]; then
+    sbopkg -B -i gtkmm
+  fi
+
+  if [ -z "$( ls /var/log/packages/ | grep gsl- )" ]; then
+    sbopkg -B -i gsl
+  fi
+
+  if [ -z "$( ls /var/log/packages/ | grep inkscape- )" ]; then
+    sbopkg -B -i inkscape
+  fi
+  ##
+
+  if [ -z "$( ls /var/log/packages/ | grep libreoffice- )" ]; then
+    sbopkg -B -i libreoffice
+  fi
+
+  if [ -z "$( ls /var/log/packages/ | grep android-studio- )" ]; then
+    sbopkg -B -i android-studio
+  fi
+
+  ## librecad
+  if [ -z "$( ls /var/log/packages/ | grep muParser- )" ]; then
+    sbopkg -B -i muParser
+  fi
+
+  if [ -z "$( ls /var/log/packages/ | grep librecad- )" ]; then
+    sbopkg -B -i librecad
+  fi
+  ##
 
   ## these 3 are for the image ultimator
   if [ -z "$( ls /var/log/packages/ | grep jpegoptim- )" ]; then
@@ -608,10 +704,11 @@ if [ "$MISCELLANY" = true ]; then
   fi
 
   ## install the image ultimator now that we have the dependencies
-  wget -N https://raw.githubusercontent.com/ryanpcmcquen/image-ultimator/master/imgult
+  wget -N \
+    https://raw.githubusercontent.com/ryanpcmcquen/image-ultimator/master/imgult
   install -m755 imgult /usr/local/bin/
   rm imgult
-
+  ##
 
   if [ -z "$( ls /var/log/packages/ | grep murrine- )" ]; then
     sbopkg -B -i murrine
@@ -697,6 +794,7 @@ if [ "$MISCELLANY" = true ]; then
   if [ -z "$( ls /var/log/packages/ | grep tiled-qt- )" ]; then
     sbopkg -B -i tiled-qt
   fi
+
 
   ## grab latest steam package
   if [ -z "$( ls /var/log/packages/ | grep steamclient- )" ]; then
