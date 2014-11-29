@@ -8,7 +8,7 @@
 ## note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files
-CONFIGOMATICVERSION=5.8.3
+CONFIGOMATICVERSION=5.8.4
 
 
 if [ ! $UID = 0 ]; then
@@ -65,6 +65,21 @@ CALWALL="Caledonia_Official_Wallpaper_Collection-1.5.tar.gz"
 
 ## eric hameleers has updated multilib to include this package
 #LIBXSHM="libxshmfence-1.1-i486-1.txz"
+
+## my sbopkg function  ;^)
+no_prompt_sbo_pkg_install() {
+  SBO_PACKAGE=$1
+  echo p | sbopkg -B -k -e continue -i $SBO_PACKAGE
+}
+
+slackpkg_full_upgrade() {
+  slackpkg update gpg && slackpkg update
+  slackpkg install-new && slackpkg upgrade-all
+}
+
+slackpkg_update_only() {
+  slackpkg update gpg && slackpkg update
+}
 
 if [ -z "$ARCH" ]; then
   case "$( uname -m )" in
@@ -386,9 +401,8 @@ fi
 
 
 if [ "$MULTILIB" = true ] && [ "$( uname -m )" = "x86_64" ]; then
-  slackpkg update gpg && slackpkg update
-  slackpkg install-new && slackpkg upgrade-all
-  slackpkg update gpg && slackpkg update
+  slackpkg_full_upgrade
+  slackpkg_update_only
   slackpkg install multilib
   sed -i 's/^BATCH=off/BATCH=on/g' /etc/slackpkg/slackpkg.conf
   sed -i 's/^DEFAULT_ANSWER=n/DEFAULT_ANSWER=y/g' /etc/slackpkg/slackpkg.conf
@@ -397,14 +411,13 @@ fi
 
 if [ "$MISCELLANY" = true ]; then
   ## this prevents breakage if slackpkg gets updated
-  slackpkg update gpg && slackpkg update
-  slackpkg install-new && slackpkg upgrade-all
+  slackpkg_full_upgrade
 
   ## set slackpkg to non-interactive mode to run without prompting
   ## we set again just in case someone overwrites configs
   sed -i 's/^BATCH=off/BATCH=on/g' /etc/slackpkg/slackpkg.conf
   sed -i 's/^DEFAULT_ANSWER=n/DEFAULT_ANSWER=y/g' /etc/slackpkg/slackpkg.conf
-  slackpkg update gpg && slackpkg update
+  slackpkg_update_only
   slackpkg install vlc chromium
 
   ## grab latest firefox developer edition
@@ -436,12 +449,6 @@ if [ "$MISCELLANY" = true ]; then
   ## then sync the slackbuilds.org repo
   sbopkg -B -u
   sbopkg -B -r
-
-  ## my sbopkg function  ;^)
-  no_prompt_sbo_pkg_install() {
-    SBO_PACKAGE=$1
-    sbopkg -B -k -e continue -i $SBO_PACKAGE
-  }
 
   no_prompt_sbo_pkg_install superkey-launch
 
@@ -743,7 +750,7 @@ wget -N https://raw.githubusercontent.com/ryanpcmcquen/ryanpc-slackbuilds/master
 
 
 if [ "$WICD" = true ]; then
-  slackpkg update gpg && slackpkg update
+  slackpkg_update_only
   slackpkg install wicd
   chmod -x /etc/rc.d/rc.networkmanager
   sed -i 's/^\([^#]\)/#\1/g' /etc/rc.d/rc.inet1.conf
