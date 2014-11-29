@@ -27,9 +27,9 @@ wget -N https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/slackw
   -P ~/sbo/.git/hooks/
 wget -N https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/slackware/sbo/hooks/pre-commit \
   -P ~/sbo/.git/hooks/
-  ## this is just in case permissions are incorrect,
-  ## these files should already be 755  ;^)
-  chmod 755 ~/sbo/.git/hooks/*
+## this is just in case permissions are incorrect,
+## these files should already be 755  ;^)
+chmod 755 ~/sbo/.git/hooks/*
 
 
 if [ ! -z "$( ls /usr/bin/asciinema )" ]; then
