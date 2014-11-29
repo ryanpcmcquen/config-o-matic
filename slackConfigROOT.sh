@@ -8,7 +8,7 @@
 ## note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files
-CONFIGOMATICVERSION=5.8.4
+CONFIGOMATICVERSION=5.8.5
 
 
 if [ ! $UID = 0 ]; then
@@ -66,20 +66,21 @@ CALWALL="Caledonia_Official_Wallpaper_Collection-1.5.tar.gz"
 ## eric hameleers has updated multilib to include this package
 #LIBXSHM="libxshmfence-1.1-i486-1.txz"
 
-## my sbopkg function  ;^)
+## my shell functions  ;^)
 no_prompt_sbo_pkg_install() {
   SBO_PACKAGE=$1
   echo p | sbopkg -B -k -e continue -i $SBO_PACKAGE
 }
 
-slackpkg_full_upgrade() {
-  slackpkg update gpg && slackpkg update
-  slackpkg install-new && slackpkg upgrade-all
-}
-
 slackpkg_update_only() {
   slackpkg update gpg && slackpkg update
 }
+
+slackpkg_full_upgrade() {
+  slackpkg_update_only
+  slackpkg install-new && slackpkg upgrade-all
+}
+##
 
 if [ -z "$ARCH" ]; then
   case "$( uname -m )" in
