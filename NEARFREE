@@ -15,12 +15,12 @@ esac
 
 if [ "$NEARFREE" = true ]; then
   removepkg getty-ps lha unarj zoo amp \
-  bluez-firmware ipw2100-fw ipw2200-fw trn \
-  zd1211-firmware xfractint xgames xv
+    bluez-firmware ipw2100-fw ipw2200-fw trn \
+    zd1211-firmware xfractint xgames xv
 
   slackpkg blacklist getty-ps lha unarj zoo amp \
-  bluez-firmware ipw2100-fw ipw2200-fw trn \
-  zd1211-firmware xfractint xgames xv
+    bluez-firmware ipw2100-fw ipw2200-fw trn \
+    zd1211-firmware xfractint xgames xv
 
   echo "You have become NEARFREE, to update your kernel, head to freeslack.net."
 fi
