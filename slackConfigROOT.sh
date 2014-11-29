@@ -8,7 +8,7 @@
 ## note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files
-CONFIGOMATICVERSION=5.9.0
+CONFIGOMATICVERSION=5.9.1
 
 
 if [ ! $UID = 0 ]; then
@@ -432,8 +432,8 @@ if [ "$MISCELLANY" = true ]; then
 
   ## auto-update once a day to keep the doctor away
   wget -N \
-  https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/slackware/daily-slackup \
-  -P /etc/cron.daily/
+    https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/slackware/daily-slackup \
+    -P /etc/cron.daily/
   chmod 755 /etc/cron.daily/daily-slackup
 
   ## grab latest firefox developer edition
@@ -681,25 +681,25 @@ if [ "$MISCELLANY" = true ]; then
   rm -rf ./Numix/
 
   wget -N \
-  https://raw.githubusercontent.com/numixproject/numix-kde-theme/master/Numix.colors -P /usr/share/apps/color-schemes/
+    https://raw.githubusercontent.com/numixproject/numix-kde-theme/master/Numix.colors -P /usr/share/apps/color-schemes/
   mv /usr/share/apps/color-schemes/Numix.colors /usr/share/apps/color-schemes/Numix-KDE.colors
   wget -N \
-  https://raw.githubusercontent.com/numixproject/numix-kde-theme/master/Numix.qtcurve -P /usr/share/apps/QtCurve/
+    https://raw.githubusercontent.com/numixproject/numix-kde-theme/master/Numix.qtcurve -P /usr/share/apps/QtCurve/
   mv /usr/share/apps/QtCurve/Numix.qtcurve /usr/share/apps/QtCurve/Numix-KDE.qtcurve
 
   ## caledonia kde theme
   wget -N \
-  http://sourceforge.net/projects/caledonia/files/Caledonia%20%28Plasma-KDE%20Theme%29/$CALPLAS -P ~/
+    http://sourceforge.net/projects/caledonia/files/Caledonia%20%28Plasma-KDE%20Theme%29/$CALPLAS -P ~/
   tar xf ~/$CALPLAS -C /usr/share/apps/desktoptheme/
   rm ~/$CALPLAS
 
   ## caledonia color scheme
   wget -N http://sourceforge.net/projects/caledonia/files/Caledonia%20Color%20Scheme/Caledonia.colors \
-  -P /usr/share/apps/color-schemes/
+    -P /usr/share/apps/color-schemes/
 
   ## get caledonia wallpapers, who doesn't like nice wallpapers?
   wget -N \
-  http://sourceforge.net/projects/caledonia/files/Caledonia%20Official%20Wallpapers/$CALWALL -P ~/
+    http://sourceforge.net/projects/caledonia/files/Caledonia%20Official%20Wallpapers/$CALWALL -P ~/
   tar xf ~/$CALWALL
   cp -r ~/Caledonia_Official_Wallpaper_Collection/* /usr/share/wallpapers/
   rm -rf ~/Caledonia_Official_Wallpaper_Collection/
@@ -707,11 +707,11 @@ if [ "$MISCELLANY" = true ]; then
 
   ## a few numix wallpapers also
   wget -N \
-  http://fc03.deviantart.net/fs71/f/2013/305/3/6/numix___halloween___wallpaper_by_satya164-d6skv0g.zip -P ~/
+    http://fc03.deviantart.net/fs71/f/2013/305/3/6/numix___halloween___wallpaper_by_satya164-d6skv0g.zip -P ~/
   wget -N \
-  http://fc00.deviantart.net/fs70/f/2013/249/7/6/numix___fragmented_space_by_me4oslav-d6l8ihd.zip -P ~/
+    http://fc00.deviantart.net/fs70/f/2013/249/7/6/numix___fragmented_space_by_me4oslav-d6l8ihd.zip -P ~/
   wget -N \
-  http://fc09.deviantart.net/fs70/f/2013/224/b/6/numix___name_of_the_doctor___wallpaper_by_satya164-d6hvzh7.zip -P ~/
+    http://fc09.deviantart.net/fs70/f/2013/224/b/6/numix___name_of_the_doctor___wallpaper_by_satya164-d6hvzh7.zip -P ~/
   unzip numix___halloween___wallpaper_by_satya164-d6skv0g.zip
   unzip numix___fragmented_space_by_me4oslav-d6l8ihd.zip
   unzip numix___name_of_the_doctor___wallpaper_by_satya164-d6hvzh7.zip
