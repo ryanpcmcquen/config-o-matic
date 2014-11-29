@@ -8,7 +8,7 @@
 ## note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files
-CONFIGOMATICVERSION=5.8.2
+CONFIGOMATICVERSION=5.8.3
 
 
 if [ ! $UID = 0 ]; then
@@ -437,272 +437,131 @@ if [ "$MISCELLANY" = true ]; then
   sbopkg -B -u
   sbopkg -B -r
 
+  ## my sbopkg function  ;^)
+  no_prompt_sbo_pkg_install() {
+    SBO_PACKAGE=$1
+    sbopkg -B -k -e continue -i $SBO_PACKAGE
+  }
 
-  if [ -z "$( ls /var/log/packages/ | grep superkey-launch- )" ]; then
-    sbopkg -B -i superkey-launch
-  fi
+  no_prompt_sbo_pkg_install superkey-launch
 
-  if [ -z "$( ls /var/log/packages/ | grep pysetuptools- )" ]; then
-    sbopkg -B -i pysetuptools
-  fi
+  no_prompt_sbo_pkg_install pysetuptools
 
-  if [ -z "$( ls /var/log/packages/ | grep pip- )" ]; then
-    sbopkg -B -i pip
-  fi
+  no_prompt_sbo_pkg_install pip
 
   pip install --upgrade asciinema
 
-  if [ -z "$( ls /var/log/packages/ | grep node- )" ]; then
-    sbopkg -B -i node
-  fi
+  no_prompt_sbo_pkg_install node
 
   ## hydrogen
-  if [ -z "$( ls /var/log/packages/ | grep scons- )" ]; then
-    sbopkg -B -i scons
-  fi
+  no_prompt_sbo_pkg_install scons
 
-  if [ -z "$( ls /var/log/packages/ | grep libtar- )" ]; then
-    sbopkg -B -i libtar
-  fi
+  no_prompt_sbo_pkg_install libtar
 
-  if [ -z "$( ls /var/log/packages/ | grep ladspa_sdk- )" ]; then
-    sbopkg -B -i ladspa_sdk
-  fi
+  no_prompt_sbo_pkg_install ladspa_sdk
 
-  if [ -z "$( ls /var/log/packages/ | grep liblrdf- )" ]; then
-    sbopkg -B -i liblrdf
-  fi
+  no_prompt_sbo_pkg_install liblrdf
 
-  if [ -z "$( ls /var/log/packages/ | grep celt- )" ]; then
-    sbopkg -B -i celt
-  fi
+  no_prompt_sbo_pkg_install celt
 
-  if [ -z "$( ls /var/log/packages/ | grep jack-audio-connection-kit- )" ]; then
-    sbopkg -B -i jack-audio-connection-kit
-  fi
+  no_prompt_sbo_pkg_install jack-audio-connection-kit
 
-  if [ -z "$( ls /var/log/packages/ | grep lash- )" ]; then
-    sbopkg -B -i lash
-  fi
+  no_prompt_sbo_pkg_install lash
 
-  if [ -z "$( ls /var/log/packages/ | grep hydrogen- )" ]; then
-    sbopkg -B -i hydrogen
-  fi
+  no_prompt_sbo_pkg_install hydrogen
   ##
 
-  if [ -z "$( ls /var/log/packages/ | grep lua- )" ]; then
-    sbopkg -B -i lua
-  fi
+  no_prompt_sbo_pkg_install lua
 
-  if [ -z "$( ls /var/log/packages/ | grep luajit- )" ]; then
-    sbopkg -B -i luajit
-  fi
+  no_prompt_sbo_pkg_install luajit
 
-  if [ -z "$( ls /var/log/packages/ | grep bullet- )" ]; then
-    sbopkg -B -i bullet
-  fi
+  no_prompt_sbo_pkg_install bullet
 
-  if [ -z "$( ls /var/log/packages/ | grep libwebp- )" ]; then
-    sbopkg -B -i libwebp
-  fi
+  no_prompt_sbo_pkg_install libwebp
 
-  if [ -z "$( ls /var/log/packages/ | grep orc- )" ]; then
-    sbopkg -B -i orc
-  fi
+  no_prompt_sbo_pkg_install orc
 
-  if [ -z "$( ls /var/log/packages/ | grep gstreamer1- )" ]; then
-    sbopkg -B -i gstreamer1
-  fi
+  no_prompt_sbo_pkg_install gstreamer1
 
-  if [ -z "$( ls /var/log/packages/ | grep gst1-plugins-base- )" ]; then
-    sbopkg -B -i gst1-plugins-base
-  fi
+  no_prompt_sbo_pkg_install gst1-plugins-base
 
-  if [ -z "$( ls /var/log/packages/ | grep imlib2- )" ]; then
-    sbopkg -B -i imlib2
-  fi
+  no_prompt_sbo_pkg_install imlib2
 
-  if [ -z "$( ls /var/log/packages/ | grep giblib- )" ]; then
-    sbopkg -B -i giblib
-  fi
+  no_prompt_sbo_pkg_install giblib
 
-  if [ -z "$( ls /var/log/packages/ | grep scrot- )" ]; then
-    sbopkg -B -i scrot
-  fi
+  no_prompt_sbo_pkg_install scrot
 
-  if [ -z "$( ls /var/log/packages/ | grep screenfetch- )" ]; then
-    sbopkg -B -i screenfetch
-  fi
+  no_prompt_sbo_pkg_install screenfetch
 
   ## this library is necessary for some games,
   ## doesn't hurt to have it  ; ^)
-  if [ -z "$( ls /var/log/packages/ | grep libtxc_dxtn- )" ]; then
-    sbopkg -B -i libtxc_dxtn
-  fi
+  no_prompt_sbo_pkg_install libtxc_dxtn
 
-  if [ -z "$( ls /var/log/packages/ | grep lame- )" ]; then
-    sbopkg -B -i lame
-  fi
+  no_prompt_sbo_pkg_install lame
 
-  if [ -z "$( ls /var/log/packages/ | grep x264- )" ]; then
-    sbopkg -B -i x264
-  fi
+  no_prompt_sbo_pkg_install x264
 
-  if [ -z "$( ls /var/log/packages/ | grep ffmpeg- )" ]; then
-    sbopkg -B -i ffmpeg
-  fi
+  no_prompt_sbo_pkg_install ffmpeg
 
-  if [ -z "$( ls /var/log/packages/ | grep OpenAL- )" ]; then
-    sbopkg -B -i OpenAL
-  fi
+  no_prompt_sbo_pkg_install OpenAL
 
-  if [ -z "$( ls /var/log/packages/ | grep SDL_gfx- )" ]; then
-    sbopkg -B -i SDL_gfx
-  fi
+  no_prompt_sbo_pkg_install SDL_gfx
 
-  if [ -z "$( ls /var/log/packages/ | grep SDL_sound- )" ]; then
-    sbopkg -B -i SDL_sound
-  fi
+  no_prompt_sbo_pkg_install SDL_sound
 
-  if [ -z "$( ls /var/log/packages/ | grep apulse- )" ]; then
-    if [ "$MULTILIB" = true ]; then
-      COMPAT32=yes sbopkg -B -i apulse
-    else
-      sbopkg -B -i apulse
-    fi
+  if [ "$MULTILIB" = true ]; then
+    COMPAT32=yes no_prompt_sbo_pkg_install apulse
+  else
+    no_prompt_sbo_pkg_install apulse
   fi
 
   ## wineing
   if [ "$MULTILIB" = true ] || [ "$ARCH" = "i486" ]; then
-    if [ -z "$( ls /var/log/packages/ | grep webcore-fonts- )" ]; then
-      sbopkg -B -i webcore-fonts
-    fi
-
-    if [ -z "$( ls /var/log/packages/ | grep fontforge- )" ]; then
-      sbopkg -B -i fontforge
-    fi
-
-    if [ -z "$( ls /var/log/packages/ | grep cabextract- )" ]; then
-      sbopkg -B -i cabextract
-    fi
-
-    if [ -z "$( ls /var/log/packages/ | grep wine- )" ]; then
-      sbopkg -B -i wine
-    fi
-
-    if [ -z "$( ls /var/log/packages/ | grep winetricks- )" ]; then
-      sbopkg -B -i winetricks
-    fi
+    no_prompt_sbo_pkg_install webcore-fonts    
+    no_prompt_sbo_pkg_install fontforge   
+    no_prompt_sbo_pkg_install cabextract
+    no_prompt_sbo_pkg_install wine    
+    no_prompt_sbo_pkg_install winetricks
   fi
   ##
 
   ## scribus
-  if [ -z "$( ls /var/log/packages/ | grep cppunit- )" ]; then
-    sbopkg -B -i cppunit
-  fi
-
-  if [ -z "$( ls /var/log/packages/ | grep podofo- )" ]; then
-    sbopkg -B -i podofo
-  fi
-
-  if [ -z "$( ls /var/log/packages/ | grep scribus- )" ]; then
-    sbopkg -B -i scribus
-  fi
+  no_prompt_sbo_pkg_install cppunit
+  no_prompt_sbo_pkg_install podofo
+  no_prompt_sbo_pkg_install scribus
   ##
 
   ## inkscape
-  if [ -z "$( ls /var/log/packages/ | grep gts- )" ]; then
-    sbopkg -B -i gts
-  fi
-
-  if [ -z "$( ls /var/log/packages/ | grep graphviz- )" ]; then
-    sbopkg -B -i graphviz
-  fi
-
-  if [ -z "$( ls /var/log/packages/ | grep libwpg- )" ]; then
-    sbopkg -B -i libwpg
-  fi
-
-  if [ -z "$( ls /var/log/packages/ | grep numpy- )" ]; then
-    sbopkg -B -i numpy
-  fi
-
-  if [ -z "$( ls /var/log/packages/ | grep BeautifulSoup- )" ]; then
-    sbopkg -B -i BeautifulSoup
-  fi
-
-  if [ -z "$( ls /var/log/packages/ | grep lxml- )" ]; then
-    sbopkg -B -i lxml
-  fi
-
-  if [ -z "$( ls /var/log/packages/ | grep libsigc++- )" ]; then
-    sbopkg -B -i libsigc++
-  fi
-
-  if [ -z "$( ls /var/log/packages/ | grep glibmm- )" ]; then
-    sbopkg -B -i glibmm
-  fi
-
-  if [ -z "$( ls /var/log/packages/ | grep cairomm- )" ]; then
-    sbopkg -B -i cairomm
-  fi
-
-  if [ -z "$( ls /var/log/packages/ | grep pangomm- )" ]; then
-    sbopkg -B -i pangomm
-  fi
-
-  if [ -z "$( ls /var/log/packages/ | grep atkmm- )" ]; then
-    sbopkg -B -i atkmm
-  fi
-
-  if [ -z "$( ls /var/log/packages/ | grep mm-common- )" ]; then
-    sbopkg -B -i mm-common
-  fi
-
-  if [ -z "$( ls /var/log/packages/ | grep gtkmm- )" ]; then
-    sbopkg -B -i gtkmm
-  fi
-
-  if [ -z "$( ls /var/log/packages/ | grep gsl- )" ]; then
-    sbopkg -B -i gsl
-  fi
-
-  if [ -z "$( ls /var/log/packages/ | grep inkscape- )" ]; then
-    sbopkg -B -i inkscape
-  fi
+  no_prompt_sbo_pkg_install gts
+  no_prompt_sbo_pkg_install graphviz
+  no_prompt_sbo_pkg_install libwpg
+  no_prompt_sbo_pkg_install numpy
+  no_prompt_sbo_pkg_install BeautifulSoup
+  no_prompt_sbo_pkg_install lxml
+  no_prompt_sbo_pkg_install libsigc++
+  no_prompt_sbo_pkg_install glibmm
+  no_prompt_sbo_pkg_install cairomm
+  no_prompt_sbo_pkg_install pangomm
+  no_prompt_sbo_pkg_install atkmm
+  no_prompt_sbo_pkg_install mm-common
+  no_prompt_sbo_pkg_install gtkmm
+  no_prompt_sbo_pkg_install gsl
+  no_prompt_sbo_pkg_install inkscape
   ##
 
-  if [ -z "$( ls /var/log/packages/ | grep libreoffice- )" ]; then
-    sbopkg -B -i libreoffice
-  fi
+  no_prompt_sbo_pkg_install libreoffice
 
-  if [ -z "$( ls /var/log/packages/ | grep android-studio- )" ]; then
-    sbopkg -B -i android-studio
-  fi
+  no_prompt_sbo_pkg_install android-studio
 
   ## librecad
-  if [ -z "$( ls /var/log/packages/ | grep muParser- )" ]; then
-    sbopkg -B -i muParser
-  fi
-
-  if [ -z "$( ls /var/log/packages/ | grep librecad- )" ]; then
-    sbopkg -B -i librecad
-  fi
+  no_prompt_sbo_pkg_install muParser
+  no_prompt_sbo_pkg_install librecad
   ##
 
   ## these 3 are for the image ultimator
-  if [ -z "$( ls /var/log/packages/ | grep jpegoptim- )" ]; then
-    sbopkg -B -i jpegoptim
-  fi
-
-  if [ -z "$( ls /var/log/packages/ | grep mozjpeg- )" ]; then
-    sbopkg -B -i mozjpeg
-  fi
-
-  if [ -z "$( ls /var/log/packages/ | grep optipng- )" ]; then
-    sbopkg -B -i optipng
-  fi
-
+  no_prompt_sbo_pkg_install jpegoptim
+  no_prompt_sbo_pkg_install mozjpeg
+  no_prompt_sbo_pkg_install optipng
   ## install the image ultimator now that we have the dependencies
   wget -N \
     https://raw.githubusercontent.com/ryanpcmcquen/image-ultimator/master/imgult
@@ -710,91 +569,48 @@ if [ "$MISCELLANY" = true ]; then
   rm imgult
   ##
 
-  if [ -z "$( ls /var/log/packages/ | grep murrine- )" ]; then
-    sbopkg -B -i murrine
-  fi
+  no_prompt_sbo_pkg_install murrine
 
-  if [ -z "$( ls /var/log/packages/ | grep murrine-themes- )" ]; then
-    sbopkg -B -i murrine-themes
-  fi
+  no_prompt_sbo_pkg_install murrine-themes
 
   ## because QtCurve looks amazing
   if [ ! -z "$( ls /var/log/packages/ | grep kdelibs- )" ]; then
-    if [ -z "$( ls /var/log/packages/ | grep QtCurve-KDE4- )" ]; then
-      sbopkg -B -i QtCurve-KDE4
-    fi
-    if [ -z "$( ls /var/log/packages/ | grep kde-gtk-config- )" ]; then
-      sbopkg -B -i kde-gtk-config
-    fi
+    no_prompt_sbo_pkg_install QtCurve-KDE4
+    no_prompt_sbo_pkg_install kde-gtk-config
   fi
+  no_prompt_sbo_pkg_install QtCurve-Gtk2
 
-  if [ -z "$( ls /var/log/packages/ | grep QtCurve-Gtk2- )" ]; then
-    sbopkg -B -i QtCurve-Gtk2
-  fi
+  no_prompt_sbo_pkg_install p7zip
 
-  if [ -z "$( ls /var/log/packages/ | grep p7zip- )" ]; then
-    sbopkg -B -i p7zip
-  fi
+  no_prompt_sbo_pkg_install dmg2img
 
-  if [ -z "$( ls /var/log/packages/ | grep dmg2img- )" ]; then
-    sbopkg -B -i dmg2img
-  fi
+  no_prompt_sbo_pkg_install dwm
 
-  if [ -z "$( ls /var/log/packages/ | grep dwm- )" ]; then
-    sbopkg -B -i dwm
-  fi
+  no_prompt_sbo_pkg_install dmenu
 
-  if [ -z "$( ls /var/log/packages/ | grep dmenu- )" ]; then
-    sbopkg -B -i dmenu
-  fi
+  no_prompt_sbo_pkg_install tinyterm
 
-  if [ -z "$( ls /var/log/packages/ | grep tinyterm- )" ]; then
-    sbopkg -B -i tinyterm
-  fi
+  no_prompt_sbo_pkg_install medit
 
-  if [ -z "$( ls /var/log/packages/ | grep medit- )" ]; then
-    sbopkg -B -i medit
-  fi
+  no_prompt_sbo_pkg_install libgnomecanvas
 
-  if [ -z "$( ls /var/log/packages/ | grep libgnomecanvas- )" ]; then
-    sbopkg -B -i libgnomecanvas
-  fi
+  no_prompt_sbo_pkg_install zenity
 
-  if [ -z "$( ls /var/log/packages/ | grep zenity- )" ]; then
-    sbopkg -B -i zenity
-  fi
+  no_prompt_sbo_pkg_install udevil
 
-  if [ -z "$( ls /var/log/packages/ | grep udevil- )" ]; then
-    sbopkg -B -i udevil
-  fi
+  no_prompt_sbo_pkg_install spacefm
 
-  if [ -z "$( ls /var/log/packages/ | grep spacefm- )" ]; then
-    sbopkg -B -i spacefm
-  fi
+  no_prompt_sbo_pkg_install mirage
 
-  if [ -z "$( ls /var/log/packages/ | grep mirage- )" ]; then
-    sbopkg -B -i mirage
-  fi
-
-  ## file syncing service
-  if [ -z "$( ls /var/log/packages/ | grep copy- )" ]; then
-    sbopkg -B -i copy
-  fi
+  no_prompt_sbo_pkg_install copy
 
   if [ "$( uname -m )" = "x86_64" ]; then
-    if [ -z "$( ls /var/log/packages/ | grep spotify64- )" ]; then
-      sbopkg -B -i spotify64
-    fi
+    no_prompt_sbo_pkg_install spotify64
   else
-    if [ -z "$( ls /var/log/packages/ | grep spotify32- )" ]; then
-      sbopkg -B -i spotify32
-    fi
+    no_prompt_sbo_pkg_install spotify32
   fi
 
-  if [ -z "$( ls /var/log/packages/ | grep tiled-qt- )" ]; then
-    sbopkg -B -i tiled-qt
-  fi
-
+  no_prompt_sbo_pkg_install tiled-qt
 
   ## grab latest steam package
   if [ -z "$( ls /var/log/packages/ | grep steamclient- )" ]; then
