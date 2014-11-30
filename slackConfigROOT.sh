@@ -8,7 +8,7 @@
 ## note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files
-CONFIGOMATICVERSION=5.9.3
+CONFIGOMATICVERSION=5.9.4
 
 
 if [ ! $UID = 0 ]; then
@@ -127,8 +127,8 @@ echo
 ## go!
 
 read -p "Would you like to switch to -CURRENT? \
-(if no you will stay on STABLE) \
-[y/N]: " response
+  (NO = STABLE) \
+  [y/N]: " response
 case $response in
   [yY][eE][sS]|[yY])
     export CURRENT=true;
@@ -140,9 +140,8 @@ case $response in
 esac
 
 read -p "Would you like to install WICD? \
-(NetworkManager will be disabled, and you may need to manually adjust \
-autostart settings) \
- [y/N]: " response
+  (NetworkManager will be disabled) \
+  [y/N]: " response
 case $response in
   [yY][eE][sS]|[yY])
     export WICD=true;
@@ -153,7 +152,7 @@ case $response in
     ;;
 esac
 
-read -p "Would you like to install additional packages, themes and MISCELLANY? [y/N]: " response
+read -p "Would you like to install a bunch of MISCELLANY? [y/N]: " response
 case $response in
   [yY][eE][sS]|[yY])
     export MISCELLANY=true;
