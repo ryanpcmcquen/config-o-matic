@@ -8,7 +8,7 @@
 ## note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files
-CONFIGOMATICVERSION=5.9.2
+CONFIGOMATICVERSION=5.9.3
 
 
 if [ ! $UID = 0 ]; then
@@ -795,7 +795,6 @@ echo >> ~/.config-o-matic_$CONFIGOMATICVERSION
 echo "CURRENT = $CURRENT" >> ~/.config-o-matic_$CONFIGOMATICVERSION
 echo "WICD = $WICD" >> ~/.config-o-matic_$CONFIGOMATICVERSION
 echo "MISCELLANY = $MISCELLANY" >> ~/.config-o-matic_$CONFIGOMATICVERSION
-echo "SCRIPTS = $SCRIPTS" >> ~/.config-o-matic_$CONFIGOMATICVERSION
 if [ "$( uname -m )" = "x86_64" ]; then
   echo "MULTILIB = $MULTILIB" >> ~/.config-o-matic_$CONFIGOMATICVERSION
 fi
