@@ -8,7 +8,7 @@
 ## note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files
-CONFIGOMATICVERSION=5.9.5
+CONFIGOMATICVERSION=5.9.6
 
 
 if [ ! $UID = 0 ]; then
@@ -152,7 +152,7 @@ case $response in
     ;;
 esac
 
-read -p "Would you like to install a bunch of MISCELLANY? [y/N]: " response
+read -p "Would you like to install a bunch of MISCELLANY?  [y/N]: " response
 case $response in
   [yY][eE][sS]|[yY])
     export MISCELLANY=true;
@@ -164,7 +164,7 @@ case $response in
 esac
 
 if [ "$( uname -m )" = "x86_64" ]; then
-  read -p "Would you like to go MULTILIB? [y/N]: " response
+  read -p "Would you like to go MULTILIB?  [y/N]: " response
   case $response in
     [yY][eE][sS]|[yY])
       export MULTILIB=true;
