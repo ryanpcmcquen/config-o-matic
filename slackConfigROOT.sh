@@ -8,7 +8,7 @@
 ## note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files
-CONFIGOMATICVERSION=5.9.6
+CONFIGOMATICVERSION=5.9.7
 
 
 if [ ! $UID = 0 ]; then
@@ -633,6 +633,9 @@ if [ "$MISCELLANY" = true ]; then
   fi
 
   no_prompt_sbo_pkg_install tiled-qt
+
+  no_prompt_sbo_pkg_install google-webdesigner
+
 
   ## grab latest steam package
   if [ -z "$( ls /var/log/packages/ | grep steamclient- )" ]; then
