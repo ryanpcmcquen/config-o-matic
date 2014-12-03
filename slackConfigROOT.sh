@@ -8,7 +8,7 @@
 ## note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files
-CONFIGOMATICVERSION=5.9.8
+CONFIGOMATICVERSION=5.9.9
 
 
 if [ ! $UID = 0 ]; then
@@ -640,7 +640,7 @@ if [ "$MISCELLANY" = true ]; then
 
 
   ## grab latest steam package
-  if [ -z "$( ls /var/log/packages/ | grep steamclient- )" ]; then
+  if [ ! -e /var/log/packages/steamclient-* ]; then
     wget -r -np -A.tgz http://www.slackware.com/~alien/slackbuilds/steamclient/pkg/current/
     mv ~/www.slackware.com/\~alien/slackbuilds/steamclient/pkg/current/*.tgz ~/
     rm -rf ~/www.slackware.com/
