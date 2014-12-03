@@ -8,7 +8,7 @@
 ## note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files
-CONFIGOMATICVERSION=5.9.10
+CONFIGOMATICVERSION=5.9.11
 
 
 if [ ! $UID = 0 ]; then
@@ -180,13 +180,13 @@ fi
 
 
 ## detect efi and replace lilo with a script that works
-if [ ! -z "$( ls /boot/efi/EFI/boot/ )" ]; then
+if [ -d /boot/efi/EFI/boot/ ]; then
   cp /sbin/lilo /sbin/lilo.orig
   wget -N https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/slackware/EFI/lilo -P /sbin/
 fi
 
 ## no need to run this on efi
-if [ ! -z "$( ls /etc/lilo.conf )" ]; then
+if [ -e /etc/lilo.conf ]; then
   ## configure lilo
   sed -i 's/^#compact/lba32\
   compact/g' /etc/lilo.conf
@@ -332,7 +332,7 @@ rm ~/egan-gkrellm.tar.gz
 set_slackpkg_to_auto
 
 
-if [ -z "$( ls /etc/slackpkg/slackpkgplus.conf.old )" ]; then
+if [ ! -e /etc/slackpkg/slackpkgplus.conf.old ]; then
   ## to reset run:
   ## mv /etc/slackpkg/slackpkgplus.conf.old /etc/slackpkg/slackpkgplus.conf
   cp /etc/slackpkg/slackpkgplus.conf /etc/slackpkg/slackpkgplus.conf.old
@@ -495,6 +495,8 @@ if [ "$MISCELLANY" = true ]; then
   no_prompt_sbo_pkg_install hydrogen
   ##
 
+  JACK=on no_prompt_sbo_pkg_install ssr
+
   no_prompt_sbo_pkg_install lua
 
   no_prompt_sbo_pkg_install luajit
@@ -598,7 +600,7 @@ if [ "$MISCELLANY" = true ]; then
   no_prompt_sbo_pkg_install murrine-themes
 
   ## because QtCurve looks amazing
-  if [ ! -z "$( ls /var/log/packages/ | grep kdelibs- )" ]; then
+  if [ -e /var/log/packages/kdelibs-* ]; then
     no_prompt_sbo_pkg_install QtCurve-KDE4
     no_prompt_sbo_pkg_install kde-gtk-config
   fi
