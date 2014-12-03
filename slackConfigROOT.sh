@@ -8,7 +8,7 @@
 ## note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files
-CONFIGOMATICVERSION=5.9.7
+CONFIGOMATICVERSION=5.9.8
 
 
 if [ ! $UID = 0 ]; then
@@ -69,7 +69,9 @@ CALWALL="Caledonia_Official_Wallpaper_Collection-1.5.tar.gz"
 ## my shell functions  ;^)
 no_prompt_sbo_pkg_install() {
   SBO_PACKAGE=$1
-  echo p | sbopkg -B -k -e continue -i $SBO_PACKAGE
+  if [ ! -e /var/log/packages/$SBO_PACKAGE-* ]; then
+    echo p | sbopkg -B -e continue -i $SBO_PACKAGE
+  fi
 }
 
 slackpkg_update_only() {
