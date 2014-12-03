@@ -4,7 +4,7 @@
 
 ## my ssh key
 cd
-if [ -z "$( ls ~/.ssh/ )" ]; then
+if [ ! -d ~/.ssh/ ]; then
   git clone https://ryanpcmcquen@bitbucket.org/ryanpcmcquen/.ssh.git
   chmod 700 .ssh/
   chmod 600 .ssh/*
@@ -32,7 +32,7 @@ wget -N https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/slackw
 chmod 755 ~/sbo/.git/hooks/*
 
 
-if [ ! -z "$( ls /usr/bin/asciinema )" ]; then
+if [ -e /usr/bin/asciinema ]; then
   asciinema auth
 fi
 
