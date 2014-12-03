@@ -77,25 +77,25 @@ curl $GKRELLCONF | sh
 
 pkill gkrellm &
 
-if [ ! -z "$( ls -a ~/ | grep .fluxbox )" ]; then
+if [ -d ~/.fluxbox ]; then
   curl $FLUXBOXCONF | sh
 fi
 
-if [ ! -z "$( ls /var/log/packages/ | grep kdelibs )" ]; then
+if [ -e /var/log/packages/kdelibs-* ]; then
   curl $KDECONF | sh
 fi
 
-if [ ! -z "$( ls /var/log/packages/ | grep pluma )" ]; then
+if [ -e /var/log/packages/pluma-* ]; then
   curl $MATECONF | sh
 fi
 
-if [ ! -z "$( ls /var/log/packages/ | grep Thunar )" ]; then
+if [ -e /var/log/packages/Thunar-* ]; then
   curl $XFCECONF | sh
 fi
 
 rm ~/.local/share/applications/userapp-Firefox-*.desktop
 
-if [ ! -z "$( ls /var/log/packages/ | grep superkey-launch )" ]; then
+if [ -e /var/log/packages/superkey-launch-* ]; then
   superkey-launch &
 fi
 
