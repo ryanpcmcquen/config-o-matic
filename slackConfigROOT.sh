@@ -8,7 +8,7 @@
 ## note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files
-CONFIGOMATICVERSION=5.9.14
+CONFIGOMATICVERSION=5.9.15
 
 
 if [ ! $UID = 0 ]; then
@@ -781,9 +781,23 @@ fi
 
 ## let there be sound!
 /etc/rc.d/rc.alsa
-amixer set Master unmute
-amixer set Master 65%
+amixer set Master 0 unmute
+amixer set Master 65 unmute
+amixer set Mic 0 unmute
+amixer set Mic 35 unmute
+amixer set Capture 0 cap
+amixer set Capture 35 cap
+
 alsactl store
+
+if [ ! -z "$( aplay -l | grep Analog | grep 'card 1' )" ]; then
+  amixer set -c 1 Master 0 unmute
+  amixer set -c 1 Master 65 unmute
+  amixer set -c 1 Mic 0 unmute
+  amixer set -c 1 Mic 35 unmute
+  amixer set -c 1 Capture 0 cap
+  amixer set -c 1 Capture 35 cap
+fi
 
 ## set slackpkg back to normal
 set_slackpkg_to_manual
