@@ -8,7 +8,7 @@
 ## note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files
-CONFIGOMATICVERSION=5.9.13
+CONFIGOMATICVERSION=5.9.14
 
 
 if [ ! $UID = 0 ]; then
@@ -332,11 +332,11 @@ rm ~/egan-gkrellm.tar.gz
 set_slackpkg_to_auto
 
 
-if [ ! -e /etc/slackpkg/slackpkgplus.conf.old ]; then
+if [ ! -e /etc/slackpkg/BACKUP-slackpkgplus.conf.old-BACKUP ]; then
   ## to reset run:
   ## mv /etc/slackpkg/slackpkgplus.conf.old /etc/slackpkg/slackpkgplus.conf
   cp /etc/slackpkg/slackpkgplus.conf.new /etc/slackpkg/slackpkgplus.conf
-  cp /etc/slackpkg/slackpkgplus.conf /etc/slackpkg/slackpkgplus.conf.old
+  cp /etc/slackpkg/slackpkgplus.conf /etc/slackpkg/BACKUP-slackpkgplus.conf.old-BACKUP
   sed -i 's@REPOPLUS=( slackpkgplus restricted alienbob slacky )@#REPOPLUS=( slackpkgplus restricted alienbob slacky )@g' /etc/slackpkg/slackpkgplus.conf
   sed -i "s@MIRRORPLUS\['slacky'\]@#MIRRORPLUS['slacky']@g" /etc/slackpkg/slackpkgplus.conf
 
