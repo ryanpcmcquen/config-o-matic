@@ -8,7 +8,7 @@
 ## note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files
-CONFIGOMATICVERSION=5.9.11
+CONFIGOMATICVERSION=5.9.12
 
 
 if [ ! $UID = 0 ]; then
@@ -292,7 +292,7 @@ git config --global core.pager "less -r"
 ## install sbopkg & slackpkg+
 wget -N $SBOPKGDL -P ~/
 wget -N $SPPLUSDL -P ~/
-installpkg ~/*.t?z
+upgradepkg --install-new ~/*.t?z
 rm ~/*.t?z
 
 ## use SBo master git branch instead of a specific version
@@ -443,7 +443,7 @@ if [ "$MISCELLANY" = true ]; then
   ## eric hameleers has updated multilib to include this package
   #  if [ "$( uname -m )" = "x86_64" ]; then
   #    wget -N http://mirrors.slackware.com/slackware/slackware-current/slackware/x/$LIBXSHM -P ~/
-  #    installpkg ~/$LIBXSHM
+  #    upgradepkg --install-new ~/$LIBXSHM
   #    rm ~/$LIBXSHM
   #    slackpkg blacklist libxshmfence
   #  fi
@@ -646,7 +646,7 @@ if [ "$MISCELLANY" = true ]; then
     wget -r -np -A.tgz http://www.slackware.com/~alien/slackbuilds/steamclient/pkg/current/
     mv ~/www.slackware.com/\~alien/slackbuilds/steamclient/pkg/current/*.tgz ~/
     rm -rf ~/www.slackware.com/
-    installpkg ~/steamclient-*.tgz
+    upgradepkg --install-new ~/steamclient-*.tgz
     if [ -z "$( cat /etc/slackpkg/blacklist | grep steamclient )" ]; then
       echo steamclient >> /etc/slackpkg/blacklist
     fi
