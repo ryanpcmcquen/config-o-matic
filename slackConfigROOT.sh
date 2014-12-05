@@ -8,7 +8,7 @@
 ## note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files
-CONFIGOMATICVERSION=5.9.17
+CONFIGOMATICVERSION=5.9.18
 
 
 if [ ! $UID = 0 ]; then
@@ -776,18 +776,18 @@ fi
 /etc/rc.d/rc.alsa
 if [ ! -z "$( aplay -l | grep Analog | grep 'card 1' )" ]; then
   amixer set -c 1 Master 0 unmute
-  amixer set -c 1 Master 65 unmute
+  amixer set -c 1 Master 35 unmute
   amixer set -c 1 Mic 0 unmute
-  amixer set -c 1 Mic 35 unmute
+  amixer set -c 1 Mic 20 unmute
   amixer set -c 1 Capture 0 cap
-  amixer set -c 1 Capture 35 cap
+  amixer set -c 1 Capture 20 cap
 else
   amixer set Master 0 unmute
-  amixer set Master 65 unmute
+  amixer set Master 35 unmute
   amixer set Mic 0 unmute
-  amixer set Mic 35 unmute
+  amixer set Mic 20 unmute
   amixer set Capture 0 cap
-  amixer set Capture 35 cap
+  amixer set Capture 20 cap
 fi
 
 alsactl store
