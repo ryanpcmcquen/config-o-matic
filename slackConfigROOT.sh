@@ -8,7 +8,7 @@
 ## note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files
-CONFIGOMATICVERSION=5.9.16
+CONFIGOMATICVERSION=5.9.17
 
 
 if [ ! $UID = 0 ]; then
@@ -480,19 +480,12 @@ if [ "$MISCELLANY" = true ]; then
 
   ## hydrogen
   no_prompt_sbo_pkg_install scons
-
   no_prompt_sbo_pkg_install libtar
-
   no_prompt_sbo_pkg_install ladspa_sdk
-
   no_prompt_sbo_pkg_install liblrdf
-
-  no_prompt_sbo_pkg_install celt
-
+  #no_prompt_sbo_pkg_install celt
   no_prompt_sbo_pkg_install jack-audio-connection-kit
-
   no_prompt_sbo_pkg_install lash
-
   no_prompt_sbo_pkg_install hydrogen
   ##
 
