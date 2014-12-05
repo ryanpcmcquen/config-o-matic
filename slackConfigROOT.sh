@@ -8,7 +8,7 @@
 ## note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files
-CONFIGOMATICVERSION=5.9.18
+CONFIGOMATICVERSION=5.9.19
 
 
 if [ ! $UID = 0 ]; then
@@ -331,10 +331,12 @@ rm ~/egan-gkrellm.tar.gz
 ## set slackpkg to non-interactive mode to run without prompting
 set_slackpkg_to_auto
 
-
-if [ ! -e /etc/slackpkg/BACKUP-slackpkgplus.conf.old-BACKUP ]; then
-  ## to reset run:
-  ## mv /etc/slackpkg/slackpkgplus.conf.old /etc/slackpkg/slackpkgplus.conf
+## to reset run with RESETSPPLUSCONF=y prepended
+if [ ! -e /etc/slackpkg/BACKUP-slackpkgplus.conf.old-BACKUP ] || [ "$RESETSPPLUSCONF" = y ]; then
+  if [ "$RESETSPPLUSCONF" = y ]; then
+    cp /etc/slackpkg/BACKUP-slackpkgplus.conf.old-BACKUP /etc/slackpkg/BACKUP0-slackpkgplus.conf.old-BACKUP0
+    cp /etc/slackpkg/BACKUP-slackpkgplus.conf.old-BACKUP /etc/slackpkg/slackpkgplus.conf
+  fi
   cp /etc/slackpkg/slackpkgplus.conf.new /etc/slackpkg/slackpkgplus.conf
   cp /etc/slackpkg/slackpkgplus.conf /etc/slackpkg/BACKUP-slackpkgplus.conf.old-BACKUP
   sed -i 's@REPOPLUS=( slackpkgplus restricted alienbob slacky )@#REPOPLUS=( slackpkgplus restricted alienbob slacky )@g' /etc/slackpkg/slackpkgplus.conf
