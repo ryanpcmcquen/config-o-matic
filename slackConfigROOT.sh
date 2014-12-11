@@ -779,6 +779,8 @@ fi
 if [ ! -z "$( aplay -l | grep Analog | grep 'card 1' )" ]; then
   amixer set -c 1 Master 0 unmute
   amixer set -c 1 Master 30 unmute
+  amixer set -c 1 PCM 0% unmute
+  amixer set -c 1 PCM 80% unmute
   amixer set -c 1 Mic 0 unmute
   amixer set -c 1 Mic 20 unmute
   amixer set -c 1 Capture 0 cap
@@ -786,6 +788,8 @@ if [ ! -z "$( aplay -l | grep Analog | grep 'card 1' )" ]; then
 else
   amixer set Master 0 unmute
   amixer set Master 30 unmute
+  amixer set PCM 0% unmute
+  amixer set PCM 80% unmute
   amixer set Mic 0 unmute
   amixer set Mic 20 unmute
   amixer set Capture 0 cap
