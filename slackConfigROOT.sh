@@ -8,7 +8,7 @@
 ## note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files
-CONFIGOMATICVERSION=5.9.22
+CONFIGOMATICVERSION=5.9.23
 
 
 if [ ! $UID = 0 ]; then
@@ -22,9 +22,9 @@ fi
 ## versions!
 cd
 ## get stable version number
-wget slackware.com -O slackware-home-page.html -P ~/
-cat slackware-home-page.html | grep "is released!" | head -1 | sed 's/Slackware//g' | sed 's/is released!//g' | sed 's/ //g' > ~/SlackwareStableVersion
-rm slackware-home-page.html
+wget www.slackware.com -O slackware-home-page.html -P ~/
+cat ~/slackware-home-page.html | grep "is released!" | head -1 | sed 's/Slackware//g' | sed 's/is released!//g' | sed 's/ //g' > ~/SlackwareStableVersion
+rm ~/slackware-home-page.html
 
 export SLACKSTAVER=${SLACKSTAVER="$( tr -d '\n\r' < ~/SlackwareStableVersion )"}
 export DASHSLACKSTAVER=${DASHSLACKSTAVER=-"$( tr -d '\n\r' < ~/SlackwareStableVersion )"}
