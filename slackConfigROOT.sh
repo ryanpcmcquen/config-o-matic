@@ -485,6 +485,7 @@ if [ "$MISCELLANY" = true ]; then
   no_prompt_sbo_pkg_install libtar
   no_prompt_sbo_pkg_install ladspa_sdk
   no_prompt_sbo_pkg_install liblrdf
+  ## celt is broken
   #no_prompt_sbo_pkg_install celt
   no_prompt_sbo_pkg_install jack-audio-connection-kit
   no_prompt_sbo_pkg_install lash
@@ -581,7 +582,7 @@ if [ "$MISCELLANY" = true ]; then
   no_prompt_sbo_pkg_install librecad
   ##
 
-  ## these 3 are for the image ultimator
+  ## these are for the image ultimator
   no_prompt_sbo_pkg_install jpegoptim
   no_prompt_sbo_pkg_install mozjpeg
   no_prompt_sbo_pkg_install optipng
