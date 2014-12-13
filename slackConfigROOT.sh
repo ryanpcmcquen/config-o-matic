@@ -8,7 +8,7 @@
 ## note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files
-CONFIGOMATICVERSION=5.9.25
+CONFIGOMATICVERSION=5.9.26
 
 
 if [ ! $UID = 0 ]; then
@@ -470,7 +470,9 @@ if [ "$MISCELLANY" = true ]; then
   sbopkg -B -u
   sbopkg -B -r
 
-  no_prompt_sbo_pkg_install superkey-launch
+  ## using more alternative DE's these days,
+  ## plus i just don't launch that many apps
+  #no_prompt_sbo_pkg_install superkey-launch
 
   no_prompt_sbo_pkg_install pysetuptools
 
