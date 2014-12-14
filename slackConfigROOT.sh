@@ -8,7 +8,7 @@
 ## note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files
-CONFIGOMATICVERSION=5.9.27
+CONFIGOMATICVERSION=5.9.28
 
 
 if [ ! $UID = 0 ]; then
@@ -472,6 +472,10 @@ fi
 sbopkg -B -u
 sbopkg -B -r
 
+###########
+### dwm ###
+###########
+
 ## sweet, sweet dwm
 no_prompt_sbo_pkg_install dwm
 no_prompt_sbo_pkg_install dmenu
@@ -483,6 +487,15 @@ wget -N https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/slackw
   -P /etc/X11/xinit/
 wget -N https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/slackware/dwm-autostart \
   -P /usr/local/etc/
+
+## make tinyterm the default
+ln -sfv /usr/bin/tinyterm /usr/local/bin/uxterm
+ln -sfv /usr/bin/tinyterm /usr/local/bin/xterm
+
+###########
+### end ###
+### dwm ###
+###########
 
 
 if [ "$MISCELLANY" = true ]; then
