@@ -8,7 +8,7 @@
 ## note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files
-CONFIGOMATICVERSION=5.9.29
+CONFIGOMATICVERSION=5.9.30
 
 
 if [ ! $UID = 0 ]; then
@@ -537,14 +537,16 @@ if [ "$MISCELLANY" = true ]; then
 
   ## e16, so tiny!
   no_prompt_sbo_pkg_install imlib2
+  no_prompt_sbo_pkg_install giblib
   no_prompt_sbo_pkg_install e16
   no_prompt_sbo_pkg_install gmrun
 
   if [ -z "$( cat /usr/share/e16/config/bindings.cfg | grep gmrun )" ]; then
-    echo "KeyDown A Esc  exec gmrun" >> /usr/share/e16/config/bindings.cfg
+    echo >> /usr/share/e16/config/bindings.cfg
+    echo "## my bindings" >> /usr/share/e16/config/bindings.cfg
+    echo "KeyDown   A    Escape exec gmrun" >> /usr/share/e16/config/bindings.cfg
+    echo >> /usr/share/e16/config/bindings.cfg
   fi
-
-  no_prompt_sbo_pkg_install giblib
 
   no_prompt_sbo_pkg_install scrot
 
