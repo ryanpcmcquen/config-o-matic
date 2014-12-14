@@ -8,7 +8,7 @@
 ## note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files
-CONFIGOMATICVERSION=5.9.26
+CONFIGOMATICVERSION=5.9.27
 
 
 if [ ! $UID = 0 ]; then
@@ -464,20 +464,30 @@ if [ "$MISCELLANY" = true ]; then
   /g' /etc/ntp.conf
   chmod +x /etc/rc.d/rc.ntpd
   /etc/rc.d/rc.ntpd start
+fi
 
-  ## check for sbopkg update,
-  ## then sync the slackbuilds.org repo
-  sbopkg -B -u
-  sbopkg -B -r
 
-  ## using more alternative DE's these days,
-  ## plus i just don't launch that many apps
-  #no_prompt_sbo_pkg_install superkey-launch
+## check for sbopkg update,
+## then sync the slackbuilds.org repo
+sbopkg -B -u
+sbopkg -B -r
 
+## sweet, sweet dwm
+no_prompt_sbo_pkg_install dwm
+no_prompt_sbo_pkg_install dmenu
+no_prompt_sbo_pkg_install trayer-srg
+no_prompt_sbo_pkg_install tinyterm
+
+## my dwm tweaks
+wget -N https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/slackware/xinitrc.dwm \
+  -P /etc/X11/xinit/
+wget -N https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/slackware/dwm-autostart \
+  -P /usr/local/etc/
+
+
+if [ "$MISCELLANY" = true ]; then
   no_prompt_sbo_pkg_install pysetuptools
-
   no_prompt_sbo_pkg_install pip
-
   pip install --upgrade asciinema
 
   no_prompt_sbo_pkg_install node
@@ -610,12 +620,6 @@ if [ "$MISCELLANY" = true ]; then
   no_prompt_sbo_pkg_install p7zip
 
   no_prompt_sbo_pkg_install dmg2img
-
-  no_prompt_sbo_pkg_install dwm
-
-  no_prompt_sbo_pkg_install dmenu
-
-  no_prompt_sbo_pkg_install tinyterm
 
   no_prompt_sbo_pkg_install medit
 
