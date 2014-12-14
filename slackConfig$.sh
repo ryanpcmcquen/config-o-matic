@@ -93,12 +93,15 @@ if [ -e /var/log/packages/Thunar-* ]; then
   curl $XFCECONF | sh
 fi
 
-rm ~/.local/share/applications/userapp-Firefox-*.desktop
-
-if [ -e /var/log/packages/superkey-launch-* ]; then
-  superkey-launch &
+if [ -d /usr/share/e16 ]; then
+  if [ -z "$( cat ~/.e16/e_config--0.0.cfg | grep 'focus.all_new_windows_get_focus' )" ]; then
+    echo "focus.all_new_windows_get_focus = 1" >> ~/.e16/e_config--0.0.cfg
+  else
+    sed -i 's/focus.all_new_windows_get_focus = 0/focus.all_new_windows_get_focus = 1/g' ~/.e16/e_config--0.0.cfg
+  fi
 fi
 
+rm ~/.local/share/applications/userapp-Firefox-*.desktop
 
 echo
 echo
