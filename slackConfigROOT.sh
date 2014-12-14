@@ -8,7 +8,7 @@
 ## note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files
-CONFIGOMATICVERSION=5.9.28
+CONFIGOMATICVERSION=5.9.29
 
 
 if [ ! $UID = 0 ]; then
@@ -485,12 +485,14 @@ no_prompt_sbo_pkg_install tinyterm
 ## my dwm tweaks
 wget -N https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/slackware/xinitrc.dwm \
   -P /etc/X11/xinit/
+chmod 755 /etc/X11/xinit/xinitrc.dwm
 wget -N https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/slackware/dwm-autostart \
   -P /usr/local/etc/
 
 ## make tinyterm the default
 ln -sfv /usr/bin/tinyterm /usr/local/bin/uxterm
 ln -sfv /usr/bin/tinyterm /usr/local/bin/xterm
+ln -sfv /usr/bin/tinyterm /usr/local/bin/Eterm
 
 ###########
 ### end ###
@@ -533,7 +535,14 @@ if [ "$MISCELLANY" = true ]; then
 
   no_prompt_sbo_pkg_install gst1-plugins-base
 
+  ## e16, so tiny!
   no_prompt_sbo_pkg_install imlib2
+  no_prompt_sbo_pkg_install e16
+  no_prompt_sbo_pkg_install gmrun
+
+  if [ -z "$( cat /usr/share/e16/config/bindings.cfg | grep gmrun )" ]; then
+    echo "KeyDown A Esc  exec gmrun" >> /usr/share/e16/config/bindings.cfg
+  fi
 
   no_prompt_sbo_pkg_install giblib
 
