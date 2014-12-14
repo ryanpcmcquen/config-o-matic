@@ -8,7 +8,7 @@
 ## note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files
-CONFIGOMATICVERSION=5.9.31
+CONFIGOMATICVERSION=5.9.32
 
 
 if [ ! $UID = 0 ]; then
@@ -481,6 +481,7 @@ no_prompt_sbo_pkg_install dwm
 no_prompt_sbo_pkg_install dmenu
 no_prompt_sbo_pkg_install trayer-srg
 no_prompt_sbo_pkg_install tinyterm
+no_prompt_sbo_pkg_install qtfm
 
 ## my dwm tweaks
 wget -N https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/slackware/xinitrc.dwm \
