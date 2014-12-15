@@ -101,6 +101,10 @@ if [ -d /usr/share/e16 ]; then
   fi
 fi
 
+## beautiful minimalism
+mkdir -pv ~/.icons/
+ln -sfv /usr/share/icons/Adwaita/ ~/.icons/default
+
 rm ~/.local/share/applications/userapp-Firefox-*.desktop
 
 echo
