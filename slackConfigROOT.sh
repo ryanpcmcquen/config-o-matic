@@ -8,7 +8,7 @@
 ## note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files
-CONFIGOMATICVERSION=5.9.34
+CONFIGOMATICVERSION=5.9.35
 
 
 if [ ! $UID = 0 ]; then
@@ -700,6 +700,7 @@ if [ "$MISCELLANY" = true ]; then
   git clone https://github.com/numixproject/numix-icon-theme-circle.git
   rm -rf /usr/share/icons/Numix-Circle/
   mv ./numix-icon-theme-circle/Numix-Circle/ /usr/share/icons/
+  cp -r /usr/share/icons/Numix-Circle/* /usr/share/icons/Adwaita/
   rm -rf ./numix-icon-theme-circle/
 
   git clone https://github.com/numixproject/numix-icon-theme-shine.git
