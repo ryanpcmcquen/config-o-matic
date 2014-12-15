@@ -8,7 +8,7 @@
 ## note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files
-CONFIGOMATICVERSION=5.9.32
+CONFIGOMATICVERSION=5.9.33
 
 
 if [ ! $UID = 0 ]; then
@@ -494,6 +494,7 @@ wget -N https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/slackw
 ln -sfv /usr/bin/tinyterm /usr/local/bin/uxterm
 ln -sfv /usr/bin/tinyterm /usr/local/bin/xterm
 ln -sfv /usr/bin/tinyterm /usr/local/bin/Eterm
+ln -sfv /usr/bin/tinyterm /usr/local/bin/st
 
 ###########
 ### end ###
