@@ -8,7 +8,7 @@
 ## note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files
-CONFIGOMATICVERSION=5.9.36
+CONFIGOMATICVERSION=5.9.37
 
 
 if [ ! $UID = 0 ]; then
@@ -322,10 +322,10 @@ mkdir -pv /tmp/SBo/
 
 
 ## gkrellm theme
-mkdir -p /usr/share/gkrellm2/themes/
+mkdir -pv /usr/share/gkrellm2/themes/
 wget -N https://github.com/ryanpcmcquen/themes/raw/master/egan-gkrellm.tar.gz -P ~/
-tar xf ~/egan-gkrellm.tar.gz -C /usr/share/gkrellm2/themes/
-rm ~/egan-gkrellm.tar.gz
+tar xvf ~/egan-gkrellm.tar.gz -C /usr/share/gkrellm2/themes/
+rm -v ~/egan-gkrellm.tar.gz
 
 
 ## set slackpkg to non-interactive mode to run without prompting
@@ -334,11 +334,11 @@ set_slackpkg_to_auto
 ## to reset run with RESETSPPLUSCONF=y prepended
 if [ ! -e /etc/slackpkg/BACKUP-slackpkgplus.conf.old-BACKUP ] || [ "$RESETSPPLUSCONF" = y ]; then
   if [ "$RESETSPPLUSCONF" = y ]; then
-    cp /etc/slackpkg/BACKUP-slackpkgplus.conf.old-BACKUP /etc/slackpkg/BACKUP0-slackpkgplus.conf.old-BACKUP0
-    cp /etc/slackpkg/BACKUP-slackpkgplus.conf.old-BACKUP /etc/slackpkg/slackpkgplus.conf
+    cp -v /etc/slackpkg/BACKUP-slackpkgplus.conf.old-BACKUP /etc/slackpkg/BACKUP0-slackpkgplus.conf.old-BACKUP0
+    cp -v /etc/slackpkg/BACKUP-slackpkgplus.conf.old-BACKUP /etc/slackpkg/slackpkgplus.conf
   fi
-  cp /etc/slackpkg/slackpkgplus.conf.new /etc/slackpkg/slackpkgplus.conf
-  cp /etc/slackpkg/slackpkgplus.conf /etc/slackpkg/BACKUP-slackpkgplus.conf.old-BACKUP
+  cp -v /etc/slackpkg/slackpkgplus.conf.new /etc/slackpkg/slackpkgplus.conf
+  cp -v /etc/slackpkg/slackpkgplus.conf /etc/slackpkg/BACKUP-slackpkgplus.conf.old-BACKUP
   sed -i 's@REPOPLUS=( slackpkgplus restricted alienbob slacky )@#REPOPLUS=( slackpkgplus restricted alienbob slacky )@g' /etc/slackpkg/slackpkgplus.conf
   sed -i "s@MIRRORPLUS\['slacky'\]@#MIRRORPLUS['slacky']@g" /etc/slackpkg/slackpkgplus.conf
 
@@ -423,11 +423,10 @@ if [ "$MULTILIB" = true ] && [ "$( uname -m )" = "x86_64" ]; then
   set_slackpkg_to_auto
 fi
 
+## this prevents breakage if slackpkg gets updated
+slackpkg_full_upgrade
 
 if [ "$MISCELLANY" = true ]; then
-  ## this prevents breakage if slackpkg gets updated
-  slackpkg_full_upgrade
-
   ## set slackpkg to non-interactive mode to run without prompting
   ## we set again just in case someone overwrites configs
   set_slackpkg_to_auto
@@ -438,7 +437,7 @@ if [ "$MISCELLANY" = true ]; then
   wget -N \
     https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/slackware/daily-slackup \
     -P /etc/cron.daily/
-  chmod 755 /etc/cron.daily/daily-slackup
+  chmod -v 755 /etc/cron.daily/daily-slackup
 
   ## grab latest firefox developer edition
   curl https://raw.githubusercontent.com/ryanpcmcquen/ryanpc-slackbuilds/master/unofficial/fde/getFDE.sh | sh
@@ -462,7 +461,7 @@ if [ "$MISCELLANY" = true ]; then
   server 2.pool.ntp.org iburst \
   server 3.pool.ntp.org iburst \
   /g' /etc/ntp.conf
-  chmod +x /etc/rc.d/rc.ntpd
+  chmod -v +x /etc/rc.d/rc.ntpd
   /etc/rc.d/rc.ntpd start
 fi
 
@@ -628,8 +627,8 @@ if [ "$MISCELLANY" = true ]; then
   ## install the image ultimator now that we have the dependencies
   wget -N \
     https://raw.githubusercontent.com/ryanpcmcquen/image-ultimator/master/imgult -P ~/
-  install -m755 ~/imgult /usr/local/bin/
-  rm ~/imgult
+  install -v -m755 ~/imgult /usr/local/bin/
+  rm -v ~/imgult
   ##
 
   no_prompt_sbo_pkg_install murrine
@@ -675,61 +674,61 @@ if [ "$MISCELLANY" = true ]; then
   ## grab latest steam package
   if [ ! -e /var/log/packages/steamclient-* ]; then
     wget -r -np -A.tgz http://www.slackware.com/~alien/slackbuilds/steamclient/pkg/current/
-    mv ~/www.slackware.com/\~alien/slackbuilds/steamclient/pkg/current/*.tgz ~/
-    rm -rf ~/www.slackware.com/
+    mv -v ~/www.slackware.com/\~alien/slackbuilds/steamclient/pkg/current/*.tgz ~/
+    rm -rfv ~/www.slackware.com/
     upgradepkg --install-new ~/steamclient-*.tgz
     if [ -z "$( cat /etc/slackpkg/blacklist | grep steamclient )" ]; then
       echo steamclient >> /etc/slackpkg/blacklist
     fi
-    rm ~/steamclient-*.tgz
+    rm -v ~/steamclient-*.tgz
   fi
 
   curl $GETJAVA | sh
 
   ## numix stuff is dead sexy
   git clone https://github.com/numixproject/numix-icon-theme.git
-  rm -rf /usr/share/icons/Numix/
-  mv ./numix-icon-theme/Numix/ /usr/share/icons/
-  rm -rf ./numix-icon-theme/
+  rm -rfv /usr/share/icons/Numix/
+  mv -v ./numix-icon-theme/Numix/ /usr/share/icons/
+  rm -rfv ./numix-icon-theme/
 
   git clone https://github.com/numixproject/numix-icon-theme-bevel.git
-  rm -rf /usr/share/icons/Numix-Bevel/
-  mv ./numix-icon-theme-bevel/Numix-Bevel/ /usr/share/icons/
-  rm -rf ./numix-icon-theme-bevel/
+  rm -rfv /usr/share/icons/Numix-Bevel/
+  mv -v ./numix-icon-theme-bevel/Numix-Bevel/ /usr/share/icons/
+  rm -rfv ./numix-icon-theme-bevel/
 
   git clone https://github.com/numixproject/numix-icon-theme-circle.git
-  rm -rf /usr/share/icons/Numix-Circle/
-  mv ./numix-icon-theme-circle/Numix-Circle/ /usr/share/icons/
-  cp -r /usr/share/icons/Numix-Circle/* /usr/share/icons/Adwaita/
-  rm -rf ./numix-icon-theme-circle/
+  rm -rfv /usr/share/icons/Numix-Circle/
+  mv -v ./numix-icon-theme-circle/Numix-Circle/ /usr/share/icons/
+  cp -rv /usr/share/icons/Numix-Circle/* /usr/share/icons/Adwaita/
+  rm -rfv ./numix-icon-theme-circle/
 
   git clone https://github.com/numixproject/numix-icon-theme-shine.git
-  rm -rf /usr/share/icons/Numix-Shine/
-  mv ./numix-icon-theme-shine/Numix-Shine/ /usr/share/icons/
-  rm -rf ./numix-icon-theme-shine/
+  rm -rfv /usr/share/icons/Numix-Shine/
+  mv -v ./numix-icon-theme-shine/Numix-Shine/ /usr/share/icons/
+  rm -rfv ./numix-icon-theme-shine/
 
   git clone https://github.com/numixproject/numix-icon-theme-utouch.git
-  rm -rf /usr/share/icons/Numix-uTouch/
-  mv ./numix-icon-theme-utouch/Numix-uTouch/ /usr/share/icons/
-  rm -rf ./numix-icon-theme-utouch/
+  rm -rfv /usr/share/icons/Numix-uTouch/
+  mv -v ./numix-icon-theme-utouch/Numix-uTouch/ /usr/share/icons/
+  rm -rfv ./numix-icon-theme-utouch/
 
   git clone https://github.com/shimmerproject/Numix.git
-  rm -rf /usr/share/themes/Numix/
-  mv ./Numix/ /usr/share/themes/
-  rm -rf ./Numix/
+  rm -rfv /usr/share/themes/Numix/
+  mv -v ./Numix/ /usr/share/themes/
+  rm -rfv ./Numix/
 
   wget -N \
     https://raw.githubusercontent.com/numixproject/numix-kde-theme/master/Numix.colors -P /usr/share/apps/color-schemes/
-  mv /usr/share/apps/color-schemes/Numix.colors /usr/share/apps/color-schemes/Numix-KDE.colors
+  mv -v /usr/share/apps/color-schemes/Numix.colors /usr/share/apps/color-schemes/Numix-KDE.colors
   wget -N \
     https://raw.githubusercontent.com/numixproject/numix-kde-theme/master/Numix.qtcurve -P /usr/share/apps/QtCurve/
-  mv /usr/share/apps/QtCurve/Numix.qtcurve /usr/share/apps/QtCurve/Numix-KDE.qtcurve
+  mv -v /usr/share/apps/QtCurve/Numix.qtcurve /usr/share/apps/QtCurve/Numix-KDE.qtcurve
 
   ## caledonia kde theme
   wget -N \
     http://sourceforge.net/projects/caledonia/files/Caledonia%20%28Plasma-KDE%20Theme%29/$CALPLAS -P ~/
-  tar xf ~/$CALPLAS -C /usr/share/apps/desktoptheme/
-  rm ~/$CALPLAS
+  tar xvf ~/$CALPLAS -C /usr/share/apps/desktoptheme/
+  rm -v ~/$CALPLAS
 
   ## caledonia color scheme
   wget -N http://sourceforge.net/projects/caledonia/files/Caledonia%20Color%20Scheme/Caledonia.colors \
@@ -738,10 +737,10 @@ if [ "$MISCELLANY" = true ]; then
   ## get caledonia wallpapers, who doesn't like nice wallpapers?
   wget -N \
     http://sourceforge.net/projects/caledonia/files/Caledonia%20Official%20Wallpapers/$CALWALL -P ~/
-  tar xf ~/$CALWALL
-  cp -r ~/Caledonia_Official_Wallpaper_Collection/* /usr/share/wallpapers/
-  rm -rf ~/Caledonia_Official_Wallpaper_Collection/
-  rm ~/$CALWALL
+  tar xvf ~/$CALWALL
+  cp -rv ~/Caledonia_Official_Wallpaper_Collection/* /usr/share/wallpapers/
+  rm -rfv ~/Caledonia_Official_Wallpaper_Collection/
+  rm -v ~/$CALWALL
 
   ## a few numix wallpapers also
   wget -N \
@@ -753,16 +752,16 @@ if [ "$MISCELLANY" = true ]; then
   unzip numix___halloween___wallpaper_by_satya164-d6skv0g.zip
   unzip numix___fragmented_space_by_me4oslav-d6l8ihd.zip
   unzip numix___name_of_the_doctor___wallpaper_by_satya164-d6hvzh7.zip
-  rm numix___halloween___wallpaper_by_satya164-d6skv0g.zip
-  rm numix___fragmented_space_by_me4oslav-d6l8ihd.zip
-  rm numix___name_of_the_doctor___wallpaper_by_satya164-d6hvzh7.zip
+  rm -v numix___halloween___wallpaper_by_satya164-d6skv0g.zip
+  rm -v numix___fragmented_space_by_me4oslav-d6l8ihd.zip
+  rm -v numix___name_of_the_doctor___wallpaper_by_satya164-d6hvzh7.zip
 
-  cp ~/*.png /usr/share/wallpapers/
-  #cp ~/*.png /usr/share/backgrounds/
-  cp ~/*.jpg /usr/share/wallpapers/
-  #cp ~/*.jpg /usr/share/backgrounds/
-  rm ~/*.jpg
-  rm ~/*.png
+  cp -v ~/*.png /usr/share/wallpapers/
+  #cp -v ~/*.png /usr/share/backgrounds/
+  cp -v ~/*.jpg /usr/share/wallpapers/
+  #cp -v ~/*.jpg /usr/share/backgrounds/
+  rm -v ~/*.jpg
+  rm -v ~/*.png
 else
   echo "You have gone VANILLA."
 fi
@@ -806,7 +805,7 @@ wget -N https://raw.githubusercontent.com/ryanpcmcquen/ryanpc-slackbuilds/master
 if [ "$WICD" = true ]; then
   slackpkg_update_only
   slackpkg install wicd
-  chmod -x /etc/rc.d/rc.networkmanager
+  chmod -v -x /etc/rc.d/rc.networkmanager
   sed -i 's/^\([^#]\)/#\1/g' /etc/rc.d/rc.inet1.conf
 fi
 
@@ -860,7 +859,7 @@ echo >> ~/.config-o-matic_$CONFIGOMATICVERSION
 echo "========================================" >> ~/.config-o-matic_$CONFIGOMATICVERSION
 echo >> ~/.config-o-matic_$CONFIGOMATICVERSION
 
-rm ~/SlackwareStableVersion
+rm -v ~/SlackwareStableVersion
 
 ## thanks!
 echo
