@@ -24,7 +24,7 @@ cd
 ## get stable version number
 wget www.slackware.com -O slackware-home-page.html -P ~/
 cat ~/slackware-home-page.html | grep "is released!" | head -1 | sed 's/Slackware//g' | sed 's/is released!//g' | sed 's/ //g' > ~/SlackwareStableVersion
-rm ~/slackware-home-page.html
+rm -v ~/slackware-home-page.html
 
 export SLACKSTAVER=${SLACKSTAVER="$( tr -d '\n\r' < ~/SlackwareStableVersion )"}
 export DASHSLACKSTAVER=${DASHSLACKSTAVER=-"$( tr -d '\n\r' < ~/SlackwareStableVersion )"}
@@ -181,7 +181,7 @@ fi
 
 ## detect efi and replace lilo with a script that works
 if [ -d /boot/efi/EFI/boot/ ]; then
-  cp /sbin/lilo /sbin/lilo.orig
+  cp -v /sbin/lilo /sbin/lilo.orig
   wget -N https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/slackware/EFI/lilo -P /sbin/
 fi
 
@@ -200,7 +200,7 @@ if [ -e /etc/lilo.conf ]; then
   sed -i 's/^timeout = 1200/timeout = 5/g' /etc/lilo.conf
 fi
 
-lilo
+lilo -v
 
 ## change to utf-8 encoding
 sed -i 's/^export LANG=en_US/#export LANG=en_US/g' /etc/profile.d/lang.sh
