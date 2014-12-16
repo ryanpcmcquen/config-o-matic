@@ -105,7 +105,7 @@ fi
 mkdir -pv ~/.icons/
 ln -sfv /usr/share/icons/Adwaita/ ~/.icons/default
 
-rm ~/.local/share/applications/userapp-Firefox-*.desktop
+rm -v ~/.local/share/applications/userapp-Firefox-*.desktop
 
 echo
 echo
