@@ -58,7 +58,7 @@ wget -N $BASHRC -P ~/
 wget -N $BASHPR -P ~/
 
 wget -N $VIMRC -P ~/
-mkdir -p ~/.vim/colors/
+mkdir -pv ~/.vim/colors/
 wget -N $VIMCOLOR -P ~/.vim/colors/
 
 ## git config
