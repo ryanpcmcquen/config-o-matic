@@ -293,7 +293,7 @@ git config --global core.pager "less -r"
 wget -N $SBOPKGDL -P ~/
 wget -N $SPPLUSDL -P ~/
 upgradepkg --install-new ~/*.t?z
-rm ~/*.t?z
+rm -v ~/*.t?z
 
 ## use SBo master git branch instead of a specific version
 wget -N https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/slackware/sbo/90-SBo-master.repo \
