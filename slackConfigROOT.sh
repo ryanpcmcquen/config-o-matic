@@ -8,7 +8,7 @@
 ## note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files
-CONFIGOMATICVERSION=5.9.37
+CONFIGOMATICVERSION=5.9.38
 
 
 if [ ! $UID = 0 ]; then
@@ -612,6 +612,8 @@ if [ "$MISCELLANY" = true ]; then
 
   no_prompt_sbo_pkg_install libreoffice
 
+  ## android stuff!
+  no_prompt_sbo_pkg_install gmtp
   no_prompt_sbo_pkg_install android-studio
 
   ## librecad
