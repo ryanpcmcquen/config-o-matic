@@ -8,7 +8,7 @@
 ## note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files
-CONFIGOMATICVERSION=5.9.38
+CONFIGOMATICVERSION=5.9.39
 
 
 if [ ! $UID = 0 ]; then
@@ -569,11 +569,9 @@ if [ "$MISCELLANY" = true ]; then
 
   no_prompt_sbo_pkg_install SDL_sound
 
-  if [ "$MULTILIB" = true ]; then
-    COMPAT32=yes no_prompt_sbo_pkg_install apulse
-  else
-    no_prompt_sbo_pkg_install apulse
-  fi
+  ## script now detects multilib,
+  ## thanks to b. watson
+  no_prompt_sbo_pkg_install apulse
 
   ## wineing
   if [ "$MULTILIB" = true ] || [ "$ARCH" = "i486" ]; then
