@@ -52,6 +52,9 @@ echo
 ## not really necessary, but maybe someday  ;-)
 cd
 
+## add all non-root users (except ftp) to wheel group
+cat /etc/passwd | grep "/home" | cut -d: -f1 | sed '/ftp/d' | xargs -i usermod -G wheel -a {}
+
 gkrellm &
 
 wget -N $BASHRC -P ~/
