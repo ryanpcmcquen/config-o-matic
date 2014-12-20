@@ -8,7 +8,7 @@
 ## note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files
-CONFIGOMATICVERSION=5.9.41
+CONFIGOMATICVERSION=5.9.42
 
 
 if [ ! $UID = 0 ]; then
@@ -112,7 +112,8 @@ if [ ! -z "$( aplay -l | grep Analog | grep 'card 1' )" ]; then
 fi
 
 ## sound fix for steam
-ln -sfv /etc/machine-id /var/lib/dbus/machine-id
+dbus-uuidgen > /var/lib/dbus/machine-id
+#ln -sfv /etc/machine-id /var/lib/dbus/machine-id
 
 
 echo
