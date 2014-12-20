@@ -8,7 +8,7 @@
 ## note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files
-CONFIGOMATICVERSION=5.9.43
+CONFIGOMATICVERSION=6.0.0
 
 
 if [ ! $UID = 0 ]; then
@@ -171,6 +171,10 @@ if [ "$( uname -m )" = "x86_64" ]; then
   esac
 fi
 
+## enable the wheel group
+if [ ! -e /etc/sudoers.d/wheel-enable ]; then
+  echo "%wheel ALL=(ALL) ALL" > /etc/sudoers.d/wheel-enable
+fi
 
 if [ ! -z "$( aplay -l | grep Analog | grep 'card 1' )" ]; then
   wget -N $ASOUNDCONF -P /etc/
