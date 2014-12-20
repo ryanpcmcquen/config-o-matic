@@ -28,7 +28,7 @@ GITNAME="Ryan P.C. McQuen"
 GITEMAIL="ryan.q@linux.com"
 
 
-if [ ! $UID != 0 ]; then
+if [ $UID = 0 ]; then
 cat << EOF
 
 This script must not be run as root.
