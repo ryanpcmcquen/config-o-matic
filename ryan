@@ -2,6 +2,25 @@
 
 #  cd; wget -N https://raw.githubusercontent.com/ryanpcmcquen/config-o-matic/master/ryan -P ~/; sh ~/ryan; rm ~/ryan
 
+if [ ! $UID = 0 ]; then
+  cat << EOF
+This script must be run as root.
+EOF
+  exit 1
+fi
+
+## enable the wheel group
+if [ ! -e /etc/sudoers.d/wheel-enable ]; then
+  echo "%wheel ALL=(ALL) ALL" > /etc/sudoers.d/wheel-enable
+fi
+
+## add all non-root users (except ftp) to wheel group
+cat /etc/passwd | grep "/home" | cut -d: -f1 | sed '/ftp/d' | xargs -i usermod -G wheel -a {}
+## the standard groups in case you forget when you run adduser  ;-)
+cat /etc/passwd | grep "/home" | cut -d: -f1 | sed '/ftp/d' | \
+  xargs -i usermod -G audio,cdrom,floppy,plugdev,video,power,netdev,lp,scanner -a {}
+
+
 ## my ssh key
 cd
 if [ ! -d ~/.ssh/ ]; then
