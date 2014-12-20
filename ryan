@@ -11,7 +11,9 @@ fi
 
 ## enable the wheel group
 if [ ! -e /etc/sudoers.d/wheel-enable ]; then
-  echo "%wheel ALL=(ALL) ALL" > /etc/sudoers.d/wheel-enable
+  echo > /etc/sudoers.d/wheel-enable
+  echo "%wheel ALL=(ALL) ALL" >> /etc/sudoers.d/wheel-enable
+  echo >> /etc/sudoers.d/wheel-enable
 fi
 
 ## add all non-root users (except ftp) to wheel group
