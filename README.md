@@ -2,19 +2,17 @@
 
 Configure Slackware installs in no time with config-o-matic! (patent pending)
 
-- Now supports 32 and 64 bit!
-
 NEARFREE: This is a separate script that should be run *instead* of the ROOT script. It follows http://freeslack.net/, but does not remove the kernel.
 
 Options presented when running the ROOT script:
-
 
 1. CURRENT: Switches to slackware-current/slackware64-current mirrors instead of stable.
 2. WICD: Installs Wicd, disables NetworkManager.
 3. MISCELLANY: Installs a lot of additional packages, themes and miscellany.
 4. MULTILIB: Adds Eric Hameleer's MULTILIB repo to slackpkg+ and installs/upgrades it (64 bit only).
 
-
+#####config-o-matic does a lot! You should read through the script and remove any parts you don't want.  ;-)
+---
 ###STABLE
 
 
@@ -38,16 +36,31 @@ Options presented when running the ROOT script:
 
 ```cd; wget -N https://raw.githubusercontent.com/ryanpcmcquen/config-o-matic/master/slackConfig$.sh; sh slackConfig$.sh; rm slackConfig$.sh```
 
+---
+To enable the wheel group, and add all non-root users to it (as well as the typical Slackware groups, run this:
 
-config-o-matic takes a text-oriented approach to system provisioning, for this reason, Fluxbox, KDE, Mate and XFCE are our current DE's of choice. You may remove any of the DE config url's if you do not use those environments (although config-o-matic will try to detect them).  ;^)
+```
+## enable the wheel group
+if [ ! -e /etc/sudoers.d/wheel-enable ]; then
+  echo "%wheel ALL=(ALL) ALL" > /etc/sudoers.d/wheel-enable
+fi
+
+## add all non-root users (except ftp) to wheel group
+cat /etc/passwd | grep "/home" | cut -d: -f1 | sed '/ftp/d' | xargs -i usermod -G wheel -a {}
+## the standard groups in case you forget when you run adduser  ;-)
+cat /etc/passwd | grep "/home" | cut -d: -f1 | sed '/ftp/d' | \
+  xargs -i usermod -G audio,cdrom,floppy,plugdev,video,power,netdev,lp,scanner -a {}
+```
+---
+config-o-matic takes a text-oriented approach to system provisioning, for this reason, dwm, e16, Fluxbox, KDE, Mate and XFCE are our current DE's of choice. You may remove any of the DE config url's if you do not use those environments (although config-o-matic will try to detect them).  ;^)
 
 #NOTES:
  - You should either fork this project or download it and set it to YOUR config files, just running my scripts will set up my preferred configs.
 
  - $ user configuration is the same regardless of using stable or current.
 
-
-####Ryan:
+---
+####ryan:
 
 (#):
 
