@@ -8,7 +8,7 @@
 ## note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files
-CONFIGOMATICVERSION=6.1.0
+CONFIGOMATICVERSION=6.1.1
 
 
 if [ ! $UID = 0 ]; then
@@ -881,8 +881,7 @@ echo "Your system is now set to UTF-8."
 echo "(e.g. You should use uxterm, instead of xterm)."
 echo "Thank you for using config-o-matic!"
 echo
-echo "You should now run 'adduser', if you have not."
-echo "Then you should run the $ user script."
+echo "You should now run the $ user script."
 echo
 
 
