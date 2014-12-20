@@ -8,7 +8,7 @@
 ## note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files
-CONFIGOMATICVERSION=5.9.39
+CONFIGOMATICVERSION=5.9.40
 
 
 if [ ! $UID = 0 ]; then
@@ -670,6 +670,15 @@ if [ "$MISCELLANY" = true ]; then
 
   no_prompt_sbo_pkg_install google-webdesigner
 
+  ## lutris
+  ## recommended
+  no_prompt_sbo_pkg_install eawpats
+  no_prompt_sbo_pkg_install allegro
+  ## required
+  no_prompt_sbo_pkg_install pyxdg
+  no_prompt_sbo_pkg_install PyYAML
+  no_prompt_sbo_pkg_install pygobject3
+  no_prompt_sbo_pkg_install lutris
 
   ## grab latest steam package
   if [ ! -e /var/log/packages/steamclient-* ]; then
