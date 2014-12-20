@@ -8,7 +8,7 @@
 ## note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files
-CONFIGOMATICVERSION=6.0.0
+CONFIGOMATICVERSION=6.0.1
 
 
 if [ ! $UID = 0 ]; then
@@ -175,6 +175,12 @@ fi
 if [ ! -e /etc/sudoers.d/wheel-enable ]; then
   echo "%wheel ALL=(ALL) ALL" > /etc/sudoers.d/wheel-enable
 fi
+
+## add all non-root users (except ftp) to wheel group
+cat /etc/passwd | grep "/home" | cut -d: -f1 | sed '/ftp/d' | xargs -i usermod -G wheel -a {}
+## the standard groups in case you forget when you run adduser  ;-)
+cat /etc/passwd | grep "/home" | cut -d: -f1 | sed '/ftp/d' | \
+  xargs -i usermod -G audio,cdrom,floppy,plugdev,video,power,netdev,lp,scanner -a {}
 
 if [ ! -z "$( aplay -l | grep Analog | grep 'card 1' )" ]; then
   wget -N $ASOUNDCONF -P /etc/
