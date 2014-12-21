@@ -8,7 +8,7 @@
 ## note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files
-CONFIGOMATICVERSION=6.1.2
+CONFIGOMATICVERSION=6.1.3
 
 
 if [ ! $UID = 0 ]; then
@@ -569,6 +569,7 @@ if [ "$MISCELLANY" = true ]; then
 
   no_prompt_sbo_pkg_install SDL_sound
 
+  no_prompt_sbo_pkg_install speex
   ## script now detects multilib,
   ## thanks to b. watson
   no_prompt_sbo_pkg_install apulse
