@@ -58,6 +58,10 @@ GETSOURCECUR="https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/
 
 GETJAVA="https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/slackware/getJavaSlackBuild.sh"
 
+wget caledonia.sourceforge.net -O caledonia-home-page.html -P ~/
+cat caledonia-home-page.html | grep Plasma-KDE | cut -d= -f5 | tr -d '"' | tr -d "'" | sed 's@/download>Download <i class@@g' > ~/CaledoniaPlasmaVersion
+
+
 CALPLAS="Caledonia-1.9.tar.gz"
 CALWALL="Caledonia_Official_Wallpaper_Collection-1.5.tar.gz"
 
