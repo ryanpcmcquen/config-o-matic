@@ -8,7 +8,7 @@
 ## note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files
-CONFIGOMATICVERSION=6.1.3
+CONFIGOMATICVERSION=6.2.0
 
 
 if [ ! $UID = 0 ]; then
@@ -28,8 +28,6 @@ rm -v ~/slackware-home-page.html
 
 export SLACKSTAVER=${SLACKSTAVER="$( tr -d '\n\r' < ~/SlackwareStableVersion )"}
 export DASHSLACKSTAVER=${DASHSLACKSTAVER=-"$( tr -d '\n\r' < ~/SlackwareStableVersion )"}
-
-MSBVER=1.8
 
 ## set config files here:
 SBOPKGDL="http://sbopkg.googlecode.com/files/sbopkg-0.37.0-noarch-1_cng.tgz"
@@ -62,6 +60,8 @@ GETJAVA="https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/slack
 
 CALPLAS="Caledonia-1.9.tar.gz"
 CALWALL="Caledonia_Official_Wallpaper_Collection-1.5.tar.gz"
+
+MINECRAFTDL="https://s3.amazonaws.com/Minecraft.Download/launcher/Minecraft.jar"
 
 ## eric hameleers has updated multilib to include this package
 #LIBXSHM="libxshmfence-1.1-i486-1.txz"
@@ -154,7 +154,7 @@ case $response in
     echo You are installing MISCELLANY.;
     ;;
   *)
-    echo You are going VANILLA.;
+    echo "You're pretty VANILLA, read the source for more.";
     ;;
 esac
 
@@ -377,19 +377,15 @@ if [ ! -e /etc/slackpkg/BACKUP-slackpkgplus.conf.old-BACKUP ] || [ "$RESETSPPLUS
   echo "#PKGS_PRIORITY=( multilib:.* ktown:.* alienbob-current:.* )" >> /etc/slackpkg/slackpkgplus.conf
   echo "#PKGS_PRIORITY=( ktown:.* alienbob-current:.* )" >> /etc/slackpkg/slackpkgplus.conf
   echo >> /etc/slackpkg/slackpkgplus.conf
-  echo "#REPOPLUS=( slackpkgplus msb restricted alienbob slacky )" >> /etc/slackpkg/slackpkgplus.conf
   echo "#REPOPLUS=( slackpkgplus restricted alienbob slacky )" >> /etc/slackpkg/slackpkgplus.conf
-  echo "#REPOPLUS=( slackpkgplus msb restricted alienbob )" >> /etc/slackpkg/slackpkgplus.conf
   echo >> /etc/slackpkg/slackpkgplus.conf
   echo "REPOPLUS=( slackpkgplus restricted alienbob )" >> /etc/slackpkg/slackpkgplus.conf
   echo >> /etc/slackpkg/slackpkgplus.conf
-  echo "#REPOPLUS=( slackpkgplus msb alienbob )" >> /etc/slackpkg/slackpkgplus.conf
   echo "#REPOPLUS=( slackpkgplus alienbob )" >> /etc/slackpkg/slackpkgplus.conf
   echo >> /etc/slackpkg/slackpkgplus.conf
   
   if [ "$( uname -m )" = "x86_64" ]; then
     echo >> /etc/slackpkg/slackpkgplus.conf
-    echo "#MIRRORPLUS['msb']=http://slackware.org.uk/msb/${SLACKSTAVER}/${MSBVER}/x86_64/" >> /etc/slackpkg/slackpkgplus.conf
     echo "#MIRRORPLUS['ktown']=http://taper.alienbase.nl/mirrors/alien-kde/current/latest/x86_64/" >> /etc/slackpkg/slackpkgplus.conf
     if [ "$CURRENT" = true ]; then
       echo "MIRRORPLUS['alienbob-current']=http://taper.alienbase.nl/mirrors/people/alien/sbrepos/current/x86_64/" >> /etc/slackpkg/slackpkgplus.conf
@@ -401,7 +397,6 @@ if [ ! -e /etc/slackpkg/BACKUP-slackpkgplus.conf.old-BACKUP ] || [ "$RESETSPPLUS
     echo >> /etc/slackpkg/slackpkgplus.conf
   else
     echo >> /etc/slackpkg/slackpkgplus.conf
-    echo "#MIRRORPLUS['msb']=http://slackware.org.uk/msb/${SLACKSTAVER}/${MSBVER}/x86/" >> /etc/slackpkg/slackpkgplus.conf
     echo "#MIRRORPLUS['ktown']=http://taper.alienbase.nl/mirrors/alien-kde/current/latest/x86/" >> /etc/slackpkg/slackpkgplus.conf
     if [ "$CURRENT" = true ]; then
       echo "MIRRORPLUS['alienbob-current']=http://taper.alienbase.nl/mirrors/people/alien/sbrepos/current/x86/" >> /etc/slackpkg/slackpkgplus.conf
@@ -465,41 +460,43 @@ if [ "$MISCELLANY" = true ]; then
   /etc/rc.d/rc.ntpd start
 fi
 
-
 ## check for sbopkg update,
 ## then sync the slackbuilds.org repo
 sbopkg -B -u
 sbopkg -B -r
 
-###########
-### dwm ###
-###########
-
-## sweet, sweet dwm
-no_prompt_sbo_pkg_install dwm
-no_prompt_sbo_pkg_install dmenu
-no_prompt_sbo_pkg_install trayer-srg
-no_prompt_sbo_pkg_install tinyterm
-no_prompt_sbo_pkg_install qtfm
-
-## my dwm tweaks
-wget -N https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/slackware/xinitrc.dwm \
-  -P /etc/X11/xinit/
-chmod 755 /etc/X11/xinit/xinitrc.dwm
-wget -N https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/slackware/dwm-autostart \
-  -P /usr/local/etc/
-
-## make tinyterm the default
-ln -sfv /usr/bin/tinyterm /usr/local/bin/uxterm
-ln -sfv /usr/bin/tinyterm /usr/local/bin/xterm
-ln -sfv /usr/bin/tinyterm /usr/local/bin/Eterm
-ln -sfv /usr/bin/tinyterm /usr/local/bin/st
-
-###########
-### end ###
-### dwm ###
-###########
-
+if [ "$VANILLA" = "yes" ]; then
+  echo "Nice job reading the source."
+else
+  ###########
+  ### dwm ###
+  ###########
+  
+  ## sweet, sweet dwm
+  no_prompt_sbo_pkg_install dwm
+  no_prompt_sbo_pkg_install dmenu
+  no_prompt_sbo_pkg_install trayer-srg
+  no_prompt_sbo_pkg_install tinyterm
+  no_prompt_sbo_pkg_install qtfm
+  
+  ## my dwm tweaks
+  wget -N https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/slackware/xinitrc.dwm \
+    -P /etc/X11/xinit/
+  chmod 755 /etc/X11/xinit/xinitrc.dwm
+  wget -N https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/slackware/dwm-autostart \
+    -P /usr/local/etc/
+  
+  ## make tinyterm the default
+  ln -sfv /usr/bin/tinyterm /usr/local/bin/uxterm
+  ln -sfv /usr/bin/tinyterm /usr/local/bin/xterm
+  ln -sfv /usr/bin/tinyterm /usr/local/bin/Eterm
+  ln -sfv /usr/bin/tinyterm /usr/local/bin/st
+  
+  ###########
+  ### end ###
+  ### dwm ###
+  ###########
+fi
 
 if [ "$MISCELLANY" = true ]; then
   no_prompt_sbo_pkg_install pysetuptools
@@ -693,6 +690,23 @@ if [ "$MISCELLANY" = true ]; then
     rm -v ~/steamclient-*.tgz
   fi
 
+  if [ "$( uname -m )" = "x86_64" ]; then
+    wget -N http://www.desura.com/desura-x86_64.tar.gz \
+      -P /opt/
+  else
+    wget -N http://www.desura.com/desura-x86_64.tar.gz \
+      -P /opt/
+  fi
+  tar xvf /opt/desura-*.tar.gz -C /opt/
+  rm -v /opt/desura-*.tar.gz
+  ln -sfv /opt/desura/desura /usr/local/bin/
+
+  ## minecraft!!
+  mkdir -pv /opt/minecraft/
+  wget -N $MINECRAFTDL -P /opt/minecraft/
+  wget -N https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/minecraft -P /usr/local/bin/
+  chmod 755 /usr/local/bin/minecraft
+
   curl $GETJAVA | sh
 
   ## numix stuff is dead sexy
@@ -796,6 +810,9 @@ fi
 
 ## auto generic-kernel script
 wget -N https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/slackware/switchToGenericKernel.sh -P ~/
+
+## mate
+https://github.com/mateslackbuilds/msb.git
 
 ## slackbook.org
 git clone https://github.com/ryanpcmcquen/slackbook.org.git
