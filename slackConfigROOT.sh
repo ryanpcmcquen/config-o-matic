@@ -8,7 +8,7 @@
 ## note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files
-CONFIGOMATICVERSION=6.3.0
+CONFIGOMATICVERSION=6.3.1
 
 
 if [ ! $UID = 0 ]; then
@@ -60,10 +60,11 @@ GETSOURCECUR="https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/
 GETJAVA="https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/slackware/getJavaSlackBuild.sh"
 
 wget caledonia.sourceforge.net -O caledonia-home-page.html -P ~/
-cat caledonia-home-page.html | grep Plasma-KDE%20Theme | cut -d= -f5 | tr -d '"' | tr -d "'" | sed 's@/download>Download <i class@@g' | \
+cat ~/caledonia-home-page.html | grep Plasma-KDE%20Theme | cut -d= -f5 | tr -d '"' | tr -d "'" | sed 's@/download>Download <i class@@g' | \
   sed 's@http://sourceforge.net/projects/caledonia/files/Caledonia%20%28Plasma-KDE%20Theme%29/@@g' > ~/CaledoniaPlasmaVersion
-cat caledonia-home-page.html | grep Official%20Wallpapers | cut -d= -f5 | tr -d '"' | tr -d "'" | sed 's@/download>Download <i class@@g' | \
+cat ~/caledonia-home-page.html | grep Official%20Wallpapers | cut -d= -f5 | tr -d '"' | tr -d "'" | sed 's@/download>Download <i class@@g' | \
   sed 's@http://sourceforge.net/projects/caledonia/files/Caledonia%20Official%20Wallpapers/@@g' > ~/CaledoniaWallpaperVersion
+rm -v ~/caledonia-home-page.html
 
 export CALPLAS=${CALPLAS="$( tr -d '\n\r' < ~/CaledoniaPlasmaVersion )"}
 export CALWALL=${CALWALL="$( tr -d '\n\r' < ~/CaledoniaWallpaperVersion )"}
