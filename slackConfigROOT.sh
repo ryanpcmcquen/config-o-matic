@@ -8,7 +8,7 @@
 ## note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files
-CONFIGOMATICVERSION=6.2.0
+CONFIGOMATICVERSION=6.3.0
 
 
 if [ ! $UID = 0 ]; then
@@ -23,7 +23,8 @@ fi
 cd
 ## get stable version number
 wget www.slackware.com -O slackware-home-page.html -P ~/
-cat ~/slackware-home-page.html | grep "is released!" | head -1 | sed 's/Slackware//g' | sed 's/is released!//g' | sed 's/ //g' > ~/SlackwareStableVersion
+cat ~/slackware-home-page.html | grep "is released!" | head -1 | sed 's/Slackware//g' | \
+  sed 's/is released!//g' | sed 's/ //g' > ~/SlackwareStableVersion
 rm -v ~/slackware-home-page.html
 
 export SLACKSTAVER=${SLACKSTAVER="$( tr -d '\n\r' < ~/SlackwareStableVersion )"}
@@ -59,11 +60,13 @@ GETSOURCECUR="https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/
 GETJAVA="https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/slackware/getJavaSlackBuild.sh"
 
 wget caledonia.sourceforge.net -O caledonia-home-page.html -P ~/
-cat caledonia-home-page.html | grep Plasma-KDE | cut -d= -f5 | tr -d '"' | tr -d "'" | sed 's@/download>Download <i class@@g' > ~/CaledoniaPlasmaVersion
+cat caledonia-home-page.html | grep Plasma-KDE%20Theme | cut -d= -f5 | tr -d '"' | tr -d "'" | sed 's@/download>Download <i class@@g' | \
+  sed 's@http://sourceforge.net/projects/caledonia/files/Caledonia%20%28Plasma-KDE%20Theme%29/@@g' > ~/CaledoniaPlasmaVersion
+cat caledonia-home-page.html | grep Official%20Wallpapers | cut -d= -f5 | tr -d '"' | tr -d "'" | sed 's@/download>Download <i class@@g' | \
+  sed 's@http://sourceforge.net/projects/caledonia/files/Caledonia%20Official%20Wallpapers/@@g' > ~/CaledoniaWallpaperVersion
 
-
-CALPLAS="Caledonia-1.9.tar.gz"
-CALWALL="Caledonia_Official_Wallpaper_Collection-1.5.tar.gz"
+export CALPLAS=${CALPLAS="$( tr -d '\n\r' < ~/CaledoniaPlasmaVersion )"}
+export CALWALL=${CALWALL="$( tr -d '\n\r' < ~/CaledoniaWallpaperVersion )"}
 
 MINECRAFTDL="https://s3.amazonaws.com/Minecraft.Download/launcher/Minecraft.jar"
 
@@ -891,6 +894,8 @@ echo "========================================" >> ~/.config-o-matic_$CONFIGOMAT
 echo >> ~/.config-o-matic_$CONFIGOMATICVERSION
 
 rm -v ~/SlackwareStableVersion
+rm -v ~/CaledoniaPlasmaVersion
+rm -v ~/CaledoniaWallpaperVersion
 
 ## thanks!
 echo
