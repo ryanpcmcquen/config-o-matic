@@ -8,7 +8,7 @@
 ## note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files
-CONFIGOMATICVERSION=6.3.1
+CONFIGOMATICVERSION=6.3.2
 
 
 if [ ! $UID = 0 ]; then
@@ -424,6 +424,11 @@ if [ "$MULTILIB" = true ] && [ "$( uname -m )" = "x86_64" ]; then
   slackpkg_update_only
   slackpkg install multilib
   set_slackpkg_to_auto
+
+  ## script to set up the environment for compat32 building
+  wget -N https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/slackware/multilib-dev.sh \
+    -P ~/
+  chmod 755 ~/multilib-dev.sh
 fi
 
 ## this prevents breakage if slackpkg gets updated
