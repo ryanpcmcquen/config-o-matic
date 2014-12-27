@@ -8,7 +8,7 @@
 ## note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files
-CONFIGOMATICVERSION=6.4.4
+CONFIGOMATICVERSION=6.4.5
 
 
 if [ ! $UID = 0 ]; then
@@ -851,6 +851,7 @@ git clone https://github.com/ryanpcmcquen/ryanpc-slackbuilds.git
 ## install ffmpeg from my repo
 if [ "$MISCELLANY" = true ]; then
   cd ~/ryanpc-slackbuilds/unofficial/ffmpeg/
+  git pull
   sh ~/ryanpc-slackbuilds/unofficial/ffmpeg/ffmpeg.SlackBuild
   ls -t --color=never /tmp/ffmpeg-*_SBo.tgz | head -1 | xargs -i upgradepkg --reinstall --install-new {}
   cd
