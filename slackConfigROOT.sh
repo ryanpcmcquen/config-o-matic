@@ -8,7 +8,7 @@
 ## note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files
-CONFIGOMATICVERSION=6.4.1
+CONFIGOMATICVERSION=6.4.2
 
 
 if [ ! $UID = 0 ]; then
@@ -535,7 +535,8 @@ if [ "$MISCELLANY" = true ]; then
 
   ## hydrogen
   no_prompt_sbo_pkg_install scons
-  no_prompt_sbo_pkg_install libtar
+  ## no longer a dependency
+  #no_prompt_sbo_pkg_install libtar
   no_prompt_sbo_pkg_install ladspa_sdk
   no_prompt_sbo_pkg_install liblrdf
   ## celt is broken
