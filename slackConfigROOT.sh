@@ -8,7 +8,7 @@
 ## note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files
-CONFIGOMATICVERSION=6.4.5
+CONFIGOMATICVERSION=6.4.6
 
 
 if [ ! $UID = 0 ]; then
@@ -598,6 +598,15 @@ if [ "$MISCELLANY" = true ]; then
   ## thanks to b. watson
   no_prompt_sbo_pkg_install apulse
 
+  ## my slackbuilds
+  git clone https://github.com/ryanpcmcquen/ryanpc-slackbuilds.git
+  ## install ffmpeg from my repo
+  cd ~/ryanpc-slackbuilds/unofficial/ffmpeg/
+  git pull
+  sh ~/ryanpc-slackbuilds/unofficial/ffmpeg/ffmpeg.SlackBuild
+  ls -t --color=never /tmp/ffmpeg-*_SBo.tgz | head -1 | xargs -i upgradepkg --reinstall --install-new {}
+  cd
+
   ## wineing
   if [ "$MULTILIB" = true ] || [ "$ARCH" = "i486" ]; then
     no_prompt_sbo_pkg_install webcore-fonts    
@@ -845,17 +854,6 @@ https://github.com/mateslackbuilds/msb.git
 
 ## slackbook.org
 git clone https://github.com/ryanpcmcquen/slackbook.org.git
-
-## my slackbuilds
-git clone https://github.com/ryanpcmcquen/ryanpc-slackbuilds.git
-## install ffmpeg from my repo
-if [ "$MISCELLANY" = true ]; then
-  cd ~/ryanpc-slackbuilds/unofficial/ffmpeg/
-  git pull
-  sh ~/ryanpc-slackbuilds/unofficial/ffmpeg/ffmpeg.SlackBuild
-  ls -t --color=never /tmp/ffmpeg-*_SBo.tgz | head -1 | xargs -i upgradepkg --reinstall --install-new {}
-  cd
-fi
 
 ## enlightenment!
 git clone https://github.com/ryanpcmcquen/slackENLIGHTENMENT.git
