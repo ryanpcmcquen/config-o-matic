@@ -8,7 +8,7 @@
 ## note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files
-CONFIGOMATICVERSION=6.4.6
+CONFIGOMATICVERSION=6.4.7
 
 
 if [ ! $UID = 0 ]; then
@@ -449,6 +449,18 @@ fi
 ## this prevents breakage if slackpkg gets updated
 slackpkg_full_upgrade
 
+## mate
+git clone https://github.com/mateslackbuilds/msb.git
+
+## slackbook.org
+git clone https://github.com/ryanpcmcquen/slackbook.org.git
+
+## enlightenment!
+git clone https://github.com/ryanpcmcquen/slackENLIGHTENMENT.git
+
+## my slackbuilds
+git clone https://github.com/ryanpcmcquen/ryanpc-slackbuilds.git
+
 if [ "$MISCELLANY" = true ]; then
   ## set slackpkg to non-interactive mode to run without prompting
   ## we set again just in case someone overwrites configs
@@ -598,13 +610,11 @@ if [ "$MISCELLANY" = true ]; then
   ## thanks to b. watson
   no_prompt_sbo_pkg_install apulse
 
-  ## my slackbuilds
-  git clone https://github.com/ryanpcmcquen/ryanpc-slackbuilds.git
   ## install ffmpeg from my repo
   cd ~/ryanpc-slackbuilds/unofficial/ffmpeg/
   git pull
   sh ~/ryanpc-slackbuilds/unofficial/ffmpeg/ffmpeg.SlackBuild
-  ls -t --color=never /tmp/ffmpeg-*_SBo.tgz | head -1 | xargs -i upgradepkg --reinstall --install-new {}
+  ls -t --color=never /tmp/ffmpeg-*_SBo.tgz | head -1 | xargs -i upgradepkg --install-new {}
   cd
 
   ## wineing
@@ -848,15 +858,6 @@ fi
 
 ## auto generic-kernel script
 wget -N https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/slackware/switchToGenericKernel.sh -P ~/
-
-## mate
-https://github.com/mateslackbuilds/msb.git
-
-## slackbook.org
-git clone https://github.com/ryanpcmcquen/slackbook.org.git
-
-## enlightenment!
-git clone https://github.com/ryanpcmcquen/slackENLIGHTENMENT.git
 
 ## script to install latest firefox developer edition
 wget -N https://raw.githubusercontent.com/ryanpcmcquen/ryanpc-slackbuilds/master/unofficial/fde/getFDE.sh -P ~/
