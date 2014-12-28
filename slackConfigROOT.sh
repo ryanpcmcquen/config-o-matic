@@ -8,7 +8,7 @@
 ## note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files
-CONFIGOMATICVERSION=6.4.7
+CONFIGOMATICVERSION=6.4.8
 
 
 if [ ! $UID = 0 ]; then
@@ -611,11 +611,13 @@ if [ "$MISCELLANY" = true ]; then
   no_prompt_sbo_pkg_install apulse
 
   ## install ffmpeg from my repo
-  cd ~/ryanpc-slackbuilds/unofficial/ffmpeg/
-  git pull
-  sh ~/ryanpc-slackbuilds/unofficial/ffmpeg/ffmpeg.SlackBuild
-  ls -t --color=never /tmp/ffmpeg-*_SBo.tgz | head -1 | xargs -i upgradepkg --install-new {}
-  cd
+  if [ ! -e /var/log/packages/ffmpeg-* ]; then
+    cd ~/ryanpc-slackbuilds/unofficial/ffmpeg/
+    git pull
+    sh ~/ryanpc-slackbuilds/unofficial/ffmpeg/ffmpeg.SlackBuild
+    ls -t --color=never /tmp/ffmpeg-*_SBo.tgz | head -1 | xargs -i upgradepkg --install-new {}
+    cd
+  fi
 
   ## wineing
   if [ "$MULTILIB" = true ] || [ "$ARCH" = "i486" ]; then
