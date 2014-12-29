@@ -8,7 +8,7 @@
 ## note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files
-CONFIGOMATICVERSION=6.4.10
+CONFIGOMATICVERSION=6.4.11
 
 
 if [ ! $UID = 0 ]; then
@@ -22,7 +22,7 @@ fi
 ## versions!
 cd
 ## get stable slackware version
-wget -N www.slackware.com -O ~/slackware-home-page.html
+wget www.slackware.com -O ~/slackware-home-page.html
 cat ~/slackware-home-page.html | grep "is released!" | head -1 | sed 's/Slackware//g' | \
   sed 's/is released!//g' | sed 's/ //g' > ~/slackwareStableVersion
 rm -v ~/slackware-home-page.html
@@ -31,7 +31,7 @@ export SLACKSTAVER=${SLACKSTAVER="$( tr -d '\n\r' < ~/slackwareStableVersion )"}
 export DASHSLACKSTAVER=${DASHSLACKSTAVER=-"$( tr -d '\n\r' < ~/slackwareStableVersion )"}
 
 ## sbopkg
-wget -N www.sbopkg.org -O ~/sbopkg-home-page.html
+wget www.sbopkg.org -O ~/sbopkg-home-page.html
 cat ~/sbopkg-home-page.html | grep sbopkg | grep -G tgz | cut -d= -f2 | \
   tr -d '"' > ~/sbopkgVersion
 rm -v ~/sbopkg-home-page.html
@@ -39,7 +39,7 @@ rm -v ~/sbopkg-home-page.html
 export SBOPKGDL=${SBOPKGDL="$( tr -d '\n\r' < ~/sbopkgVersion )"}
 
 ## slackpkg+
-wget -N sourceforge.net/projects/slackpkgplus/files/ -O ~/slackpkgplus-download-page.html
+wget sourceforge.net/projects/slackpkgplus/files/ -O ~/slackpkgplus-download-page.html
 cat ~/slackpkgplus-download-page.html | grep slackpkg%2B | head -1 | cut -d= -f2 | sed 's/\/download//' | \
   tr -d '"' > ~/slackpkgPlusVersion
 rm -v ~/slackpkgplus-download-page.html
@@ -47,7 +47,7 @@ rm -v ~/slackpkgplus-download-page.html
 export SPPLUSDL=${SPPLUSDL="$( tr -d '\n\r' < ~/slackpkgPlusVersion )"}
 
 ## caledonia
-wget -N caledonia.sourceforge.net -O ~/caledonia-home-page.html
+wget caledonia.sourceforge.net -O ~/caledonia-home-page.html
 cat ~/caledonia-home-page.html | grep Plasma-KDE%20Theme | cut -d= -f5 | tr -d '"' | tr -d "'" | sed 's@/download>Download <i class@@g' | \
   sed 's@http://sourceforge.net/projects/caledonia/files/Caledonia%20%28Plasma-KDE%20Theme%29/@@g' > ~/caledoniaPlasmaVersion
 cat ~/caledonia-home-page.html | grep Official%20Wallpapers | cut -d= -f5 | tr -d '"' | tr -d "'" | sed 's@/download>Download <i class@@g' | \
