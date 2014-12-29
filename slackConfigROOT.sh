@@ -8,7 +8,7 @@
 ## note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files
-CONFIGOMATICVERSION=6.4.14
+CONFIGOMATICVERSION=6.4.15
 
 
 if [ ! $UID = 0 ]; then
@@ -799,9 +799,9 @@ if [ "$MISCELLANY" = true ]; then
 
   ## caledonia kde theme
   wget -N \
-    http://sourceforge.net/projects/caledonia/files/Caledonia%20%28Plasma-KDE%20Theme%29/$CALPLAS -P ~/
-  tar xvf ~/$CALPLAS -C /usr/share/apps/desktoptheme/
-  rm -v ~/$CALPLAS
+    http://sourceforge.net/projects/caledonia/files/Caledonia%20%28Plasma-KDE%20Theme%29/$CALPLAS \
+    -P /usr/share/apps/desktoptheme/
+  tar xvf /usr/share/apps/desktoptheme/$CALPLAS -C /usr/share/apps/desktoptheme/
 
   ## caledonia color scheme
   wget -N http://sourceforge.net/projects/caledonia/files/Caledonia%20Color%20Scheme/Caledonia.colors \
@@ -809,11 +809,11 @@ if [ "$MISCELLANY" = true ]; then
 
   ## get caledonia wallpapers, who doesn't like nice wallpapers?
   wget -N \
-    http://sourceforge.net/projects/caledonia/files/Caledonia%20Official%20Wallpapers/$CALWALL -P ~/
-  tar xvf ~/$CALWALL
-  cp -rv ~/Caledonia_Official_Wallpaper_Collection/* /usr/share/wallpapers/
-  rm -rfv ~/Caledonia_Official_Wallpaper_Collection/
-  rm -v ~/$CALWALL
+    http://sourceforge.net/projects/caledonia/files/Caledonia%20Official%20Wallpapers/$CALWALL \
+    -P /usr/share/wallpapers/
+  tar xvf /usr/share/wallpapers/$CALWALL -C /usr/share/wallpapers/
+  cp -rv /usr/share/wallpapers/Caledonia_Official_Wallpaper_Collection/* /usr/share/wallpapers/
+  rm -rfv /usr/share/wallpapers/Caledonia_Official_Wallpaper_Collection/
 
   ## a few numix wallpapers also
   wget -N \
