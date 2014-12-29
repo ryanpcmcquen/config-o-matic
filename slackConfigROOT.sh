@@ -8,7 +8,7 @@
 ## note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files
-CONFIGOMATICVERSION=6.4.9
+CONFIGOMATICVERSION=6.4.10
 
 
 if [ ! $UID = 0 ]; then
@@ -730,9 +730,9 @@ if [ "$MISCELLANY" = true ]; then
 
   ## grab latest steam package
   if [ ! -e /var/log/packages/steamclient-* ]; then
-    wget -r -np -A.tgz http://www.slackware.com/~alien/slackbuilds/steamclient/pkg/current/
-    mv -v ~/www.slackware.com/\~alien/slackbuilds/steamclient/pkg/current/*.tgz ~/
-    rm -rfv ~/www.slackware.com/
+    rsync -avz rsync://taper.alienbase.nl/mirrors/people/alien/slackbuilds/steamclient/pkg/current/ ~/steamclient/
+    mv -v ~/steamclient/*.tgz ~/
+    rm -rfv ~/steamclient/
     upgradepkg --install-new ~/steamclient-*.tgz
     if [ -z "$( cat /etc/slackpkg/blacklist | grep steamclient )" ]; then
       echo steamclient >> /etc/slackpkg/blacklist
