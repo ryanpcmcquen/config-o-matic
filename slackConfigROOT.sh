@@ -8,7 +8,7 @@
 ## note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files
-CONFIGOMATICVERSION=6.4.11
+CONFIGOMATICVERSION=6.4.12
 
 
 if [ ! $UID = 0 ]; then
@@ -658,8 +658,7 @@ if [ "$MISCELLANY" = true ]; then
 
   ## android stuff!
   no_prompt_sbo_pkg_install gmtp
-  ## comment out until md5 issue is fixed
-  #no_prompt_sbo_pkg_install android-tools
+  no_prompt_sbo_pkg_install android-tools
   no_prompt_sbo_pkg_install android-studio
 
   ## librecad
