@@ -107,6 +107,10 @@ ln -sfv /usr/share/icons/Adwaita/ ~/.icons/default
 
 rm -v ~/.local/share/applications/userapp-Firefox-*.desktop
 
+xdg-mime default firefox.desktop x-scheme-handler/http
+xdg-mime default firefox.desktop x-scheme-handler/https
+xdg-mime default firefox.desktop x-scheme-handler/mailto
+
 echo
 echo
 echo "************************************"
