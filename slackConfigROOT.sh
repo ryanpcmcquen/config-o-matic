@@ -8,7 +8,7 @@
 ## note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files
-CONFIGOMATICVERSION=6.4.18
+CONFIGOMATICVERSION=6.4.19
 
 
 if [ ! $UID = 0 ]; then
@@ -530,7 +530,7 @@ else
   ln -sfv /usr/bin/tinyterm /usr/local/bin/xterm
   ln -sfv /usr/bin/tinyterm /usr/local/bin/Eterm
   ln -sfv /usr/bin/tinyterm /usr/local/bin/st
-  
+
   ###########
   ### end ###
   ### dwm ###
@@ -862,8 +862,10 @@ wget -N https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/slackw
 ## script to install latest firefox developer edition
 wget -N https://raw.githubusercontent.com/ryanpcmcquen/ryanpc-slackbuilds/master/unofficial/fde/getFDE.sh -P ~/
 
-## used to be end of SCRIPTS
+wget -N https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/slackware/mednafen \
+  -P /usr/local/bin/
 
+## used to be end of SCRIPTS
 
 if [ "$WICD" = true ]; then
   slackpkg_update_only
