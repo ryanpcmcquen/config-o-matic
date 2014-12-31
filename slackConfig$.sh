@@ -13,8 +13,8 @@ VIMRC="https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/.vimrc"
 VIMCOLOR="https://raw.githubusercontent.com/ryanpcmcquen/vim-plain/master/colors/vi-clone.vim"
 
 FLUXBOXCONF="https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/restoreFluxbox.sh"
-
 PEKWMCONF="https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/pekwmSetup.sh"
+LUMINACONF="https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/luminaSetup.sh"
 
 GKRELLCFIL="https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/slackware/gkrellm2/user-config"
 GKRELLTFIL="https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/slackware/gkrellm2/theme_config"
@@ -85,6 +85,10 @@ fi
 
 if [ -d ~/.pekwm ]; then
   curl $PEKWMCONF | sh
+fi
+
+if [ -d ~/.lumina ]; then
+  curl $LUMINACONF | sh
 fi
 
 if [ -e /var/log/packages/kdelibs-* ]; then
