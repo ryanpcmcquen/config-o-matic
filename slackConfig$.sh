@@ -14,6 +14,8 @@ VIMCOLOR="https://raw.githubusercontent.com/ryanpcmcquen/vim-plain/master/colors
 
 FLUXBOXCONF="https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/restoreFluxbox.sh"
 
+PEKWMCONF="https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/pekwmSetup.sh"
+
 GKRELLCFIL="https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/slackware/gkrellm2/user-config"
 GKRELLTFIL="https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/slackware/gkrellm2/theme_config"
 GKRELLCONF="https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/gkrellmConfig.sh"
@@ -79,6 +81,10 @@ pkill gkrellm &
 
 if [ -d ~/.fluxbox ]; then
   curl $FLUXBOXCONF | sh
+fi
+
+if [ -d ~/.pekwm ]; then
+  curl $PEKWMCONF | sh
 fi
 
 if [ -e /var/log/packages/kdelibs-* ]; then
