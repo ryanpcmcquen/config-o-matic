@@ -2,6 +2,14 @@
 
 #  cd; wget -N https://raw.githubusercontent.com/ryanpcmcquen/config-o-matic/master/ryan -P ~/; sh ~/ryan; rm ~/ryan
 
+
+## run standard root script first
+cd
+wget -N https://raw.githubusercontent.com/ryanpcmcquen/config-o-matic/stable/slackConfigROOT.sh
+sh slackConfigROOT.sh
+rm slackConfigROOT.sh
+
+
 if [ ! $UID = 0 ]; then
   cat << EOF
 This script must be run as root.
