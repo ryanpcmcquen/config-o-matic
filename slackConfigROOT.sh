@@ -8,7 +8,7 @@
 ## note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files
-CONFIGOMATICVERSION=6.4.21
+CONFIGOMATICVERSION=6.4.22
 
 
 if [ ! $UID = 0 ]; then
@@ -89,6 +89,7 @@ MINECRAFTDL="https://s3.amazonaws.com/Minecraft.Download/launcher/Minecraft.jar"
 #LIBXSHM="libxshmfence-1.1-i486-1.txz"
 
 ## my shell functions  ;^)
+## the echo p keeps sbopkg from prompting you if something goes wrong
 no_prompt_sbo_pkg_install() {
   SBO_PACKAGE=$1
   if [ ! -e /var/log/packages/$SBO_PACKAGE-* ]; then
@@ -101,12 +102,14 @@ slackpkg_update_only() {
   slackpkg update
 }
 
+## a function in a function!
 slackpkg_full_upgrade() {
   slackpkg_update_only
   slackpkg install-new
   slackpkg upgrade-all
 }
 
+## actually pretty simple
 set_slackpkg_to_auto() {
   sed -i 's/^BATCH=off/BATCH=on/g' /etc/slackpkg/slackpkg.conf
   sed -i 's/^DEFAULT_ANSWER=n/DEFAULT_ANSWER=y/g' /etc/slackpkg/slackpkg.conf
@@ -118,6 +121,7 @@ set_slackpkg_to_manual() {
 }
 ##
 
+## we need this to determine if the system can install wine
 if [ -z "$ARCH" ]; then
   case "$( uname -m )" in
     i?86) ARCH=i486 ;;
@@ -261,7 +265,7 @@ else
   "s_^# http://ftp.osuosl.org/.2/slackware/slackware64${DASHSLACKSTAVER}/_http://ftp.osuosl.org/.2/slackware/slackware64${DASHSLACKSTAVER}/_g" /etc/slackpkg/mirrors
 fi
 
-
+## set vim as the default editor
 if [ -z "$( cat /etc/profile | grep 'export EDITOR' && cat /etc/profile | grep 'export VISUAL' )" ]; then
   echo >> /etc/profile
   echo "export EDITOR=vim" >> /etc/profile
@@ -269,21 +273,25 @@ if [ -z "$( cat /etc/profile | grep 'export EDITOR' && cat /etc/profile | grep '
   echo >> /etc/profile
 fi
 
+## make ls colorful by default,
+## when parsing ls output, always use:
+## ls --color=never
 if [ -z "$( cat /etc/profile | grep 'alias ls=' )" ]; then
   echo >> /etc/profile
   echo "alias ls='ls --color=auto'" >> /etc/profile
   echo >> /etc/profile
 fi
 
+## make compiling faster  ;-)
 if [ -z "$( cat /etc/profile | grep 'MAKEFLAGS' )" ]; then
   echo >> /etc/profile
   echo 'if (( $( nproc ) > 2 )); then' >> /etc/profile
   ## cores--
-  echo '  export MAKEFLAGS="-j$( expr $( nproc ) - 1 )"' >> /etc/profile
+  echo '  export MAKEFLAGS=" -j$( expr $( nproc ) - 1 ) "' >> /etc/profile
   ## half the cores
-  #echo '  export MAKEFLAGS="-j$( expr $( nproc ) / 2 )"' >> /etc/profile
+  #echo '  export MAKEFLAGS=" -j$( expr $( nproc ) / 2 ) "' >> /etc/profile
   echo 'else' >> /etc/profile
-  echo '  export MAKEFLAGS="-j1"' >> /etc/profile
+  echo '  export MAKEFLAGS=" -j1 "' >> /etc/profile
   echo 'fi' >> /etc/profile
   echo >> /etc/profile
 fi
@@ -298,6 +306,7 @@ wget -N $VIMRC -P ~/
 mkdir -p ~/.vim/colors/
 wget -N $VIMCOLOR -P ~/.vim/colors/
 
+## touchpad configuration
 wget -N $TOUCHPCONF -P /etc/X11/xorg.conf.d/
 wget -N $INSCRPT -P /etc/
 
@@ -353,7 +362,9 @@ rm -v ~/egan-gkrellm.tar.gz
 ## set slackpkg to non-interactive mode to run without prompting
 set_slackpkg_to_auto
 
-## to reset run with RESETSPPLUSCONF=y prepended
+## to reset run with RESETSPPLUSCONF=y prepended,
+## adds a bunch of mirrors for slackpkg+, as well as other
+## settings, to the existing config, so updates are clean
 if [ ! -e /etc/slackpkg/BACKUP-slackpkgplus.conf.old-BACKUP ] || [ "$RESETSPPLUSCONF" = y ]; then
   if [ "$RESETSPPLUSCONF" = y ]; then
     cp -v /etc/slackpkg/BACKUP-slackpkgplus.conf.old-BACKUP /etc/slackpkg/BACKUP0-slackpkgplus.conf.old-BACKUP0
@@ -432,7 +443,8 @@ if [ ! -e /etc/slackpkg/BACKUP-slackpkgplus.conf.old-BACKUP ] || [ "$RESETSPPLUS
 
 fi
 
-
+## this installs all the multilib/compat32 goodies
+## thanks to eric hameleers
 if [ "$MULTILIB" = true ] && [ "$( uname -m )" = "x86_64" ]; then
   slackpkg_full_upgrade
   slackpkg_update_only
@@ -873,6 +885,7 @@ wget -N https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/slackw
 
 ## used to be end of SCRIPTS
 
+## disables any interfaces that may interfere with wicd
 if [ "$WICD" = true ]; then
   slackpkg_update_only
   slackpkg install wicd
