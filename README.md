@@ -13,8 +13,6 @@ Options presented when running the ROOT script:
 
 #####config-o-matic does a lot! You should read through the script and remove any parts you don't want.  ;-)
 ---
-###STABLE
-
 
 (#):
 
@@ -23,18 +21,6 @@ Options presented when running the ROOT script:
 ($):
 
 ```cd; wget -N https://raw.githubusercontent.com/ryanpcmcquen/config-o-matic/stable/slackConfig$.sh; sh slackConfig$.sh; rm slackConfig$.sh```
-
-
-###CRAZY
-
-
-(#):
-
-```cd; wget -N https://raw.githubusercontent.com/ryanpcmcquen/config-o-matic/master/slackConfigROOT.sh; sh slackConfigROOT.sh; rm slackConfigROOT.sh```
-
-($):
-
-```cd; wget -N https://raw.githubusercontent.com/ryanpcmcquen/config-o-matic/master/slackConfig$.sh; sh slackConfig$.sh; rm slackConfig$.sh```
 
 ---
 To enable the wheel group, and add all non-root users to it (as well as the typical Slackware groups, run this:
