@@ -8,7 +8,7 @@
 ## note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files
-CONFIGOMATICVERSION=6.4.23
+CONFIGOMATICVERSION=6.4.24
 
 
 if [ ! $UID = 0 ]; then
@@ -900,7 +900,7 @@ if [ ! -z "$( aplay -l | grep Analog | grep 'card 1' )" ]; then
   amixer set -c 1 Master 0% unmute
   amixer set -c 1 Master 90% unmute
   amixer set -c 1 Headphone 0% unmute
-  amixer set -c 1 Headphone 60% unmute
+  amixer set -c 1 Headphone 70% unmute
   amixer set -c 1 PCM 0% unmute
   amixer set -c 1 PCM 90% unmute
   amixer set -c 1 Mic 0% unmute
@@ -911,7 +911,7 @@ else
   amixer set Master 0% unmute
   amixer set Master 90% unmute
   amixer set Headphone 0% unmute
-  amixer set Headphone 60% unmute
+  amixer set Headphone 70% unmute
   amixer set PCM 0% unmute
   amixer set PCM 90% unmute
   amixer set Mic 0% unmute
