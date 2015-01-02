@@ -8,7 +8,7 @@
 ## note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files
-CONFIGOMATICVERSION=6.4.22
+CONFIGOMATICVERSION=6.4.23
 
 
 if [ ! $UID = 0 ]; then
@@ -688,6 +688,7 @@ if [ "$MISCELLANY" = true ]; then
   no_prompt_sbo_pkg_install mozjpeg
   no_prompt_sbo_pkg_install optipng
   no_prompt_sbo_pkg_install gifsicle
+  no_prompt_sbo_pkg_install exiftool
   ## install the image ultimator now that we have the dependencies
   wget -N \
     https://raw.githubusercontent.com/ryanpcmcquen/image-ultimator/master/imgult -P ~/
