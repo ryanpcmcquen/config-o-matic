@@ -5,7 +5,7 @@
 
 ## run standard root script first
 cd
-wget -N https://raw.githubusercontent.com/ryanpcmcquen/config-o-matic/stable/slackConfigROOT.sh
+wget -N https://raw.githubusercontent.com/ryanpcmcquen/config-o-matic/master/slackConfigROOT.sh
 sh slackConfigROOT.sh
 rm slackConfigROOT.sh
 
