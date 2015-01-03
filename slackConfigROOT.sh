@@ -8,7 +8,7 @@
 ## note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files
-CONFIGOMATICVERSION=6.4.28
+CONFIGOMATICVERSION=6.4.29
 
 
 if [ ! $UID = 0 ]; then
@@ -280,6 +280,14 @@ if [ -z "$( cat /etc/profile | grep 'alias ls=' )" ]; then
   echo >> /etc/profile
   echo "alias ls='ls --color=auto'" >> /etc/profile
   echo >> /etc/profile
+fi
+
+## alsamixer go to the card you actually want to edit  ;-)
+if [ ! -z "$( aplay -l | grep Analog | grep 'card 1' )" ] \
+  && [ -z "$( cat /etc/profile | grep 'alias alsamixer=' )" ]; then
+    echo >> /etc/profile
+    echo "alias alsamixer='alsamixer -c 1'" >> /etc/profile
+    echo >> /etc/profile
 fi
 
 ## this is good for tmux and for colorization
@@ -908,22 +916,22 @@ fi
 /etc/rc.d/rc.alsa
 if [ ! -z "$( aplay -l | grep Analog | grep 'card 1' )" ]; then
   amixer set -c 1 Master 0% unmute
-  amixer set -c 1 Master 90% unmute
+  amixer set -c 1 Master 95% unmute
   amixer set -c 1 Headphone 0% unmute
   amixer set -c 1 Headphone 75% unmute
   amixer set -c 1 PCM 0% unmute
-  amixer set -c 1 PCM 90% unmute
+  amixer set -c 1 PCM 95% unmute
   amixer set -c 1 Mic 0% unmute
   amixer set -c 1 Mic 50% unmute
   amixer set -c 1 Capture 0% cap
   amixer set -c 1 Capture 50% cap
 else
   amixer set Master 0% unmute
-  amixer set Master 90% unmute
+  amixer set Master 95% unmute
   amixer set Headphone 0% unmute
   amixer set Headphone 75% unmute
   amixer set PCM 0% unmute
-  amixer set PCM 90% unmute
+  amixer set PCM 95% unmute
   amixer set Mic 0% unmute
   amixer set Mic 50% unmute
   amixer set Capture 0% cap
