@@ -8,7 +8,7 @@
 ## note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files
-CONFIGOMATICVERSION=6.4.27
+CONFIGOMATICVERSION=6.4.28
 
 
 if [ ! $UID = 0 ]; then
@@ -600,8 +600,8 @@ if [ "$MISCELLANY" = true ]; then
   no_prompt_sbo_pkg_install e16
   no_prompt_sbo_pkg_install gmrun
 
-  ## pekwm!
-  no_prompt_sbo_pkg_install pekwm
+  ## pekwm! (is broken on -current)
+  #no_prompt_sbo_pkg_install pekwm
 
   ## lumina!
   no_prompt_sbo_pkg_install lumina
