@@ -8,7 +8,7 @@
 ## note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files
-CONFIGOMATICVERSION=6.4.26
+CONFIGOMATICVERSION=6.4.27
 
 
 if [ ! $UID = 0 ]; then
@@ -279,6 +279,15 @@ fi
 if [ -z "$( cat /etc/profile | grep 'alias ls=' )" ]; then
   echo >> /etc/profile
   echo "alias ls='ls --color=auto'" >> /etc/profile
+  echo >> /etc/profile
+fi
+
+## this is good for tmux and for colorization
+if [ -z "$( cat /etc/profile | grep 'TERM=xterm-color' )" ]; then
+  echo >> /etc/profile
+  echo 'if [ -n "$DISPLAY" ]; then' >> /etc/profile
+  echo '  export TERM=xterm-color' >> /etc/profile
+  echo 'fi' >> /etc/profile
   echo >> /etc/profile
 fi
 
