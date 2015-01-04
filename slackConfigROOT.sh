@@ -8,7 +8,7 @@
 ## note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files
-CONFIGOMATICVERSION=6.4.31
+CONFIGOMATICVERSION=6.4.32
 
 
 if [ ! $UID = 0 ]; then
@@ -903,9 +903,10 @@ wget -N https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/slackw
   -P /usr/local/bin/
 chmod 755 /usr/local/bin/mednafen
 
-wget -N https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/slackware/firefox \
-  -P /usr/local/bin/
-chmod 755 /usr/local/bin/firefox
+xdg-mime default mozilla-firefox.desktop x-scheme-handler/http
+xdg-mime default mozilla-firefox.desktop x-scheme-handler/https
+xdg-mime default mozilla-firefox.desktop x-scheme-handler/mailto
+
 ## used to be end of SCRIPTS
 
 ## disables any interfaces that may interfere with wicd
