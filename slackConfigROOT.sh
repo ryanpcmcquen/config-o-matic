@@ -8,7 +8,7 @@
 ## note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files
-CONFIGOMATICVERSION=6.4.29
+CONFIGOMATICVERSION=6.4.30
 
 
 if [ ! $UID = 0 ]; then
@@ -27,8 +27,8 @@ cat ~/slackware-home-page.html | grep "is released!" | head -1 | sed 's/Slackwar
   sed 's/is released!//g' | sed 's/ //g' > ~/slackwareStableVersion
 rm -v ~/slackware-home-page.html
 
-export SLACKSTAVER=${SLACKSTAVER="$( tr -d '\n\r' < ~/slackwareStableVersion )"}
-export DASHSLACKSTAVER=${DASHSLACKSTAVER=-"$( tr -d '\n\r' < ~/slackwareStableVersion )"}
+export SLACKSTAVER=${SLACKSTAVER="$(tr -d '\n\r' < ~/slackwareStableVersion)"}
+export DASHSLACKSTAVER=${DASHSLACKSTAVER=-"$(tr -d '\n\r' < ~/slackwareStableVersion)"}
 
 ## sbopkg
 wget www.sbopkg.org -O ~/sbopkg-home-page.html
@@ -36,7 +36,7 @@ cat ~/sbopkg-home-page.html | grep sbopkg | grep -G tgz | cut -d= -f2 | \
   tr -d '"' > ~/sbopkgVersion
 rm -v ~/sbopkg-home-page.html
 
-export SBOPKGDL=${SBOPKGDL="$( tr -d '\n\r' < ~/sbopkgVersion )"}
+export SBOPKGDL=${SBOPKGDL="$(tr -d '\n\r' < ~/sbopkgVersion)"}
 
 ## slackpkg+
 wget sourceforge.net/projects/slackpkgplus/files/ -O ~/slackpkgplus-download-page.html
@@ -44,7 +44,7 @@ cat ~/slackpkgplus-download-page.html | grep slackpkg%2B | head -1 | cut -d= -f2
   tr -d '"' > ~/slackpkgPlusVersion
 rm -v ~/slackpkgplus-download-page.html
 
-export SPPLUSDL=${SPPLUSDL="$( tr -d '\n\r' < ~/slackpkgPlusVersion )"}
+export SPPLUSDL=${SPPLUSDL="$(tr -d '\n\r' < ~/slackpkgPlusVersion)"}
 
 ## caledonia
 wget caledonia.sourceforge.net -O ~/caledonia-home-page.html
@@ -54,8 +54,8 @@ cat ~/caledonia-home-page.html | grep Official%20Wallpapers | cut -d= -f5 | tr -
   sed 's@http://sourceforge.net/projects/caledonia/files/Caledonia%20Official%20Wallpapers/@@g' > ~/caledoniaWallpaperVersion
 rm -v ~/caledonia-home-page.html
 
-export CALPLAS=${CALPLAS="$( tr -d '\n\r' < ~/caledoniaPlasmaVersion )"}
-export CALWALL=${CALWALL="$( tr -d '\n\r' < ~/caledoniaWallpaperVersion )"}
+export CALPLAS=${CALPLAS="$(tr -d '\n\r' < ~/caledoniaPlasmaVersion)"}
+export CALWALL=${CALWALL="$(tr -d '\n\r' < ~/caledoniaWallpaperVersion)"}
 
 
 ## set config files here:
@@ -123,10 +123,10 @@ set_slackpkg_to_manual() {
 
 ## we need this to determine if the system can install wine
 if [ -z "$ARCH" ]; then
-  case "$( uname -m )" in
+  case "$(uname -m)" in
     i?86) ARCH=i486 ;;
     arm*) ARCH=arm ;;
-       *) ARCH=$( uname -m ) ;;
+       *) ARCH=$(uname -m) ;;
   esac
 fi
 
@@ -184,7 +184,7 @@ case $response in
     ;;
 esac
 
-if [ "$( uname -m )" = "x86_64" ]; then
+if [ "$(uname -m)" = "x86_64" ]; then
   read -p "Would you like to go MULTILIB?  [y/N]: " response
   case $response in
     [yY][eE][sS]|[yY])
@@ -198,7 +198,7 @@ if [ "$( uname -m )" = "x86_64" ]; then
 fi
 
 
-if [ ! -z "$( aplay -l | grep Analog | grep 'card 1' )" ]; then
+if [ ! -z "$(aplay -l | grep Analog | grep 'card 1')" ]; then
   wget -N $ASOUNDCONF -P /etc/
 fi
 
@@ -266,7 +266,7 @@ else
 fi
 
 ## set vim as the default editor
-if [ -z "$( cat /etc/profile | grep 'export EDITOR' && cat /etc/profile | grep 'export VISUAL' )" ]; then
+if [ -z "$(cat /etc/profile | grep 'export EDITOR' && cat /etc/profile | grep 'export VISUAL')" ]; then
   echo >> /etc/profile
   echo "export EDITOR=vim" >> /etc/profile
   echo "export VISUAL=vim" >> /etc/profile
@@ -276,22 +276,22 @@ fi
 ## make ls colorful by default,
 ## when parsing ls output, always use:
 ## ls --color=never
-if [ -z "$( cat /etc/profile | grep 'alias ls=' )" ]; then
+if [ -z "$(cat /etc/profile | grep 'alias ls=')" ]; then
   echo >> /etc/profile
   echo "alias ls='ls --color=auto'" >> /etc/profile
   echo >> /etc/profile
 fi
 
 ## alsamixer go to the card you actually want to edit  ;-)
-if [ ! -z "$( aplay -l | grep Analog | grep 'card 1' )" ] \
-  && [ -z "$( cat /etc/profile | grep 'alias alsamixer=' )" ]; then
+if [ ! -z "$(aplay -l | grep Analog | grep 'card 1')" ] \
+  && [ -z "$(cat /etc/profile | grep 'alias alsamixer=')" ]; then
     echo >> /etc/profile
     echo "alias alsamixer='alsamixer -c 1'" >> /etc/profile
     echo >> /etc/profile
 fi
 
 ## this is good for tmux and for colorization
-if [ -z "$( cat /etc/profile | grep 'TERM=xterm-color' )" ]; then
+if [ -z "$(cat /etc/profile | grep 'TERM=xterm-color')" ]; then
   echo >> /etc/profile
   echo 'if [ -n "$DISPLAY" ]; then' >> /etc/profile
   echo '  export TERM=xterm-color' >> /etc/profile
@@ -300,13 +300,13 @@ if [ -z "$( cat /etc/profile | grep 'TERM=xterm-color' )" ]; then
 fi
 
 ## make compiling faster  ;-)
-if [ -z "$( cat /etc/profile | grep 'MAKEFLAGS' )" ]; then
+if [ -z "$(cat /etc/profile | grep 'MAKEFLAGS')" ]; then
   echo >> /etc/profile
-  echo 'if (( $( nproc ) > 2 )); then' >> /etc/profile
+  echo 'if (( $(nproc) > 2 )); then' >> /etc/profile
   ## cores--
-  echo '  export MAKEFLAGS=" -j$( expr $( nproc ) - 1 ) "' >> /etc/profile
+  echo '  export MAKEFLAGS=" -j$(expr $(nproc) - 1) "' >> /etc/profile
   ## half the cores
-  #echo '  export MAKEFLAGS=" -j$( expr $( nproc ) / 2 ) "' >> /etc/profile
+  #echo '  export MAKEFLAGS=" -j$(expr $(nproc) / 2) "' >> /etc/profile
   echo 'else' >> /etc/profile
   echo '  export MAKEFLAGS=" -j1 "' >> /etc/profile
   echo 'fi' >> /etc/profile
@@ -349,7 +349,7 @@ wget -N https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/slackw
 
 ## use SBo-master as default ...
 ## but only comment out the old lines for an easy swap
-if [ -z "$( cat /etc/sbopkg/sbopkg.conf | grep SBo-master )" ]; then
+if [ -z "$(cat /etc/sbopkg/sbopkg.conf | grep SBo-master)" ]; then
   sed -i "s@REPO_BRANCH=@#REPO_BRANCH=@g" /etc/sbopkg/sbopkg.conf
   sed -i "s@REPO_NAME=@#REPO_NAME=@g" /etc/sbopkg/sbopkg.conf
   echo "REPO_BRANCH=\${REPO_BRANCH:-master}" >> /etc/sbopkg/sbopkg.conf
@@ -406,7 +406,7 @@ if [ ! -e /etc/slackpkg/BACKUP-slackpkgplus.conf.old-BACKUP ] || [ "$RESETSPPLUS
     echo "#PKGS_PRIORITY=( multilib:.* restricted-current:.* alienbob-current:.* )" >> /etc/slackpkg/slackpkgplus.conf
   fi
 
-  if [ "$MULTILIB" = true ] && [ "$( uname -m )" = "x86_64" ]; then
+  if [ "$MULTILIB" = true ] && [ "$(uname -m)" = "x86_64" ]; then
     if [ "$CURRENT" = true ]; then
       sed -i "s@#MIRRORPLUS\['multilib']=http://taper.alienbase.nl/mirrors/people/alien/multilib/current/@MIRRORPLUS['multilib']=http://taper.alienbase.nl/mirrors/people/alien/multilib/current/@g" \
       /etc/slackpkg/slackpkgplus.conf
@@ -434,7 +434,7 @@ if [ ! -e /etc/slackpkg/BACKUP-slackpkgplus.conf.old-BACKUP ] || [ "$RESETSPPLUS
   echo "#REPOPLUS=( slackpkgplus alienbob )" >> /etc/slackpkg/slackpkgplus.conf
   echo >> /etc/slackpkg/slackpkgplus.conf
   
-  if [ "$( uname -m )" = "x86_64" ]; then
+  if [ "$(uname -m)" = "x86_64" ]; then
     echo >> /etc/slackpkg/slackpkgplus.conf
     echo "#MIRRORPLUS['ktown']=http://taper.alienbase.nl/mirrors/alien-kde/current/latest/x86_64/" >> /etc/slackpkg/slackpkgplus.conf
     if [ "$CURRENT" = true ]; then
@@ -462,7 +462,7 @@ fi
 
 ## this installs all the multilib/compat32 goodies
 ## thanks to eric hameleers
-if [ "$MULTILIB" = true ] && [ "$( uname -m )" = "x86_64" ]; then
+if [ "$MULTILIB" = true ] && [ "$(uname -m)" = "x86_64" ]; then
   slackpkg_full_upgrade
   slackpkg_update_only
   slackpkg install multilib
@@ -506,7 +506,7 @@ if [ "$MISCELLANY" = true ]; then
   curl https://raw.githubusercontent.com/ryanpcmcquen/ryanpc-slackbuilds/master/unofficial/fde/getFDE.sh | sh
 
   ## eric hameleers has updated multilib to include this package
-  #  if [ "$( uname -m )" = "x86_64" ]; then
+  #  if [ "$(uname -m)" = "x86_64" ]; then
   #    wget -N http://mirrors.slackware.com/slackware/slackware-current/slackware/x/$LIBXSHM -P ~/
   #    upgradepkg --install-new ~/$LIBXSHM
   #    rm ~/$LIBXSHM
@@ -614,7 +614,7 @@ if [ "$MISCELLANY" = true ]; then
   ## lumina!
   no_prompt_sbo_pkg_install lumina
 
-  if [ -z "$( cat /usr/share/e16/config/bindings.cfg | grep gmrun )" ]; then
+  if [ -z "$(cat /usr/share/e16/config/bindings.cfg | grep gmrun)" ]; then
     echo >> /usr/share/e16/config/bindings.cfg
     echo "## my bindings" >> /usr/share/e16/config/bindings.cfg
     echo "KeyDown   A    Escape exec gmrun" >> /usr/share/e16/config/bindings.cfg
@@ -743,7 +743,7 @@ if [ "$MISCELLANY" = true ]; then
 
   no_prompt_sbo_pkg_install copy
 
-  if [ "$( uname -m )" = "x86_64" ]; then
+  if [ "$(uname -m)" = "x86_64" ]; then
     no_prompt_sbo_pkg_install spotify64
   else
     no_prompt_sbo_pkg_install spotify32
@@ -769,13 +769,13 @@ if [ "$MISCELLANY" = true ]; then
     mv -v ~/steamclient/*.tgz ~/
     rm -rfv ~/steamclient/
     upgradepkg --install-new ~/steamclient-*.tgz
-    if [ -z "$( cat /etc/slackpkg/blacklist | grep steamclient )" ]; then
+    if [ -z "$(cat /etc/slackpkg/blacklist | grep steamclient)" ]; then
       echo steamclient >> /etc/slackpkg/blacklist
     fi
     rm -v ~/steamclient-*.tgz
   fi
 
-  if [ "$( uname -m )" = "x86_64" ]; then
+  if [ "$(uname -m)" = "x86_64" ]; then
     wget -N http://www.desura.com/desura-x86_64.tar.gz \
       -P /opt/
   else
@@ -889,7 +889,7 @@ fi
 wget -N $GETJAVA -P ~/
 
 ## bumblebee/nvidia scripts
-if [ ! -z "$( lspci | grep NVIDIA )" ]; then
+if [ ! -z "$(lspci | grep NVIDIA)" ]; then
   wget -N https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/slackware/crazybee.sh -P ~/
 fi
 
@@ -914,7 +914,7 @@ fi
 
 ## let there be sound!
 /etc/rc.d/rc.alsa
-if [ ! -z "$( aplay -l | grep Analog | grep 'card 1' )" ]; then
+if [ ! -z "$(aplay -l | grep Analog | grep 'card 1')" ]; then
   amixer set -c 1 Master 0% unmute
   amixer set -c 1 Master 95% unmute
   amixer set -c 1 Headphone 0% unmute
@@ -958,7 +958,7 @@ echo >> ~/.config-o-matic_$CONFIGOMATICVERSION
 echo "CURRENT = $CURRENT" >> ~/.config-o-matic_$CONFIGOMATICVERSION
 echo "WICD = $WICD" >> ~/.config-o-matic_$CONFIGOMATICVERSION
 echo "MISCELLANY = $MISCELLANY" >> ~/.config-o-matic_$CONFIGOMATICVERSION
-if [ "$( uname -m )" = "x86_64" ]; then
+if [ "$(uname -m)" = "x86_64" ]; then
   echo "MULTILIB = $MULTILIB" >> ~/.config-o-matic_$CONFIGOMATICVERSION
 fi
 
