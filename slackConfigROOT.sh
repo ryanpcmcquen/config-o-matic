@@ -8,7 +8,7 @@
 ## note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files
-CONFIGOMATICVERSION=6.4.30
+CONFIGOMATICVERSION=6.4.31
 
 
 if [ ! $UID = 0 ]; then
@@ -901,7 +901,11 @@ wget -N https://raw.githubusercontent.com/ryanpcmcquen/ryanpc-slackbuilds/master
 
 wget -N https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/slackware/mednafen \
   -P /usr/local/bin/
+chmod 755 /usr/local/bin/mednafen
 
+wget -N https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/slackware/firefox \
+  -P /usr/local/bin/
+chmod 755 /usr/local/bin/firefox
 ## used to be end of SCRIPTS
 
 ## disables any interfaces that may interfere with wicd
