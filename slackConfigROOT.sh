@@ -8,7 +8,7 @@
 ## note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files
-CONFIGOMATICVERSION=6.4.32
+CONFIGOMATICVERSION=6.4.33
 
 
 if [ ! $UID = 0 ]; then
@@ -352,8 +352,25 @@ wget -N https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/slackw
 if [ -z "$(cat /etc/sbopkg/sbopkg.conf | grep SBo-master)" ]; then
   sed -i "s@REPO_BRANCH=@#REPO_BRANCH=@g" /etc/sbopkg/sbopkg.conf
   sed -i "s@REPO_NAME=@#REPO_NAME=@g" /etc/sbopkg/sbopkg.conf
+  echo >> /etc/sbopkg/sbopkg.conf
   echo "REPO_BRANCH=\${REPO_BRANCH:-master}" >> /etc/sbopkg/sbopkg.conf
   echo "REPO_NAME=\${REPO_NAME:-SBo-master}" >> /etc/sbopkg/sbopkg.conf
+  echo >> /etc/sbopkg/sbopkg.conf
+fi
+
+if [ -z "$(cat /etc/sbopkg/sbopkg.conf | grep TARGETS)" ]; then
+  echo "export TARGETS=\${TARGETS:-all}" >> /etc/sbopkg/sbopkg.conf
+  echo >> /etc/sbopkg/sbopkg.conf
+fi
+if [ "$MULTILIB" = true ]; then
+  if [ -z "$(cat /etc/sbopkg/sbopkg.conf | grep COMPAT32)" ]; then
+    echo "export COMPAT32=\${COMPAT32:-yes}" >> /etc/sbopkg/sbopkg.conf
+    echo >> /etc/sbopkg/sbopkg.conf
+  fi
+fi
+if [ -z "$(cat /etc/sbopkg/sbopkg.conf | grep JACK)" ]; then
+  echo "export JACK=\${JACK:-on}" >> /etc/sbopkg/sbopkg.conf
+  echo >> /etc/sbopkg/sbopkg.conf
 fi
 
 ## create sbopkg directories
@@ -587,6 +604,8 @@ if [ "$MISCELLANY" = true ]; then
   ##
 
   JACK=on no_prompt_sbo_pkg_install ssr
+
+  TARGETS=all no_prompt_sbo_pkg_install qemu
 
   no_prompt_sbo_pkg_install lua
 
