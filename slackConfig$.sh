@@ -121,6 +121,9 @@ xdg-mime default mozilla-firefox.desktop x-scheme-handler/http
 xdg-mime default mozilla-firefox.desktop x-scheme-handler/https
 xdg-mime default mozilla-firefox.desktop x-scheme-handler/mailto
 
+firefox -setDefaultBrowser &
+pkill firefox &
+
 echo
 echo
 echo "************************************"
