@@ -38,7 +38,6 @@ cat /etc/passwd | grep "/home" | cut -d: -f1 | sed '/ftp/d' | \
   xargs -i usermod -G audio,cdrom,floppy,plugdev,video,power,netdev,lp,scanner -a {}
 ```
 ---
-config-o-matic takes a text-oriented approach to system provisioning, for this reason, dwm, e16, Fluxbox, KDE, Mate and XFCE are our current DE's of choice. You may remove any of the DE config url's if you do not use those environments (although config-o-matic will try to detect them).  ;^)
 
 #NOTES:
  - You should either fork this project or download it and set it to YOUR config files, just running my scripts will set up my preferred configs.
