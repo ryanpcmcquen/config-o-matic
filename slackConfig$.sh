@@ -54,7 +54,13 @@ echo
 ## not really necessary, but maybe someday  ;-)
 cd
 
+xdg-mime default mozilla-firefox.desktop x-scheme-handler/http
+xdg-mime default mozilla-firefox.desktop x-scheme-handler/https
+xdg-mime default mozilla-thunderbird.desktop x-scheme-handler/mailto
+
 gkrellm &
+firefox -setDefaultBrowser &
+
 
 wget -N $BASHRC -P ~/
 wget -N $BASHPR -P ~/
@@ -78,6 +84,7 @@ wget -N $GKRELLTFIL -P ~/.gkrellm2/
 curl $GKRELLCONF | sh
 
 pkill gkrellm &
+pkill firefox &
 
 if [ -d ~/.fluxbox ]; then
   curl $FLUXBOXCONF | sh
@@ -116,13 +123,6 @@ mkdir -pv ~/.icons/
 ln -sfv /usr/share/icons/Adwaita/ ~/.icons/default
 
 rm -v ~/.local/share/applications/userapp-Firefox-*.desktop
-
-xdg-mime default mozilla-firefox.desktop x-scheme-handler/http
-xdg-mime default mozilla-firefox.desktop x-scheme-handler/https
-xdg-mime default mozilla-thunderbird.desktop x-scheme-handler/mailto
-
-firefox -setDefaultBrowser &
-pkill firefox &
 
 echo
 echo
