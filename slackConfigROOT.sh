@@ -8,7 +8,7 @@
 ## note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files
-CONFIGOMATICVERSION=6.4.33
+CONFIGOMATICVERSION=6.4.34
 
 
 if [ ! $UID = 0 ]; then
@@ -358,19 +358,24 @@ if [ -z "$(cat /etc/sbopkg/sbopkg.conf | grep SBo-master)" ]; then
   echo >> /etc/sbopkg/sbopkg.conf
 fi
 
+## applies to qemu
 if [ -z "$(cat /etc/sbopkg/sbopkg.conf | grep TARGETS)" ]; then
   echo "export TARGETS=\${TARGETS:-all}" >> /etc/sbopkg/sbopkg.conf
   echo >> /etc/sbopkg/sbopkg.conf
 fi
+## applies to a few packages
 if [ "$MULTILIB" = true ]; then
   if [ -z "$(cat /etc/sbopkg/sbopkg.conf | grep COMPAT32)" ]; then
     echo "export COMPAT32=\${COMPAT32:-yes}" >> /etc/sbopkg/sbopkg.conf
     echo >> /etc/sbopkg/sbopkg.conf
   fi
 fi
-if [ -z "$(cat /etc/sbopkg/sbopkg.conf | grep JACK)" ]; then
-  echo "export JACK=\${JACK:-on}" >> /etc/sbopkg/sbopkg.conf
-  echo >> /etc/sbopkg/sbopkg.conf
+## applies to ssr
+if [ "$MISCELLANY" = true ]; then
+  if [ -z "$(cat /etc/sbopkg/sbopkg.conf | grep JACK)" ]; then
+    echo "export JACK=\${JACK:-on}" >> /etc/sbopkg/sbopkg.conf
+    echo >> /etc/sbopkg/sbopkg.conf
+  fi
 fi
 
 ## create sbopkg directories
