@@ -59,7 +59,7 @@ xdg-mime default mozilla-firefox.desktop x-scheme-handler/https
 xdg-mime default mozilla-thunderbird.desktop x-scheme-handler/mailto
 
 gkrellm &
-firefox -setDefaultBrowser &
+firefox -silent -setDefaultBrowser &
 
 
 wget -N $BASHRC -P ~/
@@ -84,7 +84,6 @@ wget -N $GKRELLTFIL -P ~/.gkrellm2/
 curl $GKRELLCONF | sh
 
 pkill gkrellm &
-pkill firefox &
 
 if [ -d ~/.fluxbox ]; then
   curl $FLUXBOXCONF | sh
