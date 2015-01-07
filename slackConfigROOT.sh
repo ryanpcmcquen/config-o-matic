@@ -399,8 +399,8 @@ rm -v ~/egan-gkrellm.tar.gz
 
 ## amazing green fluxbox
 wget -N https://github.com/ryanpcmcquen/themes/raw/master/Greenish%20Fluxbox.zip -P ~/
-unzip ~/Greenish%20Fluxbox.zip -d /usr/share/fluxbox/styles/
-rm -v ~/Greenish%20Fluxbox.zip
+unzip ~/Greenish\ Fluxbox.zip -d /usr/share/fluxbox/styles/
+rm -v ~/Greenish\ Fluxbox.zip
 
 ## set slackpkg to non-interactive mode to run without prompting
 set_slackpkg_to_auto
