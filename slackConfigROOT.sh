@@ -8,7 +8,7 @@
 ## note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files
-CONFIGOMATICVERSION=6.4.37
+CONFIGOMATICVERSION=6.4.38
 
 
 if [ ! $UID = 0 ]; then
@@ -397,6 +397,10 @@ wget -N https://github.com/ryanpcmcquen/themes/raw/master/egan-gkrellm.tar.gz -P
 tar xvf ~/egan-gkrellm.tar.gz -C /usr/share/gkrellm2/themes/
 rm -v ~/egan-gkrellm.tar.gz
 
+## amazing green fluxbox
+wget -N https://github.com/ryanpcmcquen/themes/raw/master/Greenish%20Fluxbox.zip -P ~/
+unzip ~/Greenish%20Fluxbox.zip -d /usr/share/fluxbox/styles/
+rm -v ~/Greenish%20Fluxbox.zip
 
 ## set slackpkg to non-interactive mode to run without prompting
 set_slackpkg_to_auto
