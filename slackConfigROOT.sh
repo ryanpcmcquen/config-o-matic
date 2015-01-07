@@ -8,7 +8,7 @@
 ## note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files
-CONFIGOMATICVERSION=6.4.38
+CONFIGOMATICVERSION=6.4.39
 
 
 if [ ! $UID = 0 ]; then
@@ -930,10 +930,6 @@ wget -N https://raw.githubusercontent.com/ryanpcmcquen/ryanpc-slackbuilds/master
 wget -N https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/slackware/mednafen \
   -P /usr/local/bin/
 chmod 755 /usr/local/bin/mednafen
-
-xdg-mime default mozilla-firefox.desktop x-scheme-handler/http
-xdg-mime default mozilla-firefox.desktop x-scheme-handler/https
-xdg-mime default mozilla-thunderbird.desktop x-scheme-handler/mailto
 
 ## used to be end of SCRIPTS
 
