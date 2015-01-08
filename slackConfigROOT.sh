@@ -8,7 +8,7 @@
 ## note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files
-CONFIGOMATICVERSION=6.5.1
+CONFIGOMATICVERSION=6.5.2
 
 
 if [ ! $UID = 0 ]; then
@@ -618,8 +618,6 @@ if [ "$MISCELLANY" = true ]; then
   no_prompt_sbo_pkg_install_or_upgrade hydrogen
   ##
 
-  JACK=on no_prompt_sbo_pkg_install_or_upgrade ssr
-
   TARGETS=all no_prompt_sbo_pkg_install_or_upgrade qemu
 
   no_prompt_sbo_pkg_install_or_upgrade lua
@@ -686,6 +684,8 @@ if [ "$MISCELLANY" = true ]; then
     ls -t --color=never /tmp/ffmpeg-*_SBo.tgz | head -1 | xargs -i upgradepkg --install-new {}
     cd
   fi
+
+  JACK=on no_prompt_sbo_pkg_install_or_upgrade ssr
 
   ## wineing
   if [ "$MULTILIB" = true ] || [ "$ARCH" = "i486" ]; then
