@@ -8,7 +8,7 @@
 ## note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files
-CONFIGOMATICVERSION=6.4.39
+CONFIGOMATICVERSION=6.5.0
 
 
 if [ ! $UID = 0 ]; then
@@ -89,10 +89,14 @@ MINECRAFTDL="https://s3.amazonaws.com/Minecraft.Download/launcher/Minecraft.jar"
 #LIBXSHM="libxshmfence-1.1-i486-1.txz"
 
 ## my shell functions  ;^)
+make_sbo_pkg_upgrade_list() {
+  sbopkg -c > ~/sbopkg-upgrade-list.txt
+}
+
 ## the echo p keeps sbopkg from prompting you if something goes wrong
-no_prompt_sbo_pkg_install() {
+no_prompt_sbo_pkg_install_or_upgrade() {
   SBO_PACKAGE=$1
-  if [ ! -e /var/log/packages/$SBO_PACKAGE-* ]; then
+  if [ ! -e /var/log/packages/$SBO_PACKAGE-* ] || [ ! -z $(cat ~/sbopkg-upgrade-list.txt | grep $SBO_PACKAGE) ]; then
     echo p | sbopkg -B -e continue -i $SBO_PACKAGE
   fi
 }
@@ -558,6 +562,8 @@ fi
 ## then sync the slackbuilds.org repo
 sbopkg -B -u
 sbopkg -B -r
+## generate a readable list
+make_sbo_pkg_upgrade_list
 
 if [ "$VANILLA" = "yes" ]; then
   echo "Nice job reading the source."
@@ -567,11 +573,11 @@ else
   ###########
   
   ## sweet, sweet dwm
-  no_prompt_sbo_pkg_install dwm
-  no_prompt_sbo_pkg_install dmenu
-  no_prompt_sbo_pkg_install trayer-srg
-  no_prompt_sbo_pkg_install tinyterm
-  no_prompt_sbo_pkg_install qtfm
+  no_prompt_sbo_pkg_install_or_upgrade dwm
+  no_prompt_sbo_pkg_install_or_upgrade dmenu
+  no_prompt_sbo_pkg_install_or_upgrade trayer-srg
+  no_prompt_sbo_pkg_install_or_upgrade tinyterm
+  no_prompt_sbo_pkg_install_or_upgrade qtfm
   
   ## my dwm tweaks
   wget -N https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/slackware/xinitrc.dwm \
@@ -593,54 +599,54 @@ else
 fi
 
 if [ "$MISCELLANY" = true ]; then
-  no_prompt_sbo_pkg_install pysetuptools
-  no_prompt_sbo_pkg_install pip
+  no_prompt_sbo_pkg_install_or_upgrade pysetuptools
+  no_prompt_sbo_pkg_install_or_upgrade pip
   pip install --upgrade asciinema
 
-  no_prompt_sbo_pkg_install node
+  no_prompt_sbo_pkg_install_or_upgrade node
 
   ## hydrogen
-  no_prompt_sbo_pkg_install scons
+  no_prompt_sbo_pkg_install_or_upgrade scons
   ## no longer a dependency
-  #no_prompt_sbo_pkg_install libtar
-  no_prompt_sbo_pkg_install ladspa_sdk
-  no_prompt_sbo_pkg_install liblrdf
+  #no_prompt_sbo_pkg_install_or_upgrade libtar
+  no_prompt_sbo_pkg_install_or_upgrade ladspa_sdk
+  no_prompt_sbo_pkg_install_or_upgrade liblrdf
   ## celt is broken
-  #no_prompt_sbo_pkg_install celt
-  no_prompt_sbo_pkg_install jack-audio-connection-kit
-  no_prompt_sbo_pkg_install lash
-  no_prompt_sbo_pkg_install hydrogen
+  #no_prompt_sbo_pkg_install_or_upgrade celt
+  no_prompt_sbo_pkg_install_or_upgrade jack-audio-connection-kit
+  no_prompt_sbo_pkg_install_or_upgrade lash
+  no_prompt_sbo_pkg_install_or_upgrade hydrogen
   ##
 
-  JACK=on no_prompt_sbo_pkg_install ssr
+  JACK=on no_prompt_sbo_pkg_install_or_upgrade ssr
 
-  TARGETS=all no_prompt_sbo_pkg_install qemu
+  TARGETS=all no_prompt_sbo_pkg_install_or_upgrade qemu
 
-  no_prompt_sbo_pkg_install lua
+  no_prompt_sbo_pkg_install_or_upgrade lua
 
-  no_prompt_sbo_pkg_install luajit
+  no_prompt_sbo_pkg_install_or_upgrade luajit
 
-  no_prompt_sbo_pkg_install bullet
+  no_prompt_sbo_pkg_install_or_upgrade bullet
 
-  no_prompt_sbo_pkg_install libwebp
+  no_prompt_sbo_pkg_install_or_upgrade libwebp
 
-  no_prompt_sbo_pkg_install orc
+  no_prompt_sbo_pkg_install_or_upgrade orc
 
-  no_prompt_sbo_pkg_install gstreamer1
+  no_prompt_sbo_pkg_install_or_upgrade gstreamer1
 
-  no_prompt_sbo_pkg_install gst1-plugins-base
+  no_prompt_sbo_pkg_install_or_upgrade gst1-plugins-base
 
   ## e16, so tiny!
-  no_prompt_sbo_pkg_install imlib2
-  no_prompt_sbo_pkg_install giblib
-  no_prompt_sbo_pkg_install e16
-  no_prompt_sbo_pkg_install gmrun
+  no_prompt_sbo_pkg_install_or_upgrade imlib2
+  no_prompt_sbo_pkg_install_or_upgrade giblib
+  no_prompt_sbo_pkg_install_or_upgrade e16
+  no_prompt_sbo_pkg_install_or_upgrade gmrun
 
   ## pekwm! (is broken on -current)
-  #no_prompt_sbo_pkg_install pekwm
+  #no_prompt_sbo_pkg_install_or_upgrade pekwm
 
   ## lumina!
-  no_prompt_sbo_pkg_install lumina
+  no_prompt_sbo_pkg_install_or_upgrade lumina
 
   if [ -z "$(cat /usr/share/e16/config/bindings.cfg | grep gmrun)" ]; then
     echo >> /usr/share/e16/config/bindings.cfg
@@ -649,28 +655,28 @@ if [ "$MISCELLANY" = true ]; then
     echo >> /usr/share/e16/config/bindings.cfg
   fi
 
-  no_prompt_sbo_pkg_install scrot
+  no_prompt_sbo_pkg_install_or_upgrade scrot
 
-  no_prompt_sbo_pkg_install screenfetch
+  no_prompt_sbo_pkg_install_or_upgrade screenfetch
 
   ## this library is necessary for some games,
   ## doesn't hurt to have it  ; ^)
-  no_prompt_sbo_pkg_install libtxc_dxtn
+  no_prompt_sbo_pkg_install_or_upgrade libtxc_dxtn
 
-  no_prompt_sbo_pkg_install lame
+  no_prompt_sbo_pkg_install_or_upgrade lame
 
-  no_prompt_sbo_pkg_install x264
+  no_prompt_sbo_pkg_install_or_upgrade x264
 
-  no_prompt_sbo_pkg_install OpenAL
+  no_prompt_sbo_pkg_install_or_upgrade OpenAL
 
-  no_prompt_sbo_pkg_install SDL_gfx
+  no_prompt_sbo_pkg_install_or_upgrade SDL_gfx
 
-  no_prompt_sbo_pkg_install SDL_sound
+  no_prompt_sbo_pkg_install_or_upgrade SDL_sound
 
-  no_prompt_sbo_pkg_install speex
+  no_prompt_sbo_pkg_install_or_upgrade speex
   ## script now detects multilib,
   ## thanks to b. watson
-  no_prompt_sbo_pkg_install apulse
+  no_prompt_sbo_pkg_install_or_upgrade apulse
 
   ## install ffmpeg from my repo
   if [ ! -e /var/log/packages/ffmpeg-* ]; then
@@ -683,58 +689,58 @@ if [ "$MISCELLANY" = true ]; then
 
   ## wineing
   if [ "$MULTILIB" = true ] || [ "$ARCH" = "i486" ]; then
-    no_prompt_sbo_pkg_install webcore-fonts    
-    no_prompt_sbo_pkg_install fontforge   
-    no_prompt_sbo_pkg_install cabextract
-    no_prompt_sbo_pkg_install wine    
-    no_prompt_sbo_pkg_install winetricks
+    no_prompt_sbo_pkg_install_or_upgrade webcore-fonts    
+    no_prompt_sbo_pkg_install_or_upgrade fontforge   
+    no_prompt_sbo_pkg_install_or_upgrade cabextract
+    no_prompt_sbo_pkg_install_or_upgrade wine    
+    no_prompt_sbo_pkg_install_or_upgrade winetricks
   fi
   ##
 
   ## scribus
   ## cppunit breaks podofo on 32-bit
-  #no_prompt_sbo_pkg_install cppunit
-  no_prompt_sbo_pkg_install podofo
-  no_prompt_sbo_pkg_install scribus
+  #no_prompt_sbo_pkg_install_or_upgrade cppunit
+  no_prompt_sbo_pkg_install_or_upgrade podofo
+  no_prompt_sbo_pkg_install_or_upgrade scribus
   ##
 
   ## inkscape
-  no_prompt_sbo_pkg_install gts
-  no_prompt_sbo_pkg_install graphviz
-  no_prompt_sbo_pkg_install libwpg
-  no_prompt_sbo_pkg_install numpy
-  no_prompt_sbo_pkg_install BeautifulSoup
-  no_prompt_sbo_pkg_install lxml
-  no_prompt_sbo_pkg_install libsigc++
-  no_prompt_sbo_pkg_install glibmm
-  no_prompt_sbo_pkg_install cairomm
-  no_prompt_sbo_pkg_install pangomm
-  no_prompt_sbo_pkg_install atkmm
-  no_prompt_sbo_pkg_install mm-common
-  no_prompt_sbo_pkg_install gtkmm
-  no_prompt_sbo_pkg_install gsl
-  no_prompt_sbo_pkg_install inkscape
+  no_prompt_sbo_pkg_install_or_upgrade gts
+  no_prompt_sbo_pkg_install_or_upgrade graphviz
+  no_prompt_sbo_pkg_install_or_upgrade libwpg
+  no_prompt_sbo_pkg_install_or_upgrade numpy
+  no_prompt_sbo_pkg_install_or_upgrade BeautifulSoup
+  no_prompt_sbo_pkg_install_or_upgrade lxml
+  no_prompt_sbo_pkg_install_or_upgrade libsigc++
+  no_prompt_sbo_pkg_install_or_upgrade glibmm
+  no_prompt_sbo_pkg_install_or_upgrade cairomm
+  no_prompt_sbo_pkg_install_or_upgrade pangomm
+  no_prompt_sbo_pkg_install_or_upgrade atkmm
+  no_prompt_sbo_pkg_install_or_upgrade mm-common
+  no_prompt_sbo_pkg_install_or_upgrade gtkmm
+  no_prompt_sbo_pkg_install_or_upgrade gsl
+  no_prompt_sbo_pkg_install_or_upgrade inkscape
   ##
 
-  no_prompt_sbo_pkg_install libreoffice
+  no_prompt_sbo_pkg_install_or_upgrade libreoffice
 
   ## android stuff!
-  no_prompt_sbo_pkg_install gmtp
-  no_prompt_sbo_pkg_install android-tools
-  no_prompt_sbo_pkg_install android-studio
+  no_prompt_sbo_pkg_install_or_upgrade gmtp
+  no_prompt_sbo_pkg_install_or_upgrade android-tools
+  no_prompt_sbo_pkg_install_or_upgrade android-studio
 
   ## librecad
-  no_prompt_sbo_pkg_install muParser
-  no_prompt_sbo_pkg_install librecad
+  no_prompt_sbo_pkg_install_or_upgrade muParser
+  no_prompt_sbo_pkg_install_or_upgrade librecad
   ##
 
   ## these are for the image ultimator
-  no_prompt_sbo_pkg_install jpegoptim
-  no_prompt_sbo_pkg_install mozjpeg
-  no_prompt_sbo_pkg_install optipng
-  no_prompt_sbo_pkg_install pngquant
-  no_prompt_sbo_pkg_install gifsicle
-  no_prompt_sbo_pkg_install exiftool
+  no_prompt_sbo_pkg_install_or_upgrade jpegoptim
+  no_prompt_sbo_pkg_install_or_upgrade mozjpeg
+  no_prompt_sbo_pkg_install_or_upgrade optipng
+  no_prompt_sbo_pkg_install_or_upgrade pngquant
+  no_prompt_sbo_pkg_install_or_upgrade gifsicle
+  no_prompt_sbo_pkg_install_or_upgrade exiftool
   ## install the image ultimator now that we have the dependencies
   wget -N \
     https://raw.githubusercontent.com/ryanpcmcquen/image-ultimator/master/imgult -P ~/
@@ -742,54 +748,54 @@ if [ "$MISCELLANY" = true ]; then
   rm -v ~/imgult
   ##
 
-  no_prompt_sbo_pkg_install murrine
+  no_prompt_sbo_pkg_install_or_upgrade murrine
 
-  no_prompt_sbo_pkg_install murrine-themes
+  no_prompt_sbo_pkg_install_or_upgrade murrine-themes
 
   ## because QtCurve looks amazing
   if [ -e /var/log/packages/kdelibs-* ]; then
-    no_prompt_sbo_pkg_install QtCurve-KDE4
-    no_prompt_sbo_pkg_install kde-gtk-config
+    no_prompt_sbo_pkg_install_or_upgrade QtCurve-KDE4
+    no_prompt_sbo_pkg_install_or_upgrade kde-gtk-config
   fi
-  no_prompt_sbo_pkg_install QtCurve-Gtk2
+  no_prompt_sbo_pkg_install_or_upgrade QtCurve-Gtk2
 
-  no_prompt_sbo_pkg_install p7zip
+  no_prompt_sbo_pkg_install_or_upgrade p7zip
 
-  no_prompt_sbo_pkg_install dmg2img
+  no_prompt_sbo_pkg_install_or_upgrade dmg2img
 
-  no_prompt_sbo_pkg_install medit
+  no_prompt_sbo_pkg_install_or_upgrade medit
 
-  no_prompt_sbo_pkg_install libgnomecanvas
+  no_prompt_sbo_pkg_install_or_upgrade libgnomecanvas
 
-  no_prompt_sbo_pkg_install zenity
+  no_prompt_sbo_pkg_install_or_upgrade zenity
 
-  no_prompt_sbo_pkg_install udevil
+  no_prompt_sbo_pkg_install_or_upgrade udevil
 
-  no_prompt_sbo_pkg_install spacefm
+  no_prompt_sbo_pkg_install_or_upgrade spacefm
 
-  no_prompt_sbo_pkg_install mirage
+  no_prompt_sbo_pkg_install_or_upgrade mirage
 
-  no_prompt_sbo_pkg_install copy
+  no_prompt_sbo_pkg_install_or_upgrade copy
 
   if [ "$(uname -m)" = "x86_64" ]; then
-    no_prompt_sbo_pkg_install spotify64
+    no_prompt_sbo_pkg_install_or_upgrade spotify64
   else
-    no_prompt_sbo_pkg_install spotify32
+    no_prompt_sbo_pkg_install_or_upgrade spotify32
   fi
 
-  no_prompt_sbo_pkg_install tiled-qt
+  no_prompt_sbo_pkg_install_or_upgrade tiled-qt
 
-  no_prompt_sbo_pkg_install google-webdesigner
+  no_prompt_sbo_pkg_install_or_upgrade google-webdesigner
 
   ## lutris
   ## recommended
-  no_prompt_sbo_pkg_install eawpats
-  no_prompt_sbo_pkg_install allegro
+  no_prompt_sbo_pkg_install_or_upgrade eawpats
+  no_prompt_sbo_pkg_install_or_upgrade allegro
   ## required
-  no_prompt_sbo_pkg_install pyxdg
-  no_prompt_sbo_pkg_install PyYAML
-  no_prompt_sbo_pkg_install pygobject3
-  no_prompt_sbo_pkg_install lutris
+  no_prompt_sbo_pkg_install_or_upgrade pyxdg
+  no_prompt_sbo_pkg_install_or_upgrade PyYAML
+  no_prompt_sbo_pkg_install_or_upgrade pygobject3
+  no_prompt_sbo_pkg_install_or_upgrade lutris
 
   ## grab latest steam package
   if [ ! -e /var/log/packages/steamclient-* ]; then
@@ -997,6 +1003,7 @@ echo >> ~/.config-o-matic_$CONFIGOMATICVERSION
 
 rm -v ~/slackwareStableVersion
 rm -v ~/sbopkgVersion
+rm -v ~/sbopkg-upgrade-list.txt
 rm -v ~/slackpkgPlusVersion
 rm -v ~/caledoniaPlasmaVersion
 rm -v ~/caledoniaWallpaperVersion
