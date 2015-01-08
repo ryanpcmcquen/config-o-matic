@@ -110,16 +110,23 @@ if [ -e /var/log/packages/Thunar-* ]; then
 fi
 
 if [ -d /usr/share/e16 ]; then
-  if [ -z "$(cat ~/.e16/e_config--0.0.cfg | grep 'focus.all_new_windows_get_focus')" ]; then
-    echo "focus.all_new_windows_get_focus = 1" >> ~/.e16/e_config--0.0.cfg
-  else
-    sed -i 's/focus.all_new_windows_get_focus = 0/focus.all_new_windows_get_focus = 1/g' ~/.e16/e_config--0.0.cfg
+  if [ -e ~/.e16/e_config--0.0.cfg ]; then
+    if [ -z "$(cat ~/.e16/e_config--0.0.cfg | grep 'focus.all_new_windows_get_focus')" ]; then
+      echo "focus.all_new_windows_get_focus = 1" >> ~/.e16/e_config--0.0.cfg
+    else
+      sed -i 's/focus.all_new_windows_get_focus = 0/focus.all_new_windows_get_focus = 1/g' ~/.e16/e_config--0.0.cfg
+    fi
   fi
 fi
 
 ## beautiful minimalism
 mkdir -pv ~/.icons/
-ln -sfv /usr/share/icons/Adwaita/ ~/.icons/default
+rm -v ~/.icons/default
+if [ -d "/usr/share/icons/Oxygen_White/" ]; then
+  ln -sfv /usr/share/icons/Oxygen_White/ ~/.icons/default
+else
+  ln -sfv /usr/share/icons/nuvola/ ~/.icons/default
+fi
 
 rm -v ~/.local/share/applications/userapp-Firefox-*.desktop
 
