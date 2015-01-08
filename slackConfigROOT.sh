@@ -8,7 +8,7 @@
 ## note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files
-CONFIGOMATICVERSION=6.5.0
+CONFIGOMATICVERSION=6.5.1
 
 
 if [ ! $UID = 0 ]; then
@@ -403,7 +403,7 @@ rm -v ~/egan-gkrellm.tar.gz
 
 ## amazing green fluxbox
 wget -N https://github.com/ryanpcmcquen/themes/raw/master/Greenish%20Fluxbox.zip -P ~/
-unzip ~/Greenish\ Fluxbox.zip -d /usr/share/fluxbox/styles/
+unzip -f ~/Greenish\ Fluxbox.zip -d /usr/share/fluxbox/styles/
 rm -v ~/Greenish\ Fluxbox.zip
 
 ## set slackpkg to non-interactive mode to run without prompting
@@ -892,9 +892,9 @@ if [ "$MISCELLANY" = true ]; then
     http://fc00.deviantart.net/fs70/f/2013/249/7/6/numix___fragmented_space_by_me4oslav-d6l8ihd.zip -P ~/
   wget -N \
     http://fc09.deviantart.net/fs70/f/2013/224/b/6/numix___name_of_the_doctor___wallpaper_by_satya164-d6hvzh7.zip -P ~/
-  unzip numix___halloween___wallpaper_by_satya164-d6skv0g.zip
-  unzip numix___fragmented_space_by_me4oslav-d6l8ihd.zip
-  unzip numix___name_of_the_doctor___wallpaper_by_satya164-d6hvzh7.zip
+  unzip -f numix___halloween___wallpaper_by_satya164-d6skv0g.zip
+  unzip -f numix___fragmented_space_by_me4oslav-d6l8ihd.zip
+  unzip -f numix___name_of_the_doctor___wallpaper_by_satya164-d6hvzh7.zip
   rm -v numix___halloween___wallpaper_by_satya164-d6skv0g.zip
   rm -v numix___fragmented_space_by_me4oslav-d6l8ihd.zip
   rm -v numix___name_of_the_doctor___wallpaper_by_satya164-d6hvzh7.zip
