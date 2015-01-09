@@ -121,11 +121,12 @@ fi
 
 ## beautiful minimalism
 mkdir -pv ~/.icons/
-rm -v ~/.icons/default
-if [ -d "/usr/share/icons/Oxygen_White/" ]; then
-  ln -sfv /usr/share/icons/Oxygen_White/ ~/.icons/default
-else
-  ln -sfv /usr/share/icons/nuvola/ ~/.icons/default
+if [ ! -e ~/.icons/default ]; then
+  if [ -d "/usr/share/icons/Oxygen_White/" ]; then
+    ln -sfv /usr/share/icons/Oxygen_White/ ~/.icons/default
+  else
+    ln -sfv /usr/share/icons/nuvola/ ~/.icons/default
+  fi
 fi
 
 rm -v ~/.local/share/applications/userapp-Firefox-*.desktop
