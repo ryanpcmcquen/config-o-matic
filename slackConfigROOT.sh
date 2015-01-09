@@ -8,7 +8,7 @@
 ## note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files
-CONFIGOMATICVERSION=6.5.3
+CONFIGOMATICVERSION=6.5.4
 
 
 if [ ! $UID = 0 ]; then
@@ -544,7 +544,9 @@ if [ "$MISCELLANY" = true ]; then
   #  fi
 
   ## set up ntp daemon (the good way)
-  /etc/rc.d/rc.ntpd stop
+  if [ -x /etc/rc.d/rc.ntpd ]; then
+    /etc/rc.d/rc.ntpd stop
+  fi
   ntpdate 0.pool.ntp.org
   ntpdate 1.pool.ntp.org
   hwclock --systohc
