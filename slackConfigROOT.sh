@@ -8,7 +8,7 @@
 ## note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files
-CONFIGOMATICVERSION=6.5.5
+CONFIGOMATICVERSION=6.6.0
 
 
 if [ ! $UID = 0 ]; then
@@ -151,54 +151,69 @@ echo
 
 ## go!
 
-read -p "Would you like to switch to -CURRENT? \
- (NO = STABLE) \
- [y/N]: " response
-case $response in
-  [yY][eE][sS]|[yY])
-    export CURRENT=true;
-    echo You are switching to -CURRENT.;
-    ;;
-  *)
-    echo You are going STABLE.;
-    ;;
-esac
-
-read -p "Would you like to install WICD? \
- (NetworkManager will be disabled) \
- [y/N]: " response
-case $response in
-  [yY][eE][sS]|[yY])
-    export WICD=true;
-    echo You are installing WICD.;
-    ;;
-  *)
-    echo You are not installing WICD.;
-    ;;
-esac
-
-read -p "Would you like to install a bunch of MISCELLANY?  [y/N]: " response
-case $response in
-  [yY][eE][sS]|[yY])
-    export MISCELLANY=true;
-    echo You are installing MISCELLANY.;
-    ;;
-  *)
-    echo "You're pretty VANILLA, read the source for more.";
-    ;;
-esac
-
-if [ "$(uname -m)" = "x86_64" ]; then
-  read -p "Would you like to go MULTILIB?  [y/N]: " response
+## OGCONFIG introduced in 6.6.0
+if [ -e ./.config-o-matic* ] && [ -z "$(. $(find -name ".config-o-matic*" | tail -1))" ]; then
+  read -p "Would you like to use your last CONFIGURATION?  [y/N]: " response
   case $response in
     [yY][eE][sS]|[yY])
-      export MULTILIB=true;
-      echo You have chosen to go MULTILIB.;
+      . "$(find -name '.config-o-matic*' | tail -1)";
+      export OGCONFIG=true;
+      echo You respect your original choices.;
       ;;
     *)
-      echo You are not going MULTILIB.;
+      echo You want to try something new.;
       ;;
   esac
+elif [ ! "$OGCONFIG" = true ]; then
+  read -p "Would you like to switch to -CURRENT? \
+   (NO = STABLE) \
+   [y/N]: " response
+  case $response in
+    [yY][eE][sS]|[yY])
+      export CURRENT=true;
+      echo You are switching to -CURRENT.;
+      ;;
+    *)
+      echo You are going STABLE.;
+      ;;
+  esac
+  
+  read -p "Would you like to install WICD? \
+   (NetworkManager will be disabled) \
+   [y/N]: " response
+  case $response in
+    [yY][eE][sS]|[yY])
+      export WICD=true;
+      echo You are installing WICD.;
+      ;;
+    *)
+      echo You are not installing WICD.;
+      ;;
+  esac
+  
+  read -p "Would you like to install a bunch of MISCELLANY?  [y/N]: " response
+  case $response in
+    [yY][eE][sS]|[yY])
+      export MISCELLANY=true;
+      echo You are installing MISCELLANY.;
+      ;;
+    *)
+      echo "You're pretty VANILLA, read the source for more.";
+      ;;
+  esac
+  
+  if [ "$(uname -m)" = "x86_64" ]; then
+    read -p "Would you like to go MULTILIB?  [y/N]: " response
+    case $response in
+      [yY][eE][sS]|[yY])
+        export MULTILIB=true;
+        echo You have chosen to go MULTILIB.;
+        ;;
+      *)
+        echo You are not going MULTILIB.;
+        ;;
+    esac
+  fi
 fi
 
 
@@ -984,23 +999,23 @@ set_slackpkg_to_manual
 
 ## create an info file
 echo >> ~/.config-o-matic_$CONFIGOMATICVERSION
-echo "========================================" >> ~/.config-o-matic_$CONFIGOMATICVERSION
+echo "########################################" >> ~/.config-o-matic_$CONFIGOMATICVERSION
 echo >> ~/.config-o-matic_$CONFIGOMATICVERSION
-echo "CONFIG-O-MATIC $CONFIGOMATICVERSION" >> ~/.config-o-matic_$CONFIGOMATICVERSION
+echo "##CONFIG-O-MATIC $CONFIGOMATICVERSION##" >> ~/.config-o-matic_$CONFIGOMATICVERSION
 echo >> ~/.config-o-matic_$CONFIGOMATICVERSION
-echo "BLANK = false" >> ~/.config-o-matic_$CONFIGOMATICVERSION
+echo "##BLANK=false##" >> ~/.config-o-matic_$CONFIGOMATICVERSION
 echo >> ~/.config-o-matic_$CONFIGOMATICVERSION
 echo >> ~/.config-o-matic_$CONFIGOMATICVERSION
 
-echo "CURRENT = $CURRENT" >> ~/.config-o-matic_$CONFIGOMATICVERSION
-echo "WICD = $WICD" >> ~/.config-o-matic_$CONFIGOMATICVERSION
-echo "MISCELLANY = $MISCELLANY" >> ~/.config-o-matic_$CONFIGOMATICVERSION
+echo "CURRENT=$CURRENT" >> ~/.config-o-matic_$CONFIGOMATICVERSION
+echo "WICD=$WICD" >> ~/.config-o-matic_$CONFIGOMATICVERSION
+echo "MISCELLANY=$MISCELLANY" >> ~/.config-o-matic_$CONFIGOMATICVERSION
 if [ "$(uname -m)" = "x86_64" ]; then
-  echo "MULTILIB = $MULTILIB" >> ~/.config-o-matic_$CONFIGOMATICVERSION
+  echo "MULTILIB=$MULTILIB" >> ~/.config-o-matic_$CONFIGOMATICVERSION
 fi
 
 echo >> ~/.config-o-matic_$CONFIGOMATICVERSION
-echo "========================================" >> ~/.config-o-matic_$CONFIGOMATICVERSION
+echo "########################################" >> ~/.config-o-matic_$CONFIGOMATICVERSION
 echo >> ~/.config-o-matic_$CONFIGOMATICVERSION
 
 rm -v ~/slackwareStableVersion
