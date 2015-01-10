@@ -8,7 +8,7 @@
 ## note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files
-CONFIGOMATICVERSION=6.5.4
+CONFIGOMATICVERSION=6.5.5
 
 
 if [ ! $UID = 0 ]; then
@@ -96,7 +96,7 @@ make_sbo_pkg_upgrade_list() {
 ## the echo p keeps sbopkg from prompting you if something goes wrong
 no_prompt_sbo_pkg_install_or_upgrade() {
   SBO_PACKAGE=$1
-  if [ ! -e /var/log/packages/$SBO_PACKAGE-* ] || [ ! -z $(cat ~/sbopkg-upgrade-list.txt | grep $SBO_PACKAGE) ]; then
+  if [ ! -e /var/log/packages/$SBO_PACKAGE-* ] || [ ! -z "$(cat ~/sbopkg-upgrade-list.txt | grep $SBO_PACKAGE)" ]; then
     echo p | sbopkg -B -e continue -i $SBO_PACKAGE
   fi
 }
