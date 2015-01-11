@@ -8,7 +8,7 @@
 ## note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files
-CONFIGOMATICVERSION=6.6.0
+CONFIGOMATICVERSION=6.6.1
 
 
 if [ ! $UID = 0 ]; then
@@ -813,6 +813,9 @@ if [ "$MISCELLANY" = true ]; then
   no_prompt_sbo_pkg_install_or_upgrade PyYAML
   no_prompt_sbo_pkg_install_or_upgrade pygobject3
   no_prompt_sbo_pkg_install_or_upgrade lutris
+
+  no_prompt_sbo_pkg_install_or_upgrade higan
+  no_prompt_sbo_pkg_install_or_upgrade mednafen
 
   ## grab latest steam package
   if [ ! -e /var/log/packages/steamclient-* ]; then
