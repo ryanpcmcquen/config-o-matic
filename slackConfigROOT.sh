@@ -8,7 +8,7 @@
 ## note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files
-CONFIGOMATICVERSION=6.6.1
+CONFIGOMATICVERSION=6.6.2
 
 
 if [ ! $UID = 0 ]; then
@@ -1004,9 +1004,9 @@ set_slackpkg_to_manual
 echo >> ~/.config-o-matic_$CONFIGOMATICVERSION
 echo "########################################" >> ~/.config-o-matic_$CONFIGOMATICVERSION
 echo >> ~/.config-o-matic_$CONFIGOMATICVERSION
-echo "##CONFIG-O-MATIC $CONFIGOMATICVERSION##" >> ~/.config-o-matic_$CONFIGOMATICVERSION
+echo "## CONFIG-O-MATIC $CONFIGOMATICVERSION ##" >> ~/.config-o-matic_$CONFIGOMATICVERSION
 echo >> ~/.config-o-matic_$CONFIGOMATICVERSION
-echo "##BLANK=false##" >> ~/.config-o-matic_$CONFIGOMATICVERSION
+echo "## BLANK=false ##" >> ~/.config-o-matic_$CONFIGOMATICVERSION
 echo >> ~/.config-o-matic_$CONFIGOMATICVERSION
 echo >> ~/.config-o-matic_$CONFIGOMATICVERSION
 
