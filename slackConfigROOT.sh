@@ -8,7 +8,7 @@
 ## note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files
-CONFIGOMATICVERSION=6.6.2
+CONFIGOMATICVERSION=6.6.3
 
 
 if [ ! $UID = 0 ]; then
@@ -152,7 +152,7 @@ echo
 ## go!
 
 ## OGCONFIG introduced in 6.6.0
-if [ -e ./.config-o-matic* ] && [ -z "$(. $(find -name ".config-o-matic*" | tail -1))" ]; then
+if [[ -e `find -name ".config-o-matic*" | tail -1` ]] && [[ -z `. $(find -name ".config-o-matic*" | tail -1)` ]]; then
   read -p "Would you like to use your last CONFIGURATION?  [y/N]: " response
   case $response in
     [yY][eE][sS]|[yY])
@@ -301,9 +301,9 @@ if [ -z "$(cat /etc/profile | grep 'alias ls=')" ]; then
   echo >> /etc/profile
 fi
 
-## alsamixer go to the card you actually want to edit  ;-)
-if [ ! -z "$(aplay -l | grep Analog | grep 'card 1')" ] \
-  && [ -z "$(cat /etc/profile | grep 'alias alsamixer=')" ]; then
+## make alsamixer go to the card you actually want to edit  ;-)
+if [[ ! -z "$(aplay -l | grep Analog | grep 'card 1')" ]] \
+  && [[ -z "$(cat /etc/profile | grep 'alias alsamixer=')" ]]; then
     echo >> /etc/profile
     echo "alias alsamixer='alsamixer -c 1'" >> /etc/profile
     echo >> /etc/profile
@@ -427,7 +427,7 @@ set_slackpkg_to_auto
 ## to reset run with RESETSPPLUSCONF=y prepended,
 ## adds a bunch of mirrors for slackpkg+, as well as other
 ## settings, to the existing config, so updates are clean
-if [ ! -e /etc/slackpkg/BACKUP-slackpkgplus.conf.old-BACKUP ] || [ "$RESETSPPLUSCONF" = y ]; then
+if [[ ! -e /etc/slackpkg/BACKUP-slackpkgplus.conf.old-BACKUP ]] || [[ "$RESETSPPLUSCONF" = y ]]; then
   if [ "$RESETSPPLUSCONF" = y ]; then
     cp -v /etc/slackpkg/BACKUP-slackpkgplus.conf.old-BACKUP /etc/slackpkg/BACKUP0-slackpkgplus.conf.old-BACKUP0
     cp -v /etc/slackpkg/BACKUP-slackpkgplus.conf.old-BACKUP /etc/slackpkg/slackpkgplus.conf
@@ -451,7 +451,7 @@ if [ ! -e /etc/slackpkg/BACKUP-slackpkgplus.conf.old-BACKUP ] || [ "$RESETSPPLUS
     echo "#PKGS_PRIORITY=( multilib:.* restricted-current:.* alienbob-current:.* )" >> /etc/slackpkg/slackpkgplus.conf
   fi
 
-  if [ "$MULTILIB" = true ] && [ "$(uname -m)" = "x86_64" ]; then
+  if [[ "$MULTILIB" = true ]] && [[ "$(uname -m)" = "x86_64" ]]; then
     if [ "$CURRENT" = true ]; then
       sed -i "s@#MIRRORPLUS\['multilib']=http://taper.alienbase.nl/mirrors/people/alien/multilib/current/@MIRRORPLUS['multilib']=http://taper.alienbase.nl/mirrors/people/alien/multilib/current/@g" \
       /etc/slackpkg/slackpkgplus.conf
@@ -507,7 +507,7 @@ fi
 
 ## this installs all the multilib/compat32 goodies
 ## thanks to eric hameleers
-if [ "$MULTILIB" = true ] && [ "$(uname -m)" = "x86_64" ]; then
+if [[ "$MULTILIB" = true ]] && [[ "$(uname -m)" = "x86_64" ]]; then
   slackpkg_full_upgrade
   slackpkg_update_only
   slackpkg install multilib
@@ -705,7 +705,7 @@ if [ "$MISCELLANY" = true ]; then
   JACK=on no_prompt_sbo_pkg_install_or_upgrade ssr
 
   ## wineing
-  if [ "$MULTILIB" = true ] || [ "$ARCH" = "i486" ]; then
+  if [[ "$MULTILIB" = true ]] || [[ "$ARCH" = "i486" ]]; then
     no_prompt_sbo_pkg_install_or_upgrade webcore-fonts    
     no_prompt_sbo_pkg_install_or_upgrade fontforge   
     no_prompt_sbo_pkg_install_or_upgrade cabextract
