@@ -8,7 +8,7 @@
 ## note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files
-CONFIGOMATICVERSION=6.6.5
+CONFIGOMATICVERSION=6.6.6
 
 
 if [ ! $UID = 0 ]; then
@@ -588,21 +588,29 @@ else
   ###########
   ### dwm ###
   ###########
-  
+
   ## sweet, sweet dwm
   no_prompt_sbo_pkg_install_or_upgrade dwm
   no_prompt_sbo_pkg_install_or_upgrade dmenu
   no_prompt_sbo_pkg_install_or_upgrade trayer-srg
   no_prompt_sbo_pkg_install_or_upgrade tinyterm
-  no_prompt_sbo_pkg_install_or_upgrade qtfm
-  
+
+  ## clean, simple text editor
+  no_prompt_sbo_pkg_install_or_upgrade medit
+
+  ## great lightweight file manager with optional DEPS
+  no_prompt_sbo_pkg_install_or_upgrade libgnomecanvas
+  no_prompt_sbo_pkg_install_or_upgrade zenity
+  no_prompt_sbo_pkg_install_or_upgrade udevil
+  no_prompt_sbo_pkg_install_or_upgrade spacefm
+
   ## my dwm tweaks
   wget -N https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/slackware/xinitrc.dwm \
     -P /etc/X11/xinit/
   chmod 755 /etc/X11/xinit/xinitrc.dwm
   wget -N https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/slackware/dwm-autostart \
     -P /usr/local/etc/
-  
+
   ## make tinyterm the default
   ln -sfv /usr/bin/tinyterm /usr/local/bin/uxterm
   ln -sfv /usr/bin/tinyterm /usr/local/bin/xterm
@@ -780,15 +788,7 @@ if [ "$MISCELLANY" = true ]; then
 
   no_prompt_sbo_pkg_install_or_upgrade dmg2img
 
-  no_prompt_sbo_pkg_install_or_upgrade medit
-
-  no_prompt_sbo_pkg_install_or_upgrade libgnomecanvas
-
-  no_prompt_sbo_pkg_install_or_upgrade zenity
-
-  no_prompt_sbo_pkg_install_or_upgrade udevil
-
-  no_prompt_sbo_pkg_install_or_upgrade spacefm
+  no_prompt_sbo_pkg_install_or_upgrade qtfm
 
   no_prompt_sbo_pkg_install_or_upgrade mirage
 
