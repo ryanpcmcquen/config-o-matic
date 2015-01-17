@@ -109,7 +109,9 @@ slackpkg_update_only() {
 ## a function in a function!
 slackpkg_full_upgrade() {
   slackpkg_update_only
-  slackpkg install-new
+  if [ -e /var/log/packages/xorg-* ]; then
+    slackpkg install-new
+  fi
   slackpkg upgrade-all
 }
 
@@ -241,8 +243,7 @@ if [ -e /etc/lilo.conf ]; then
   ## and have no negative effects on others (in my testing at least)
   sed -i 's/^append=" vt.default_utf8=[0-9]"/append=" vt.default_utf8=1 acpi_osi=linux acpi_backlight=vendor"/g' /etc/lilo.conf
   
-  sed -i 's/^timeout = 50/timeout = 5/g' /etc/lilo.conf
-  sed -i 's/^timeout = 1200/timeout = 5/g' /etc/lilo.conf
+  sed -i 's/^timeout =.*/timeout = 5/g' /etc/lilo.conf
 fi
 
 lilo -v
@@ -261,26 +262,6 @@ sed -i 's/#\[0-9]+_SBo/\
 sbopkg/g' /etc/slackpkg/blacklist
 
 if [[ "$ARCH" != "arm" ]]; then
-  if [ "$CURRENT" = true ]; then
-http://mirrors.vbi.vt.edu/mirrors/linux/slackwarearm/slackwarearm-current/
-  ### undo stable mirrors
-  sed -i \
-    "s_^# http://mirrors.vbi.vt.edu/mirrors/linux/slackwarearm/slackwarearm${DASHSLACKSTAVER}/_http://mirrors.vbi.vt.edu/mirrors/linux/slackwarearm/slackwarearm-current/_g" /etc/slackpkg/mirrors
-  ### do the current
-  sed -i \
-    "s_^# http://mirrors.vbi.vt.edu/mirrors/linux/slackwarearm/slackwarearm-current/_http://mirrors.vbi.vt.edu/mirrors/linux/slackwarearm/slackwarearm-current/_g" /etc/slackpkg/mirrors
-  else
-  ### undo current
-  sed -i \
-    "s_^http://ftp.osuosl.org/.2/slackware/slackware-current/_# http://ftp.osuosl.org/.2/slackware/slackware-current/_g" /etc/slackpkg/mirrors
-  sed -i \
-    "s_^http://ftp.osuosl.org/.2/slackware/slackware64-current/_# http://ftp.osuosl.org/.2/slackware/slackware64-current/_g" /etc/slackpkg/mirrors
-  ### osuosl mirrors are stable and fast (they are used for the changelogs), choose mirrorbrain if you are far from oregon
-  sed -i \
-    "s_^# http://ftp.osuosl.org/.2/slackware/slackware${DASHSLACKSTAVER}/_http://ftp.osuosl.org/.2/slackware/slackware${DASHSLACKSTAVER}/_g" /etc/slackpkg/mirrors
-  sed -i \
-    "s_^# http://ftp.osuosl.org/.2/slackware/slackware64${DASHSLACKSTAVER}/_http://ftp.osuosl.org/.2/slackware/slackware64${DASHSLACKSTAVER}/_g" /etc/slackpkg/mirrors
-  fi
 elif [ "$CURRENT" = true ]; then
   ### undo stable mirrors
   sed -i \
@@ -303,6 +284,27 @@ else
     "s_^# http://ftp.osuosl.org/.2/slackware/slackware${DASHSLACKSTAVER}/_http://ftp.osuosl.org/.2/slackware/slackware${DASHSLACKSTAVER}/_g" /etc/slackpkg/mirrors
   sed -i \
     "s_^# http://ftp.osuosl.org/.2/slackware/slackware64${DASHSLACKSTAVER}/_http://ftp.osuosl.org/.2/slackware/slackware64${DASHSLACKSTAVER}/_g" /etc/slackpkg/mirrors
+
+  if [ "$CURRENT" = true ]; then
+http://mirrors.vbi.vt.edu/mirrors/linux/slackwarearm/slackwarearm-current/
+  ### undo stable mirrors
+  sed -i \
+    "s_^# http://mirrors.vbi.vt.edu/mirrors/linux/slackwarearm/slackwarearm${DASHSLACKSTAVER}/_http://mirrors.vbi.vt.edu/mirrors/linux/slackwarearm/slackwarearm-current/_g" /etc/slackpkg/mirrors
+  ### do the current
+  sed -i \
+    "s_^# http://mirrors.vbi.vt.edu/mirrors/linux/slackwarearm/slackwarearm-current/_http://mirrors.vbi.vt.edu/mirrors/linux/slackwarearm/slackwarearm-current/_g" /etc/slackpkg/mirrors
+  else
+  ### undo current
+  sed -i \
+    "s_^http://ftp.osuosl.org/.2/slackware/slackware-current/_# http://ftp.osuosl.org/.2/slackware/slackware-current/_g" /etc/slackpkg/mirrors
+  sed -i \
+    "s_^http://ftp.osuosl.org/.2/slackware/slackware64-current/_# http://ftp.osuosl.org/.2/slackware/slackware64-current/_g" /etc/slackpkg/mirrors
+  ### osuosl mirrors are stable and fast (they are used for the changelogs), choose mirrorbrain if you are far from oregon
+  sed -i \
+    "s_^# http://ftp.osuosl.org/.2/slackware/slackware${DASHSLACKSTAVER}/_http://ftp.osuosl.org/.2/slackware/slackware${DASHSLACKSTAVER}/_g" /etc/slackpkg/mirrors
+  sed -i \
+    "s_^# http://ftp.osuosl.org/.2/slackware/slackware64${DASHSLACKSTAVER}/_http://ftp.osuosl.org/.2/slackware/slackware64${DASHSLACKSTAVER}/_g" /etc/slackpkg/mirrors
+  fi
 fi
 
 ## set vim as the default editor
