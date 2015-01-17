@@ -8,7 +8,7 @@
 ## note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files
-CONFIGOMATICVERSION=6.6.8
+CONFIGOMATICVERSION=6.6.9
 
 
 if [ ! $UID = 0 ]; then
@@ -765,7 +765,7 @@ if [ "$MISCELLANY" = true ]; then
   no_prompt_sbo_pkg_install_or_upgrade optipng
   no_prompt_sbo_pkg_install_or_upgrade pngquant
   no_prompt_sbo_pkg_install_or_upgrade gifsicle
-  pip install --upgrade scour
+  npm install -g svgo
   ## install the image ultimator now that we have the dependencies
   wget -N \
     https://raw.githubusercontent.com/ryanpcmcquen/image-ultimator/master/imgult -P ~/
