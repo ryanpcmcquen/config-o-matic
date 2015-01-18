@@ -8,7 +8,7 @@
 ## note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files
-CONFIGOMATICVERSION=6.7.2
+CONFIGOMATICVERSION=6.7.3
 
 
 if [ ! $UID = 0 ]; then
@@ -58,7 +58,9 @@ export CALPLAS=${CALPLAS="$(tr -d '\n\r' < ~/caledoniaPlasmaVersion)"}
 export CALWALL=${CALWALL="$(tr -d '\n\r' < ~/caledoniaWallpaperVersion)"}
 
 
-## set config files here:
+## set config files:
+
+## sets ulimit, umask and whatnot
 INSCRPT="https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/slackware/initscript"
 
 BASHRC="https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/slackware/root/.bashrc"
@@ -345,7 +347,7 @@ fi
 ## make compiling faster  ;-)
 if [ -z "$(cat /etc/profile | grep 'MAKEFLAGS')" ]; then
   echo >> /etc/profile
-  echo 'if (( $(nproc) > 2 )); then' >> /etc/profile
+  echo 'if [ "$(nproc)" -gt 2 ]; then' >> /etc/profile
   ## cores--
   echo '  export MAKEFLAGS=" -j$(expr $(nproc) - 1) "' >> /etc/profile
   ## half the cores
