@@ -8,7 +8,7 @@
 ## note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files
-CONFIGOMATICVERSION=6.7.0
+CONFIGOMATICVERSION=6.7.1
 
 
 if [ ! $UID = 0 ]; then
@@ -96,7 +96,7 @@ make_sbo_pkg_upgrade_list() {
 ## the echo p keeps sbopkg from prompting you if something goes wrong
 no_prompt_sbo_pkg_install_or_upgrade() {
   SBO_PACKAGE=$1
-  if [ ! -e /var/log/packages/$SBO_PACKAGE-* ] || [ ! -z "$(cat ~/sbopkg-upgrade-list.txt | grep $SBO_PACKAGE)" ]; then
+  if [ -z "`find /var/log/packages/ -name $SBO_PACKAGE-*`" ] || [ ! -z "$(cat ~/sbopkg-upgrade-list.txt | grep $SBO_PACKAGE)" ]; then
     echo p | sbopkg -B -e continue -i $SBO_PACKAGE
   fi
 }
@@ -109,7 +109,7 @@ slackpkg_update_only() {
 ## a function in a function!
 slackpkg_full_upgrade() {
   slackpkg_update_only
-  if [ -e /var/log/packages/xorg-* ]; then
+  if [ ! -z "`find /var/log/packages/ -name xorg-*`" ]; then
     slackpkg install-new
   fi
   slackpkg upgrade-all
@@ -154,7 +154,7 @@ echo
 ## go!
 
 ## OGCONFIG introduced in 6.6.0
-if [[ -e `find -name ".config-o-matic*" | tail -1` ]] && [[ -z `. $(find -name ".config-o-matic*" | tail -1)` ]]; then
+if [ ! -z `find -name ".config-o-matic*" | tail -1` ] && [ -z `. $(find -name ".config-o-matic*" | tail -1)` ]; then
   read -p "Would you like to use your last CONFIGURATION?  [y/N]: " response
   case $response in
     [yY][eE][sS]|[yY])
@@ -192,7 +192,7 @@ elif [ ! "$OGCONFIG" = true ]; then
       echo You are not installing WICD.;
       ;;
   esac
-  if [[ "$ARCH" != "arm" ]]; then
+  if [ "$ARCH" != "arm" ]; then
     read -p "Would you like to install a bunch of MISCELLANY?  [y/N]: " response
     case $response in
       [yY][eE][sS]|[yY])
@@ -262,7 +262,7 @@ sed -i 's/#\[0-9]+_SBo/\
 sbopkg/g' /etc/slackpkg/blacklist
 
 ## now with arm support! (since 6.7.0)
-if [[ "$ARCH" != "arm" ]]; then
+if [ "$ARCH" != "arm" ]; then
   if [ "$CURRENT" = true ]; then
     ### undo stable mirrors, do current
     if [ "$(uname -m)" = "x86_64" ]; then
@@ -326,8 +326,8 @@ if [ -z "$(cat /etc/profile | grep 'alias ls=')" ]; then
 fi
 
 ## make alsamixer go to the card you actually want to edit  ;-)
-if [[ ! -z "$(aplay -l | grep Analog | grep 'card 1')" ]] \
-  && [[ -z "$(cat /etc/profile | grep 'alias alsamixer=')" ]]; then
+if [ ! -z "$(aplay -l | grep Analog | grep 'card 1')" ] \
+  && [ -z "$(cat /etc/profile | grep 'alias alsamixer=')" ]; then
     echo >> /etc/profile
     echo "alias alsamixer='alsamixer -c 1'" >> /etc/profile
     echo >> /etc/profile
@@ -451,7 +451,7 @@ set_slackpkg_to_auto
 ## to reset run with RESETSPPLUSCONF=y prepended,
 ## adds a bunch of mirrors for slackpkg+, as well as other
 ## settings, to the existing config, so updates are clean
-if [[ ! -e /etc/slackpkg/BACKUP-slackpkgplus.conf.old-BACKUP ]] || [[ "$RESETSPPLUSCONF" = y ]]; then
+if [ ! -e /etc/slackpkg/BACKUP-slackpkgplus.conf.old-BACKUP ] || [ "$RESETSPPLUSCONF" = y ]; then
   if [ "$RESETSPPLUSCONF" = y ]; then
     cp -v /etc/slackpkg/BACKUP-slackpkgplus.conf.old-BACKUP /etc/slackpkg/BACKUP0-slackpkgplus.conf.old-BACKUP0
     cp -v /etc/slackpkg/BACKUP-slackpkgplus.conf.old-BACKUP /etc/slackpkg/slackpkgplus.conf
@@ -475,7 +475,7 @@ if [[ ! -e /etc/slackpkg/BACKUP-slackpkgplus.conf.old-BACKUP ]] || [[ "$RESETSPP
     echo "#PKGS_PRIORITY=( multilib:.* restricted-current:.* alienbob-current:.* )" >> /etc/slackpkg/slackpkgplus.conf
   fi
 
-  if [[ "$MULTILIB" = true ]] && [[ "$(uname -m)" = "x86_64" ]]; then
+  if [ "$MULTILIB" = true ] && [ "$(uname -m)" = "x86_64" ]; then
     if [ "$CURRENT" = true ]; then
       sed -i "s@#MIRRORPLUS\['multilib']=http://taper.alienbase.nl/mirrors/people/alien/multilib/current/@MIRRORPLUS['multilib']=http://taper.alienbase.nl/mirrors/people/alien/multilib/current/@g" \
       /etc/slackpkg/slackpkgplus.conf
@@ -531,7 +531,7 @@ fi
 
 ## this installs all the multilib/compat32 goodies
 ## thanks to eric hameleers
-if [[ "$MULTILIB" = true ]] && [[ "$(uname -m)" = "x86_64" ]]; then
+if [ "$MULTILIB" = true ] && [ "$(uname -m)" = "x86_64" ]; then
   slackpkg_full_upgrade
   slackpkg_update_only
   slackpkg install multilib
@@ -726,7 +726,7 @@ if [ "$MISCELLANY" = true ]; then
   no_prompt_sbo_pkg_install_or_upgrade apulse
 
   ## install ffmpeg from my repo
-  if [ ! -e /var/log/packages/ffmpeg-* ]; then
+  if [ -z "`find /var/log/packages/ -name ffmpeg-*`" ]; then
     cd ~/ryanpc-slackbuilds/unofficial/ffmpeg/
     git pull
     sh ~/ryanpc-slackbuilds/unofficial/ffmpeg/ffmpeg.SlackBuild
@@ -737,7 +737,7 @@ if [ "$MISCELLANY" = true ]; then
   JACK=on no_prompt_sbo_pkg_install_or_upgrade ssr
 
   ## wineing
-  if [[ "$MULTILIB" = true ]] || [[ "$ARCH" = "i486" ]]; then
+  if [ "$MULTILIB" = true ] || [ "$ARCH" = "i486" ]; then
     no_prompt_sbo_pkg_install_or_upgrade webcore-fonts    
     no_prompt_sbo_pkg_install_or_upgrade fontforge   
     no_prompt_sbo_pkg_install_or_upgrade cabextract
@@ -802,7 +802,7 @@ if [ "$MISCELLANY" = true ]; then
   no_prompt_sbo_pkg_install_or_upgrade murrine-themes
 
   ## because QtCurve looks amazing
-  if [ -e /var/log/packages/kdelibs-* ]; then
+  if [ ! -z "`find /var/log/packages/ -name kdelibs-*`" ]; then
     no_prompt_sbo_pkg_install_or_upgrade QtCurve-KDE4
     no_prompt_sbo_pkg_install_or_upgrade kde-gtk-config
   fi
@@ -842,7 +842,7 @@ if [ "$MISCELLANY" = true ]; then
   no_prompt_sbo_pkg_install_or_upgrade mednafen
 
   ## grab latest steam package
-  if [ ! -e /var/log/packages/steamclient-* ]; then
+  if [ -z "`find /var/log/packages/ -name steamclient-*`" ]; then
     rsync -avz rsync://taper.alienbase.nl/mirrors/people/alien/slackbuilds/steamclient/pkg/current/ ~/steamclient/
     mv -v ~/steamclient/*.tgz ~/
     rm -rfv ~/steamclient/
@@ -974,7 +974,7 @@ fi
 ## auto generic-kernel script
 wget -N https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/slackware/switchToGenericKernel.sh -P ~/
 
-if [ -e /var/log/packages/raspi-* ]; then
+if [ ! -z "`find /var/log/packages/ -name raspi-*`" ]; then
   curl -L --output /usr/bin/rpi-update https://raw.githubusercontent.com/Hexxeh/rpi-update/master/rpi-update \
     && chmod +x /usr/bin/rpi-update
 fi
