@@ -97,15 +97,15 @@ if [ -d ~/.lumina ]; then
   curl $LUMINACONF | sh
 fi
 
-if [ -e /var/log/packages/kdelibs-* ]; then
+if [ ! -z "`find /var/log/packages/ -name kdelibs-*`" ]; then
   curl $KDECONF | sh
 fi
 
-if [ -e /var/log/packages/pluma-* ]; then
+if [ ! -z "`find /var/log/packages/ -name pluma-*`" ]; then
   curl $MATECONF | sh
 fi
 
-if [ -e /var/log/packages/Thunar-* ]; then
+if [ ! -z "`find /var/log/packages/ -name Thunar-*`" ]; then
   curl $XFCECONF | sh
 fi
 
