@@ -8,7 +8,7 @@
 ## note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files
-CONFIGOMATICVERSION=6.7.4
+CONFIGOMATICVERSION=6.7.5
 
 
 if [ ! $UID = 0 ]; then
@@ -90,6 +90,10 @@ MINECRAFTDL="https://s3.amazonaws.com/Minecraft.Download/launcher/Minecraft.jar"
 ## eric hameleers has updated multilib to include this package
 #LIBXSHM="libxshmfence-1.1-i486-1.txz"
 
+if [ ! -z "`find /var/log/packages/ -name xorg-*`" ]; then
+  export HEADLESS=no;
+fi
+
 ## my shell functions  ;^)
 make_sbo_pkg_upgrade_list() {
   sbopkg -c > ~/sbopkg-upgrade-list.txt
@@ -111,7 +115,7 @@ slackpkg_update_only() {
 ## a function in a function!
 slackpkg_full_upgrade() {
   slackpkg_update_only
-  if [ ! -z "`find /var/log/packages/ -name xorg-*`" ]; then
+  if [ "$HEADLESS" = "no" ]; then
     slackpkg install-new
   fi
   slackpkg upgrade-all
@@ -611,8 +615,8 @@ sbopkg -B -r
 ## generate a readable list
 make_sbo_pkg_upgrade_list
 
-if [ "$VANILLA" = "yes" ]; then
-  echo "Nice job reading the source."
+if [ "$VANILLA" = "yes" ] || [ "$HEADLESS" != "no" ]; then
+  echo "Headless or source reader?"
 else
   ###########
   ### dwm ###
