@@ -8,7 +8,7 @@
 ## note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files
-CONFIGOMATICVERSION=6.7.5
+CONFIGOMATICVERSION=6.7.6
 
 
 if [ ! $UID = 0 ]; then
@@ -661,7 +661,7 @@ if [ "$MISCELLANY" = true ]; then
   no_prompt_sbo_pkg_install_or_upgrade pip
   pip install --upgrade asciinema
 
-  no_prompt_sbo_pkg_install_or_upgrade node
+  no_prompt_sbo_pkg_install_or_upgrade iojs
 
   ## hydrogen
   no_prompt_sbo_pkg_install_or_upgrade scons
@@ -745,6 +745,8 @@ if [ "$MISCELLANY" = true ]; then
 
   JACK=on no_prompt_sbo_pkg_install_or_upgrade ssr
 
+  no_prompt_sbo_pkg_install_or_upgrade p7zip
+
   ## wineing
   if [ "$MULTILIB" = true ] || [ "$ARCH" = "i486" ]; then
     no_prompt_sbo_pkg_install_or_upgrade webcore-fonts    
@@ -752,8 +754,17 @@ if [ "$MISCELLANY" = true ]; then
     no_prompt_sbo_pkg_install_or_upgrade cabextract
     no_prompt_sbo_pkg_install_or_upgrade wine    
     no_prompt_sbo_pkg_install_or_upgrade winetricks
+    no_prompt_sbo_pkg_install_or_upgrade wxPython
+    no_prompt_sbo_pkg_install_or_upgrade php-imagick
+    no_prompt_sbo_pkg_install_or_upgrade icoutils
+    no_prompt_sbo_pkg_install_or_upgrade playonlinux
   fi
   ##
+
+  ## nostalgic for me
+  no_prompt_sbo_pkg_install_or_upgrade codeblocks
+  no_prompt_sbo_pkg_install_or_upgrade geany
+  no_prompt_sbo_pkg_install_or_upgrade geany-plugins
 
   ## scribus
   ## cppunit breaks podofo on 32-bit
@@ -816,8 +827,6 @@ if [ "$MISCELLANY" = true ]; then
     no_prompt_sbo_pkg_install_or_upgrade kde-gtk-config
   fi
   no_prompt_sbo_pkg_install_or_upgrade QtCurve-Gtk2
-
-  no_prompt_sbo_pkg_install_or_upgrade p7zip
 
   no_prompt_sbo_pkg_install_or_upgrade dmg2img
 
