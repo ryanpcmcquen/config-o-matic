@@ -8,7 +8,7 @@
 ## note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files
-CONFIGOMATICVERSION=6.7.7
+CONFIGOMATICVERSION=6.7.8
 
 
 if [ ! $UID = 0 ]; then
@@ -90,7 +90,7 @@ MINECRAFTDL="https://s3.amazonaws.com/Minecraft.Download/launcher/Minecraft.jar"
 ## eric hameleers has updated multilib to include this package
 #LIBXSHM="libxshmfence-1.1-i486-1.txz"
 
-if [ ! -z "`find /var/log/packages/ -name xorg-*`" ]; then
+if [ "`find /var/log/packages/ -name xorg-*`" ]; then
   export HEADLESS=no;
 fi
 
@@ -102,7 +102,7 @@ make_sbo_pkg_upgrade_list() {
 ## the echo p keeps sbopkg from prompting you if something goes wrong
 no_prompt_sbo_pkg_install_or_upgrade() {
   SBO_PACKAGE=$1
-  if [ -z "`find /var/log/packages/ -name $SBO_PACKAGE-*`" ] || [ ! -z "$(cat ~/sbopkg-upgrade-list.txt | grep $SBO_PACKAGE)" ]; then
+  if [ -z "`find /var/log/packages/ -name $SBO_PACKAGE-*`" ] || [ "$(cat ~/sbopkg-upgrade-list.txt | grep $SBO_PACKAGE)" ]; then
     echo p | sbopkg -B -e continue -i $SBO_PACKAGE
   fi
 }
@@ -160,7 +160,7 @@ echo
 ## go!
 
 ## OGCONFIG introduced in 6.6.0
-if [ ! -z `find -name ".config-o-matic*" | tail -1` ] && [ -z `. $(find -name ".config-o-matic*" | tail -1)` ]; then
+if [ `find -name ".config-o-matic*" | tail -1` ] && [ -z `. $(find -name ".config-o-matic*" | tail -1)` ]; then
   read -p "Would you like to use your last CONFIGURATION?  [y/N]: " response
   case $response in
     [yY][eE][sS]|[yY])
@@ -225,7 +225,7 @@ elif [ ! "$OGCONFIG" = true ]; then
 fi
 
 
-if [ ! -z "$(aplay -l | grep Analog | grep 'card 1')" ]; then
+if [ "$(aplay -l | grep Analog | grep 'card 1')" ]; then
   wget -N $ASOUNDCONF -P /etc/
 fi
 
@@ -249,15 +249,17 @@ if [ -e /etc/lilo.conf ]; then
   ## and have no negative effects on others (in my testing at least)
   sed -i 's/^append=" vt.default_utf8=[0-9]"/append=" vt.default_utf8=1 acpi_osi=linux acpi_backlight=vendor"/g' /etc/lilo.conf
   sed -i 's/^timeout =.*/timeout = 5/g' /etc/lilo.conf
-  ## uncomment all vga settings so
-  ## we don't end up with conflicts
-  sed -i "s_^vga=_#vga=_g" /etc/lilo.conf
-  ## 800x600x256 (so we can see the penguins!)
-  sed -i "s_^#vga=771_vga=771_g" /etc/lilo.conf
+  if [ "$(cat /etc/lilo.conf | grep 'vga=771')" ];
+    ## uncomment all vga settings so
+    ## we don't end up with conflicts
+    sed -i "s_^vga=_#vga=_g" /etc/lilo.conf
+    ## 800x600x256 (so we can see the penguins!)
+    sed -i "s_^#vga=771_vga=771_g" /etc/lilo.conf
+  fi
 fi
 
 ## only run lilo if it exists (arm doesn't have it)
-if [ ! -z "$(which lilo)" ]; then
+if [ "$(which lilo)" ]; then
   lilo -v
 fi
 
@@ -339,7 +341,7 @@ if [ -z "$(cat /etc/profile | grep 'alias ls=')" ]; then
 fi
 
 ## make alsamixer go to the card you actually want to edit  ;-)
-if [ ! -z "$(aplay -l | grep Analog | grep 'card 1')" ] \
+if [ "$(aplay -l | grep Analog | grep 'card 1')" ] \
   && [ -z "$(cat /etc/profile | grep 'alias alsamixer=')" ]; then
     echo >> /etc/profile
     echo "alias alsamixer='alsamixer -c 1'" >> /etc/profile
@@ -829,7 +831,7 @@ if [ "$MISCELLANY" = true ]; then
   no_prompt_sbo_pkg_install_or_upgrade murrine-themes
 
   ## because QtCurve looks amazing
-  if [ ! -z "`find /var/log/packages/ -name kdelibs-*`" ]; then
+  if [ "`find /var/log/packages/ -name kdelibs-*`" ]; then
     no_prompt_sbo_pkg_install_or_upgrade QtCurve-KDE4
     no_prompt_sbo_pkg_install_or_upgrade kde-gtk-config
   fi
@@ -992,14 +994,14 @@ fi
 wget -N $GETJAVA -P ~/
 
 ## bumblebee/nvidia scripts
-if [ ! -z "$(lspci | grep NVIDIA)" ]; then
+if [ "$(lspci | grep NVIDIA)" ]; then
   wget -N https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/slackware/crazybee.sh -P ~/
 fi
 
 ## auto generic-kernel script
 wget -N https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/slackware/switchToGenericKernel.sh -P ~/
 
-if [ ! -z "`find /var/log/packages/ -name raspi-*`" ]; then
+if [ "`find /var/log/packages/ -name raspi-*`" ]; then
   curl -L --output /usr/bin/rpi-update https://raw.githubusercontent.com/Hexxeh/rpi-update/master/rpi-update \
     && chmod +x /usr/bin/rpi-update
 fi
@@ -1023,7 +1025,7 @@ fi
 
 ## let there be sound!
 /etc/rc.d/rc.alsa
-if [ ! -z "$(aplay -l | grep Analog | grep 'card 1')" ]; then
+if [ "$(aplay -l | grep Analog | grep 'card 1')" ]; then
   amixer set -c 1 Master 0% unmute
   amixer set -c 1 Master 95% unmute
   amixer set -c 1 Headphone 0% unmute
