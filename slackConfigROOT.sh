@@ -248,11 +248,18 @@ if [ -e /etc/lilo.conf ]; then
   ## these fix brightness key issues on some comps
   ## and have no negative effects on others (in my testing at least)
   sed -i 's/^append=" vt.default_utf8=[0-9]"/append=" vt.default_utf8=1 acpi_osi=linux acpi_backlight=vendor"/g' /etc/lilo.conf
-  
   sed -i 's/^timeout =.*/timeout = 5/g' /etc/lilo.conf
+  ## uncomment all vga settings so
+  ## we don't end up with conflicts
+  sed -i "s_^vga=_#vga=_g" /etc/lilo.conf
+  ## 800x600x256 (so we can see the penguins!)
+  sed -i "s_^#vga=771_vga=771_g" /etc/lilo.conf
 fi
 
-lilo -v
+## only run lilo if it exists (arm doesn't have it)
+if [ ! -z "$(which lilo)" ]; then
+  lilo -v
+fi
 
 ## change to utf-8 encoding
 sed -i 's/^export LANG=en_US/#export LANG=en_US/g' /etc/profile.d/lang.sh
