@@ -8,7 +8,7 @@
 ## note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files
-CONFIGOMATICVERSION=6.7.8
+CONFIGOMATICVERSION=6.7.9
 
 
 if [ ! $UID = 0 ]; then
@@ -249,7 +249,7 @@ if [ -e /etc/lilo.conf ]; then
   ## and have no negative effects on others (in my testing at least)
   sed -i 's/^append=" vt.default_utf8=[0-9]"/append=" vt.default_utf8=1 acpi_osi=linux acpi_backlight=vendor"/g' /etc/lilo.conf
   sed -i 's/^timeout =.*/timeout = 5/g' /etc/lilo.conf
-  if [ "$(cat /etc/lilo.conf | grep 'vga=771')" ];
+  if [ "$(cat /etc/lilo.conf | grep 'vga=771')" ]; then
     ## uncomment all vga settings so
     ## we don't end up with conflicts
     sed -i "s_^vga=_#vga=_g" /etc/lilo.conf
@@ -1009,9 +1009,9 @@ fi
 ## script to install latest firefox developer edition
 wget -N https://raw.githubusercontent.com/ryanpcmcquen/ryanpc-slackbuilds/master/unofficial/fde/getFDE.sh -P ~/
 
-wget -N https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/slackware/mednafen \
+wget -N https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/slackware/medna \
   -P /usr/local/bin/
-chmod 755 /usr/local/bin/mednafen
+chmod 755 /usr/local/bin/medna
 
 ## used to be end of SCRIPTS
 
