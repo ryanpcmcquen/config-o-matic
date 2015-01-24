@@ -8,7 +8,7 @@
 ## note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files
-CONFIGOMATICVERSION=6.7.9
+CONFIGOMATICVERSION=6.7.10
 
 
 if [ ! $UID = 0 ]; then
@@ -252,7 +252,7 @@ if [ -e /etc/lilo.conf ]; then
   if [ "$(cat /etc/lilo.conf | grep 'vga=771')" ]; then
     ## uncomment all vga settings so
     ## we don't end up with conflicts
-    sed -i "s_^vga=_#vga=_g" /etc/lilo.conf
+    sed -i "s_^vga_#vga_g" /etc/lilo.conf
     ## 800x600x256 (so we can see the penguins!)
     sed -i "s_^#vga=771_vga=771_g" /etc/lilo.conf
   fi
