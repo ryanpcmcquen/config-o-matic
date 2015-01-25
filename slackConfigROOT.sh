@@ -8,7 +8,7 @@
 ## note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files
-CONFIGOMATICVERSION=6.7.10
+CONFIGOMATICVERSION=6.7.11
 
 
 if [ ! $UID = 0 ]; then
@@ -1012,6 +1012,10 @@ wget -N https://raw.githubusercontent.com/ryanpcmcquen/ryanpc-slackbuilds/master
 wget -N https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/slackware/medna \
   -P /usr/local/bin/
 chmod 755 /usr/local/bin/medna
+
+wget -N https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/slackware/sbdl \
+  -P /usr/local/bin/
+chmod 755 /usr/local/bin/sbdl
 
 ## used to be end of SCRIPTS
 
