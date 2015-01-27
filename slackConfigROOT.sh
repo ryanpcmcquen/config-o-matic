@@ -483,6 +483,8 @@ if [ "$ARCH" != "arm" ]; then
     echo >> /etc/slackpkg/slackpkgplus.conf
     echo "#PKGS_PRIORITY=( multilib:.* ktown:.* restricted-current:.* alienbob-current:.* )" >> /etc/slackpkg/slackpkgplus.conf
     echo "#PKGS_PRIORITY=( ktown:.* restricted-current:.* alienbob-current:.* )" >> /etc/slackpkg/slackpkgplus.conf
+    echo "#PKGS_PRIORITY=( multilib:.* ktown-testing:.* restricted-current:.* alienbob-current:.* )" >> /etc/slackpkg/slackpkgplus.conf
+    echo "#PKGS_PRIORITY=( ktown-testing:.* restricted-current:.* alienbob-current:.* )" >> /etc/slackpkg/slackpkgplus.conf
     if [ "$MULTILIB" != true ]; then
       if [ "$CURRENT" = true ]; then
         echo >> /etc/slackpkg/slackpkgplus.conf
@@ -513,6 +515,8 @@ if [ "$ARCH" != "arm" ]; then
     echo "#PKGS_PRIORITY=( multilib:.* alienbob-current:.* )" >> /etc/slackpkg/slackpkgplus.conf
     echo "#PKGS_PRIORITY=( multilib:.* ktown:.* alienbob-current:.* )" >> /etc/slackpkg/slackpkgplus.conf
     echo "#PKGS_PRIORITY=( ktown:.* alienbob-current:.* )" >> /etc/slackpkg/slackpkgplus.conf
+    echo "#PKGS_PRIORITY=( multilib:.* ktown-testing:.* alienbob-current:.* )" >> /etc/slackpkg/slackpkgplus.conf
+    echo "#PKGS_PRIORITY=( ktown-testing:.* alienbob-current:.* )" >> /etc/slackpkg/slackpkgplus.conf
     echo >> /etc/slackpkg/slackpkgplus.conf
     echo "#REPOPLUS=( slackpkgplus restricted alienbob slacky )" >> /etc/slackpkg/slackpkgplus.conf
     echo >> /etc/slackpkg/slackpkgplus.conf
@@ -524,6 +528,7 @@ if [ "$ARCH" != "arm" ]; then
     if [ "$(uname -m)" = "x86_64" ]; then
       echo >> /etc/slackpkg/slackpkgplus.conf
       echo "#MIRRORPLUS['ktown']=http://taper.alienbase.nl/mirrors/alien-kde/current/latest/x86_64/" >> /etc/slackpkg/slackpkgplus.conf
+      echo "#MIRRORPLUS['ktown-testing']=http://taper.alienbase.nl/mirrors/alien-kde/current/testing/x86_64/" >> /etc/slackpkg/slackpkgplus.conf
       if [ "$CURRENT" = true ]; then
         echo "MIRRORPLUS['alienbob-current']=http://taper.alienbase.nl/mirrors/people/alien/sbrepos/current/x86_64/" >> /etc/slackpkg/slackpkgplus.conf
         echo "MIRRORPLUS['restricted-current']=http://taper.alienbase.nl/mirrors/people/alien/restricted_sbrepos/current/x86_64/" >> /etc/slackpkg/slackpkgplus.conf
@@ -535,6 +540,7 @@ if [ "$ARCH" != "arm" ]; then
     else
       echo >> /etc/slackpkg/slackpkgplus.conf
       echo "#MIRRORPLUS['ktown']=http://taper.alienbase.nl/mirrors/alien-kde/current/latest/x86/" >> /etc/slackpkg/slackpkgplus.conf
+      echo "#MIRRORPLUS['ktown-testing']=http://taper.alienbase.nl/mirrors/alien-kde/current/testing/x86/" >> /etc/slackpkg/slackpkgplus.conf
       if [ "$CURRENT" = true ]; then
         echo "MIRRORPLUS['alienbob-current']=http://taper.alienbase.nl/mirrors/people/alien/sbrepos/current/x86/" >> /etc/slackpkg/slackpkgplus.conf
         echo "MIRRORPLUS['restricted-current']=http://taper.alienbase.nl/mirrors/people/alien/restricted_sbrepos/current/x86/" >> /etc/slackpkg/slackpkgplus.conf
@@ -638,7 +644,7 @@ else
   no_prompt_sbo_pkg_install_or_upgrade tinyterm
 
   ## clean, simple text editor
-  no_prompt_sbo_pkg_install_or_upgrade medit
+  no_prompt_sbo_pkg_install_or_upgrade textadept
 
   ## great lightweight file manager with optional DEPS
   no_prompt_sbo_pkg_install_or_upgrade libgnomecanvas
@@ -687,8 +693,9 @@ if [ "$MISCELLANY" = true ]; then
 
   TARGETS=all no_prompt_sbo_pkg_install_or_upgrade qemu
 
-
-  no_prompt_sbo_pkg_install_or_upgrade lua
+  ## more compilers, more fun!
+  no_prompt_sbo_pkg_install_or_upgrade pcc
+  no_prompt_sbo_pkg_install_or_upgrade tcc
 
   no_prompt_sbo_pkg_install_or_upgrade lua
 
