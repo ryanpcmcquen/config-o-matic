@@ -8,7 +8,7 @@
 ## note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files
-CONFIGOMATICVERSION=6.7.11
+CONFIGOMATICVERSION=6.7.12
 
 
 if [ ! $UID = 0 ]; then
@@ -686,6 +686,9 @@ if [ "$MISCELLANY" = true ]; then
   ##
 
   TARGETS=all no_prompt_sbo_pkg_install_or_upgrade qemu
+
+
+  no_prompt_sbo_pkg_install_or_upgrade lua
 
   no_prompt_sbo_pkg_install_or_upgrade lua
 
