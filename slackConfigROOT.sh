@@ -348,15 +348,6 @@ if [ "$(aplay -l | grep Analog | grep 'card 1')" ] \
     echo >> /etc/profile
 fi
 
-## this is good for tmux and for colorization
-if [ -z "$(cat /etc/profile | grep 'TERM=xterm-color')" ]; then
-  echo >> /etc/profile
-  echo 'if [ -n "$DISPLAY" ]; then' >> /etc/profile
-  echo '  export TERM=xterm-color' >> /etc/profile
-  echo 'fi' >> /etc/profile
-  echo >> /etc/profile
-fi
-
 ## make compiling faster  ;-)
 if [ -z "$(cat /etc/profile | grep 'MAKEFLAGS')" ]; then
   echo >> /etc/profile
