@@ -8,7 +8,7 @@
 ## note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files
-CONFIGOMATICVERSION=6.7.12
+CONFIGOMATICVERSION=6.7.13
 
 
 if [ ! $UID = 0 ]; then
@@ -768,10 +768,9 @@ if [ "$MISCELLANY" = true ]; then
 
   ## wineing
   if [ "$MULTILIB" = true ] || [ "$ARCH" = "i486" ]; then
-    no_prompt_sbo_pkg_install_or_upgrade webcore-fonts    
-    no_prompt_sbo_pkg_install_or_upgrade fontforge   
+    no_prompt_sbo_pkg_install_or_upgrade webcore-fonts
     no_prompt_sbo_pkg_install_or_upgrade cabextract
-    no_prompt_sbo_pkg_install_or_upgrade wine    
+    no_prompt_sbo_pkg_install_or_upgrade wine
     no_prompt_sbo_pkg_install_or_upgrade winetricks
     no_prompt_sbo_pkg_install_or_upgrade wxPython
     no_prompt_sbo_pkg_install_or_upgrade php-imagick
