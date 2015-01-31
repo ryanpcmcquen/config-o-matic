@@ -59,8 +59,6 @@ xdg-mime default mozilla-firefox.desktop x-scheme-handler/https
 xdg-mime default mozilla-thunderbird.desktop x-scheme-handler/mailto
 
 gkrellm &
-firefox -silent -setDefaultBrowser &
-
 
 wget -N $BASHRC -P ~/
 wget -N $BASHPR -P ~/
