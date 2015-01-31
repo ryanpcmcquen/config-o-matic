@@ -8,7 +8,7 @@
 ## note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files
-CONFIGOMATICVERSION=6.7.16
+CONFIGOMATICVERSION=6.7.17
 
 
 if [ ! $UID = 0 ]; then
@@ -172,7 +172,8 @@ if [ `find -name ".config-o-matic*" | tail -1` ] && [ -z `. $(find -name ".confi
       echo You want to try something new.;
       ;;
   esac
-elif [ ! "$OGCONFIG" = true ]; then
+fi
+if [ ! "$OGCONFIG" = true ]; then
   read -p "Would you like to switch to -CURRENT? \
    (NO = STABLE) \
    [y/N]: " response
