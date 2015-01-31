@@ -8,7 +8,7 @@
 ## note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files
-CONFIGOMATICVERSION=6.7.15
+CONFIGOMATICVERSION=6.7.16
 
 
 if [ ! $UID = 0 ]; then
@@ -1009,10 +1009,17 @@ fi
 ## script to install latest firefox developer edition
 wget -N https://raw.githubusercontent.com/ryanpcmcquen/ryanpc-slackbuilds/master/unofficial/fde/getFDE.sh -P ~/
 
+## run mednafen with sexyal-literal-default
 wget -N https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/slackware/medna \
   -P /usr/local/bin/
 chmod 755 /usr/local/bin/medna
 
+## fix firefox's endless default browser prompts; also less typing  ;-)
+wget -N https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/ff \
+  -P /usr/local/bin/
+chmod 755 /usr/local/bin/ff
+
+## download all tarballs from SlackBuild .info files
 wget -N https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/slackware/sbdl \
   -P /usr/local/bin/
 chmod 755 /usr/local/bin/sbdl
@@ -1031,22 +1038,22 @@ fi
 /etc/rc.d/rc.alsa
 if [ "$(aplay -l | grep Analog | grep 'card 1')" ]; then
   amixer set -c 1 Master 0% unmute
-  amixer set -c 1 Master 95% unmute
+  amixer set -c 1 Master 97% unmute
   amixer set -c 1 Headphone 0% unmute
-  amixer set -c 1 Headphone 75% unmute
+  amixer set -c 1 Headphone 77% unmute
   amixer set -c 1 PCM 0% unmute
-  amixer set -c 1 PCM 95% unmute
+  amixer set -c 1 PCM 97% unmute
   amixer set -c 1 Mic 0% unmute
   amixer set -c 1 Mic 50% unmute
   amixer set -c 1 Capture 0% cap
   amixer set -c 1 Capture 50% cap
 else
   amixer set Master 0% unmute
-  amixer set Master 95% unmute
+  amixer set Master 97% unmute
   amixer set Headphone 0% unmute
-  amixer set Headphone 75% unmute
+  amixer set Headphone 77% unmute
   amixer set PCM 0% unmute
-  amixer set PCM 95% unmute
+  amixer set PCM 97% unmute
   amixer set Mic 0% unmute
   amixer set Mic 50% unmute
   amixer set Capture 0% cap
