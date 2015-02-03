@@ -8,7 +8,7 @@
 ## note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files
-CONFIGOMATICVERSION=6.7.17
+CONFIGOMATICVERSION=6.7.18
 
 
 if [ ! $UID = 0 ]; then
@@ -564,6 +564,8 @@ slackpkg_full_upgrade
 
 ## mate
 git clone https://github.com/mateslackbuilds/msb.git
+## add a script to build & blacklist everything for msb
+wget -N https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/slackware/checkmate.sh -P ~/msb/
 
 ## slackbook.org
 git clone https://github.com/ryanpcmcquen/slackbook.org.git
