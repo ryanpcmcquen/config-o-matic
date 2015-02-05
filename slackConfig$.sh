@@ -54,6 +54,13 @@ echo
 ## not really necessary, but maybe someday  ;-)
 cd
 
+## fixes some gsettings/dconf/xfconf errors
+DBUS_SESSION_FILE=~/.dbus/session-bus/$(cat /var/lib/dbus/machine-id)-0
+if [ -e "$DBUS_SESSION_FILE" ]; then
+  . "$DBUS_SESSION_FILE"
+  export DBUS_SESSION_BUS_ADDRESS DBUS_SESSION_BUS_PID
+fi
+
 xdg-mime default mozilla-firefox.desktop x-scheme-handler/http
 xdg-mime default mozilla-firefox.desktop x-scheme-handler/https
 xdg-mime default mozilla-thunderbird.desktop x-scheme-handler/mailto
