@@ -8,7 +8,7 @@
 ## note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files
-CONFIGOMATICVERSION=6.7.19
+CONFIGOMATICVERSION=6.7.20
 
 
 if [ ! $UID = 0 ]; then
@@ -422,10 +422,26 @@ if [ "$MULTILIB" = true ]; then
     echo >> /etc/sbopkg/sbopkg.conf
   fi
 fi
-## applies to ssr
+## applies to ssr & audacity
 if [ "$MISCELLANY" = true ]; then
   if [ -z "$(cat /etc/sbopkg/sbopkg.conf | grep JACK)" ]; then
+    echo >> /etc/sbopkg/sbopkg.conf
     echo "export JACK=\${JACK:-on}" >> /etc/sbopkg/sbopkg.conf
+    echo >> /etc/sbopkg/sbopkg.conf
+  fi
+  if [ -z "$(cat /etc/sbopkg/sbopkg.conf | grep FFMPEG)" ]; then
+    echo >> /etc/sbopkg/sbopkg.conf
+    echo "export FFMPEG=\${FFMPEG:-yes}" >> /etc/sbopkg/sbopkg.conf
+    echo >> /etc/sbopkg/sbopkg.conf
+  fi
+  if [ -z "$(cat /etc/sbopkg/sbopkg.conf | grep SOUNDTOUCH)" ]; then
+    echo >> /etc/sbopkg/sbopkg.conf
+    echo "export SOUNDTOUCH=\${SOUNDTOUCH:-yes}" >> /etc/sbopkg/sbopkg.conf
+    echo >> /etc/sbopkg/sbopkg.conf
+  fi
+  if [ -z "$(cat /etc/sbopkg/sbopkg.conf | grep VAMP)" ]; then
+    echo >> /etc/sbopkg/sbopkg.conf
+    echo "export VAMP=\${VAMP:-yes}" >> /etc/sbopkg/sbopkg.conf
     echo >> /etc/sbopkg/sbopkg.conf
   fi
 fi
@@ -778,6 +794,11 @@ if [ "$MISCELLANY" = true ]; then
   no_prompt_sbo_pkg_install_or_upgrade geany
   no_prompt_sbo_pkg_install_or_upgrade geany-plugins
 
+  ## good ol' audacity
+  no_prompt_sbo_pkg_install_or_upgrade soundtouch
+  no_prompt_sbo_pkg_install_or_upgrade vamp-plugin-sdk
+  FFMPEG=yes SOUNDTOUCH=yes VAMP=yes no_prompt_sbo_pkg_install_or_upgrade audacity
+
   ## scribus
   ## cppunit breaks podofo on 32-bit
   #no_prompt_sbo_pkg_install_or_upgrade cppunit
@@ -974,11 +995,15 @@ if [ "$MISCELLANY" = true ]; then
   rm -v numix___name_of_the_doctor___wallpaper_by_satya164-d6hvzh7.zip
 
   cp -v ~/*.png /usr/share/wallpapers/
-  #cp -v ~/*.png /usr/share/backgrounds/
   cp -v ~/*.jpg /usr/share/wallpapers/
-  #cp -v ~/*.jpg /usr/share/backgrounds/
   rm -v ~/*.jpg
   rm -v ~/*.png
+  ## symlink all wallpapers so they show up in other DE's
+  mkdir -pv /usr/share/backgrounds/mate/custom/
+  find /usr/share/wallpapers -type f -a \( -iname '*.jpg' -o -iname '*.jpeg' -o -iname '*.jpe' -o -iname '*.gif' -o -iname '*.png' \) \
+    -exec ln -sfv {} /usr/share/backgrounds/mate/custom/ \;
+  find /usr/share/wallpapers -type f -a \( -iname '*.jpg' -o -iname '*.jpeg' -o -iname '*.jpe' -o -iname '*.gif' -o -iname '*.png' \) \
+    -exec ln -sfv {} /usr/share/backgrounds/xfce/ \;
 else
   echo "You have gone VANILLA."
 fi
