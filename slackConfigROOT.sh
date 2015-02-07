@@ -8,7 +8,7 @@
 ## note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files
-CONFIGOMATICVERSION=6.7.20
+CONFIGOMATICVERSION=6.7.21
 
 
 if [ ! $UID = 0 ]; then
@@ -276,6 +276,11 @@ fi
 sed -i 's/#\[0-9]+_SBo/\
 \[0-9]+_SBo\
 sbopkg/g' /etc/slackpkg/blacklist
+
+if [ -z "$(cat /etc/slackpkg/blacklist | grep jdk)" ]; then
+  echo jdk >> /etc/slackpkg/blacklist
+  echo >> /etc/slackpkg/blacklist
+fi
 
 ## now with arm support! (since 6.7.0)
 if [ "$ARCH" != "arm" ]; then
@@ -900,6 +905,7 @@ if [ "$MISCELLANY" = true ]; then
     upgradepkg --install-new ~/steamclient-*.tgz
     if [ -z "$(cat /etc/slackpkg/blacklist | grep steamclient)" ]; then
       echo steamclient >> /etc/slackpkg/blacklist
+      echo >> /etc/slackpkg/blacklist
     fi
     rm -v ~/steamclient-*.tgz
   fi
