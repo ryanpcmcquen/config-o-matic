@@ -8,7 +8,7 @@
 ## note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files
-CONFIGOMATICVERSION=6.7.21
+CONFIGOMATICVERSION=6.7.22
 
 
 if [ ! $UID = 0 ]; then
@@ -684,14 +684,27 @@ else
   ### end ###
   ### dwm ###
   ###########
+
+  ## these are for the image ultimator
+  no_prompt_sbo_pkg_install_or_upgrade iojs
+  no_prompt_sbo_pkg_install_or_upgrade jpegoptim
+  no_prompt_sbo_pkg_install_or_upgrade mozjpeg
+  no_prompt_sbo_pkg_install_or_upgrade optipng
+  no_prompt_sbo_pkg_install_or_upgrade pngquant
+  no_prompt_sbo_pkg_install_or_upgrade gifsicle
+  npm install -g svgo
+  ## install the image ultimator now that we have the dependencies
+  wget -N \
+    https://raw.githubusercontent.com/ryanpcmcquen/image-ultimator/master/imgult -P ~/
+  install -v -m755 ~/imgult /usr/local/bin/
+  rm -v ~/imgult
+  ## end of imgult stuff
 fi
 
 if [ "$MISCELLANY" = true ]; then
   no_prompt_sbo_pkg_install_or_upgrade pysetuptools
   no_prompt_sbo_pkg_install_or_upgrade pip
   pip install --upgrade asciinema
-
-  no_prompt_sbo_pkg_install_or_upgrade iojs
 
   ## hydrogen
   no_prompt_sbo_pkg_install_or_upgrade scons
@@ -839,20 +852,6 @@ if [ "$MISCELLANY" = true ]; then
   ## librecad
   no_prompt_sbo_pkg_install_or_upgrade muParser
   no_prompt_sbo_pkg_install_or_upgrade librecad
-  ##
-
-  ## these are for the image ultimator
-  no_prompt_sbo_pkg_install_or_upgrade jpegoptim
-  no_prompt_sbo_pkg_install_or_upgrade mozjpeg
-  no_prompt_sbo_pkg_install_or_upgrade optipng
-  no_prompt_sbo_pkg_install_or_upgrade pngquant
-  no_prompt_sbo_pkg_install_or_upgrade gifsicle
-  npm install -g svgo
-  ## install the image ultimator now that we have the dependencies
-  wget -N \
-    https://raw.githubusercontent.com/ryanpcmcquen/image-ultimator/master/imgult -P ~/
-  install -v -m755 ~/imgult /usr/local/bin/
-  rm -v ~/imgult
   ##
 
   no_prompt_sbo_pkg_install_or_upgrade murrine
