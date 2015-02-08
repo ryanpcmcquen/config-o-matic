@@ -8,7 +8,7 @@
 ## note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files
-CONFIGOMATICVERSION=6.7.22
+CONFIGOMATICVERSION=6.7.23
 
 
 if [ ! $UID = 0 ]; then
@@ -1050,7 +1050,8 @@ chmod 755 /usr/local/bin/medna
 ## fix firefox's endless default browser prompts; also less typing  ;-)
 wget -N https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/ff \
   -P /usr/local/bin/
-chmod 755 /usr/local/bin/ff
+cp -v /usr/local/bin/ff /usr/local/bin/firefox
+chmod 755 /usr/local/bin/ff /usr/local/bin/firefox
 
 ## download all tarballs from SlackBuild .info files
 wget -N https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/slackware/sbdl \
