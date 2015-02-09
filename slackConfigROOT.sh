@@ -8,7 +8,7 @@
 ## note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files
-CONFIGOMATICVERSION=6.7.24
+CONFIGOMATICVERSION=6.7.25
 
 
 if [ ! $UID = 0 ]; then
@@ -1033,6 +1033,9 @@ fi
 
 ## auto generic-kernel script
 wget -N https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/slackware/switchToGenericKernel.sh -P ~/
+
+## compile latest mainline/stable/longterm kernel
+wget -N https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/slackware/kernelMe.sh -P /usr/src/
 
 if [ "`find /var/log/packages/ -name raspi-*`" ]; then
   curl -L --output /usr/bin/rpi-update https://raw.githubusercontent.com/Hexxeh/rpi-update/master/rpi-update \
