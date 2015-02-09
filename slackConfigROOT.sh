@@ -8,7 +8,7 @@
 ## note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files
-CONFIGOMATICVERSION=6.7.25
+CONFIGOMATICVERSION=6.7.26
 
 
 if [ ! $UID = 0 ]; then
@@ -267,6 +267,9 @@ fi
 ## change to utf-8 encoding
 sed -i 's/^export LANG=en_US/#export LANG=en_US/g' /etc/profile.d/lang.sh
 sed -i 's/^#export LANG=en_US.UTF-8/export LANG=en_US.UTF-8/g' /etc/profile.d/lang.sh
+## set a utf8 font and other unicode-y stuff
+wget -N https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/slackware/rc.unicodeMagic -P /etc/rc.d/
+chmod 755 /etc/rc.d/rc.unicodeMagic
 
 if [ "$CURRENT" = true ]; then
   ## adjust slackpkg blacklist
