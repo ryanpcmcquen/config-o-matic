@@ -13,6 +13,7 @@ VIMRC="https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/.vimrc"
 VIMCOLOR="https://raw.githubusercontent.com/ryanpcmcquen/vim-plain/master/colors/vi-clone.vim"
 
 FLUXBOXCONF="https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/restoreFluxbox.sh"
+WMAKERCONF="https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/windowmakerSetup.sh"
 PEKWMCONF="https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/pekwmSetup.sh"
 LUMINACONF="https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/luminaSetup.sh"
 
@@ -90,30 +91,42 @@ curl $GKRELLCONF | sh
 
 pkill gkrellm &
 
+## fluxbox
 if [ -d ~/.fluxbox ]; then
   curl $FLUXBOXCONF | sh
 fi
 
+## window maker
+if [ -d ~/GNUstep ]; then
+  curl $WMAKERCONF | sh
+fi
+
+## pekwm
 if [ -d ~/.pekwm ]; then
   curl $PEKWMCONF | sh
 fi
 
+## lumina
 if [ -d ~/.lumina ]; then
   curl $LUMINACONF | sh
 fi
 
+## kde
 if [ "`find /var/log/packages/ -name kdelibs-*`" ]; then
   curl $KDECONF | sh
 fi
 
+## mate
 if [ "`find /var/log/packages/ -name pluma-*`" ]; then
   curl $MATECONF | sh
 fi
 
+## xfce
 if [ "`find /var/log/packages/ -name Thunar-*`" ]; then
   curl $XFCECONF | sh
 fi
 
+## e16
 if [ -d /usr/share/e16 ]; then
   if [ -e ~/.e16/e_config--0.0.cfg ]; then
     if [ -z "$(cat ~/.e16/e_config--0.0.cfg | grep 'focus.all_new_windows_get_focus')" ]; then
@@ -134,6 +147,7 @@ if [ ! -e ~/.icons/default ]; then
   fi
 fi
 
+## fixes kde firefox icon
 rm -v ~/.local/share/applications/userapp-Firefox-*.desktop
 
 echo
