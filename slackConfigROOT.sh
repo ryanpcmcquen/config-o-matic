@@ -8,7 +8,7 @@
 ## note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files
-CONFIGOMATICVERSION=6.7.28
+CONFIGOMATICVERSION=6.7.29
 
 
 if [ ! $UID = 0 ]; then
@@ -583,6 +583,7 @@ if [ "$MULTILIB" = true ] && [ "$(uname -m)" = "x86_64" ]; then
   slackpkg_full_upgrade
   slackpkg_update_only
   slackpkg upgrade multilib
+  slackpkg_update_only
   slackpkg install multilib
   set_slackpkg_to_auto
 
