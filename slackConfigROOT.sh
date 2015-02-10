@@ -8,7 +8,7 @@
 ## note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files
-CONFIGOMATICVERSION=6.7.27
+CONFIGOMATICVERSION=6.7.28
 
 
 if [ ! $UID = 0 ]; then
@@ -270,6 +270,14 @@ sed -i 's/^#export LANG=en_US.UTF-8/export LANG=en_US.UTF-8/g' /etc/profile.d/la
 ## set a utf8 font and other unicode-y stuff
 wget -N https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/slackware/rc.unicodeMagic -P /etc/rc.d/
 chmod 755 /etc/rc.d/rc.unicodeMagic
+## start it!
+/etc/rc.d/rc.unicodeMagic
+## make it start on boot
+if [ -z "$(cat /etc/rc.d/rc.local | grep unicodeMagic)" ]; then
+echo "if [ -x /etc/rc.d/rc.unicodeMagic ]; then
+  /etc/rc.d/rc.unicodeMagic
+fi" >> /etc/rc.d/rc.local
+fi
 
 if [ "$CURRENT" = true ]; then
   ## adjust slackpkg blacklist
@@ -797,6 +805,8 @@ if [ "$MISCELLANY" = true ]; then
   JACK=on no_prompt_sbo_pkg_install_or_upgrade ssr
 
   no_prompt_sbo_pkg_install_or_upgrade p7zip
+  no_prompt_sbo_pkg_install_or_upgrade libmspack
+  no_prompt_sbo_pkg_install_or_upgrade wxPython
 
   ## wineing
   if [ "$MULTILIB" = true ] || [ "$ARCH" = "i486" ]; then
@@ -804,7 +814,6 @@ if [ "$MISCELLANY" = true ]; then
     no_prompt_sbo_pkg_install_or_upgrade cabextract
     no_prompt_sbo_pkg_install_or_upgrade wine
     no_prompt_sbo_pkg_install_or_upgrade winetricks
-    no_prompt_sbo_pkg_install_or_upgrade wxPython
     no_prompt_sbo_pkg_install_or_upgrade php-imagick
     no_prompt_sbo_pkg_install_or_upgrade icoutils
     no_prompt_sbo_pkg_install_or_upgrade playonlinux
