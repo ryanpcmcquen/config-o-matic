@@ -8,7 +8,7 @@
 ## note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files
-CONFIGOMATICVERSION=6.7.29
+CONFIGOMATICVERSION=6.7.30
 
 
 if [ ! $UID = 0 ]; then
@@ -411,6 +411,10 @@ fi
 upgradepkg --install-new ~/*.t?z
 rm -v ~/*.t?z
 
+if [ `find /var/log/packages/ -name slackpkg+*` ]; then
+  export SPPLUSISINSTALLED=true;
+fi
+
 ## use SBo master git branch instead of a specific version
 wget -N https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/slackware/sbo/90-SBo-master.repo \
   -P /etc/sbopkg/repos.d/
@@ -492,105 +496,109 @@ set_slackpkg_to_auto
 ## to reset run with RESETSPPLUSCONF=y prepended,
 ## adds a bunch of mirrors for slackpkg+, as well as other
 ## settings, to the existing config, so updates are clean
-if [ "$ARCH" != "arm" ]; then
-  if [ ! -e /etc/slackpkg/BACKUP-slackpkgplus.conf.old-BACKUP ] || [ "$RESETSPPLUSCONF" = y ]; then
-    if [ "$RESETSPPLUSCONF" = y ]; then
-      cp -v /etc/slackpkg/BACKUP-slackpkgplus.conf.old-BACKUP /etc/slackpkg/BACKUP0-slackpkgplus.conf.old-BACKUP0
-      cp -v /etc/slackpkg/BACKUP-slackpkgplus.conf.old-BACKUP /etc/slackpkg/slackpkgplus.conf
-    fi
-    cp -v /etc/slackpkg/slackpkgplus.conf.new /etc/slackpkg/slackpkgplus.conf
-    cp -v /etc/slackpkg/slackpkgplus.conf /etc/slackpkg/BACKUP-slackpkgplus.conf.old-BACKUP
-    sed -i 's@REPOPLUS=( slackpkgplus restricted alienbob slacky )@#REPOPLUS=( slackpkgplus restricted alienbob slacky )@g' /etc/slackpkg/slackpkgplus.conf
-    sed -i "s@MIRRORPLUS\['slacky'\]@#MIRRORPLUS['slacky']@g" /etc/slackpkg/slackpkgplus.conf
-  
-    echo >> /etc/slackpkg/slackpkgplus.conf
-    echo >> /etc/slackpkg/slackpkgplus.conf
-    echo "#PKGS_PRIORITY=( multilib:.* ktown:.* restricted-current:.* alienbob-current:.* )" >> /etc/slackpkg/slackpkgplus.conf
-    echo "#PKGS_PRIORITY=( ktown:.* restricted-current:.* alienbob-current:.* )" >> /etc/slackpkg/slackpkgplus.conf
-    echo "#PKGS_PRIORITY=( multilib:.* ktown-testing:.* restricted-current:.* alienbob-current:.* )" >> /etc/slackpkg/slackpkgplus.conf
-    echo "#PKGS_PRIORITY=( ktown-testing:.* restricted-current:.* alienbob-current:.* )" >> /etc/slackpkg/slackpkgplus.conf
-    if [ "$MULTILIB" != true ]; then
-      if [ "$CURRENT" = true ]; then
+if [ "$SPPLUSISINSTALLED" = true ]; then
+  if [ "$ARCH" != "arm" ]; then
+    if [ ! -e /etc/slackpkg/BACKUP-slackpkgplus.conf.old-BACKUP ] || [ "$RESETSPPLUSCONF" = y ]; then
+      if [ "$RESETSPPLUSCONF" = y ]; then
+        cp -v /etc/slackpkg/BACKUP-slackpkgplus.conf.old-BACKUP /etc/slackpkg/BACKUP0-slackpkgplus.conf.old-BACKUP0
+        cp -v /etc/slackpkg/BACKUP-slackpkgplus.conf.old-BACKUP /etc/slackpkg/slackpkgplus.conf
+      fi
+      cp -v /etc/slackpkg/slackpkgplus.conf.new /etc/slackpkg/slackpkgplus.conf
+      cp -v /etc/slackpkg/slackpkgplus.conf /etc/slackpkg/BACKUP-slackpkgplus.conf.old-BACKUP
+      sed -i 's@REPOPLUS=( slackpkgplus restricted alienbob slacky )@#REPOPLUS=( slackpkgplus restricted alienbob slacky )@g' /etc/slackpkg/slackpkgplus.conf
+      sed -i "s@MIRRORPLUS\['slacky'\]@#MIRRORPLUS['slacky']@g" /etc/slackpkg/slackpkgplus.conf
+    
+      echo >> /etc/slackpkg/slackpkgplus.conf
+      echo >> /etc/slackpkg/slackpkgplus.conf
+      echo "#PKGS_PRIORITY=( multilib:.* ktown:.* restricted-current:.* alienbob-current:.* )" >> /etc/slackpkg/slackpkgplus.conf
+      echo "#PKGS_PRIORITY=( ktown:.* restricted-current:.* alienbob-current:.* )" >> /etc/slackpkg/slackpkgplus.conf
+      echo "#PKGS_PRIORITY=( multilib:.* ktown-testing:.* restricted-current:.* alienbob-current:.* )" >> /etc/slackpkg/slackpkgplus.conf
+      echo "#PKGS_PRIORITY=( ktown-testing:.* restricted-current:.* alienbob-current:.* )" >> /etc/slackpkg/slackpkgplus.conf
+      if [ "$MULTILIB" != true ]; then
+        if [ "$CURRENT" = true ]; then
+          echo >> /etc/slackpkg/slackpkgplus.conf
+          echo "PKGS_PRIORITY=( restricted-current:.* alienbob-current:.* )" >> /etc/slackpkg/slackpkgplus.conf
+        else
+          echo "#PKGS_PRIORITY=( restricted-current:.* alienbob-current:.* )" >> /etc/slackpkg/slackpkgplus.conf
+        fi
+        echo "#PKGS_PRIORITY=( multilib:.* restricted-current:.* alienbob-current:.* )" >> /etc/slackpkg/slackpkgplus.conf
+      fi
+    
+      if [ "$MULTILIB" = true ] && [ "$(uname -m)" = "x86_64" ]; then
+        if [ "$CURRENT" = true ]; then
+          sed -i "s@#MIRRORPLUS\['multilib']=http://taper.alienbase.nl/mirrors/people/alien/multilib/current/@MIRRORPLUS['multilib']=http://taper.alienbase.nl/mirrors/people/alien/multilib/current/@g" \
+          /etc/slackpkg/slackpkgplus.conf
+          echo >> /etc/slackpkg/slackpkgplus.conf
+          echo "PKGS_PRIORITY=( multilib:.* restricted-current:.* alienbob-current:.* )" >> /etc/slackpkg/slackpkgplus.conf
+        else
+          sed -i "s@#MIRRORPLUS\['multilib']=http://taper.alienbase.nl/mirrors/people/alien/multilib/${SLACKSTAVER}/@MIRRORPLUS['multilib']=http://taper.alienbase.nl/mirrors/people/alien/multilib/${SLACKSTAVER}/@g" \
+          /etc/slackpkg/slackpkgplus.conf
+          echo >> /etc/slackpkg/slackpkgplus.conf
+          echo "PKGS_PRIORITY=( multilib:.* )" >> /etc/slackpkg/slackpkgplus.conf
+        fi
         echo >> /etc/slackpkg/slackpkgplus.conf
-        echo "PKGS_PRIORITY=( restricted-current:.* alienbob-current:.* )" >> /etc/slackpkg/slackpkgplus.conf
-      else
         echo "#PKGS_PRIORITY=( restricted-current:.* alienbob-current:.* )" >> /etc/slackpkg/slackpkgplus.conf
       fi
-      echo "#PKGS_PRIORITY=( multilib:.* restricted-current:.* alienbob-current:.* )" >> /etc/slackpkg/slackpkgplus.conf
-    fi
-  
-    if [ "$MULTILIB" = true ] && [ "$(uname -m)" = "x86_64" ]; then
-      if [ "$CURRENT" = true ]; then
-        sed -i "s@#MIRRORPLUS\['multilib']=http://taper.alienbase.nl/mirrors/people/alien/multilib/current/@MIRRORPLUS['multilib']=http://taper.alienbase.nl/mirrors/people/alien/multilib/current/@g" \
-        /etc/slackpkg/slackpkgplus.conf
-        echo >> /etc/slackpkg/slackpkgplus.conf
-        echo "PKGS_PRIORITY=( multilib:.* restricted-current:.* alienbob-current:.* )" >> /etc/slackpkg/slackpkgplus.conf
-      else
-        sed -i "s@#MIRRORPLUS\['multilib']=http://taper.alienbase.nl/mirrors/people/alien/multilib/${SLACKSTAVER}/@MIRRORPLUS['multilib']=http://taper.alienbase.nl/mirrors/people/alien/multilib/${SLACKSTAVER}/@g" \
-        /etc/slackpkg/slackpkgplus.conf
-        echo >> /etc/slackpkg/slackpkgplus.conf
-        echo "PKGS_PRIORITY=( multilib:.* )" >> /etc/slackpkg/slackpkgplus.conf
-      fi
-      echo >> /etc/slackpkg/slackpkgplus.conf
-      echo "#PKGS_PRIORITY=( restricted-current:.* alienbob-current:.* )" >> /etc/slackpkg/slackpkgplus.conf
-    fi
-  
-    echo >> /etc/slackpkg/slackpkgplus.conf
-    echo "#PKGS_PRIORITY=( multilib:.* alienbob-current:.* )" >> /etc/slackpkg/slackpkgplus.conf
-    echo "#PKGS_PRIORITY=( multilib:.* ktown:.* alienbob-current:.* )" >> /etc/slackpkg/slackpkgplus.conf
-    echo "#PKGS_PRIORITY=( ktown:.* alienbob-current:.* )" >> /etc/slackpkg/slackpkgplus.conf
-    echo "#PKGS_PRIORITY=( multilib:.* ktown-testing:.* alienbob-current:.* )" >> /etc/slackpkg/slackpkgplus.conf
-    echo "#PKGS_PRIORITY=( ktown-testing:.* alienbob-current:.* )" >> /etc/slackpkg/slackpkgplus.conf
-    echo >> /etc/slackpkg/slackpkgplus.conf
-    echo "#REPOPLUS=( slackpkgplus restricted alienbob slacky )" >> /etc/slackpkg/slackpkgplus.conf
-    echo >> /etc/slackpkg/slackpkgplus.conf
-    echo "REPOPLUS=( slackpkgplus restricted alienbob )" >> /etc/slackpkg/slackpkgplus.conf
-    echo >> /etc/slackpkg/slackpkgplus.conf
-    echo "#REPOPLUS=( slackpkgplus alienbob )" >> /etc/slackpkg/slackpkgplus.conf
-    echo >> /etc/slackpkg/slackpkgplus.conf
     
-    if [ "$(uname -m)" = "x86_64" ]; then
       echo >> /etc/slackpkg/slackpkgplus.conf
-      echo "#MIRRORPLUS['ktown']=http://taper.alienbase.nl/mirrors/alien-kde/current/latest/x86_64/" >> /etc/slackpkg/slackpkgplus.conf
-      echo "#MIRRORPLUS['ktown-testing']=http://taper.alienbase.nl/mirrors/alien-kde/current/testing/x86_64/" >> /etc/slackpkg/slackpkgplus.conf
-      if [ "$CURRENT" = true ]; then
-        echo "MIRRORPLUS['alienbob-current']=http://taper.alienbase.nl/mirrors/people/alien/sbrepos/current/x86_64/" >> /etc/slackpkg/slackpkgplus.conf
-        echo "MIRRORPLUS['restricted-current']=http://taper.alienbase.nl/mirrors/people/alien/restricted_sbrepos/current/x86_64/" >> /etc/slackpkg/slackpkgplus.conf
+      echo "#PKGS_PRIORITY=( multilib:.* alienbob-current:.* )" >> /etc/slackpkg/slackpkgplus.conf
+      echo "#PKGS_PRIORITY=( multilib:.* ktown:.* alienbob-current:.* )" >> /etc/slackpkg/slackpkgplus.conf
+      echo "#PKGS_PRIORITY=( ktown:.* alienbob-current:.* )" >> /etc/slackpkg/slackpkgplus.conf
+      echo "#PKGS_PRIORITY=( multilib:.* ktown-testing:.* alienbob-current:.* )" >> /etc/slackpkg/slackpkgplus.conf
+      echo "#PKGS_PRIORITY=( ktown-testing:.* alienbob-current:.* )" >> /etc/slackpkg/slackpkgplus.conf
+      echo >> /etc/slackpkg/slackpkgplus.conf
+      echo "#REPOPLUS=( slackpkgplus restricted alienbob slacky )" >> /etc/slackpkg/slackpkgplus.conf
+      echo >> /etc/slackpkg/slackpkgplus.conf
+      echo "REPOPLUS=( slackpkgplus restricted alienbob )" >> /etc/slackpkg/slackpkgplus.conf
+      echo >> /etc/slackpkg/slackpkgplus.conf
+      echo "#REPOPLUS=( slackpkgplus alienbob )" >> /etc/slackpkg/slackpkgplus.conf
+      echo >> /etc/slackpkg/slackpkgplus.conf
+      
+      if [ "$(uname -m)" = "x86_64" ]; then
+        echo >> /etc/slackpkg/slackpkgplus.conf
+        echo "#MIRRORPLUS['ktown']=http://taper.alienbase.nl/mirrors/alien-kde/current/latest/x86_64/" >> /etc/slackpkg/slackpkgplus.conf
+        echo "#MIRRORPLUS['ktown-testing']=http://taper.alienbase.nl/mirrors/alien-kde/current/testing/x86_64/" >> /etc/slackpkg/slackpkgplus.conf
+        if [ "$CURRENT" = true ]; then
+          echo "MIRRORPLUS['alienbob-current']=http://taper.alienbase.nl/mirrors/people/alien/sbrepos/current/x86_64/" >> /etc/slackpkg/slackpkgplus.conf
+          echo "MIRRORPLUS['restricted-current']=http://taper.alienbase.nl/mirrors/people/alien/restricted_sbrepos/current/x86_64/" >> /etc/slackpkg/slackpkgplus.conf
+        else
+          echo "#MIRRORPLUS['alienbob-current']=http://taper.alienbase.nl/mirrors/people/alien/sbrepos/current/x86_64/" >> /etc/slackpkg/slackpkgplus.conf
+          echo "#MIRRORPLUS['restricted-current']=http://taper.alienbase.nl/mirrors/people/alien/restricted_sbrepos/current/x86_64/" >> /etc/slackpkg/slackpkgplus.conf
+        fi
+        echo >> /etc/slackpkg/slackpkgplus.conf
       else
-        echo "#MIRRORPLUS['alienbob-current']=http://taper.alienbase.nl/mirrors/people/alien/sbrepos/current/x86_64/" >> /etc/slackpkg/slackpkgplus.conf
-        echo "#MIRRORPLUS['restricted-current']=http://taper.alienbase.nl/mirrors/people/alien/restricted_sbrepos/current/x86_64/" >> /etc/slackpkg/slackpkgplus.conf
+        echo >> /etc/slackpkg/slackpkgplus.conf
+        echo "#MIRRORPLUS['ktown']=http://taper.alienbase.nl/mirrors/alien-kde/current/latest/x86/" >> /etc/slackpkg/slackpkgplus.conf
+        echo "#MIRRORPLUS['ktown-testing']=http://taper.alienbase.nl/mirrors/alien-kde/current/testing/x86/" >> /etc/slackpkg/slackpkgplus.conf
+        if [ "$CURRENT" = true ]; then
+          echo "MIRRORPLUS['alienbob-current']=http://taper.alienbase.nl/mirrors/people/alien/sbrepos/current/x86/" >> /etc/slackpkg/slackpkgplus.conf
+          echo "MIRRORPLUS['restricted-current']=http://taper.alienbase.nl/mirrors/people/alien/restricted_sbrepos/current/x86/" >> /etc/slackpkg/slackpkgplus.conf
+        else
+          echo "#MIRRORPLUS['alienbob-current']=http://taper.alienbase.nl/mirrors/people/alien/sbrepos/current/x86/" >> /etc/slackpkg/slackpkgplus.conf
+          echo "#MIRRORPLUS['restricted-current']=http://taper.alienbase.nl/mirrors/people/alien/restricted_sbrepos/current/x86/" >> /etc/slackpkg/slackpkgplus.conf
+        fi
+        echo >> /etc/slackpkg/slackpkgplus.conf
       fi
-      echo >> /etc/slackpkg/slackpkgplus.conf
-    else
-      echo >> /etc/slackpkg/slackpkgplus.conf
-      echo "#MIRRORPLUS['ktown']=http://taper.alienbase.nl/mirrors/alien-kde/current/latest/x86/" >> /etc/slackpkg/slackpkgplus.conf
-      echo "#MIRRORPLUS['ktown-testing']=http://taper.alienbase.nl/mirrors/alien-kde/current/testing/x86/" >> /etc/slackpkg/slackpkgplus.conf
-      if [ "$CURRENT" = true ]; then
-        echo "MIRRORPLUS['alienbob-current']=http://taper.alienbase.nl/mirrors/people/alien/sbrepos/current/x86/" >> /etc/slackpkg/slackpkgplus.conf
-        echo "MIRRORPLUS['restricted-current']=http://taper.alienbase.nl/mirrors/people/alien/restricted_sbrepos/current/x86/" >> /etc/slackpkg/slackpkgplus.conf
-      else
-        echo "#MIRRORPLUS['alienbob-current']=http://taper.alienbase.nl/mirrors/people/alien/sbrepos/current/x86/" >> /etc/slackpkg/slackpkgplus.conf
-        echo "#MIRRORPLUS['restricted-current']=http://taper.alienbase.nl/mirrors/people/alien/restricted_sbrepos/current/x86/" >> /etc/slackpkg/slackpkgplus.conf
-      fi
-      echo >> /etc/slackpkg/slackpkgplus.conf
     fi
   fi
 fi
 
 ## this installs all the multilib/compat32 goodies
 ## thanks to eric hameleers
-if [ "$MULTILIB" = true ] && [ "$(uname -m)" = "x86_64" ]; then
-  slackpkg_full_upgrade
-  slackpkg_update_only
-  slackpkg upgrade multilib
-  slackpkg_update_only
-  slackpkg install multilib
-  set_slackpkg_to_auto
+if [ "$SPPLUSISINSTALLED" = true ]; then
+  if [ "$MULTILIB" = true ] && [ "$(uname -m)" = "x86_64" ]; then
+    slackpkg_full_upgrade
+    slackpkg_update_only
+    slackpkg upgrade multilib
+    slackpkg_update_only
+    slackpkg install multilib
+    set_slackpkg_to_auto
 
-  ## script to set up the environment for compat32 building
-  wget -N https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/slackware/multilib-dev.sh \
-    -P ~/
-  chmod 755 ~/multilib-dev.sh
+    ## script to set up the environment for compat32 building
+    wget -N https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/slackware/multilib-dev.sh \
+      -P ~/
+    chmod 755 ~/multilib-dev.sh
+  fi
 fi
 
 ## this prevents breakage if slackpkg gets updated
@@ -610,45 +618,47 @@ git clone https://github.com/ryanpcmcquen/slackENLIGHTENMENT.git
 ## my slackbuilds
 git clone https://github.com/ryanpcmcquen/ryanpc-slackbuilds.git
 
-if [ "$MISCELLANY" = true ]; then
-  ## set slackpkg to non-interactive mode to run without prompting
-  ## we set again just in case someone overwrites configs
-  set_slackpkg_to_auto
-  slackpkg_update_only
-  slackpkg install vlc chromium
+if [ "$SPPLUSISINSTALLED" = true ]; then
+  if [ "$MISCELLANY" = true ]; then
+    ## set slackpkg to non-interactive mode to run without prompting
+    ## we set again just in case someone overwrites configs
+    set_slackpkg_to_auto
+    slackpkg_update_only
+    slackpkg install vlc chromium
 
-  ## auto-update once a day to keep the doctor away
-  wget -N \
-    https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/slackware/daily-slackup \
-    -P /etc/cron.daily/
-  chmod -v 755 /etc/cron.daily/daily-slackup
+    ## auto-update once a day to keep the doctor away
+    wget -N \
+      https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/slackware/daily-slackup \
+      -P /etc/cron.daily/
+    chmod -v 755 /etc/cron.daily/daily-slackup
 
-  ## grab latest firefox developer edition
-  curl https://raw.githubusercontent.com/ryanpcmcquen/ryanpc-slackbuilds/master/unofficial/fde/getFDE.sh | sh
+    ## grab latest firefox developer edition
+    curl https://raw.githubusercontent.com/ryanpcmcquen/ryanpc-slackbuilds/master/unofficial/fde/getFDE.sh | sh
 
-  ## eric hameleers has updated multilib to include this package
-  #  if [ "$(uname -m)" = "x86_64" ]; then
-  #    wget -N http://mirrors.slackware.com/slackware/slackware-current/slackware/x/$LIBXSHM -P ~/
-  #    upgradepkg --install-new ~/$LIBXSHM
-  #    rm ~/$LIBXSHM
-  #    slackpkg blacklist libxshmfence
-  #  fi
+    ## eric hameleers has updated multilib to include this package
+    #  if [ "$(uname -m)" = "x86_64" ]; then
+    #    wget -N http://mirrors.slackware.com/slackware/slackware-current/slackware/x/$LIBXSHM -P ~/
+    #    upgradepkg --install-new ~/$LIBXSHM
+    #    rm ~/$LIBXSHM
+    #    slackpkg blacklist libxshmfence
+    #  fi
 
-  ## set up ntp daemon (the good way)
-  if [ -x /etc/rc.d/rc.ntpd ]; then
-    /etc/rc.d/rc.ntpd stop
+    ## set up ntp daemon (the good way)
+    if [ -x /etc/rc.d/rc.ntpd ]; then
+      /etc/rc.d/rc.ntpd stop
+    fi
+    ntpdate 0.pool.ntp.org
+    ntpdate 1.pool.ntp.org
+    hwclock --systohc
+    sed -i 's/#server pool.ntp.org iburst / \
+    server 0.pool.ntp.org iburst \
+    server 1.pool.ntp.org iburst \
+    server 2.pool.ntp.org iburst \
+    server 3.pool.ntp.org iburst \
+    /g' /etc/ntp.conf
+    chmod -v +x /etc/rc.d/rc.ntpd
+    /etc/rc.d/rc.ntpd start
   fi
-  ntpdate 0.pool.ntp.org
-  ntpdate 1.pool.ntp.org
-  hwclock --systohc
-  sed -i 's/#server pool.ntp.org iburst / \
-  server 0.pool.ntp.org iburst \
-  server 1.pool.ntp.org iburst \
-  server 2.pool.ntp.org iburst \
-  server 3.pool.ntp.org iburst \
-  /g' /etc/ntp.conf
-  chmod -v +x /etc/rc.d/rc.ntpd
-  /etc/rc.d/rc.ntpd start
 fi
 
 ## check for sbopkg update,
@@ -658,7 +668,7 @@ sbopkg -B -r
 ## generate a readable list
 make_sbo_pkg_upgrade_list
 
-if [ "$VANILLA" = "yes" ] || [ "$HEADLESS" != "no" ]; then
+if [ "$VANILLA" = "yes" ] || [ "$HEADLESS" != "no" ] || [ "$SPPLUSISINSTALLED" != true ]; then
   echo "Headless or source reader?"
 else
   ###########
@@ -714,317 +724,319 @@ else
   ## end of imgult stuff
 fi
 
-if [ "$MISCELLANY" = true ]; then
-  no_prompt_sbo_pkg_install_or_upgrade pysetuptools
-  no_prompt_sbo_pkg_install_or_upgrade pip
-  pip install --upgrade asciinema
+if [ "$SPPLUSISINSTALLED" = true ]; then
+  if [ "$MISCELLANY" = true ]; then
+    no_prompt_sbo_pkg_install_or_upgrade pysetuptools
+    no_prompt_sbo_pkg_install_or_upgrade pip
+    pip install --upgrade asciinema
 
-  ## hydrogen
-  no_prompt_sbo_pkg_install_or_upgrade scons
-  ## no longer a dependency
-  #no_prompt_sbo_pkg_install_or_upgrade libtar
-  no_prompt_sbo_pkg_install_or_upgrade ladspa_sdk
-  no_prompt_sbo_pkg_install_or_upgrade liblrdf
-  ## celt is broken
-  #no_prompt_sbo_pkg_install_or_upgrade celt
-  no_prompt_sbo_pkg_install_or_upgrade jack-audio-connection-kit
-  no_prompt_sbo_pkg_install_or_upgrade lash
-  no_prompt_sbo_pkg_install_or_upgrade hydrogen
-  ##
+    ## hydrogen
+    no_prompt_sbo_pkg_install_or_upgrade scons
+    ## no longer a dependency
+    #no_prompt_sbo_pkg_install_or_upgrade libtar
+    no_prompt_sbo_pkg_install_or_upgrade ladspa_sdk
+    no_prompt_sbo_pkg_install_or_upgrade liblrdf
+    ## celt is broken
+    #no_prompt_sbo_pkg_install_or_upgrade celt
+    no_prompt_sbo_pkg_install_or_upgrade jack-audio-connection-kit
+    no_prompt_sbo_pkg_install_or_upgrade lash
+    no_prompt_sbo_pkg_install_or_upgrade hydrogen
+    ##
 
-  TARGETS=all no_prompt_sbo_pkg_install_or_upgrade qemu
+    TARGETS=all no_prompt_sbo_pkg_install_or_upgrade qemu
 
-  ## more compilers, more fun!
-  no_prompt_sbo_pkg_install_or_upgrade pcc
-  no_prompt_sbo_pkg_install_or_upgrade tcc
+    ## more compilers, more fun!
+    no_prompt_sbo_pkg_install_or_upgrade pcc
+    no_prompt_sbo_pkg_install_or_upgrade tcc
 
-  no_prompt_sbo_pkg_install_or_upgrade lua
+    no_prompt_sbo_pkg_install_or_upgrade lua
 
-  no_prompt_sbo_pkg_install_or_upgrade luajit
+    no_prompt_sbo_pkg_install_or_upgrade luajit
 
-  no_prompt_sbo_pkg_install_or_upgrade bullet
+    no_prompt_sbo_pkg_install_or_upgrade bullet
 
-  no_prompt_sbo_pkg_install_or_upgrade libwebp
+    no_prompt_sbo_pkg_install_or_upgrade libwebp
 
-  no_prompt_sbo_pkg_install_or_upgrade orc
+    no_prompt_sbo_pkg_install_or_upgrade orc
 
-  no_prompt_sbo_pkg_install_or_upgrade gstreamer1
+    no_prompt_sbo_pkg_install_or_upgrade gstreamer1
 
-  no_prompt_sbo_pkg_install_or_upgrade gst1-plugins-base
+    no_prompt_sbo_pkg_install_or_upgrade gst1-plugins-base
 
-  ## e16, so tiny!
-  no_prompt_sbo_pkg_install_or_upgrade imlib2
-  no_prompt_sbo_pkg_install_or_upgrade giblib
-  no_prompt_sbo_pkg_install_or_upgrade e16
-  no_prompt_sbo_pkg_install_or_upgrade gmrun
+    ## e16, so tiny!
+    no_prompt_sbo_pkg_install_or_upgrade imlib2
+    no_prompt_sbo_pkg_install_or_upgrade giblib
+    no_prompt_sbo_pkg_install_or_upgrade e16
+    no_prompt_sbo_pkg_install_or_upgrade gmrun
 
-  ## pekwm! (is broken on -current)
-  #no_prompt_sbo_pkg_install_or_upgrade pekwm
+    ## pekwm! (is broken on -current)
+    #no_prompt_sbo_pkg_install_or_upgrade pekwm
 
-  ## lumina!
-  no_prompt_sbo_pkg_install_or_upgrade lumina
+    ## lumina!
+    no_prompt_sbo_pkg_install_or_upgrade lumina
 
-  if [ -z "$(cat /usr/share/e16/config/bindings.cfg | grep gmrun)" ]; then
-    echo >> /usr/share/e16/config/bindings.cfg
-    echo "## my bindings" >> /usr/share/e16/config/bindings.cfg
-    echo "KeyDown   A    Escape exec gmrun" >> /usr/share/e16/config/bindings.cfg
-    echo >> /usr/share/e16/config/bindings.cfg
-  fi
-
-  no_prompt_sbo_pkg_install_or_upgrade scrot
-
-  no_prompt_sbo_pkg_install_or_upgrade screenfetch
-
-  ## this library is necessary for some games,
-  ## doesn't hurt to have it  ; ^)
-  no_prompt_sbo_pkg_install_or_upgrade libtxc_dxtn
-
-  no_prompt_sbo_pkg_install_or_upgrade lame
-
-  no_prompt_sbo_pkg_install_or_upgrade x264
-
-  no_prompt_sbo_pkg_install_or_upgrade OpenAL
-
-  no_prompt_sbo_pkg_install_or_upgrade SDL_gfx
-
-  no_prompt_sbo_pkg_install_or_upgrade SDL_sound
-
-  no_prompt_sbo_pkg_install_or_upgrade speex
-  ## script now detects multilib,
-  ## thanks to b. watson
-  no_prompt_sbo_pkg_install_or_upgrade apulse
-
-  ## install ffmpeg from my repo
-  if [ -z "`find /var/log/packages/ -name ffmpeg-*`" ]; then
-    cd ~/ryanpc-slackbuilds/unofficial/ffmpeg/
-    git pull
-    sh ~/ryanpc-slackbuilds/unofficial/ffmpeg/ffmpeg.SlackBuild
-    ls -t --color=never /tmp/ffmpeg-*_SBo.tgz | head -1 | xargs -i upgradepkg --install-new {}
-    cd
-  fi
-
-  JACK=on no_prompt_sbo_pkg_install_or_upgrade ssr
-
-  no_prompt_sbo_pkg_install_or_upgrade p7zip
-  no_prompt_sbo_pkg_install_or_upgrade libmspack
-  no_prompt_sbo_pkg_install_or_upgrade wxPython
-
-  ## wineing
-  if [ "$MULTILIB" = true ] || [ "$ARCH" = "i486" ]; then
-    no_prompt_sbo_pkg_install_or_upgrade webcore-fonts
-    no_prompt_sbo_pkg_install_or_upgrade cabextract
-    no_prompt_sbo_pkg_install_or_upgrade wine
-    no_prompt_sbo_pkg_install_or_upgrade winetricks
-    no_prompt_sbo_pkg_install_or_upgrade php-imagick
-    no_prompt_sbo_pkg_install_or_upgrade icoutils
-    no_prompt_sbo_pkg_install_or_upgrade playonlinux
-  fi
-  ##
-
-  ## nostalgic for me
-  no_prompt_sbo_pkg_install_or_upgrade codeblocks
-  no_prompt_sbo_pkg_install_or_upgrade geany
-  no_prompt_sbo_pkg_install_or_upgrade geany-plugins
-
-  ## good ol' audacity
-  no_prompt_sbo_pkg_install_or_upgrade soundtouch
-  no_prompt_sbo_pkg_install_or_upgrade vamp-plugin-sdk
-  FFMPEG=yes SOUNDTOUCH=yes VAMP=yes no_prompt_sbo_pkg_install_or_upgrade audacity
-
-  ## scribus
-  ## cppunit breaks podofo on 32-bit
-  #no_prompt_sbo_pkg_install_or_upgrade cppunit
-  no_prompt_sbo_pkg_install_or_upgrade podofo
-  no_prompt_sbo_pkg_install_or_upgrade scribus
-  ##
-
-  ## inkscape
-  no_prompt_sbo_pkg_install_or_upgrade gts
-  no_prompt_sbo_pkg_install_or_upgrade graphviz
-  no_prompt_sbo_pkg_install_or_upgrade libwpg
-  no_prompt_sbo_pkg_install_or_upgrade numpy
-  no_prompt_sbo_pkg_install_or_upgrade BeautifulSoup
-  no_prompt_sbo_pkg_install_or_upgrade lxml
-  no_prompt_sbo_pkg_install_or_upgrade libsigc++
-  no_prompt_sbo_pkg_install_or_upgrade glibmm
-  no_prompt_sbo_pkg_install_or_upgrade cairomm
-  no_prompt_sbo_pkg_install_or_upgrade pangomm
-  no_prompt_sbo_pkg_install_or_upgrade atkmm
-  no_prompt_sbo_pkg_install_or_upgrade mm-common
-  no_prompt_sbo_pkg_install_or_upgrade gtkmm
-  no_prompt_sbo_pkg_install_or_upgrade gsl
-  no_prompt_sbo_pkg_install_or_upgrade inkscape
-  ##
-
-  no_prompt_sbo_pkg_install_or_upgrade libreoffice
-
-  ## android stuff!
-  no_prompt_sbo_pkg_install_or_upgrade gmtp
-  no_prompt_sbo_pkg_install_or_upgrade android-tools
-  no_prompt_sbo_pkg_install_or_upgrade android-studio
-
-  ## librecad
-  no_prompt_sbo_pkg_install_or_upgrade muParser
-  no_prompt_sbo_pkg_install_or_upgrade librecad
-  ##
-
-  no_prompt_sbo_pkg_install_or_upgrade murrine
-
-  no_prompt_sbo_pkg_install_or_upgrade murrine-themes
-
-  ## because QtCurve looks amazing
-  if [ "`find /var/log/packages/ -name kdelibs-*`" ]; then
-    no_prompt_sbo_pkg_install_or_upgrade QtCurve-KDE4
-    no_prompt_sbo_pkg_install_or_upgrade kde-gtk-config
-  fi
-  no_prompt_sbo_pkg_install_or_upgrade QtCurve-Gtk2
-
-  no_prompt_sbo_pkg_install_or_upgrade dmg2img
-
-  no_prompt_sbo_pkg_install_or_upgrade qtfm
-
-  no_prompt_sbo_pkg_install_or_upgrade mirage
-
-  no_prompt_sbo_pkg_install_or_upgrade copy
-
-  if [ "$(uname -m)" = "x86_64" ]; then
-    no_prompt_sbo_pkg_install_or_upgrade spotify64
-  else
-    no_prompt_sbo_pkg_install_or_upgrade spotify32
-  fi
-
-  no_prompt_sbo_pkg_install_or_upgrade tiled-qt
-
-  no_prompt_sbo_pkg_install_or_upgrade google-webdesigner
-
-  ## lutris
-  ## recommended
-  no_prompt_sbo_pkg_install_or_upgrade eawpats
-  no_prompt_sbo_pkg_install_or_upgrade allegro
-  ## required
-  no_prompt_sbo_pkg_install_or_upgrade pyxdg
-  no_prompt_sbo_pkg_install_or_upgrade PyYAML
-  no_prompt_sbo_pkg_install_or_upgrade pygobject3
-  no_prompt_sbo_pkg_install_or_upgrade lutris
-
-  no_prompt_sbo_pkg_install_or_upgrade higan
-  no_prompt_sbo_pkg_install_or_upgrade mednafen
-
-  ## grab latest steam package
-  if [ -z "`find /var/log/packages/ -name steamclient-*`" ]; then
-    rsync -avz rsync://taper.alienbase.nl/mirrors/people/alien/slackbuilds/steamclient/pkg/current/ ~/steamclient/
-    mv -v ~/steamclient/*.tgz ~/
-    rm -rfv ~/steamclient/
-    upgradepkg --install-new ~/steamclient-*.tgz
-    if [ -z "$(cat /etc/slackpkg/blacklist | grep steamclient)" ]; then
-      echo steamclient >> /etc/slackpkg/blacklist
-      echo >> /etc/slackpkg/blacklist
+    if [ -z "$(cat /usr/share/e16/config/bindings.cfg | grep gmrun)" ]; then
+      echo >> /usr/share/e16/config/bindings.cfg
+      echo "## my bindings" >> /usr/share/e16/config/bindings.cfg
+      echo "KeyDown   A    Escape exec gmrun" >> /usr/share/e16/config/bindings.cfg
+      echo >> /usr/share/e16/config/bindings.cfg
     fi
-    rm -v ~/steamclient-*.tgz
-  fi
 
-  if [ "$(uname -m)" = "x86_64" ]; then
-    wget -N http://www.desura.com/desura-x86_64.tar.gz \
-      -P /opt/
+    no_prompt_sbo_pkg_install_or_upgrade scrot
+
+    no_prompt_sbo_pkg_install_or_upgrade screenfetch
+
+    ## this library is necessary for some games,
+    ## doesn't hurt to have it  ; ^)
+    no_prompt_sbo_pkg_install_or_upgrade libtxc_dxtn
+
+    no_prompt_sbo_pkg_install_or_upgrade lame
+
+    no_prompt_sbo_pkg_install_or_upgrade x264
+
+    no_prompt_sbo_pkg_install_or_upgrade OpenAL
+
+    no_prompt_sbo_pkg_install_or_upgrade SDL_gfx
+
+    no_prompt_sbo_pkg_install_or_upgrade SDL_sound
+
+    no_prompt_sbo_pkg_install_or_upgrade speex
+    ## script now detects multilib,
+    ## thanks to b. watson
+    no_prompt_sbo_pkg_install_or_upgrade apulse
+
+    ## install ffmpeg from my repo
+    if [ -z "`find /var/log/packages/ -name ffmpeg-*`" ]; then
+      cd ~/ryanpc-slackbuilds/unofficial/ffmpeg/
+      git pull
+      sh ~/ryanpc-slackbuilds/unofficial/ffmpeg/ffmpeg.SlackBuild
+      ls -t --color=never /tmp/ffmpeg-*_SBo.tgz | head -1 | xargs -i upgradepkg --install-new {}
+      cd
+    fi
+
+    JACK=on no_prompt_sbo_pkg_install_or_upgrade ssr
+
+    no_prompt_sbo_pkg_install_or_upgrade p7zip
+    no_prompt_sbo_pkg_install_or_upgrade libmspack
+    no_prompt_sbo_pkg_install_or_upgrade wxPython
+
+    ## wineing
+    if [ "$MULTILIB" = true ] || [ "$ARCH" = "i486" ]; then
+      no_prompt_sbo_pkg_install_or_upgrade webcore-fonts
+      no_prompt_sbo_pkg_install_or_upgrade cabextract
+      no_prompt_sbo_pkg_install_or_upgrade wine
+      no_prompt_sbo_pkg_install_or_upgrade winetricks
+      no_prompt_sbo_pkg_install_or_upgrade php-imagick
+      no_prompt_sbo_pkg_install_or_upgrade icoutils
+      no_prompt_sbo_pkg_install_or_upgrade playonlinux
+    fi
+    ##
+
+    ## nostalgic for me
+    no_prompt_sbo_pkg_install_or_upgrade codeblocks
+    no_prompt_sbo_pkg_install_or_upgrade geany
+    no_prompt_sbo_pkg_install_or_upgrade geany-plugins
+
+    ## good ol' audacity
+    no_prompt_sbo_pkg_install_or_upgrade soundtouch
+    no_prompt_sbo_pkg_install_or_upgrade vamp-plugin-sdk
+    FFMPEG=yes SOUNDTOUCH=yes VAMP=yes no_prompt_sbo_pkg_install_or_upgrade audacity
+
+    ## scribus
+    ## cppunit breaks podofo on 32-bit
+    #no_prompt_sbo_pkg_install_or_upgrade cppunit
+    no_prompt_sbo_pkg_install_or_upgrade podofo
+    no_prompt_sbo_pkg_install_or_upgrade scribus
+    ##
+
+    ## inkscape
+    no_prompt_sbo_pkg_install_or_upgrade gts
+    no_prompt_sbo_pkg_install_or_upgrade graphviz
+    no_prompt_sbo_pkg_install_or_upgrade libwpg
+    no_prompt_sbo_pkg_install_or_upgrade numpy
+    no_prompt_sbo_pkg_install_or_upgrade BeautifulSoup
+    no_prompt_sbo_pkg_install_or_upgrade lxml
+    no_prompt_sbo_pkg_install_or_upgrade libsigc++
+    no_prompt_sbo_pkg_install_or_upgrade glibmm
+    no_prompt_sbo_pkg_install_or_upgrade cairomm
+    no_prompt_sbo_pkg_install_or_upgrade pangomm
+    no_prompt_sbo_pkg_install_or_upgrade atkmm
+    no_prompt_sbo_pkg_install_or_upgrade mm-common
+    no_prompt_sbo_pkg_install_or_upgrade gtkmm
+    no_prompt_sbo_pkg_install_or_upgrade gsl
+    no_prompt_sbo_pkg_install_or_upgrade inkscape
+    ##
+
+    no_prompt_sbo_pkg_install_or_upgrade libreoffice
+
+    ## android stuff!
+    no_prompt_sbo_pkg_install_or_upgrade gmtp
+    no_prompt_sbo_pkg_install_or_upgrade android-tools
+    no_prompt_sbo_pkg_install_or_upgrade android-studio
+
+    ## librecad
+    no_prompt_sbo_pkg_install_or_upgrade muParser
+    no_prompt_sbo_pkg_install_or_upgrade librecad
+    ##
+
+    no_prompt_sbo_pkg_install_or_upgrade murrine
+
+    no_prompt_sbo_pkg_install_or_upgrade murrine-themes
+
+    ## because QtCurve looks amazing
+    if [ "`find /var/log/packages/ -name kdelibs-*`" ]; then
+      no_prompt_sbo_pkg_install_or_upgrade QtCurve-KDE4
+      no_prompt_sbo_pkg_install_or_upgrade kde-gtk-config
+    fi
+    no_prompt_sbo_pkg_install_or_upgrade QtCurve-Gtk2
+
+    no_prompt_sbo_pkg_install_or_upgrade dmg2img
+
+    no_prompt_sbo_pkg_install_or_upgrade qtfm
+
+    no_prompt_sbo_pkg_install_or_upgrade mirage
+
+    no_prompt_sbo_pkg_install_or_upgrade copy
+
+    if [ "$(uname -m)" = "x86_64" ]; then
+      no_prompt_sbo_pkg_install_or_upgrade spotify64
+    else
+      no_prompt_sbo_pkg_install_or_upgrade spotify32
+    fi
+
+    no_prompt_sbo_pkg_install_or_upgrade tiled-qt
+
+    no_prompt_sbo_pkg_install_or_upgrade google-webdesigner
+
+    ## lutris
+    ## recommended
+    no_prompt_sbo_pkg_install_or_upgrade eawpats
+    no_prompt_sbo_pkg_install_or_upgrade allegro
+    ## required
+    no_prompt_sbo_pkg_install_or_upgrade pyxdg
+    no_prompt_sbo_pkg_install_or_upgrade PyYAML
+    no_prompt_sbo_pkg_install_or_upgrade pygobject3
+    no_prompt_sbo_pkg_install_or_upgrade lutris
+
+    no_prompt_sbo_pkg_install_or_upgrade higan
+    no_prompt_sbo_pkg_install_or_upgrade mednafen
+
+    ## grab latest steam package
+    if [ -z "`find /var/log/packages/ -name steamclient-*`" ]; then
+      rsync -avz rsync://taper.alienbase.nl/mirrors/people/alien/slackbuilds/steamclient/pkg/current/ ~/steamclient/
+      mv -v ~/steamclient/*.tgz ~/
+      rm -rfv ~/steamclient/
+      upgradepkg --install-new ~/steamclient-*.tgz
+      if [ -z "$(cat /etc/slackpkg/blacklist | grep steamclient)" ]; then
+        echo steamclient >> /etc/slackpkg/blacklist
+        echo >> /etc/slackpkg/blacklist
+      fi
+      rm -v ~/steamclient-*.tgz
+    fi
+
+    if [ "$(uname -m)" = "x86_64" ]; then
+      wget -N http://www.desura.com/desura-x86_64.tar.gz \
+        -P /opt/
+    else
+      wget -N http://www.desura.com/desura-x86_64.tar.gz \
+        -P /opt/
+    fi
+    tar xvf /opt/desura-*.tar.gz -C /opt/
+    rm -v /opt/desura-*.tar.gz
+    ln -sfv /opt/desura/desura /usr/local/bin/
+
+    ## minecraft!!
+    mkdir -pv /opt/minecraft/
+    wget -N $MINECRAFTDL -P /opt/minecraft/
+    wget -N https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/minecraft -P /usr/local/bin/
+    chmod 755 /usr/local/bin/minecraft
+
+    curl $GETJAVA | sh
+
+    ## numix stuff is dead sexy
+    git clone https://github.com/numixproject/numix-icon-theme.git
+    rm -rfv /usr/share/icons/Numix/
+    mv -v ./numix-icon-theme/Numix/ /usr/share/icons/
+    rm -rfv ./numix-icon-theme/
+
+    git clone https://github.com/numixproject/numix-icon-theme-bevel.git
+    rm -rfv /usr/share/icons/Numix-Bevel/
+    mv -v ./numix-icon-theme-bevel/Numix-Bevel/ /usr/share/icons/
+    rm -rfv ./numix-icon-theme-bevel/
+
+    git clone https://github.com/numixproject/numix-icon-theme-circle.git
+    rm -rfv /usr/share/icons/Numix-Circle/
+    mv -v ./numix-icon-theme-circle/Numix-Circle/ /usr/share/icons/
+    cp -rv /usr/share/icons/Numix-Circle/* /usr/share/icons/Adwaita/
+    rm -rfv ./numix-icon-theme-circle/
+
+    git clone https://github.com/numixproject/numix-icon-theme-shine.git
+    rm -rfv /usr/share/icons/Numix-Shine/
+    mv -v ./numix-icon-theme-shine/Numix-Shine/ /usr/share/icons/
+    rm -rfv ./numix-icon-theme-shine/
+
+    git clone https://github.com/numixproject/numix-icon-theme-utouch.git
+    rm -rfv /usr/share/icons/Numix-uTouch/
+    mv -v ./numix-icon-theme-utouch/Numix-uTouch/ /usr/share/icons/
+    rm -rfv ./numix-icon-theme-utouch/
+
+    git clone https://github.com/shimmerproject/Numix.git
+    rm -rfv /usr/share/themes/Numix/
+    mv -v ./Numix/ /usr/share/themes/
+    rm -rfv ./Numix/
+
+    wget -N \
+      https://raw.githubusercontent.com/numixproject/numix-kde-theme/master/Numix.colors -P /usr/share/apps/color-schemes/
+    mv -v /usr/share/apps/color-schemes/Numix.colors /usr/share/apps/color-schemes/Numix-KDE.colors
+    wget -N \
+      https://raw.githubusercontent.com/numixproject/numix-kde-theme/master/Numix.qtcurve -P /usr/share/apps/QtCurve/
+    mv -v /usr/share/apps/QtCurve/Numix.qtcurve /usr/share/apps/QtCurve/Numix-KDE.qtcurve
+
+    ## caledonia kde theme
+    wget -N \
+      http://sourceforge.net/projects/caledonia/files/Caledonia%20%28Plasma-KDE%20Theme%29/$CALPLAS \
+      -P /usr/share/apps/desktoptheme/
+    tar xvf /usr/share/apps/desktoptheme/$CALPLAS -C /usr/share/apps/desktoptheme/
+
+    ## caledonia color scheme
+    wget -N http://sourceforge.net/projects/caledonia/files/Caledonia%20Color%20Scheme/Caledonia.colors \
+      -P /usr/share/apps/color-schemes/
+
+    ## get caledonia wallpapers, who doesn't like nice wallpapers?
+    wget -N \
+      http://sourceforge.net/projects/caledonia/files/Caledonia%20Official%20Wallpapers/$CALWALL \
+      -P /usr/share/wallpapers/
+    tar xvf /usr/share/wallpapers/$CALWALL -C /usr/share/wallpapers/
+    cp -rv /usr/share/wallpapers/Caledonia_Official_Wallpaper_Collection/* /usr/share/wallpapers/
+    rm -rfv /usr/share/wallpapers/Caledonia_Official_Wallpaper_Collection/
+
+    ## a few numix wallpapers also
+    wget -N \
+      http://fc03.deviantart.net/fs71/f/2013/305/3/6/numix___halloween___wallpaper_by_satya164-d6skv0g.zip -P ~/
+    wget -N \
+      http://fc00.deviantart.net/fs70/f/2013/249/7/6/numix___fragmented_space_by_me4oslav-d6l8ihd.zip -P ~/
+    wget -N \
+      http://fc09.deviantart.net/fs70/f/2013/224/b/6/numix___name_of_the_doctor___wallpaper_by_satya164-d6hvzh7.zip -P ~/
+    unzip -o numix___halloween___wallpaper_by_satya164-d6skv0g.zip
+    unzip -o numix___fragmented_space_by_me4oslav-d6l8ihd.zip
+    unzip -o numix___name_of_the_doctor___wallpaper_by_satya164-d6hvzh7.zip
+    rm -v numix___halloween___wallpaper_by_satya164-d6skv0g.zip
+    rm -v numix___fragmented_space_by_me4oslav-d6l8ihd.zip
+    rm -v numix___name_of_the_doctor___wallpaper_by_satya164-d6hvzh7.zip
+
+    cp -v ~/*.png /usr/share/wallpapers/
+    cp -v ~/*.jpg /usr/share/wallpapers/
+    rm -v ~/*.jpg
+    rm -v ~/*.png
+    ## symlink all wallpapers so they show up in other DE's
+    mkdir -pv /usr/share/backgrounds/mate/custom/
+    find /usr/share/wallpapers -type f -a \( -iname '*.jpg' -o -iname '*.jpeg' -o -iname '*.jpe' -o -iname '*.gif' -o -iname '*.png' \) \
+      -exec ln -sfv {} /usr/share/backgrounds/mate/custom/ \;
+    find /usr/share/wallpapers -type f -a \( -iname '*.jpg' -o -iname '*.jpeg' -o -iname '*.jpe' -o -iname '*.gif' -o -iname '*.png' \) \
+      -exec ln -sfv {} /usr/share/backgrounds/xfce/ \;
   else
-    wget -N http://www.desura.com/desura-x86_64.tar.gz \
-      -P /opt/
+    echo "You have gone VANILLA."
   fi
-  tar xvf /opt/desura-*.tar.gz -C /opt/
-  rm -v /opt/desura-*.tar.gz
-  ln -sfv /opt/desura/desura /usr/local/bin/
-
-  ## minecraft!!
-  mkdir -pv /opt/minecraft/
-  wget -N $MINECRAFTDL -P /opt/minecraft/
-  wget -N https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/minecraft -P /usr/local/bin/
-  chmod 755 /usr/local/bin/minecraft
-
-  curl $GETJAVA | sh
-
-  ## numix stuff is dead sexy
-  git clone https://github.com/numixproject/numix-icon-theme.git
-  rm -rfv /usr/share/icons/Numix/
-  mv -v ./numix-icon-theme/Numix/ /usr/share/icons/
-  rm -rfv ./numix-icon-theme/
-
-  git clone https://github.com/numixproject/numix-icon-theme-bevel.git
-  rm -rfv /usr/share/icons/Numix-Bevel/
-  mv -v ./numix-icon-theme-bevel/Numix-Bevel/ /usr/share/icons/
-  rm -rfv ./numix-icon-theme-bevel/
-
-  git clone https://github.com/numixproject/numix-icon-theme-circle.git
-  rm -rfv /usr/share/icons/Numix-Circle/
-  mv -v ./numix-icon-theme-circle/Numix-Circle/ /usr/share/icons/
-  cp -rv /usr/share/icons/Numix-Circle/* /usr/share/icons/Adwaita/
-  rm -rfv ./numix-icon-theme-circle/
-
-  git clone https://github.com/numixproject/numix-icon-theme-shine.git
-  rm -rfv /usr/share/icons/Numix-Shine/
-  mv -v ./numix-icon-theme-shine/Numix-Shine/ /usr/share/icons/
-  rm -rfv ./numix-icon-theme-shine/
-
-  git clone https://github.com/numixproject/numix-icon-theme-utouch.git
-  rm -rfv /usr/share/icons/Numix-uTouch/
-  mv -v ./numix-icon-theme-utouch/Numix-uTouch/ /usr/share/icons/
-  rm -rfv ./numix-icon-theme-utouch/
-
-  git clone https://github.com/shimmerproject/Numix.git
-  rm -rfv /usr/share/themes/Numix/
-  mv -v ./Numix/ /usr/share/themes/
-  rm -rfv ./Numix/
-
-  wget -N \
-    https://raw.githubusercontent.com/numixproject/numix-kde-theme/master/Numix.colors -P /usr/share/apps/color-schemes/
-  mv -v /usr/share/apps/color-schemes/Numix.colors /usr/share/apps/color-schemes/Numix-KDE.colors
-  wget -N \
-    https://raw.githubusercontent.com/numixproject/numix-kde-theme/master/Numix.qtcurve -P /usr/share/apps/QtCurve/
-  mv -v /usr/share/apps/QtCurve/Numix.qtcurve /usr/share/apps/QtCurve/Numix-KDE.qtcurve
-
-  ## caledonia kde theme
-  wget -N \
-    http://sourceforge.net/projects/caledonia/files/Caledonia%20%28Plasma-KDE%20Theme%29/$CALPLAS \
-    -P /usr/share/apps/desktoptheme/
-  tar xvf /usr/share/apps/desktoptheme/$CALPLAS -C /usr/share/apps/desktoptheme/
-
-  ## caledonia color scheme
-  wget -N http://sourceforge.net/projects/caledonia/files/Caledonia%20Color%20Scheme/Caledonia.colors \
-    -P /usr/share/apps/color-schemes/
-
-  ## get caledonia wallpapers, who doesn't like nice wallpapers?
-  wget -N \
-    http://sourceforge.net/projects/caledonia/files/Caledonia%20Official%20Wallpapers/$CALWALL \
-    -P /usr/share/wallpapers/
-  tar xvf /usr/share/wallpapers/$CALWALL -C /usr/share/wallpapers/
-  cp -rv /usr/share/wallpapers/Caledonia_Official_Wallpaper_Collection/* /usr/share/wallpapers/
-  rm -rfv /usr/share/wallpapers/Caledonia_Official_Wallpaper_Collection/
-
-  ## a few numix wallpapers also
-  wget -N \
-    http://fc03.deviantart.net/fs71/f/2013/305/3/6/numix___halloween___wallpaper_by_satya164-d6skv0g.zip -P ~/
-  wget -N \
-    http://fc00.deviantart.net/fs70/f/2013/249/7/6/numix___fragmented_space_by_me4oslav-d6l8ihd.zip -P ~/
-  wget -N \
-    http://fc09.deviantart.net/fs70/f/2013/224/b/6/numix___name_of_the_doctor___wallpaper_by_satya164-d6hvzh7.zip -P ~/
-  unzip -o numix___halloween___wallpaper_by_satya164-d6skv0g.zip
-  unzip -o numix___fragmented_space_by_me4oslav-d6l8ihd.zip
-  unzip -o numix___name_of_the_doctor___wallpaper_by_satya164-d6hvzh7.zip
-  rm -v numix___halloween___wallpaper_by_satya164-d6skv0g.zip
-  rm -v numix___fragmented_space_by_me4oslav-d6l8ihd.zip
-  rm -v numix___name_of_the_doctor___wallpaper_by_satya164-d6hvzh7.zip
-
-  cp -v ~/*.png /usr/share/wallpapers/
-  cp -v ~/*.jpg /usr/share/wallpapers/
-  rm -v ~/*.jpg
-  rm -v ~/*.png
-  ## symlink all wallpapers so they show up in other DE's
-  mkdir -pv /usr/share/backgrounds/mate/custom/
-  find /usr/share/wallpapers -type f -a \( -iname '*.jpg' -o -iname '*.jpeg' -o -iname '*.jpe' -o -iname '*.gif' -o -iname '*.png' \) \
-    -exec ln -sfv {} /usr/share/backgrounds/mate/custom/ \;
-  find /usr/share/wallpapers -type f -a \( -iname '*.jpg' -o -iname '*.jpeg' -o -iname '*.jpe' -o -iname '*.gif' -o -iname '*.png' \) \
-    -exec ln -sfv {} /usr/share/backgrounds/xfce/ \;
-else
-  echo "You have gone VANILLA."
 fi
 
 
@@ -1072,7 +1084,7 @@ wget -N https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/ff \
 cp -v /usr/local/bin/ff /usr/local/bin/firefox
 chmod 755 /usr/local/bin/ff /usr/local/bin/firefox
 
-## download all tarballs from SlackBuild .info files
+## script to download tarballs from SlackBuild .info files
 wget -N https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/slackware/sbdl \
   -P /usr/local/bin/
 chmod 755 /usr/local/bin/sbdl
