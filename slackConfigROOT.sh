@@ -850,7 +850,7 @@ if [ "$SPPLUSISINSTALLED" = true ]; then
     no_prompt_sbo_pkg_install_or_upgrade soundtouch
     no_prompt_sbo_pkg_install_or_upgrade vamp-plugin-sdk
 
-    my_repo_install audacity
+    FFMPEG=yes SOUNDTOUCH=yes VAMP=yes my_repo_install audacity
     ## broken
     #FFMPEG=yes SOUNDTOUCH=yes VAMP=yes no_prompt_sbo_pkg_install_or_upgrade audacity
 
