@@ -8,7 +8,7 @@
 ## note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files
-CONFIGOMATICVERSION=6.7.30
+CONFIGOMATICVERSION=6.7.31
 
 
 if [ ! $UID = 0 ]; then
@@ -1140,6 +1140,10 @@ echo "## CONFIG-O-MATIC $CONFIGOMATICVERSION ##" >> ~/.config-o-matic_$CONFIGOMA
 echo >> ~/.config-o-matic_$CONFIGOMATICVERSION
 echo "## BLANK=false ##" >> ~/.config-o-matic_$CONFIGOMATICVERSION
 echo >> ~/.config-o-matic_$CONFIGOMATICVERSION
+echo >> ~/.config-o-matic_$CONFIGOMATICVERSION
+
+echo >> ~/.config-o-matic_$CONFIGOMATICVERSION
+echo "SPPLUSISINSTALLED=$SPPLUSISINSTALLED" >> ~/.config-o-matic_$CONFIGOMATICVERSION
 echo >> ~/.config-o-matic_$CONFIGOMATICVERSION
 
 echo "CURRENT=$CURRENT" >> ~/.config-o-matic_$CONFIGOMATICVERSION
