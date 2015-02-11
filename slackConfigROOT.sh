@@ -8,7 +8,7 @@
 ## note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files
-CONFIGOMATICVERSION=6.8.3
+CONFIGOMATICVERSION=6.8.4
 
 
 if [ ! $UID = 0 ]; then
@@ -148,9 +148,9 @@ my_repo_install() {
     git pull
     . ~/ryanpc-slackbuilds/unofficial/${MY_REPO_PKG}/${MY_REPO_PKG}.info
     if [ "$(uname -m)" = "x86_64" ] && [ "$DOWNLOAD_x86_64" ]; then
-      wget $DOWNLOAD_x86_64
+      wget -N $DOWNLOAD_x86_64 -P ~/ryanpc-slackbuilds/unofficial/${MY_REPO_PKG}/
     else
-      wget $DOWNLOAD
+      wget -N $DOWNLOAD -P ~/ryanpc-slackbuilds/unofficial/${MY_REPO_PKG}/
     fi
     sh ~/ryanpc-slackbuilds/unofficial/${MY_REPO_PKG}/${MY_REPO_PKG}.SlackBuild
     ls -t --color=never /tmp/${MY_REPO_PKG}-*_SBo.tgz | head -1 | xargs -i upgradepkg --install-new {}
