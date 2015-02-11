@@ -90,10 +90,6 @@ MINECRAFTDL="https://s3.amazonaws.com/Minecraft.Download/launcher/Minecraft.jar"
 ## eric hameleers has updated multilib to include this package
 #LIBXSHM="libxshmfence-1.1-i486-1.txz"
 
-if [ "`find /var/log/packages/ -name xorg-*`" ]; then
-  export HEADLESS=no;
-fi
-
 ## my shell functions  ;^)
 make_sbo_pkg_upgrade_list() {
   sbopkg -c > ~/sbopkg-upgrade-list.txt
@@ -410,6 +406,11 @@ if [ "$ARCH" != "arm" ]; then
 fi
 upgradepkg --install-new ~/*.t?z
 rm -v ~/*.t?z
+
+## a few more vars
+if [ "`find /var/log/packages/ -name xorg-*`" ]; then
+  export HEADLESS=no;
+fi
 
 if [ `find /var/log/packages/ -name slackpkg+*` ]; then
   export SPPLUSISINSTALLED=true;
@@ -1143,6 +1144,8 @@ echo >> ~/.config-o-matic_$CONFIGOMATICVERSION
 echo >> ~/.config-o-matic_$CONFIGOMATICVERSION
 
 echo >> ~/.config-o-matic_$CONFIGOMATICVERSION
+echo "VANILLA=$VANILLA" >> ~/.config-o-matic_$CONFIGOMATICVERSION
+echo "HEADLESS=$HEADLESS" >> ~/.config-o-matic_$CONFIGOMATICVERSION
 echo "SPPLUSISINSTALLED=$SPPLUSISINSTALLED" >> ~/.config-o-matic_$CONFIGOMATICVERSION
 echo >> ~/.config-o-matic_$CONFIGOMATICVERSION
 
