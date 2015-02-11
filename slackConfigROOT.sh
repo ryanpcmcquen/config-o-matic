@@ -8,7 +8,7 @@
 ## note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files
-CONFIGOMATICVERSION=6.8.01
+CONFIGOMATICVERSION=6.8.2
 
 
 if [ ! $UID = 0 ]; then
@@ -90,7 +90,7 @@ MINECRAFTDL="https://s3.amazonaws.com/Minecraft.Download/launcher/Minecraft.jar"
 ## eric hameleers has updated multilib to include this package
 #LIBXSHM="libxshmfence-1.1-i486-1.txz"
 
-## my shell functions  ;^)
+### my shell functions  ;^)
 make_sbo_pkg_upgrade_list() {
   sbopkg -c > ~/sbopkg-upgrade-list.txt
 }
@@ -129,7 +129,7 @@ set_slackpkg_to_manual() {
 }
 
 ## install packages from my unofficial github repo
-my_repo_install() {
+my_repo_install_special() {
   MY_REPO_PKG=$1
   if [ -z "`find /var/log/packages/ -name ${MY_REPO_PKG}-*`" ]; then
     cd ~/ryanpc-slackbuilds/unofficial/${MY_REPO_PKG}/
@@ -140,7 +140,19 @@ my_repo_install() {
   fi
 }
 
-###
+my_repo_install() {
+  MY_REPO_PKG=$1
+  if [ -z "`find /var/log/packages/ -name ${MY_REPO_PKG}-*`" ]; then
+    cd ~/ryanpc-slackbuilds/unofficial/${MY_REPO_PKG}/
+    git pull
+    /usr/local/bin/sbdl
+    sh ~/ryanpc-slackbuilds/unofficial/${MY_REPO_PKG}/${MY_REPO_PKG}.SlackBuild
+    ls -t --color=never /tmp/${MY_REPO_PKG}-*_SBo.tgz | head -1 | xargs -i upgradepkg --install-new {}
+    cd
+  fi
+}
+
+### end of shell functions
 
 ## we need this to determine if the system can install wine
 if [ -z "$ARCH" ]; then
@@ -634,6 +646,11 @@ git clone https://github.com/ryanpcmcquen/slackENLIGHTENMENT.git
 ## my slackbuilds
 git clone https://github.com/ryanpcmcquen/ryanpc-slackbuilds.git
 
+## script to download tarballs from SlackBuild .info files
+wget -N https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/slackware/sbdl \
+  -P /usr/local/bin/
+chmod 755 /usr/local/bin/sbdl
+
 if [ "$SPPLUSISINSTALLED" = true ]; then
   if [ "$MISCELLANY" = true ]; then
     ## set slackpkg to non-interactive mode to run without prompting
@@ -821,7 +838,7 @@ if [ "$SPPLUSISINSTALLED" = true ]; then
     ## thanks to b. watson
     no_prompt_sbo_pkg_install_or_upgrade apulse
 
-    my_repo_install ffmpeg
+    my_repo_install_special ffmpeg
 
     JACK=on no_prompt_sbo_pkg_install_or_upgrade ssr
 
@@ -1095,11 +1112,6 @@ wget -N https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/ff \
   -P /usr/local/bin/
 cp -v /usr/local/bin/ff /usr/local/bin/firefox
 chmod 755 /usr/local/bin/ff /usr/local/bin/firefox
-
-## script to download tarballs from SlackBuild .info files
-wget -N https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/slackware/sbdl \
-  -P /usr/local/bin/
-chmod 755 /usr/local/bin/sbdl
 
 ## used to be end of SCRIPTS
 
