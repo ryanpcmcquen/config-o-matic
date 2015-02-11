@@ -8,7 +8,7 @@
 ## note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files
-CONFIGOMATICVERSION=6.7.31
+CONFIGOMATICVERSION=6.7.32
 
 
 if [ ! $UID = 0 ]; then
@@ -280,10 +280,12 @@ if [ "$CURRENT" = true ]; then
   sed -i 's/^aaa_elflibs/#aaa_elflibs/g' /etc/slackpkg/blacklist
 fi
 
+## blacklist sbo stuff
 sed -i 's/#\[0-9]+_SBo/\
 \[0-9]+_SBo\
 sbopkg/g' /etc/slackpkg/blacklist
 
+## i always install jdk with pat's script
 if [ -z "$(cat /etc/slackpkg/blacklist | grep jdk)" ]; then
   echo jdk >> /etc/slackpkg/blacklist
   echo >> /etc/slackpkg/blacklist
@@ -1143,10 +1145,10 @@ echo "## BLANK=false ##" >> ~/.config-o-matic_$CONFIGOMATICVERSION
 echo >> ~/.config-o-matic_$CONFIGOMATICVERSION
 echo >> ~/.config-o-matic_$CONFIGOMATICVERSION
 
-echo >> ~/.config-o-matic_$CONFIGOMATICVERSION
 echo "VANILLA=$VANILLA" >> ~/.config-o-matic_$CONFIGOMATICVERSION
 echo "HEADLESS=$HEADLESS" >> ~/.config-o-matic_$CONFIGOMATICVERSION
 echo "SPPLUSISINSTALLED=$SPPLUSISINSTALLED" >> ~/.config-o-matic_$CONFIGOMATICVERSION
+
 echo >> ~/.config-o-matic_$CONFIGOMATICVERSION
 
 echo "CURRENT=$CURRENT" >> ~/.config-o-matic_$CONFIGOMATICVERSION
