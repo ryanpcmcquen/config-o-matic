@@ -8,7 +8,7 @@
 ## note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files
-CONFIGOMATICVERSION=6.8.2
+CONFIGOMATICVERSION=6.8.3
 
 
 if [ ! $UID = 0 ]; then
@@ -128,7 +128,7 @@ set_slackpkg_to_manual() {
   sed -i 's/^DEFAULT_ANSWER=y/DEFAULT_ANSWER=n/g' /etc/slackpkg/slackpkg.conf
 }
 
-## install packages from my unofficial github repo
+## install packages from my unofficial github repo that are non-standard
 my_repo_install_special() {
   MY_REPO_PKG=$1
   if [ -z "`find /var/log/packages/ -name ${MY_REPO_PKG}-*`" ]; then
@@ -140,12 +140,18 @@ my_repo_install_special() {
   fi
 }
 
+## install packages from my unofficial github repo
 my_repo_install() {
   MY_REPO_PKG=$1
   if [ -z "`find /var/log/packages/ -name ${MY_REPO_PKG}-*`" ]; then
     cd ~/ryanpc-slackbuilds/unofficial/${MY_REPO_PKG}/
     git pull
-    /usr/local/bin/sbdl
+    . ~/ryanpc-slackbuilds/unofficial/${MY_REPO_PKG}/${MY_REPO_PKG}.info
+    if [ "$(uname -m)" = "x86_64" ] && [ "$DOWNLOAD_x86_64" ]; then
+      wget $DOWNLOAD_x86_64
+    else
+      wget $DOWNLOAD
+    fi
     sh ~/ryanpc-slackbuilds/unofficial/${MY_REPO_PKG}/${MY_REPO_PKG}.SlackBuild
     ls -t --color=never /tmp/${MY_REPO_PKG}-*_SBo.tgz | head -1 | xargs -i upgradepkg --install-new {}
     cd
