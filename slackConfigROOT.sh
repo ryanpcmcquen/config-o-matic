@@ -8,7 +8,7 @@
 ## note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files
-CONFIGOMATICVERSION=6.7.32
+CONFIGOMATICVERSION=6.8.00
 
 
 if [ ! $UID = 0 ]; then
@@ -127,7 +127,20 @@ set_slackpkg_to_manual() {
   sed -i 's/^BATCH=on/BATCH=off/g' /etc/slackpkg/slackpkg.conf
   sed -i 's/^DEFAULT_ANSWER=y/DEFAULT_ANSWER=n/g' /etc/slackpkg/slackpkg.conf
 }
-##
+
+## install packages from my unofficial github repo
+my_repo_install() {
+  MY_REPO_PKG=$1
+  if [ -z "`find /var/log/packages/ -name ${MY_REPO_PKG}-*`" ]; then
+    cd ~/ryanpc-slackbuilds/unofficial/${MY_REPO_PKG}/
+    git pull
+    sh ~/ryanpc-slackbuilds/unofficial/${MY_REPO_PKG}/${MY_REPO_PKG}.SlackBuild
+    ls -t --color=never /tmp/${MY_REPO_PKG}-*_SBo.tgz | head -1 | xargs -i upgradepkg --install-new {}
+    cd
+  fi
+}
+
+###
 
 ## we need this to determine if the system can install wine
 if [ -z "$ARCH" ]; then
@@ -808,14 +821,7 @@ if [ "$SPPLUSISINSTALLED" = true ]; then
     ## thanks to b. watson
     no_prompt_sbo_pkg_install_or_upgrade apulse
 
-    ## install ffmpeg from my repo
-    if [ -z "`find /var/log/packages/ -name ffmpeg-*`" ]; then
-      cd ~/ryanpc-slackbuilds/unofficial/ffmpeg/
-      git pull
-      sh ~/ryanpc-slackbuilds/unofficial/ffmpeg/ffmpeg.SlackBuild
-      ls -t --color=never /tmp/ffmpeg-*_SBo.tgz | head -1 | xargs -i upgradepkg --install-new {}
-      cd
-    fi
+    my_repo_install ffmpeg
 
     JACK=on no_prompt_sbo_pkg_install_or_upgrade ssr
 
@@ -843,7 +849,10 @@ if [ "$SPPLUSISINSTALLED" = true ]; then
     ## good ol' audacity
     no_prompt_sbo_pkg_install_or_upgrade soundtouch
     no_prompt_sbo_pkg_install_or_upgrade vamp-plugin-sdk
-    FFMPEG=yes SOUNDTOUCH=yes VAMP=yes no_prompt_sbo_pkg_install_or_upgrade audacity
+
+    my_repo_install audacity
+    ## broken
+    #FFMPEG=yes SOUNDTOUCH=yes VAMP=yes no_prompt_sbo_pkg_install_or_upgrade audacity
 
     ## scribus
     ## cppunit breaks podofo on 32-bit
