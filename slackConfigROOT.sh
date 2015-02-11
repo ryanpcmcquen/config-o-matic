@@ -8,7 +8,7 @@
 ## note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files
-CONFIGOMATICVERSION=6.8.00
+CONFIGOMATICVERSION=6.8.01
 
 
 if [ ! $UID = 0 ]; then
