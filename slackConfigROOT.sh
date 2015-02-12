@@ -8,7 +8,7 @@
 ## note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files
-CONFIGOMATICVERSION=6.8.4
+CONFIGOMATICVERSION=6.8.5
 
 
 if [ ! $UID = 0 ]; then
@@ -130,11 +130,12 @@ set_slackpkg_to_manual() {
 
 ## install packages from my unofficial github repo that are non-standard
 my_repo_install_special() {
+  MY_REPO=~/ryanpc-slackbuilds/unofficial
   MY_REPO_PKG=$1
   if [ -z "`find /var/log/packages/ -name ${MY_REPO_PKG}-*`" ]; then
-    cd ~/ryanpc-slackbuilds/unofficial/${MY_REPO_PKG}/
+    cd ${MY_REPO}/${MY_REPO_PKG}/
     git pull
-    sh ~/ryanpc-slackbuilds/unofficial/${MY_REPO_PKG}/${MY_REPO_PKG}.SlackBuild
+    sh ${MY_REPO}/${MY_REPO_PKG}/${MY_REPO_PKG}.SlackBuild
     ls -t --color=never /tmp/${MY_REPO_PKG}-*_SBo.tgz | head -1 | xargs -i upgradepkg --install-new {}
     cd
   fi
@@ -142,17 +143,18 @@ my_repo_install_special() {
 
 ## install packages from my unofficial github repo
 my_repo_install() {
+  MY_REPO=~/ryanpc-slackbuilds/unofficial
   MY_REPO_PKG=$1
   if [ -z "`find /var/log/packages/ -name ${MY_REPO_PKG}-*`" ]; then
-    cd ~/ryanpc-slackbuilds/unofficial/${MY_REPO_PKG}/
+    cd ${MY_REPO}/${MY_REPO_PKG}/
     git pull
-    . ~/ryanpc-slackbuilds/unofficial/${MY_REPO_PKG}/${MY_REPO_PKG}.info
+    . ${MY_REPO}/${MY_REPO_PKG}/${MY_REPO_PKG}.info
     if [ "$(uname -m)" = "x86_64" ] && [ "$DOWNLOAD_x86_64" ]; then
-      wget -N $DOWNLOAD_x86_64 -P ~/ryanpc-slackbuilds/unofficial/${MY_REPO_PKG}/
+      wget -N $DOWNLOAD_x86_64 -P ${MY_REPO}/${MY_REPO_PKG}/
     else
-      wget -N $DOWNLOAD -P ~/ryanpc-slackbuilds/unofficial/${MY_REPO_PKG}/
+      wget -N $DOWNLOAD -P ${MY_REPO}/${MY_REPO_PKG}/
     fi
-    sh ~/ryanpc-slackbuilds/unofficial/${MY_REPO_PKG}/${MY_REPO_PKG}.SlackBuild
+    sh ${MY_REPO}/${MY_REPO_PKG}/${MY_REPO_PKG}.SlackBuild
     ls -t --color=never /tmp/${MY_REPO_PKG}-*_SBo.tgz | head -1 | xargs -i upgradepkg --install-new {}
     cd
   fi
