@@ -8,7 +8,7 @@
 ## note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files
-CONFIGOMATICVERSION=6.8.5
+CONFIGOMATICVERSION=6.8.6
 
 
 if [ ! $UID = 0 ]; then
@@ -97,10 +97,12 @@ make_sbo_pkg_upgrade_list() {
 
 ## the echo p keeps sbopkg from prompting you if something goes wrong
 no_prompt_sbo_pkg_install_or_upgrade() {
-  SBO_PACKAGE=$1
-  if [ -z "`find /var/log/packages/ -name $SBO_PACKAGE-*`" ] || [ "$(cat ~/sbopkg-upgrade-list.txt | grep $SBO_PACKAGE)" ]; then
-    echo p | sbopkg -B -e continue -i $SBO_PACKAGE
-  fi
+  for ITEM in "$@"; do
+    SBO_PACKAGE=$ITEM
+    if [ -z "`find /var/log/packages/ -name $SBO_PACKAGE-*`" ] || [ "$(cat ~/sbopkg-upgrade-list.txt | grep $SBO_PACKAGE)" ]; then
+      echo p | sbopkg -B -e continue -i $SBO_PACKAGE
+    fi
+  done
 }
 
 slackpkg_update_only() {
@@ -128,36 +130,34 @@ set_slackpkg_to_manual() {
   sed -i 's/^DEFAULT_ANSWER=y/DEFAULT_ANSWER=n/g' /etc/slackpkg/slackpkg.conf
 }
 
-## install packages from my unofficial github repo that are non-standard
-my_repo_install_special() {
-  MY_REPO=~/ryanpc-slackbuilds/unofficial
-  MY_REPO_PKG=$1
-  if [ -z "`find /var/log/packages/ -name ${MY_REPO_PKG}-*`" ]; then
-    cd ${MY_REPO}/${MY_REPO_PKG}/
-    git pull
-    sh ${MY_REPO}/${MY_REPO_PKG}/${MY_REPO_PKG}.SlackBuild
-    ls -t --color=never /tmp/${MY_REPO_PKG}-*_SBo.tgz | head -1 | xargs -i upgradepkg --install-new {}
-    cd
-  fi
-}
-
 ## install packages from my unofficial github repo
 my_repo_install() {
+  ## set to wherever yours is
   MY_REPO=~/ryanpc-slackbuilds/unofficial
-  MY_REPO_PKG=$1
-  if [ -z "`find /var/log/packages/ -name ${MY_REPO_PKG}-*`" ]; then
-    cd ${MY_REPO}/${MY_REPO_PKG}/
-    git pull
-    . ${MY_REPO}/${MY_REPO_PKG}/${MY_REPO_PKG}.info
-    if [ "$(uname -m)" = "x86_64" ] && [ "$DOWNLOAD_x86_64" ]; then
-      wget -N $DOWNLOAD_x86_64 -P ${MY_REPO}/${MY_REPO_PKG}/
-    else
-      wget -N $DOWNLOAD -P ${MY_REPO}/${MY_REPO_PKG}/
+  ## just do one initial pull 
+  cd ${MY_REPO}/
+  git pull
+  ## begin the beguine
+  for ITEM in "$@"; do
+    MY_REPO_PKG=$ITEM
+    ## check if it is already installed
+    if [ -z "`find /var/log/packages/ -name ${MY_REPO_PKG}-*`" ]; then
+      cd ${MY_REPO}/${MY_REPO_PKG}/
+      . ${MY_REPO}/${MY_REPO_PKG}/${MY_REPO_PKG}.info
+      ## no use trying to download if these vars are empty
+      if [ "$DOWNLOAD" ] || [ "$DOWNLOAD_x86_64" ]; then
+        if [ "$(uname -m)" = "x86_64" ] && [ "$DOWNLOAD_x86_64" ]; then
+          wget -N $DOWNLOAD_x86_64 -P ${MY_REPO}/${MY_REPO_PKG}/
+        else
+          wget -N $DOWNLOAD -P ${MY_REPO}/${MY_REPO_PKG}/
+        fi
+      fi
+      ## finally run the build
+      sh ${MY_REPO}/${MY_REPO_PKG}/${MY_REPO_PKG}.SlackBuild
+      ls -t --color=never /tmp/${MY_REPO_PKG}-*_SBo.tgz | head -1 | xargs -i upgradepkg --install-new {}
+      cd
     fi
-    sh ${MY_REPO}/${MY_REPO_PKG}/${MY_REPO_PKG}.SlackBuild
-    ls -t --color=never /tmp/${MY_REPO_PKG}-*_SBo.tgz | head -1 | xargs -i upgradepkg --install-new {}
-    cd
-  fi
+  done
 }
 
 ### end of shell functions
@@ -846,7 +846,7 @@ if [ "$SPPLUSISINSTALLED" = true ]; then
     ## thanks to b. watson
     no_prompt_sbo_pkg_install_or_upgrade apulse
 
-    my_repo_install_special ffmpeg
+    my_repo_install ffmpeg
 
     JACK=on no_prompt_sbo_pkg_install_or_upgrade ssr
 
