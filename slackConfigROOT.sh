@@ -8,7 +8,7 @@
 ## note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files
-CONFIGOMATICVERSION=6.8.7
+CONFIGOMATICVERSION=6.8.8
 
 
 if [ ! $UID = 0 ]; then
@@ -849,6 +849,9 @@ if [ "$SPPLUSISINSTALLED" = true ]; then
     my_repo_install ffmpeg
 
     JACK=on no_prompt_sbo_pkg_install_or_upgrade ssr
+
+    no_prompt_sbo_pkg_install_or_upgrade rar
+    no_prompt_sbo_pkg_install_or_upgrade unrar
 
     no_prompt_sbo_pkg_install_or_upgrade p7zip
     no_prompt_sbo_pkg_install_or_upgrade libmspack
