@@ -8,7 +8,7 @@
 ## note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files
-CONFIGOMATICVERSION=6.8.8
+CONFIGOMATICVERSION=6.8.9
 
 
 if [ ! $UID = 0 ]; then
@@ -146,7 +146,7 @@ my_repo_install() {
       . ${MY_REPO}/${MY_REPO_PKG}/${MY_REPO_PKG}.info
       ## no use trying to download if these vars are empty
       if [ "$DOWNLOAD" ] || [ "$DOWNLOAD_x86_64" ]; then
-        if [ "$(uname -m)" = "x86_64" ] && [ "$DOWNLOAD_x86_64" ]; then
+        if [ "$(uname -m)" = "x86_64" ] && [ "$DOWNLOAD_x86_64" ] && [ "$DOWNLOAD_x86_64" != "UNSUPPORTED" ] && [ "$DOWNLOAD_x86_64" != "UNTESTED" ]; then
           wget -N $DOWNLOAD_x86_64 -P ${MY_REPO}/${MY_REPO_PKG}/
         else
           wget -N $DOWNLOAD -P ${MY_REPO}/${MY_REPO_PKG}/
@@ -658,6 +658,21 @@ git clone https://github.com/ryanpcmcquen/ryanpc-slackbuilds.git
 wget -N https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/slackware/sbdl \
   -P /usr/local/bin/
 chmod 755 /usr/local/bin/sbdl
+
+## simpler version of download script
+wget -N https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/slackware/sbdl0 \
+  -P /usr/local/bin/
+chmod 755 /usr/local/bin/sbdl0
+
+## update version vars for SBo builds
+wget -N https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/slackware/sbup \
+  -P /usr/local/bin/
+chmod 755 /usr/local/bin/sbup
+
+## put md5sums in info file for easier updates
+wget -N https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/slackware/sbmd \
+  -P /usr/local/bin/
+chmod 755 /usr/local/bin/sbmd
 
 if [ "$SPPLUSISINSTALLED" = true ]; then
   if [ "$MISCELLANY" = true ]; then
