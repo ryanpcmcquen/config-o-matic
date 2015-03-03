@@ -8,7 +8,7 @@
 ## note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files
-CONFIGOMATICVERSION=6.8.9
+CONFIGOMATICVERSION=6.8.10
 
 
 if [ ! $UID = 0 ]; then
@@ -655,22 +655,23 @@ git clone https://github.com/ryanpcmcquen/slackENLIGHTENMENT.git
 git clone https://github.com/ryanpcmcquen/ryanpc-slackbuilds.git
 
 ## script to download tarballs from SlackBuild .info files
-wget -N https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/slackware/sbdl \
+wget -N https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/slackware/sboGizmos/sbdl \
   -P /usr/local/bin/
 chmod 755 /usr/local/bin/sbdl
 
 ## simpler version of download script
-wget -N https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/slackware/sbdl0 \
+## only downloads for your ARCH
+wget -N https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/slackware/sboGizmos/sbdl0 \
   -P /usr/local/bin/
 chmod 755 /usr/local/bin/sbdl0
 
 ## update version vars for SBo builds
-wget -N https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/slackware/sbup \
+wget -N https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/slackware/sboGizmos/sbup \
   -P /usr/local/bin/
 chmod 755 /usr/local/bin/sbup
 
 ## put md5sums in info file for easier updates
-wget -N https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/slackware/sbmd \
+wget -N https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/slackware/sboGizmos/sbmd \
   -P /usr/local/bin/
 chmod 755 /usr/local/bin/sbmd
 
@@ -789,7 +790,7 @@ if [ "$SPPLUSISINSTALLED" = true ]; then
     ## hydrogen
     no_prompt_sbo_pkg_install_or_upgrade scons
     ## no longer a dependency
-    #no_prompt_sbo_pkg_install_or_upgrade libtar
+    no_prompt_sbo_pkg_install_or_upgrade libtar
     no_prompt_sbo_pkg_install_or_upgrade ladspa_sdk
     no_prompt_sbo_pkg_install_or_upgrade liblrdf
     ## celt is broken
@@ -1157,7 +1158,7 @@ if [ "$(aplay -l | grep Analog | grep 'card 1')" ]; then
   amixer set -c 1 Master 0% unmute
   amixer set -c 1 Master 97% unmute
   amixer set -c 1 Headphone 0% unmute
-  amixer set -c 1 Headphone 77% unmute
+  amixer set -c 1 Headphone 87% unmute
   amixer set -c 1 PCM 0% unmute
   amixer set -c 1 PCM 97% unmute
   amixer set -c 1 Mic 0% unmute
@@ -1168,7 +1169,7 @@ else
   amixer set Master 0% unmute
   amixer set Master 97% unmute
   amixer set Headphone 0% unmute
-  amixer set Headphone 77% unmute
+  amixer set Headphone 87% unmute
   amixer set PCM 0% unmute
   amixer set PCM 97% unmute
   amixer set Mic 0% unmute
