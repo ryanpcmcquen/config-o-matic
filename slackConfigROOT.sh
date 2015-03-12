@@ -8,7 +8,7 @@
 ## note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files
-CONFIGOMATICVERSION=6.8.10
+CONFIGOMATICVERSION=6.8.11
 
 
 if [ ! $UID = 0 ]; then
@@ -740,6 +740,9 @@ else
 
   ## clean, simple text editor
   no_prompt_sbo_pkg_install_or_upgrade textadept
+
+  ## everyone needs patchutils!
+  no_prompt_sbo_pkg_install_or_upgrade patchutils
 
   ## great lightweight file manager with optional DEPS
   no_prompt_sbo_pkg_install_or_upgrade libgnomecanvas
