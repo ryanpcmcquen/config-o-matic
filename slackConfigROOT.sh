@@ -8,7 +8,7 @@
 ## note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files
-CONFIGOMATICVERSION=6.8.11
+CONFIGOMATICVERSION=6.8.12
 
 
 if [ ! $UID = 0 ]; then
@@ -1003,7 +1003,6 @@ if [ "$SPPLUSISINSTALLED" = true ]; then
         -P /opt/
     fi
     tar xvf /opt/desura-*.tar.gz -C /opt/
-    rm -v /opt/desura-*.tar.gz
     ln -sfv /opt/desura/desura /usr/local/bin/
 
     ## minecraft!!
