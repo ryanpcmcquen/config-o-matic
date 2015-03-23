@@ -8,7 +8,7 @@
 ## note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files
-CONFIGOMATICVERSION=6.8.12
+CONFIGOMATICVERSION=6.9.0
 
 
 if [ ! $UID = 0 ]; then
@@ -434,13 +434,16 @@ git config --global credential.helper 'cache --timeout=3600'
 git config --global push.default simple
 git config --global core.pager "less -r"
 
+## give config-o-matic a directory
+## to store all the crazy stuff we download
+mkdir -pv /var/cache/config-o-matic/{pkgs,themes}/
+
 ## install sbopkg & slackpkg+
-wget -N $SBOPKGDL -P ~/
+wget -N $SBOPKGDL -P /var/cache/config-o-matic/pkgs/
 if [ "$ARCH" != "arm" ]; then
-  wget -N $SPPLUSDL -P ~/
+  wget -N $SPPLUSDL -P /var/cache/config-o-matic/pkgs/
 fi
-upgradepkg --install-new ~/*.t?z
-rm -v ~/*.t?z
+upgradepkg --install-new /var/cache/config-o-matic/pkgs/*.t?z
 
 ## a few more vars
 if [ "`find /var/log/packages/ -name xorg-*`" ]; then
@@ -517,14 +520,12 @@ mkdir -pv /tmp/SBo/
 
 ## gkrellm theme
 mkdir -pv /usr/share/gkrellm2/themes/
-wget -N https://github.com/ryanpcmcquen/themes/raw/master/egan-gkrellm.tar.gz -P ~/
-tar xvf ~/egan-gkrellm.tar.gz -C /usr/share/gkrellm2/themes/
-rm -v ~/egan-gkrellm.tar.gz
+wget -N https://github.com/ryanpcmcquen/themes/raw/master/egan-gkrellm.tar.gz -P /var/cache/config-o-matic/themes/
+tar xvf /var/cache/config-o-matic/themes/egan-gkrellm.tar.gz -C /usr/share/gkrellm2/themes/
 
 ## amazing stealthy fluxbox
-wget -N https://github.com/ryanpcmcquen/themes/raw/master/67966-Stealthy-1.1.tgz -P ~/
-tar xvf ~/67966-Stealthy-1.1.tgz -C /usr/share/fluxbox/styles/
-rm -v ~/67966-Stealthy-1.1.tgz
+wget -N https://github.com/ryanpcmcquen/themes/raw/master/67966-Stealthy-1.1.tgz -P /var/cache/config-o-matic/themes/
+tar xvf /var/cache/config-o-matic/themes/67966-Stealthy-1.1.tgz -C /usr/share/fluxbox/styles/
 
 ## set slackpkg to non-interactive mode to run without prompting
 set_slackpkg_to_auto
@@ -689,9 +690,6 @@ if [ "$SPPLUSISINSTALLED" = true ]; then
       -P /etc/cron.daily/
     chmod -v 755 /etc/cron.daily/daily-slackup
 
-    ## grab latest firefox developer edition
-    curl https://raw.githubusercontent.com/ryanpcmcquen/ryanpc-slackbuilds/master/unofficial/fde/getFDE.sh | sh
-
     ## eric hameleers has updated multilib to include this package
     #  if [ "$(uname -m)" = "x86_64" ]; then
     #    wget -N http://mirrors.slackware.com/slackware/slackware-current/slackware/x/$LIBXSHM -P ~/
@@ -778,9 +776,8 @@ else
   npm install -g svgo
   ## install the image ultimator now that we have the dependencies
   wget -N \
-    https://raw.githubusercontent.com/ryanpcmcquen/image-ultimator/master/imgult -P ~/
-  install -v -m755 ~/imgult /usr/local/bin/
-  rm -v ~/imgult
+    https://raw.githubusercontent.com/ryanpcmcquen/image-ultimator/master/imgult -P /var/cache/config-o-matic/
+  install -v -m755 /var/cache/config-o-matic/imgult /usr/local/bin/
   ## end of imgult stuff
 fi
 
@@ -984,25 +981,22 @@ if [ "$SPPLUSISINSTALLED" = true ]; then
 
     ## grab latest steam package
     if [ -z "`find /var/log/packages/ -name steamclient-*`" ]; then
-      rsync -avz rsync://taper.alienbase.nl/mirrors/people/alien/slackbuilds/steamclient/pkg/current/ ~/steamclient/
-      mv -v ~/steamclient/*.tgz ~/
-      rm -rfv ~/steamclient/
-      upgradepkg --install-new ~/steamclient-*.tgz
+      rsync -avz rsync://taper.alienbase.nl/mirrors/people/alien/slackbuilds/steamclient/pkg/current/ /var/cache/config-o-matic/steamclient/
+      upgradepkg --install-new /var/cache/config-o-matic/steamclient/steamclient-*.tgz
       if [ -z "$(cat /etc/slackpkg/blacklist | grep steamclient)" ]; then
         echo steamclient >> /etc/slackpkg/blacklist
         echo >> /etc/slackpkg/blacklist
       fi
-      rm -v ~/steamclient-*.tgz
     fi
 
     if [ "$(uname -m)" = "x86_64" ]; then
       wget -N http://www.desura.com/desura-x86_64.tar.gz \
-        -P /opt/
+        -P /var/cache/config-o-matic/
     else
       wget -N http://www.desura.com/desura-x86_64.tar.gz \
-        -P /opt/
+        -P /var/cache/config-o-matic/
     fi
-    tar xvf /opt/desura-*.tar.gz -C /opt/
+    tar xvf /var/cache/config-o-matic/desura-*.tar.gz -C /opt/
     ln -sfv /opt/desura/desura /usr/local/bin/
 
     ## minecraft!!
@@ -1014,36 +1008,48 @@ if [ "$SPPLUSISINSTALLED" = true ]; then
     curl $GETJAVA | sh
 
     ## numix stuff is dead sexy
-    git clone https://github.com/numixproject/numix-icon-theme.git
-    rm -rfv /usr/share/icons/Numix/
-    mv -v ./numix-icon-theme/Numix/ /usr/share/icons/
-    rm -rfv ./numix-icon-theme/
+    git clone https://github.com/numixproject/numix-icon-theme.git /var/cache/config-o-matic/themes/numix-icon-theme/
+    cd /var/cache/config-o-matic/themes/numix-icon-theme/
+    git pull
+    cp -rv /var/cache/config-o-matic/themes/numix-icon-theme/Numix/ /usr/share/icons/
+    cd
 
-    git clone https://github.com/numixproject/numix-icon-theme-bevel.git
-    rm -rfv /usr/share/icons/Numix-Bevel/
-    mv -v ./numix-icon-theme-bevel/Numix-Bevel/ /usr/share/icons/
-    rm -rfv ./numix-icon-theme-bevel/
+    git clone https://github.com/numixproject/numix-icon-theme-bevel.git /var/cache/config-o-matic/themes/numix-icon-theme-bevel/
+    cd /var/cache/config-o-matic/themes/numix-icon-theme-bevel/
+    git pull
+    cp -rv /var/cache/config-o-matic/themes/numix-icon-theme-bevel/Numix-Bevel/ /usr/share/icons/
+    cd
 
-    git clone https://github.com/numixproject/numix-icon-theme-circle.git
-    rm -rfv /usr/share/icons/Numix-Circle/
-    mv -v ./numix-icon-theme-circle/Numix-Circle/ /usr/share/icons/
+    git clone https://github.com/numixproject/numix-icon-theme-circle.git /var/cache/config-o-matic/themes/numix-icon-theme-circle/
+    cd /var/cache/config-o-matic/themes/numix-icon-theme-circle/
+    git pull
+    cp -rv /var/cache/config-o-matic/themes/numix-icon-theme-circle/Numix-Circle/ /usr/share/icons/
+    ## make the default theme even better
     cp -rv /usr/share/icons/Numix-Circle/* /usr/share/icons/Adwaita/
-    rm -rfv ./numix-icon-theme-circle/
+    cd
 
-    git clone https://github.com/numixproject/numix-icon-theme-shine.git
-    rm -rfv /usr/share/icons/Numix-Shine/
-    mv -v ./numix-icon-theme-shine/Numix-Shine/ /usr/share/icons/
-    rm -rfv ./numix-icon-theme-shine/
+    git clone https://github.com/numixproject/numix-icon-theme-shine.git /var/cache/config-o-matic/themes/numix-icon-theme-shine/
+    cd /var/cache/config-o-matic/themes/numix-icon-theme-shine/
+    git pull
+    cp -rv /var/cache/config-o-matic/themes/numix-icon-theme-shine/Numix-Shine/ /usr/share/icons/
+    cd
 
-    git clone https://github.com/numixproject/numix-icon-theme-utouch.git
-    rm -rfv /usr/share/icons/Numix-uTouch/
-    mv -v ./numix-icon-theme-utouch/Numix-uTouch/ /usr/share/icons/
-    rm -rfv ./numix-icon-theme-utouch/
+    git clone https://github.com/numixproject/numix-icon-theme-utouch.git /var/cache/config-o-matic/themes/numix-icon-theme-utouch/
+    cd /var/cache/config-o-matic/themes/numix-icon-theme-utouch/
+    git pull
+    cp -rv /var/cache/config-o-matic/themes/numix-icon-theme-utouch/Numix-uTouch/ /usr/share/icons/
+    cd
 
-    git clone https://github.com/shimmerproject/Numix.git
-    rm -rfv /usr/share/themes/Numix/
-    mv -v ./Numix/ /usr/share/themes/
-    rm -rfv ./Numix/
+    git clone https://github.com/shimmerproject/Numix.git /var/cache/config-o-matic/themes/Numix/
+    cd /var/cache/config-o-matic/themes/Numix/
+    git pull
+    cp -rv /var/cache/config-o-matic/themes/numix-icon-theme-utouch/Numix-uTouch/ /usr/share/icons/
+    cd
+
+    git clone https://github.com/shimmerproject/Numix.git /usr/share/themes/Numix/
+    cd /usr/share/themes/Numix/
+    git pull
+    cd
 
     wget -N \
       https://raw.githubusercontent.com/numixproject/numix-kde-theme/master/Numix.colors -P /usr/share/apps/color-schemes/
@@ -1072,22 +1078,18 @@ if [ "$SPPLUSISINSTALLED" = true ]; then
 
     ## a few numix wallpapers also
     wget -N \
-      http://fc03.deviantart.net/fs71/f/2013/305/3/6/numix___halloween___wallpaper_by_satya164-d6skv0g.zip -P ~/
+      http://fc03.deviantart.net/fs71/f/2013/305/3/6/numix___halloween___wallpaper_by_satya164-d6skv0g.zip -P /var/cache/config-o-matic/
     wget -N \
-      http://fc00.deviantart.net/fs70/f/2013/249/7/6/numix___fragmented_space_by_me4oslav-d6l8ihd.zip -P ~/
+      http://fc00.deviantart.net/fs70/f/2013/249/7/6/numix___fragmented_space_by_me4oslav-d6l8ihd.zip -P /var/cache/config-o-matic/
     wget -N \
-      http://fc09.deviantart.net/fs70/f/2013/224/b/6/numix___name_of_the_doctor___wallpaper_by_satya164-d6hvzh7.zip -P ~/
-    unzip -o numix___halloween___wallpaper_by_satya164-d6skv0g.zip
-    unzip -o numix___fragmented_space_by_me4oslav-d6l8ihd.zip
-    unzip -o numix___name_of_the_doctor___wallpaper_by_satya164-d6hvzh7.zip
-    rm -v numix___halloween___wallpaper_by_satya164-d6skv0g.zip
-    rm -v numix___fragmented_space_by_me4oslav-d6l8ihd.zip
-    rm -v numix___name_of_the_doctor___wallpaper_by_satya164-d6hvzh7.zip
+      http://fc09.deviantart.net/fs70/f/2013/224/b/6/numix___name_of_the_doctor___wallpaper_by_satya164-d6hvzh7.zip -P /var/cache/config-o-matic/
+    unzip -o /var/cache/config-o-matic/numix___halloween___wallpaper_by_satya164-d6skv0g.zip
+    unzip -o /var/cache/config-o-matic/numix___fragmented_space_by_me4oslav-d6l8ihd.zip
+    unzip -o /var/cache/config-o-matic/numix___name_of_the_doctor___wallpaper_by_satya164-d6hvzh7.zip
 
-    cp -v ~/*.png /usr/share/wallpapers/
-    cp -v ~/*.jpg /usr/share/wallpapers/
-    rm -v ~/*.jpg
-    rm -v ~/*.png
+    cp -v /var/cache/config-o-matic/*.png /usr/share/wallpapers/
+    cp -v /var/cache/config-o-matic/*.jpg /usr/share/wallpapers/
+
     ## symlink all wallpapers so they show up in other DE's
     mkdir -pv /usr/share/backgrounds/mate/custom/
     find /usr/share/wallpapers -type f -a \( -iname '*.jpg' -o -iname '*.jpeg' -o -iname '*.jpe' -o -iname '*.gif' -o -iname '*.png' \) \
