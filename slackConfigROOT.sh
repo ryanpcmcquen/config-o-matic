@@ -8,7 +8,7 @@
 ## note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files
-CONFIGOMATICVERSION=6.9.0
+CONFIGOMATICVERSION=6.9.1
 
 
 if [ ! $UID = 0 ]; then
@@ -739,6 +739,9 @@ else
   ## clean, simple text editor
   no_prompt_sbo_pkg_install_or_upgrade textadept
 
+  ## gists are the coolest
+  no_prompt_sbo_pkg_install_or_upgrade gisto
+
   ## everyone needs patchutils!
   no_prompt_sbo_pkg_install_or_upgrade patchutils
 
@@ -785,7 +788,13 @@ if [ "$SPPLUSISINSTALLED" = true ]; then
   if [ "$MISCELLANY" = true ]; then
     no_prompt_sbo_pkg_install_or_upgrade pysetuptools
     no_prompt_sbo_pkg_install_or_upgrade pip
+
+    ## non-sbopkg stuff
+    gem install bundler
     pip install --upgrade asciinema
+
+    ## requires pysetuptools
+    no_prompt_sbo_pkg_install_or_upgrade speedtest-cli
 
     ## hydrogen
     no_prompt_sbo_pkg_install_or_upgrade scons
@@ -853,9 +862,16 @@ if [ "$SPPLUSISINSTALLED" = true ]; then
 
     no_prompt_sbo_pkg_install_or_upgrade OpenAL
 
+    ## SDL ftw!
+    no_prompt_sbo_pkg_install_or_upgrade SDL_Pango
     no_prompt_sbo_pkg_install_or_upgrade SDL_gfx
-
     no_prompt_sbo_pkg_install_or_upgrade SDL_sound
+    no_prompt_sbo_pkg_install_or_upgrade SDL2
+    no_prompt_sbo_pkg_install_or_upgrade SDL2_gfx
+    no_prompt_sbo_pkg_install_or_upgrade SDL2_image
+    no_prompt_sbo_pkg_install_or_upgrade SDL2_mixer
+    no_prompt_sbo_pkg_install_or_upgrade SDL2_net
+    no_prompt_sbo_pkg_install_or_upgrade SDL2_ttf
 
     no_prompt_sbo_pkg_install_or_upgrade speex
     ## script now detects multilib,
@@ -898,6 +914,10 @@ if [ "$SPPLUSISINSTALLED" = true ]; then
     ## broken
     #FFMPEG=yes SOUNDTOUCH=yes VAMP=yes no_prompt_sbo_pkg_install_or_upgrade audacity
 
+    ## i may make stuff someday
+    no_prompt_sbo_pkg_install_or_upgrade blender
+    no_prompt_sbo_pkg_install_or_upgrade pitivi
+
     ## scribus
     ## cppunit breaks podofo on 32-bit
     #no_prompt_sbo_pkg_install_or_upgrade cppunit
@@ -923,6 +943,7 @@ if [ "$SPPLUSISINSTALLED" = true ]; then
     no_prompt_sbo_pkg_install_or_upgrade inkscape
     ##
 
+    ## open non-1337 stuff
     no_prompt_sbo_pkg_install_or_upgrade libreoffice
 
     ## android stuff!
@@ -935,8 +956,8 @@ if [ "$SPPLUSISINSTALLED" = true ]; then
     no_prompt_sbo_pkg_install_or_upgrade librecad
     ##
 
+    ## make gtk stuff elegant
     no_prompt_sbo_pkg_install_or_upgrade murrine
-
     no_prompt_sbo_pkg_install_or_upgrade murrine-themes
 
     ## because QtCurve looks amazing
@@ -976,6 +997,7 @@ if [ "$SPPLUSISINSTALLED" = true ]; then
     no_prompt_sbo_pkg_install_or_upgrade pygobject3
     no_prompt_sbo_pkg_install_or_upgrade lutris
 
+    ## retro games!
     no_prompt_sbo_pkg_install_or_upgrade higan
     no_prompt_sbo_pkg_install_or_upgrade mednafen
 
