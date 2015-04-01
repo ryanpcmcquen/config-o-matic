@@ -8,7 +8,7 @@
 ## note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files
-CONFIGOMATICVERSION=6.9.1
+CONFIGOMATICVERSION=6.9.2
 
 
 if [ ! $UID = 0 ]; then
@@ -436,7 +436,7 @@ git config --global core.pager "less -r"
 
 ## give config-o-matic a directory
 ## to store all the crazy stuff we download
-mkdir -pv /var/cache/config-o-matic/{pkgs,themes}/
+mkdir -pv /var/cache/config-o-matic/{images,pkgs,themes}/
 
 ## install sbopkg & slackpkg+
 wget -N $SBOPKGDL -P /var/cache/config-o-matic/pkgs/
@@ -1105,12 +1105,12 @@ if [ "$SPPLUSISINSTALLED" = true ]; then
       http://fc00.deviantart.net/fs70/f/2013/249/7/6/numix___fragmented_space_by_me4oslav-d6l8ihd.zip -P /var/cache/config-o-matic/
     wget -N \
       http://fc09.deviantart.net/fs70/f/2013/224/b/6/numix___name_of_the_doctor___wallpaper_by_satya164-d6hvzh7.zip -P /var/cache/config-o-matic/
-    unzip -o /var/cache/config-o-matic/numix___halloween___wallpaper_by_satya164-d6skv0g.zip
-    unzip -o /var/cache/config-o-matic/numix___fragmented_space_by_me4oslav-d6l8ihd.zip
-    unzip -o /var/cache/config-o-matic/numix___name_of_the_doctor___wallpaper_by_satya164-d6hvzh7.zip
+    unzip -o /var/cache/config-o-matic/numix___halloween___wallpaper_by_satya164-d6skv0g.zip -d /var/cache/config-o-matic/images/
+    unzip -o /var/cache/config-o-matic/numix___fragmented_space_by_me4oslav-d6l8ihd.zip -d /var/cache/config-o-matic/images/
+    unzip -o /var/cache/config-o-matic/numix___name_of_the_doctor___wallpaper_by_satya164-d6hvzh7.zip -d /var/cache/config-o-matic/images/
 
-    cp -v /var/cache/config-o-matic/*.png /usr/share/wallpapers/
-    cp -v /var/cache/config-o-matic/*.jpg /usr/share/wallpapers/
+    cp -v /var/cache/config-o-matic/images/*.png /usr/share/wallpapers/
+    cp -v /var/cache/config-o-matic/images/*.jpg /usr/share/wallpapers/
 
     ## symlink all wallpapers so they show up in other DE's
     mkdir -pv /usr/share/backgrounds/mate/custom/
