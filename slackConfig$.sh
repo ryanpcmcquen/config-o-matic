@@ -150,6 +150,9 @@ fi
 ## fixes kde firefox icon
 rm -v ~/.local/share/applications/userapp-Firefox-*.desktop
 
+## brackets config [2 spaces!]
+wget -N https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/brackets.json -P ~/.config/Brackets/
+
 echo
 echo
 echo "************************************"
