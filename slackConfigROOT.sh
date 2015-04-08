@@ -8,7 +8,7 @@
 ## note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files
-CONFIGOMATICVERSION=6.9.5
+CONFIGOMATICVERSION=6.9.6
 
 
 if [ ! $UID = 0 ]; then
@@ -481,26 +481,11 @@ if [ "$MULTILIB" = true ]; then
     echo >> /etc/sbopkg/sbopkg.conf
   fi
 fi
-## applies to ssr & audacity
+## applies to ssr
 if [ "$MISCELLANY" = true ]; then
   if [ -z "$(cat /etc/sbopkg/sbopkg.conf | grep JACK)" ]; then
     echo >> /etc/sbopkg/sbopkg.conf
     echo "export JACK=\${JACK:-on}" >> /etc/sbopkg/sbopkg.conf
-    echo >> /etc/sbopkg/sbopkg.conf
-  fi
-  if [ -z "$(cat /etc/sbopkg/sbopkg.conf | grep FFMPEG)" ]; then
-    echo >> /etc/sbopkg/sbopkg.conf
-    echo "export FFMPEG=\${FFMPEG:-yes}" >> /etc/sbopkg/sbopkg.conf
-    echo >> /etc/sbopkg/sbopkg.conf
-  fi
-  if [ -z "$(cat /etc/sbopkg/sbopkg.conf | grep SOUNDTOUCH)" ]; then
-    echo >> /etc/sbopkg/sbopkg.conf
-    echo "export SOUNDTOUCH=\${SOUNDTOUCH:-yes}" >> /etc/sbopkg/sbopkg.conf
-    echo >> /etc/sbopkg/sbopkg.conf
-  fi
-  if [ -z "$(cat /etc/sbopkg/sbopkg.conf | grep VAMP)" ]; then
-    echo >> /etc/sbopkg/sbopkg.conf
-    echo "export VAMP=\${VAMP:-yes}" >> /etc/sbopkg/sbopkg.conf
     echo >> /etc/sbopkg/sbopkg.conf
   fi
 fi
@@ -909,10 +894,7 @@ if [ "$SPPLUSISINSTALLED" = true ]; then
     ## good ol' audacity
     no_prompt_sbo_pkg_install_or_upgrade soundtouch
     no_prompt_sbo_pkg_install_or_upgrade vamp-plugin-sdk
-
-    FFMPEG=yes SOUNDTOUCH=yes VAMP=yes my_repo_install audacity
-    ## broken
-    #FFMPEG=yes SOUNDTOUCH=yes VAMP=yes no_prompt_sbo_pkg_install_or_upgrade audacity
+    no_prompt_sbo_pkg_install_or_upgrade audacity
 
     ## i may make stuff someday
     no_prompt_sbo_pkg_install_or_upgrade blender
