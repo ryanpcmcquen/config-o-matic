@@ -8,7 +8,7 @@
 ## note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files
-CONFIGOMATICVERSION=6.9.4
+CONFIGOMATICVERSION=6.9.5
 
 
 if [ ! $UID = 0 ]; then
@@ -945,6 +945,9 @@ if [ "$SPPLUSISINSTALLED" = true ]; then
 
     ## open non-1337 stuff
     no_prompt_sbo_pkg_install_or_upgrade libreoffice
+
+    ## web messin'
+    no_prompt_sbo_pkg_install_or_upgrade brackets
 
     ## android stuff!
     no_prompt_sbo_pkg_install_or_upgrade gmtp
