@@ -1,4 +1,6 @@
 #!/bin/sh
+##
+## curl https://raw.githubusercontent.com/ryanpcmcquen/config-o-matic/master/NEARFREE | sh
 
 read -p "Would you like to become NEARFREE? \
 (follows freeslack.net, but keeps kernel, not valid with most of the other options) \
@@ -14,11 +16,11 @@ case $response in
 esac
 
 if [ "$NEARFREE" = true ]; then
-  removepkg getty-ps lha unarj zoo amp \
+  removepkg getty-ps lha unarj amp \
     bluez-firmware ipw2100-fw ipw2200-fw trn \
     zd1211-firmware xfractint xgames xv
 
-  slackpkg blacklist getty-ps lha unarj zoo amp \
+  slackpkg blacklist getty-ps lha unarj amp \
     bluez-firmware ipw2100-fw ipw2200-fw trn \
     zd1211-firmware xfractint xgames xv
 
