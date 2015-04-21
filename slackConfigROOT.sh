@@ -8,7 +8,7 @@
 ## note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files
-CONFIGOMATICVERSION=6.9.7
+CONFIGOMATICVERSION=6.9.8
 
 
 if [ ! $UID = 0 ]; then
@@ -640,6 +640,9 @@ git clone https://github.com/ryanpcmcquen/slackENLIGHTENMENT.git
 ## my slackbuilds
 git clone https://github.com/ryanpcmcquen/ryanpc-slackbuilds.git
 
+## ponce's repo with -current fixes
+git clone https://github.com/Ponce/slackbuilds.git ponce-sbo
+
 ## script to download tarballs from SlackBuild .info files
 wget -N https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/slackware/sboGizmos/sbdl \
   -P /usr/local/bin/
@@ -848,7 +851,8 @@ if [ "$SPPLUSISINSTALLED" = true ]; then
     no_prompt_sbo_pkg_install_or_upgrade OpenAL
 
     ## SDL ftw!
-    no_prompt_sbo_pkg_install_or_upgrade SDL_Pango
+    ## SDL_Pango broken on current
+    #no_prompt_sbo_pkg_install_or_upgrade SDL_Pango
     no_prompt_sbo_pkg_install_or_upgrade SDL_gfx
     no_prompt_sbo_pkg_install_or_upgrade SDL_sound
     no_prompt_sbo_pkg_install_or_upgrade SDL2
@@ -894,7 +898,7 @@ if [ "$SPPLUSISINSTALLED" = true ]; then
     ## good ol' audacity
     no_prompt_sbo_pkg_install_or_upgrade soundtouch
     no_prompt_sbo_pkg_install_or_upgrade vamp-plugin-sdk
-    no_prompt_sbo_pkg_install_or_upgrade audacity
+    my_repo_install audacity
 
     ## i may make stuff someday
     no_prompt_sbo_pkg_install_or_upgrade blender
