@@ -8,7 +8,7 @@
 ## note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files
-CONFIGOMATICVERSION=6.9.8
+CONFIGOMATICVERSION=6.9.9
 
 
 if [ ! $UID = 0 ]; then
@@ -774,7 +774,9 @@ fi
 
 if [ "$SPPLUSISINSTALLED" = true ]; then
   if [ "$MISCELLANY" = true ]; then
-    no_prompt_sbo_pkg_install_or_upgrade pysetuptools
+    if [ "$CURRENT" != true ]; then
+      no_prompt_sbo_pkg_install_or_upgrade pysetuptools
+    fi
     no_prompt_sbo_pkg_install_or_upgrade pip
 
     ## non-sbopkg stuff
@@ -797,25 +799,32 @@ if [ "$SPPLUSISINSTALLED" = true ]; then
     no_prompt_sbo_pkg_install_or_upgrade hydrogen
     ##
 
+    ## build qemu with all the architectures
     TARGETS=all no_prompt_sbo_pkg_install_or_upgrade qemu
 
     ## more compilers, more fun!
     no_prompt_sbo_pkg_install_or_upgrade pcc
     no_prompt_sbo_pkg_install_or_upgrade tcc
 
+    ## a lot of stuff depends on lua
     no_prompt_sbo_pkg_install_or_upgrade lua
-
     no_prompt_sbo_pkg_install_or_upgrade luajit
 
+    ## i can't remember why this is here
     no_prompt_sbo_pkg_install_or_upgrade bullet
 
+    ## helps with webkit and some other things
     no_prompt_sbo_pkg_install_or_upgrade libwebp
 
-    no_prompt_sbo_pkg_install_or_upgrade orc
+    ## i don't even have optical drives on all my comps, but ...
+    no_prompt_sbo_pkg_install_or_upgrade libdvdcss
+    no_prompt_sbo_pkg_install_or_upgrade libbluray
 
-    no_prompt_sbo_pkg_install_or_upgrade gstreamer1
-
-    no_prompt_sbo_pkg_install_or_upgrade gst1-plugins-base
+    if [ "$CURRENT" != true ]; then
+      no_prompt_sbo_pkg_install_or_upgrade orc
+      no_prompt_sbo_pkg_install_or_upgrade gstreamer1
+      no_prompt_sbo_pkg_install_or_upgrade gst1-plugins-base
+    fi
 
     ## e16, so tiny!
     no_prompt_sbo_pkg_install_or_upgrade imlib2
