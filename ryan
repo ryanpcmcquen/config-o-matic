@@ -23,9 +23,9 @@ if [ ! -e /etc/sudoers.d/wheel-enable ]; then
 fi
 
 ## add all non-root users (except ftp) to wheel group
-cat /etc/passwd | grep "/home" | cut -d: -f1 | sed '/ftp/d' | xargs -i usermod -G wheel -a {}
+getent passwd | grep "/home" | cut -d: -f1 | sed '/ftp/d' | xargs -i usermod -G wheel -a {}
 ## the standard groups in case you forget when you run adduser  ;-)
-cat /etc/passwd | grep "/home" | cut -d: -f1 | sed '/ftp/d' | \
+getent passwd | grep "/home" | cut -d: -f1 | sed '/ftp/d' | \
   xargs -i usermod -G audio,cdrom,floppy,plugdev,video,power,netdev,lp,scanner -a {}
 
 
