@@ -8,7 +8,7 @@
 ## note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files
-CONFIGOMATICVERSION=6.9.10
+CONFIGOMATICVERSION=6.9.11
 
 
 if [ ! $UID = 0 ]; then
@@ -829,7 +829,8 @@ if [ "$SPPLUSISINSTALLED" = true ]; then
     ## e16, so tiny!
     no_prompt_sbo_pkg_install_or_upgrade imlib2
     no_prompt_sbo_pkg_install_or_upgrade giblib
-    no_prompt_sbo_pkg_install_or_upgrade e16
+    ## broken on current
+    #no_prompt_sbo_pkg_install_or_upgrade e16
     no_prompt_sbo_pkg_install_or_upgrade gmrun
 
     ## pekwm! (is broken on -current)
