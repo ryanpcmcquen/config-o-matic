@@ -8,7 +8,7 @@
 ## note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files
-CONFIGOMATICVERSION=6.9.11
+CONFIGOMATICVERSION=6.9.12
 
 
 if [ ! $UID = 0 ]; then
@@ -924,7 +924,8 @@ if [ "$SPPLUSISINSTALLED" = true ]; then
     ## inkscape
     no_prompt_sbo_pkg_install_or_upgrade gts
     no_prompt_sbo_pkg_install_or_upgrade graphviz
-    no_prompt_sbo_pkg_install_or_upgrade libwpg
+    ## broken on current and optional anyways
+    #no_prompt_sbo_pkg_install_or_upgrade libwpg
     no_prompt_sbo_pkg_install_or_upgrade numpy
     no_prompt_sbo_pkg_install_or_upgrade BeautifulSoup
     no_prompt_sbo_pkg_install_or_upgrade lxml
