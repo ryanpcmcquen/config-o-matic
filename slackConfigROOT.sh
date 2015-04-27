@@ -8,7 +8,7 @@
 ## note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files
-CONFIGOMATICVERSION=6.9.12
+CONFIGOMATICVERSION=6.9.13
 
 
 if [ ! $UID = 0 ]; then
@@ -163,11 +163,10 @@ my_repo_install() {
 ### end of shell functions
 
 ## we need this to determine if the system can install wine
-if [ -z "$ARCH" ]; then
+if [ -z "$COMARCH" ]; then
   case "$(uname -m)" in
-    i?86) ARCH=i486 ;;
-    arm*) ARCH=arm ;;
-       *) ARCH=$(uname -m) ;;
+    arm*) COMARCH=arm ;;
+    *) COMARCH=$(uname -m) ;;
   esac
 fi
 
@@ -228,7 +227,7 @@ if [ ! "$OGCONFIG" = true ]; then
       echo You are not installing WICD.;
       ;;
   esac
-  if [ "$ARCH" != "arm" ]; then
+  if [ "$COMARCH" != "arm" ]; then
     read -p "Would you like to install a bunch of MISCELLANY?  [y/N]: " response
     case $response in
       [yY][eE][sS]|[yY])
@@ -325,7 +324,7 @@ if [ -z "$(cat /etc/slackpkg/blacklist | grep jdk)" ]; then
 fi
 
 ## now with arm support! (since 6.7.0)
-if [ "$ARCH" != "arm" ]; then
+if [ "$COMARCH" != "arm" ]; then
   if [ "$CURRENT" = true ]; then
     ### undo stable mirrors, do current
     if [ "$(uname -m)" = "x86_64" ]; then
@@ -440,7 +439,7 @@ mkdir -pv /var/cache/config-o-matic/{images,pkgs,themes}/
 
 ## install sbopkg & slackpkg+
 wget -N $SBOPKGDL -P /var/cache/config-o-matic/pkgs/
-if [ "$ARCH" != "arm" ]; then
+if [ "$COMARCH" != "arm" ]; then
   wget -N $SPPLUSDL -P /var/cache/config-o-matic/pkgs/
 fi
 upgradepkg --install-new /var/cache/config-o-matic/pkgs/*.t?z
@@ -519,7 +518,7 @@ set_slackpkg_to_auto
 ## adds a bunch of mirrors for slackpkg+, as well as other
 ## settings, to the existing config, so updates are clean
 if [ "$SPPLUSISINSTALLED" = true ]; then
-  if [ "$ARCH" != "arm" ]; then
+  if [ "$COMARCH" != "arm" ]; then
     if [ ! -e /etc/slackpkg/BACKUP-slackpkgplus.conf.old-BACKUP ] || [ "$RESETSPPLUSCONF" = y ]; then
       if [ "$RESETSPPLUSCONF" = y ]; then
         cp -v /etc/slackpkg/BACKUP-slackpkgplus.conf.old-BACKUP /etc/slackpkg/BACKUP0-slackpkgplus.conf.old-BACKUP0
@@ -889,7 +888,7 @@ if [ "$SPPLUSISINSTALLED" = true ]; then
     no_prompt_sbo_pkg_install_or_upgrade wxPython
 
     ## wineing
-    if [ "$MULTILIB" = true ] || [ "$ARCH" = "i486" ]; then
+    if [ "$MULTILIB" = true ] || [ `getconf LONG_BIT` = "32" ]; then
       no_prompt_sbo_pkg_install_or_upgrade webcore-fonts
       no_prompt_sbo_pkg_install_or_upgrade cabextract
       no_prompt_sbo_pkg_install_or_upgrade wine
@@ -1229,7 +1228,7 @@ echo >> ~/.config-o-matic_$CONFIGOMATICVERSION
 
 echo "CURRENT=$CURRENT" >> ~/.config-o-matic_$CONFIGOMATICVERSION
 echo "WICD=$WICD" >> ~/.config-o-matic_$CONFIGOMATICVERSION
-if [ "$ARCH" != "arm" ]; then
+if [ "$COMARCH" != "arm" ]; then
   echo "MISCELLANY=$MISCELLANY" >> ~/.config-o-matic_$CONFIGOMATICVERSION
 fi
 if [ "$(uname -m)" = "x86_64" ]; then
