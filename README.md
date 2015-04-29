@@ -20,7 +20,7 @@ Options presented when running the ROOT script:
 
 ($):
 
-```cd; wget -N https://raw.githubusercontent.com/ryanpcmcquen/config-o-matic/stable/slackConfig$.sh; sh slackConfig$.sh; rm slackConfig$.sh```
+```cd; wget -N https://raw.githubusercontent.com/ryanpcmcquen/config-o-matic/stable/slackConfig%24.sh; sh slackConfig$.sh; rm slackConfig$.sh```
 
 ---
 To enable the wheel group, and add all non-root users to it (as well as the typical Slackware groups, run this:
@@ -52,5 +52,6 @@ getent passwd | grep "/home" | cut -d: -f1 | sed '/ftp/d' | \
 ```cd; wget -N https://raw.githubusercontent.com/ryanpcmcquen/config-o-matic/master/ryan -P ~/; sh ~/ryan; rm ~/ryan```
 
 ($):
-```cd; wget -N https://raw.githubusercontent.com/ryanpcmcquen/config-o-matic/master/ryan$ -P ~/; sh ~/ryan$; rm ~/ryan$```
+
+```cd; wget -N https://raw.githubusercontent.com/ryanpcmcquen/config-o-matic/master/ryan%24 -P ~/; sh ~/ryan$; rm ~/ryan$```
 
