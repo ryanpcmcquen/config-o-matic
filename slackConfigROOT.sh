@@ -8,7 +8,7 @@
 ## note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files
-CONFIGOMATICVERSION=6.9.14
+CONFIGOMATICVERSION=6.9.15
 
 
 if [ ! $UID = 0 ]; then
@@ -473,6 +473,11 @@ if [ -z "$(cat /etc/sbopkg/sbopkg.conf | grep TARGETS)" ]; then
   echo "export TARGETS=\${TARGETS:-all}" >> /etc/sbopkg/sbopkg.conf
   echo >> /etc/sbopkg/sbopkg.conf
 fi
+## applies to google-go-lang
+if [ -z "$(cat /etc/sbopkg/sbopkg.conf | grep RUN_TEST)" ]; then
+  echo "export RUN_TEST=\${RUN_TEST:-false}" >> /etc/sbopkg/sbopkg.conf
+  echo >> /etc/sbopkg/sbopkg.conf
+fi
 ## applies to a few packages
 if [ "$MULTILIB" = true ]; then
   if [ -z "$(cat /etc/sbopkg/sbopkg.conf | grep COMPAT32)" ]; then
@@ -799,6 +804,9 @@ if [ "$SPPLUSISINSTALLED" = true ]; then
 
     ## build qemu with all the architectures
     TARGETS=all no_prompt_sbo_pkg_install_or_upgrade qemu
+
+    ## fails if we don't turn off the tests
+    RUN_TEST=false no_prompt_sbo_pkg_install_or_upgrade google-go-lang
 
     ## more compilers, more fun!
     no_prompt_sbo_pkg_install_or_upgrade pcc

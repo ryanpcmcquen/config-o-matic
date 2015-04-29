@@ -50,3 +50,7 @@ getent passwd | grep "/home" | cut -d: -f1 | sed '/ftp/d' | \
 (#):
 
 ```cd; wget -N https://raw.githubusercontent.com/ryanpcmcquen/config-o-matic/master/ryan -P ~/; sh ~/ryan; rm ~/ryan```
+
+($):
+```cd; wget -N https://raw.githubusercontent.com/ryanpcmcquen/config-o-matic/master/ryan$ -P ~/; sh ~/ryan$; rm ~/ryan$```
+
