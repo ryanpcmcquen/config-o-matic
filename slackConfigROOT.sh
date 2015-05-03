@@ -8,7 +8,7 @@
 ## note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files
-CONFIGOMATICVERSION=6.9.16
+CONFIGOMATICVERSION=6.9.17
 
 
 if [ ! $UID = 0 ]; then
@@ -773,6 +773,9 @@ else
     https://raw.githubusercontent.com/ryanpcmcquen/image-ultimator/master/imgult -P /var/cache/config-o-matic/
   install -v -m755 /var/cache/config-o-matic/imgult /usr/local/bin/
   ## end of imgult stuff
+
+  ## webDev stuff
+  npm install -g uglify-js
 fi
 
 if [ "$SPPLUSISINSTALLED" = true ]; then
