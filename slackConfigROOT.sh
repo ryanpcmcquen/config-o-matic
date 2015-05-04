@@ -8,7 +8,7 @@
 ## note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files
-CONFIGOMATICVERSION=6.9.17
+CONFIGOMATICVERSION=6.9.18
 
 
 if [ ! $UID = 0 ]; then
@@ -886,6 +886,10 @@ if [ "$SPPLUSISINSTALLED" = true ]; then
     ## thanks to b. watson
     no_prompt_sbo_pkg_install_or_upgrade apulse
 
+    ## stuff that i roll on my own
+    if [ "$CURRENT" = true ]; then
+      my_repo_install libgcrypt15
+    fi
     my_repo_install ffmpeg
 
     JACK=on no_prompt_sbo_pkg_install_or_upgrade ssr
