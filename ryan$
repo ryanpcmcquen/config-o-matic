@@ -15,6 +15,10 @@ if [ ! -d ~/.ssh/ ]; then
   chmod 644 .ssh/known_hosts
 fi
 
+## irssi!
+wget -N https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/irssi/config -P ~/.irssi/
+wget -N https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/irssi/default.theme -P ~/.irssi/
+
 echo "                    ..- - . "
 echo "                   '        '. "
 echo "                  '.- .  .--. . "
