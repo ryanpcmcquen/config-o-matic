@@ -12,6 +12,8 @@ BASHPR="https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/slackw
 VIMRC="https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/.vimrc"
 VIMCOLOR="https://raw.githubusercontent.com/ryanpcmcquen/vim-plain/master/colors/vi-clone.vim"
 
+XBINDKEYSRC="https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/.xbindkeysrc"
+
 FLUXBOXCONF="https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/restoreFluxbox.sh"
 WMAKERCONF="https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/windowmakerSetup.sh"
 PEKWMCONF="https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/pekwmSetup.sh"
@@ -74,6 +76,10 @@ wget -N $BASHPR -P ~/
 wget -N $VIMRC -P ~/
 mkdir -pv ~/.vim/colors/
 wget -N $VIMCOLOR -P ~/.vim/colors/
+
+## makes keyboard shortcuts easy
+## while maintaining minimalism
+wget -N $XBINDKEYSRC -P ~/
 
 ## git config
 git config --global user.name "$GITNAME"
