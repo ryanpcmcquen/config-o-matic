@@ -8,7 +8,7 @@
 ## note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files
-CONFIGOMATICVERSION=6.9.19
+CONFIGOMATICVERSION=6.9.20
 
 
 if [ ! $UID = 0 ]; then
@@ -726,6 +726,7 @@ else
   no_prompt_sbo_pkg_install_or_upgrade dmenu
   no_prompt_sbo_pkg_install_or_upgrade trayer-srg
   no_prompt_sbo_pkg_install_or_upgrade tinyterm
+  no_prompt_sbo_pkg_install_or_upgrade xbindkeys
 
   ## clean, simple text editor
   no_prompt_sbo_pkg_install_or_upgrade textadept
@@ -846,7 +847,7 @@ if [ "$SPPLUSISINSTALLED" = true ]; then
     #no_prompt_sbo_pkg_install_or_upgrade pekwm
 
     ## lumina!
-    no_prompt_sbo_pkg_install_or_upgrade lumina
+    #no_prompt_sbo_pkg_install_or_upgrade lumina
 
     if [ -z "$(cat /usr/share/e16/config/bindings.cfg | grep gmrun)" ]; then
       echo >> /usr/share/e16/config/bindings.cfg
