@@ -8,7 +8,7 @@
 ## note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files
-CONFIGOMATICVERSION=6.9.20
+CONFIGOMATICVERSION=6.9.21
 
 
 if [ ! $UID = 0 ]; then
@@ -1014,6 +1014,7 @@ if [ "$SPPLUSISINSTALLED" = true ]; then
     ## retro games!
     no_prompt_sbo_pkg_install_or_upgrade higan
     no_prompt_sbo_pkg_install_or_upgrade mednafen
+    no_prompt_sbo_pkg_install_or_upgrade dosbox
 
     ## grab latest steam package
     if [ -z "`find /var/log/packages/ -name steamclient-*`" ]; then
