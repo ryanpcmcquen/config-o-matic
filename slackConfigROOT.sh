@@ -8,7 +8,7 @@
 ## note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files
-CONFIGOMATICVERSION=6.9.22
+CONFIGOMATICVERSION=6.10.0
 
 
 if [ ! $UID = 0 ]; then
@@ -90,6 +90,14 @@ MINECRAFTDL="https://s3.amazonaws.com/Minecraft.Download/launcher/Minecraft.jar"
 ## eric hameleers has updated multilib to include this package
 #LIBXSHM="libxshmfence-1.1-i486-1.txz"
 
+## we need this to determine if the system can install wine
+if [ -z "$COMARCH" ]; then
+  case "$(uname -m)" in
+    arm*) COMARCH=arm ;;
+    *) COMARCH=$(uname -m) ;;
+  esac
+fi
+
 ### my shell functions  ;^)
 make_sbo_pkg_upgrade_list() {
   sbopkg -c > ~/sbopkg-upgrade-list.txt
@@ -99,10 +107,33 @@ make_sbo_pkg_upgrade_list() {
 no_prompt_sbo_pkg_install_or_upgrade() {
   for ITEM in "$@"; do
     SBO_PACKAGE=$ITEM
-    if [ -z "`find /var/log/packages/ -name $SBO_PACKAGE-*`" ] || [ "$(cat ~/sbopkg-upgrade-list.txt | grep $SBO_PACKAGE)" ]; then
-      echo p | sbopkg -B -e continue -i $SBO_PACKAGE
+    if [ -z "`find /var/log/packages/ -name ${SBO_PACKAGE}-*`" ] || [ "$(cat ~/sbopkg-upgrade-list.txt | grep ${SBO_PACKAGE})" ]; then
+      echo p | sbopkg -B -k -e continue -i ${SBO_PACKAGE}
     fi
   done
+}
+
+no_prompt_sbo_pkg_multilib_install_or_upgrade() {
+  if [ "$MULTILIB" != true ]; then
+    no_prompt_sbo_pkg_install_or_upgrade "$@"
+  else
+    for ITEM in "$@"; do
+    SBO_PACKAGE=$ITEM
+      if [ -z `find /var/log/packages/ -name "${SBO_PACKAGE}-compat32*"` ]; then
+        . ~/multilib-dev.sh
+        if [ -z `find /var/log/packages/ -name "${SBO_PACKAGE}-*${ARCH}*"` ]; then
+          echo p | sbopkg -B -e continue -i ${SBO_PACKAGE}
+          convertpkg-compat32 -i `find /tmp/ -name "${SBO_PACKAGE}-*-i?86*"`
+          upgradepkg --install-new /tmp/${SBO_PACKAGE}-compat32*
+          . /etc/profile
+          export ARCH=`uname -m`
+          if [ -z `find /var/log/packages/ -name "${SBO_PACKAGE}-*${ARCH}*"` ]; then
+            echo p | sbopkg -B -e continue -i ${SBO_PACKAGE}
+          fi
+        fi
+      fi
+    done
+  fi
 }
 
 slackpkg_update_only() {
@@ -161,14 +192,6 @@ my_repo_install() {
 }
 
 ### end of shell functions
-
-## we need this to determine if the system can install wine
-if [ -z "$COMARCH" ]; then
-  case "$(uname -m)" in
-    arm*) COMARCH=arm ;;
-    *) COMARCH=$(uname -m) ;;
-  esac
-fi
 
 ## make sure we are home  ;^)
 cd
@@ -777,6 +800,7 @@ else
 
   ## webDev stuff
   npm install -g uglify-js
+  npm install -g grunt-cli
 fi
 
 if [ "$SPPLUSISINSTALLED" = true ]; then
@@ -784,7 +808,7 @@ if [ "$SPPLUSISINSTALLED" = true ]; then
     if [ "$CURRENT" != true ]; then
       no_prompt_sbo_pkg_install_or_upgrade pysetuptools
     fi
-    no_prompt_sbo_pkg_install_or_upgrade pip
+    pip install --upgrade pip || no_prompt_sbo_pkg_install_or_upgrade pip
 
     ## non-sbopkg stuff
     gem install bundler
@@ -862,7 +886,7 @@ if [ "$SPPLUSISINSTALLED" = true ]; then
 
     ## this library is necessary for some games,
     ## doesn't hurt to have it  ; ^)
-    no_prompt_sbo_pkg_install_or_upgrade libtxc_dxtn
+    no_prompt_sbo_pkg_multilib_install_or_upgrade libtxc_dxtn
 
     no_prompt_sbo_pkg_install_or_upgrade lame
 
