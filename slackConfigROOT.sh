@@ -8,7 +8,7 @@
 ## note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files
-CONFIGOMATICVERSION=6.9.21
+CONFIGOMATICVERSION=6.9.22
 
 
 if [ ! $UID = 0 ]; then
@@ -1176,6 +1176,11 @@ wget -N https://raw.githubusercontent.com/ryanpcmcquen/ryanpc-slackbuilds/master
 wget -N https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/slackware/medna \
   -P /usr/local/bin/
 chmod 755 /usr/local/bin/medna
+
+## make a shortcut to crossover
+wget -N https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/slackware/cxo \
+  -P /usr/local/bin/
+chmod 755 /usr/local/bin/cxo
 
 ## fix firefox's endless default browser prompts; also less typing  ;-)
 wget -N https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/ff \
