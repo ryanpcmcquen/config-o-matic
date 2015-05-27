@@ -8,7 +8,7 @@
 ## note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files
-CONFIGOMATICVERSION=7.0.0
+CONFIGOMATICVERSION=7.0.1
 
 
 if [ ! $UID = 0 ]; then
@@ -1219,7 +1219,9 @@ if [ "$WICD" = true ]; then
   slackpkg_update_only
   slackpkg install wicd
   chmod -v -x /etc/rc.d/rc.networkmanager
-  sed -i 's/^\([^#]\)/#\1/g' /etc/rc.d/rc.inet1.conf
+  ## comment out any lines that are not preceded by: ###
+  ## we use 3 #'s to avoid red herrings
+  sed -i '/^###/!s/^/###/g' /etc/rc.d/rc.inet1.conf
 fi
 
 ## let there be sound!
