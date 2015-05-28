@@ -8,7 +8,7 @@
 ## note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files
-CONFIGOMATICVERSION=7.0.1
+CONFIGOMATICVERSION=7.0.2
 
 
 if [ ! $UID = 0 ]; then
@@ -108,7 +108,7 @@ no_prompt_sbo_pkg_install_or_upgrade() {
   for ITEM in "$@"; do
     SBO_PACKAGE=$ITEM
     if [ -z "`find /var/log/packages/ -name ${SBO_PACKAGE}-*`" ] || [ "$(cat ~/sbopkg-upgrade-list.txt | grep ${SBO_PACKAGE})" ]; then
-      echo p | sbopkg -B -k -e continue -i ${SBO_PACKAGE}
+      echo p | sbopkg -B -e continue -i ${SBO_PACKAGE}
     fi
   done
 }
