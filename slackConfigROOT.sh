@@ -8,7 +8,7 @@
 ## note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files
-CONFIGOMATICVERSION=7.0.2
+CONFIGOMATICVERSION=7.0.3
 
 
 if [ ! $UID = 0 ]; then
@@ -1072,39 +1072,39 @@ if [ "$SPPLUSISINSTALLED" = true ]; then
     git clone https://github.com/numixproject/numix-icon-theme.git /var/cache/config-o-matic/themes/numix-icon-theme/
     cd /var/cache/config-o-matic/themes/numix-icon-theme/
     git pull
-    cp -rv /var/cache/config-o-matic/themes/numix-icon-theme/Numix/ /usr/share/icons/
+    cp -R /var/cache/config-o-matic/themes/numix-icon-theme/Numix/ /usr/share/icons/
     cd
 
     git clone https://github.com/numixproject/numix-icon-theme-bevel.git /var/cache/config-o-matic/themes/numix-icon-theme-bevel/
     cd /var/cache/config-o-matic/themes/numix-icon-theme-bevel/
     git pull
-    cp -rv /var/cache/config-o-matic/themes/numix-icon-theme-bevel/Numix-Bevel/ /usr/share/icons/
+    cp -R /var/cache/config-o-matic/themes/numix-icon-theme-bevel/Numix-Bevel/ /usr/share/icons/
     cd
 
     git clone https://github.com/numixproject/numix-icon-theme-circle.git /var/cache/config-o-matic/themes/numix-icon-theme-circle/
     cd /var/cache/config-o-matic/themes/numix-icon-theme-circle/
     git pull
-    cp -rv /var/cache/config-o-matic/themes/numix-icon-theme-circle/Numix-Circle/ /usr/share/icons/
+    cp -R /var/cache/config-o-matic/themes/numix-icon-theme-circle/Numix-Circle/ /usr/share/icons/
     ## make the default theme even better
-    cp -rv /usr/share/icons/Numix-Circle/* /usr/share/icons/Adwaita/
+    cp -R /usr/share/icons/Numix-Circle/* /usr/share/icons/Adwaita/
     cd
 
     git clone https://github.com/numixproject/numix-icon-theme-shine.git /var/cache/config-o-matic/themes/numix-icon-theme-shine/
     cd /var/cache/config-o-matic/themes/numix-icon-theme-shine/
     git pull
-    cp -rv /var/cache/config-o-matic/themes/numix-icon-theme-shine/Numix-Shine/ /usr/share/icons/
+    cp -R /var/cache/config-o-matic/themes/numix-icon-theme-shine/Numix-Shine/ /usr/share/icons/
     cd
 
     git clone https://github.com/numixproject/numix-icon-theme-utouch.git /var/cache/config-o-matic/themes/numix-icon-theme-utouch/
     cd /var/cache/config-o-matic/themes/numix-icon-theme-utouch/
     git pull
-    cp -rv /var/cache/config-o-matic/themes/numix-icon-theme-utouch/Numix-uTouch/ /usr/share/icons/
+    cp -R /var/cache/config-o-matic/themes/numix-icon-theme-utouch/Numix-uTouch/ /usr/share/icons/
     cd
 
     git clone https://github.com/shimmerproject/Numix.git /var/cache/config-o-matic/themes/Numix/
     cd /var/cache/config-o-matic/themes/Numix/
     git pull
-    cp -rv /var/cache/config-o-matic/themes/numix-icon-theme-utouch/Numix-uTouch/ /usr/share/icons/
+    cp -R /var/cache/config-o-matic/themes/numix-icon-theme-utouch/Numix-uTouch/ /usr/share/icons/
     cd
 
     git clone https://github.com/shimmerproject/Numix.git /usr/share/themes/Numix/
@@ -1114,16 +1114,16 @@ if [ "$SPPLUSISINSTALLED" = true ]; then
 
     wget -N \
       https://raw.githubusercontent.com/numixproject/numix-kde-theme/master/Numix.colors -P /usr/share/apps/color-schemes/
-    mv -v /usr/share/apps/color-schemes/Numix.colors /usr/share/apps/color-schemes/Numix-KDE.colors
+    mv /usr/share/apps/color-schemes/Numix.colors /usr/share/apps/color-schemes/Numix-KDE.colors
     wget -N \
       https://raw.githubusercontent.com/numixproject/numix-kde-theme/master/Numix.qtcurve -P /usr/share/apps/QtCurve/
-    mv -v /usr/share/apps/QtCurve/Numix.qtcurve /usr/share/apps/QtCurve/Numix-KDE.qtcurve
+    mv /usr/share/apps/QtCurve/Numix.qtcurve /usr/share/apps/QtCurve/Numix-KDE.qtcurve
 
     ## caledonia kde theme
     wget -N \
       http://sourceforge.net/projects/caledonia/files/Caledonia%20%28Plasma-KDE%20Theme%29/$CALPLAS \
       -P /usr/share/apps/desktoptheme/
-    tar xvf /usr/share/apps/desktoptheme/$CALPLAS -C /usr/share/apps/desktoptheme/
+    tar xf /usr/share/apps/desktoptheme/$CALPLAS -C /usr/share/apps/desktoptheme/
 
     ## caledonia color scheme
     wget -N http://sourceforge.net/projects/caledonia/files/Caledonia%20Color%20Scheme/Caledonia.colors \
@@ -1133,9 +1133,9 @@ if [ "$SPPLUSISINSTALLED" = true ]; then
     wget -N \
       http://sourceforge.net/projects/caledonia/files/Caledonia%20Official%20Wallpapers/$CALWALL \
       -P /usr/share/wallpapers/
-    tar xvf /usr/share/wallpapers/$CALWALL -C /usr/share/wallpapers/
-    cp -rv /usr/share/wallpapers/Caledonia_Official_Wallpaper_Collection/* /usr/share/wallpapers/
-    rm -rfv /usr/share/wallpapers/Caledonia_Official_Wallpaper_Collection/
+    tar xf /usr/share/wallpapers/$CALWALL -C /usr/share/wallpapers/
+    cp -R /usr/share/wallpapers/Caledonia_Official_Wallpaper_Collection/* /usr/share/wallpapers/
+    rm -Rf /usr/share/wallpapers/Caledonia_Official_Wallpaper_Collection/
 
     ## a few numix wallpapers also
     wget -N \
@@ -1148,15 +1148,15 @@ if [ "$SPPLUSISINSTALLED" = true ]; then
     unzip -o /var/cache/config-o-matic/numix___fragmented_space_by_me4oslav-d6l8ihd.zip -d /var/cache/config-o-matic/images/
     unzip -o /var/cache/config-o-matic/numix___name_of_the_doctor___wallpaper_by_satya164-d6hvzh7.zip -d /var/cache/config-o-matic/images/
 
-    cp -v /var/cache/config-o-matic/images/*.png /usr/share/wallpapers/
-    cp -v /var/cache/config-o-matic/images/*.jpg /usr/share/wallpapers/
+    cp /var/cache/config-o-matic/images/*.png /usr/share/wallpapers/
+    cp /var/cache/config-o-matic/images/*.jpg /usr/share/wallpapers/
 
     ## symlink all wallpapers so they show up in other DE's
     mkdir -pv /usr/share/backgrounds/mate/custom/
     find /usr/share/wallpapers -type f -a \( -iname '*.jpg' -o -iname '*.jpeg' -o -iname '*.jpe' -o -iname '*.gif' -o -iname '*.png' \) \
-      -exec ln -sfv {} /usr/share/backgrounds/mate/custom/ \;
+      -exec ln -sf {} /usr/share/backgrounds/mate/custom/ \;
     find /usr/share/wallpapers -type f -a \( -iname '*.jpg' -o -iname '*.jpeg' -o -iname '*.jpe' -o -iname '*.gif' -o -iname '*.png' \) \
-      -exec ln -sfv {} /usr/share/backgrounds/xfce/ \;
+      -exec ln -sf {} /usr/share/backgrounds/xfce/ \;
   else
     echo "You have gone VANILLA."
   fi
