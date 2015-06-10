@@ -8,7 +8,7 @@
 ## note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files
-CONFIGOMATICVERSION=7.0.3
+CONFIGOMATICVERSION=7.0.4
 
 
 if [ ! $UID = 0 ]; then
@@ -328,6 +328,13 @@ if [ -z "$(cat /etc/rc.d/rc.local | grep unicodeMagic)" ]; then
 echo "if [ -x /etc/rc.d/rc.unicodeMagic ]; then
   /etc/rc.d/rc.unicodeMagic
 fi" >> /etc/rc.d/rc.local
+fi
+
+## set maximum keyboard repeat rate and shortest delay
+if [ -z "$(cat /etc/rc.d/rc.local | grep kbdrate)" ]; then
+  echo >> /etc/rc.d/rc.local
+  echo "kbdrate -r 30.0 -d 250" >> /etc/rc.d/rc.local
+  echo >> /etc/rc.d/rc.local
 fi
 
 if [ "$CURRENT" = true ]; then
