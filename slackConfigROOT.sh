@@ -8,7 +8,7 @@
 ## note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files
-CONFIGOMATICVERSION=7.0.6
+CONFIGOMATICVERSION=7.0.7
 
 
 if [ ! $UID = 0 ]; then
@@ -744,15 +744,15 @@ fi
 ## make yourself the flash
 if [ -z "$(cat /etc/X11/xinit/xinitrc.* | grep 'xset r rate')" ]; then
   sed -i 's@\#\ Start\ the\ window@\
-  xset\ r\ rate\ $XSETKEYDELAY\ $XSETKEYRATE\
+  xset\ r\ rate\ '"$XSETKEYDELAY"'\ '"$XSETKEYRATE"'\
   \
   \#\ Start\ the\ window@g' /etc/X11/xinit/xinitrc.*
 
-  sed -i 's@xset\ r\ rate\ $XSETKEYDELAY\ $XSETKEYRATE@\
+  sed -i 's@xset\ r\ rate\ '"$XSETKEYDELAY"'\ '"$XSETKEYRATE"'@\
   \#\#\ my\ startup\ file\
   sh\ /usr/local/etc/dwm-autostart\
   \
-  xset\ r\ rate\ $XSETKEYDELAY\ $XSETKEYRATE\
+  xset\ r\ rate\ '"$XSETKEYDELAY"'\ '"$XSETKEYRATE"'\
   @g' /etc/X11/xinit/xinitrc.dwm
 fi
 
