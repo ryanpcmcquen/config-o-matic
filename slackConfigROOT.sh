@@ -8,7 +8,7 @@
 ## note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files
-CONFIGOMATICVERSION=7.0.4
+CONFIGOMATICVERSION=7.0.5
 
 
 if [ ! $UID = 0 ]; then
@@ -774,9 +774,6 @@ else
   no_prompt_sbo_pkg_install_or_upgrade spacefm
 
   ## my dwm tweaks
-  wget -N https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/slackware/xinitrc.dwm \
-    -P /etc/X11/xinit/
-  chmod 755 /etc/X11/xinit/xinitrc.dwm
   wget -N https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/slackware/dwm-autostart \
     -P /usr/local/etc/
 
@@ -790,6 +787,21 @@ else
   ### end ###
   ### dwm ###
   ###########
+
+  ## make yourself the flash
+  if [ -z "$(cat /etc/X11/xinit/xinitrc.* | grep 'xset r rate')" ]; then
+    sed -i 's@\#\ Start\ the\ window@\
+    xset\ r\ rate\ 110\ 90\
+    \
+    \#\ Start\ the\ window@g' /etc/X11/xinit/xinitrc.*
+
+    sed -i 's@xset\ r\ rate\ 110\ 90@\
+    \#\#\ my\ startup\ file\
+    sh\ /usr/local/etc/dwm-autostart\
+    \
+    xset\ r\ rate\ 110\ 90\
+    @g' /etc/X11/xinit/xinitrc.dwm
+  fi
 
   ## these are for the image ultimator
   no_prompt_sbo_pkg_install_or_upgrade iojs
