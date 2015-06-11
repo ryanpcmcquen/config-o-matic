@@ -8,7 +8,7 @@
 ## note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files
-CONFIGOMATICVERSION=7.0.5
+CONFIGOMATICVERSION=7.0.6
 
 
 if [ ! $UID = 0 ]; then
@@ -73,6 +73,10 @@ TMUXCONF="https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/tmux
 
 GITNAME="Ryan P.C. McQuen"
 GITEMAIL="ryan.q@linux.com"
+
+## these make you feel the flash in vim
+XSETKEYDELAY=120
+XSETKEYRATE=80
 
 TOUCHPCONF="https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/51-synaptics.conf"
 
@@ -737,6 +741,21 @@ if [ "$SPPLUSISINSTALLED" = true ]; then
   fi
 fi
 
+## make yourself the flash
+if [ -z "$(cat /etc/X11/xinit/xinitrc.* | grep 'xset r rate')" ]; then
+  sed -i 's@\#\ Start\ the\ window@\
+  xset\ r\ rate\ $XSETKEYDELAY\ $XSETKEYRATE\
+  \
+  \#\ Start\ the\ window@g' /etc/X11/xinit/xinitrc.*
+
+  sed -i 's@xset\ r\ rate\ $XSETKEYDELAY\ $XSETKEYRATE@\
+  \#\#\ my\ startup\ file\
+  sh\ /usr/local/etc/dwm-autostart\
+  \
+  xset\ r\ rate\ $XSETKEYDELAY\ $XSETKEYRATE\
+  @g' /etc/X11/xinit/xinitrc.dwm
+fi
+
 ## check for sbopkg update,
 ## then sync the slackbuilds.org repo
 sbopkg -B -u
@@ -787,21 +806,6 @@ else
   ### end ###
   ### dwm ###
   ###########
-
-  ## make yourself the flash
-  if [ -z "$(cat /etc/X11/xinit/xinitrc.* | grep 'xset r rate')" ]; then
-    sed -i 's@\#\ Start\ the\ window@\
-    xset\ r\ rate\ 110\ 90\
-    \
-    \#\ Start\ the\ window@g' /etc/X11/xinit/xinitrc.*
-
-    sed -i 's@xset\ r\ rate\ 110\ 90@\
-    \#\#\ my\ startup\ file\
-    sh\ /usr/local/etc/dwm-autostart\
-    \
-    xset\ r\ rate\ 110\ 90\
-    @g' /etc/X11/xinit/xinitrc.dwm
-  fi
 
   ## these are for the image ultimator
   no_prompt_sbo_pkg_install_or_upgrade iojs
