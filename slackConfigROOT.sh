@@ -755,6 +755,9 @@ if [ -z "$(cat /etc/X11/xinit/xinitrc.* | grep 'xset r rate')" ]; then
   xset\ r\ rate\ '"$XSETKEYDELAY"'\ '"$XSETKEYRATE"'\
   @g' /etc/X11/xinit/xinitrc.dwm
 fi
+## this file makes it easy to change the xset delay and rate
+wget -N https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/magicalXSET \
+  -P /etc/X11/xinit/
 
 ## check for sbopkg update,
 ## then sync the slackbuilds.org repo
