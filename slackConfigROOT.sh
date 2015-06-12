@@ -8,7 +8,7 @@
 ## note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files
-CONFIGOMATICVERSION=7.0.9
+CONFIGOMATICVERSION=7.1.00
 
 
 if [ ! $UID = 0 ]; then
@@ -497,7 +497,7 @@ if [ -z "$(cat /etc/sbopkg/sbopkg.conf | grep SBo-master)" ]; then
   sed -i "s@REPO_BRANCH=@#REPO_BRANCH=@g" /etc/sbopkg/sbopkg.conf
   sed -i "s@REPO_NAME=@#REPO_NAME=@g" /etc/sbopkg/sbopkg.conf
   echo >> /etc/sbopkg/sbopkg.conf
-  echo "## use the SBO-master branch as the default" >> /etc/sbopkg/sbopkg.conf
+  echo "## use the SBo-master branch as the default" >> /etc/sbopkg/sbopkg.conf
   echo "REPO_BRANCH=\${REPO_BRANCH:-master}" >> /etc/sbopkg/sbopkg.conf
   echo "REPO_NAME=\${REPO_NAME:-SBo}" >> /etc/sbopkg/sbopkg.conf
   echo >> /etc/sbopkg/sbopkg.conf
@@ -530,8 +530,7 @@ if [ "$MISCELLANY" = true ]; then
 fi
 
 ## create sbopkg directories
-mkdir -pv /var/lib/sbopkg/SBo-master/
-mkdir -pv /var/lib/sbopkg/queues/
+mkdir -pv /var/lib/sbopkg/{SBo,queues}/
 mkdir -pv /var/log/sbopkg/
 mkdir -pv /var/cache/sbopkg/
 mkdir -pv /tmp/SBo/
