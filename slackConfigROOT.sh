@@ -8,7 +8,7 @@
 ## note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files
-CONFIGOMATICVERSION=7.0.8
+CONFIGOMATICVERSION=7.0.9
 
 
 if [ ! $UID = 0 ]; then
@@ -488,7 +488,7 @@ if [ `find /var/log/packages/ -name slackpkg+*` ]; then
 fi
 
 ## use SBo master git branch instead of a specific version
-wget -N https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/slackware/sbo/90-SBo-master.repo \
+wget -N https://raw.githubusercontent.com/sbopkg/sbopkg/master/src/etc/sbopkg/repos.d/90-SBo-master.repo \
   -P /etc/sbopkg/repos.d/
 
 ## use SBo-master as default ...
@@ -497,8 +497,9 @@ if [ -z "$(cat /etc/sbopkg/sbopkg.conf | grep SBo-master)" ]; then
   sed -i "s@REPO_BRANCH=@#REPO_BRANCH=@g" /etc/sbopkg/sbopkg.conf
   sed -i "s@REPO_NAME=@#REPO_NAME=@g" /etc/sbopkg/sbopkg.conf
   echo >> /etc/sbopkg/sbopkg.conf
+  echo "## use the SBO-master branch as the default" >> /etc/sbopkg/sbopkg.conf
   echo "REPO_BRANCH=\${REPO_BRANCH:-master}" >> /etc/sbopkg/sbopkg.conf
-  echo "REPO_NAME=\${REPO_NAME:-SBo-master}" >> /etc/sbopkg/sbopkg.conf
+  echo "REPO_NAME=\${REPO_NAME:-SBo}" >> /etc/sbopkg/sbopkg.conf
   echo >> /etc/sbopkg/sbopkg.conf
 fi
 
