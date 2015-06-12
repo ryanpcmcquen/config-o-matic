@@ -8,7 +8,7 @@
 ## note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files
-CONFIGOMATICVERSION=7.0.7
+CONFIGOMATICVERSION=7.0.8
 
 
 if [ ! $UID = 0 ]; then
@@ -744,17 +744,23 @@ fi
 ## make yourself the flash
 if [ -z "$(cat /etc/X11/xinit/xinitrc.* | grep 'xset r rate')" ]; then
   sed -i 's@\#\ Start\ the\ window@\
-  xset\ r\ rate\ '"$XSETKEYDELAY"'\ '"$XSETKEYRATE"'\
-  \
-  \#\ Start\ the\ window@g' /etc/X11/xinit/xinitrc.*
-
-  sed -i 's@xset\ r\ rate\ '"$XSETKEYDELAY"'\ '"$XSETKEYRATE"'@\
-  \#\#\ my\ startup\ file\
-  sh\ /usr/local/etc/dwm-autostart\
-  \
-  xset\ r\ rate\ '"$XSETKEYDELAY"'\ '"$XSETKEYRATE"'\
-  @g' /etc/X11/xinit/xinitrc.dwm
+    xset\ r\ rate\ '"$XSETKEYDELAY"'\ '"$XSETKEYRATE"'\
+    \
+    \#\ Start\ the\ window@g' \
+  /etc/X11/xinit/xinitrc.*
 fi
+
+if [ -z "$(cat /etc/X11/xinit/xinitrc.dwm | grep 'xset r rate')" ]; then
+  sed -i 's@\#\ Start\ the\ window@\
+    \#\#\ my\ startup\ file\
+    sh\ /usr/local/etc/dwm-autostart\
+    \
+    xset\ r\ rate\ '"$XSETKEYDELAY"'\ '"$XSETKEYRATE"'\
+    \
+    \#\ Start\ the\ window@g' \
+  /etc/X11/xinit/xinitrc.dwm
+fi
+
 ## this file makes it easy to change the xset delay and rate
 wget -N https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/magicalXSET \
   -P /etc/X11/xinit/
