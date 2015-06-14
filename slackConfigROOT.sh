@@ -8,7 +8,7 @@
 ## note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files
-CONFIGOMATICVERSION=7.1.01
+CONFIGOMATICVERSION=7.1.02
 
 
 if [ ! $UID = 0 ]; then
@@ -87,6 +87,8 @@ GETEXTRASLACK="https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master
 GETSOURCESTA="https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/slackware/getSystemSlackBuildsSTABLE.sh"
 GETSOURCECUR="https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/slackware/getSystemSlackBuildsCURRENT.sh"
 
+MULTILIBINSTALLS="https://raw.githubusercontent.com/ryanpcmcquen/config-o-matic/master/multilibInstalls"
+
 GETJAVA="https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/slackware/getJavaSlackBuild.sh"
 
 MINECRAFTDL="https://s3.amazonaws.com/Minecraft.Download/launcher/Minecraft.jar"
@@ -115,29 +117,6 @@ no_prompt_sbo_pkg_install_or_upgrade() {
       echo p | sbopkg -B -e continue -i ${SBO_PACKAGE}
     fi
   done
-}
-
-no_prompt_sbo_pkg_multilib_install_or_upgrade() {
-  if [ "$MULTILIB" != true ]; then
-    no_prompt_sbo_pkg_install_or_upgrade "$@"
-  else
-    for ITEM in "$@"; do
-    SBO_PACKAGE=$ITEM
-      if [ -z `find /var/log/packages/ -name "${SBO_PACKAGE}-compat32*"` ]; then
-        . ~/multilib-dev.sh
-        if [ -z `find /var/log/packages/ -name "${SBO_PACKAGE}-*${ARCH}*"` ]; then
-          echo p | sbopkg -B -e continue -i ${SBO_PACKAGE}
-          convertpkg-compat32 -i `find /tmp/ -name "${SBO_PACKAGE}-*-i?86*"`
-          upgradepkg --install-new /tmp/${SBO_PACKAGE}-compat32*
-          . /etc/profile
-          export ARCH=`uname -m`
-          if [ -z `find /var/log/packages/ -name "${SBO_PACKAGE}-*${ARCH}*"` ]; then
-            echo p | sbopkg -B -e continue -i ${SBO_PACKAGE}
-          fi
-        fi
-      fi
-    done
-  fi
 }
 
 slackpkg_update_only() {
@@ -892,10 +871,6 @@ if [ "$SPPLUSISINSTALLED" = true ]; then
 
     no_prompt_sbo_pkg_install_or_upgrade screenfetch
 
-    ## this library is necessary for some games,
-    ## doesn't hurt to have it  ; ^)
-    no_prompt_sbo_pkg_multilib_install_or_upgrade libtxc_dxtn
-
     no_prompt_sbo_pkg_install_or_upgrade lame
 
     no_prompt_sbo_pkg_install_or_upgrade x264
@@ -1074,7 +1049,11 @@ if [ "$SPPLUSISINSTALLED" = true ]; then
     wget -N https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/minecraft -P /usr/local/bin/
     chmod 755 /usr/local/bin/minecraft
 
+    ## grab Pat's java SlackBuild
     curl $GETJAVA | sh
+
+    ## install any true multilib packages with a separate script
+    curl $MULTILIBINSTALLS | sh
 
     ## numix stuff is dead sexy
     git clone https://github.com/numixproject/numix-icon-theme.git /var/cache/config-o-matic/themes/numix-icon-theme/
