@@ -8,7 +8,7 @@
 ## note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files
-CONFIGOMATICVERSION=7.2.00
+CONFIGOMATICVERSION=7.2.01
 
 
 if [ ! $UID = 0 ]; then
@@ -328,6 +328,7 @@ fi
 ## blacklist sbo stuff
 sed -i 's/#\[0-9]+_SBo/\
 \[0-9]+_SBo\
+\[0-9]+_sbopkg\
 sbopkg/g' /etc/slackpkg/blacklist
 
 ## i always install jdk with pat's script
