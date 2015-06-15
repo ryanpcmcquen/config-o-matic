@@ -8,7 +8,7 @@
 ## note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files
-CONFIGOMATICVERSION=7.1.02
+CONFIGOMATICVERSION=7.2.00
 
 
 if [ ! $UID = 0 ]; then
@@ -462,63 +462,69 @@ if [ "`find /var/log/packages/ -name xorg-*`" ]; then
   export HEADLESS=no;
 fi
 
+## if we don't check for these, and the install fails,
+## things get wonky
 if [ `find /var/log/packages/ -name slackpkg+*` ]; then
   export SPPLUSISINSTALLED=true;
 fi
-
-## use SBo master git branch instead of a specific version
-wget -N https://raw.githubusercontent.com/sbopkg/sbopkg/master/src/etc/sbopkg/repos.d/90-SBo-master.repo \
-  -P /etc/sbopkg/repos.d/
-
-## use SBo-master as default ...
-## but only comment out the old lines for an easy swap
-if [ -z "$(cat /etc/sbopkg/sbopkg.conf | grep SBo-master)" ]; then
-  sed -i "s@REPO_BRANCH=@#REPO_BRANCH=@g" /etc/sbopkg/sbopkg.conf
-  sed -i "s@REPO_NAME=@#REPO_NAME=@g" /etc/sbopkg/sbopkg.conf
-  echo >> /etc/sbopkg/sbopkg.conf
-  echo "## use the SBo-master branch as the default" >> /etc/sbopkg/sbopkg.conf
-  echo "REPO_BRANCH=\${REPO_BRANCH:-master}" >> /etc/sbopkg/sbopkg.conf
-  echo "REPO_NAME=\${REPO_NAME:-SBo}" >> /etc/sbopkg/sbopkg.conf
-  echo >> /etc/sbopkg/sbopkg.conf
+if [ `find /var/log/packages/ -name sbopkg*` ]; then
+  export SBOPKGISINSTALLED=true;
 fi
 
-## applies to qemu
-if [ -z "$(cat /etc/sbopkg/sbopkg.conf | grep TARGETS)" ]; then
-  echo "export TARGETS=\${TARGETS:-all}" >> /etc/sbopkg/sbopkg.conf
-  echo >> /etc/sbopkg/sbopkg.conf
-fi
-## applies to google-go-lang
-if [ -z "$(cat /etc/sbopkg/sbopkg.conf | grep RUN_TEST)" ]; then
-  echo "export RUN_TEST=\${RUN_TEST:-false}" >> /etc/sbopkg/sbopkg.conf
-  echo >> /etc/sbopkg/sbopkg.conf
-fi
-## applies to a few packages
-if [ "$MULTILIB" = true ]; then
-  if [ -z "$(cat /etc/sbopkg/sbopkg.conf | grep COMPAT32)" ]; then
-    echo "export COMPAT32=\${COMPAT32:-yes}" >> /etc/sbopkg/sbopkg.conf
+if [ "$SBOPKGISINSTALLED" = true ]; then
+  ## use SBo master git branch instead of a specific version
+  wget -N https://raw.githubusercontent.com/sbopkg/sbopkg/master/src/etc/sbopkg/repos.d/90-SBo-master.repo \
+    -P /etc/sbopkg/repos.d/
+  
+  ## use SBo-master as default ...
+  ## but only comment out the old lines for an easy swap
+  if [ -z "$(cat /etc/sbopkg/sbopkg.conf | grep SBo-master)" ]; then
+    sed -i "s@REPO_BRANCH=@#REPO_BRANCH=@g" /etc/sbopkg/sbopkg.conf
+    sed -i "s@REPO_NAME=@#REPO_NAME=@g" /etc/sbopkg/sbopkg.conf
+    echo >> /etc/sbopkg/sbopkg.conf
+    echo "## use the SBo-master branch as the default" >> /etc/sbopkg/sbopkg.conf
+    echo "REPO_BRANCH=\${REPO_BRANCH:-master}" >> /etc/sbopkg/sbopkg.conf
+    echo "REPO_NAME=\${REPO_NAME:-SBo}" >> /etc/sbopkg/sbopkg.conf
     echo >> /etc/sbopkg/sbopkg.conf
   fi
-fi
-## applies to ssr
-if [ "$MISCELLANY" = true ]; then
-  if [ -z "$(cat /etc/sbopkg/sbopkg.conf | grep JACK)" ]; then
-    echo >> /etc/sbopkg/sbopkg.conf
-    echo "export JACK=\${JACK:-on}" >> /etc/sbopkg/sbopkg.conf
+  
+  ## applies to qemu
+  if [ -z "$(cat /etc/sbopkg/sbopkg.conf | grep TARGETS)" ]; then
+    echo "export TARGETS=\${TARGETS:-all}" >> /etc/sbopkg/sbopkg.conf
     echo >> /etc/sbopkg/sbopkg.conf
   fi
+  ## applies to google-go-lang
+  if [ -z "$(cat /etc/sbopkg/sbopkg.conf | grep RUN_TEST)" ]; then
+    echo "export RUN_TEST=\${RUN_TEST:-false}" >> /etc/sbopkg/sbopkg.conf
+    echo >> /etc/sbopkg/sbopkg.conf
+  fi
+  ## applies to a few packages
+  if [ "$MULTILIB" = true ]; then
+    if [ -z "$(cat /etc/sbopkg/sbopkg.conf | grep COMPAT32)" ]; then
+      echo "export COMPAT32=\${COMPAT32:-yes}" >> /etc/sbopkg/sbopkg.conf
+      echo >> /etc/sbopkg/sbopkg.conf
+    fi
+  fi
+  ## applies to ssr
+  if [ "$MISCELLANY" = true ]; then
+    if [ -z "$(cat /etc/sbopkg/sbopkg.conf | grep JACK)" ]; then
+      echo >> /etc/sbopkg/sbopkg.conf
+      echo "export JACK=\${JACK:-on}" >> /etc/sbopkg/sbopkg.conf
+      echo >> /etc/sbopkg/sbopkg.conf
+    fi
+  fi
+  
+  ## create sbopkg directories
+  mkdir -pv /var/lib/sbopkg/{SBo,queues}/
+  mkdir -pv /var/log/sbopkg/
+  mkdir -pv /var/cache/sbopkg/
+  mkdir -pv /tmp/SBo/
+  ## reverse
+  #rm -rfv /var/lib/sbopkg/
+  #rm -rfv /var/log/sbopkg/
+  #rm -rfv /var/cache/sbopkg/
+  #rm -rfv /tmp/SBo/
 fi
-
-## create sbopkg directories
-mkdir -pv /var/lib/sbopkg/{SBo,queues}/
-mkdir -pv /var/log/sbopkg/
-mkdir -pv /var/cache/sbopkg/
-mkdir -pv /tmp/SBo/
-## reverse
-#rm -rfv /var/lib/sbopkg/
-#rm -rfv /var/log/sbopkg/
-#rm -rfv /var/cache/sbopkg/
-#rm -rfv /tmp/SBo/
-
 
 ## gkrellm theme
 mkdir -pv /usr/share/gkrellm2/themes/
@@ -720,16 +726,18 @@ if [ "$SPPLUSISINSTALLED" = true ]; then
   fi
 fi
 
-## check for sbopkg update,
-## then sync the slackbuilds.org repo
-sbopkg -B -u
-sbopkg -B -r
-## generate a readable list
-make_sbo_pkg_upgrade_list
+if [ "$SBOPKGISINSTALLED" = true ]; then
+  ## check for sbopkg update,
+  ## then sync the slackbuilds.org repo
+  sbopkg -B -u
+  sbopkg -B -r
+  ## generate a readable list
+  make_sbo_pkg_upgrade_list
+fi
 
 if [ "$VANILLA" = "yes" ] || [ "$HEADLESS" != "no" ] || [ "$SPPLUSISINSTALLED" != true ]; then
   echo "Headless or source reader?"
-else
+elif [ "$SBOPKGISINSTALLED" = true ]; then
   ###########
   ### dwm ###
   ###########
@@ -790,7 +798,7 @@ else
   npm install -g grunt-cli
 fi
 
-if [ "$SPPLUSISINSTALLED" = true ]; then
+if [ "$SPPLUSISINSTALLED" = true ] && [ "$SBOPKGISINSTALLED" = true ]; then
   if [ "$MISCELLANY" = true ]; then
     if [ "$CURRENT" != true ]; then
       no_prompt_sbo_pkg_install_or_upgrade pysetuptools
@@ -1280,6 +1288,7 @@ echo >> ~/.config-o-matic_$CONFIGOMATICVERSION
 echo "VANILLA=$VANILLA" >> ~/.config-o-matic_$CONFIGOMATICVERSION
 echo "HEADLESS=$HEADLESS" >> ~/.config-o-matic_$CONFIGOMATICVERSION
 echo "SPPLUSISINSTALLED=$SPPLUSISINSTALLED" >> ~/.config-o-matic_$CONFIGOMATICVERSION
+echo "SBOPKGISINSTALLED=$SBOPKGISINSTALLED" >> ~/.config-o-matic_$CONFIGOMATICVERSION
 
 echo >> ~/.config-o-matic_$CONFIGOMATICVERSION
 
