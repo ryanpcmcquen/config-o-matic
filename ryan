@@ -40,14 +40,15 @@ if [ ! -d ~/.ssh/ ]; then
 fi
 
 ## slackbuilds repo
-git clone git@slackbuilds.org:slackbuilds.git sbo
-cd sbo
-git checkout -b user/ryan/updates
-git checkout user/ryan/updates
-git branch --set-upstream-to=origin/user/ryan/updates user/ryan/updates
-git pull
-cd
-
+if [ ! -d ~/sbo/ ]; then
+  git clone git@slackbuilds.org:slackbuilds.git sbo
+  cd sbo
+  git checkout -b user/ryan/updates
+  git checkout user/ryan/updates
+  git branch --set-upstream-to=origin/user/ryan/updates user/ryan/updates
+  git pull
+  cd
+fi
 
 ## sbo git hooks
 wget -N https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/slackware/sbo/hooks/commit-msg \
