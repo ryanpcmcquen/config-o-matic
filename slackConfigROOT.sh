@@ -8,7 +8,7 @@
 ## note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files
-CONFIGOMATICVERSION=7.2.01
+CONFIGOMATICVERSION=7.2.02
 
 
 if [ ! $UID = 0 ]; then
@@ -33,7 +33,7 @@ export DASHSLACKSTAVER=${DASHSLACKSTAVER=-"$(tr -d '\n\r' < ~/slackwareStableVer
 ## sbopkg
 wget www.sbopkg.org -O ~/sbopkg-home-page.html
 cat ~/sbopkg-home-page.html | grep sbopkg | grep -G tgz | cut -d= -f2 | \
-  tr -d '"' > ~/sbopkgVersion
+  cut -d'"' -f2 > ~/sbopkgVersion
 rm -v ~/sbopkg-home-page.html
 
 export SBOPKGDL=${SBOPKGDL="$(tr -d '\n\r' < ~/sbopkgVersion)"}
