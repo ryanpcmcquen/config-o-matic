@@ -8,7 +8,7 @@
 ## note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files
-CONFIGOMATICVERSION=7.2.02
+CONFIGOMATICVERSION=7.2.03
 
 
 if [ ! $UID = 0 ]; then
@@ -465,10 +465,10 @@ fi
 
 ## if we don't check for these, and the install fails,
 ## things get wonky
-if [ `find /var/log/packages/ -name slackpkg+*` ]; then
+if [ "`find /var/log/packages/ -name slackpkg+*`" ]; then
   export SPPLUSISINSTALLED=true;
 fi
-if [ `find /var/log/packages/ -name sbopkg*` ]; then
+if [ "`find /var/log/packages/ -name sbopkg*`" ]; then
   export SBOPKGISINSTALLED=true;
 fi
 
