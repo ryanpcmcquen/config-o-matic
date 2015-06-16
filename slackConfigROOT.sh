@@ -8,7 +8,7 @@
 ## note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files
-CONFIGOMATICVERSION=7.2.03
+CONFIGOMATICVERSION=7.2.04
 
 
 if [ ! $UID = 0 ]; then
@@ -1288,8 +1288,8 @@ echo >> ~/.config-o-matic_$CONFIGOMATICVERSION
 
 echo "VANILLA=$VANILLA" >> ~/.config-o-matic_$CONFIGOMATICVERSION
 echo "HEADLESS=$HEADLESS" >> ~/.config-o-matic_$CONFIGOMATICVERSION
-echo "SPPLUSISINSTALLED=$SPPLUSISINSTALLED" >> ~/.config-o-matic_$CONFIGOMATICVERSION
-echo "SBOPKGISINSTALLED=$SBOPKGISINSTALLED" >> ~/.config-o-matic_$CONFIGOMATICVERSION
+echo "## SPPLUSISINSTALLED=$SPPLUSISINSTALLED" >> ~/.config-o-matic_$CONFIGOMATICVERSION
+echo "## SBOPKGISINSTALLED=$SBOPKGISINSTALLED" >> ~/.config-o-matic_$CONFIGOMATICVERSION
 
 echo >> ~/.config-o-matic_$CONFIGOMATICVERSION
 
