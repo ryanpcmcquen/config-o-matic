@@ -3,37 +3,23 @@
 ## multilib stuff is placed in its own file so 
 ## that the user's path doesn't get messed up
 
-## the echo p keeps sbopkg from prompting you if something goes wrong
-no_prompt_sbo_pkg_install_or_upgrade() {
-  for ITEM in "$@"; do
-    SBO_PACKAGE=$ITEM
-    if [ -z "`find /var/log/packages/ -name ${SBO_PACKAGE}-*`" ] || [ "$(cat ~/sbopkg-upgrade-list.txt | grep ${SBO_PACKAGE})" ]; then
-      echo p | sbopkg -B -e continue -i ${SBO_PACKAGE}
-    fi
-  done
-}
-
 no_prompt_sbo_pkg_multilib_install_or_upgrade() {
-  if [ "$MULTILIB" != true ]; then
-    no_prompt_sbo_pkg_install_or_upgrade "$@"
-  else
-    for ITEM in "$@"; do
-    SBO_PACKAGE=$ITEM
-      if [ -z `find /var/log/packages/ -name "${SBO_PACKAGE}-compat32*"` ]; then
-        . ~/multilib-dev.sh
+  for ITEM in "$@"; do
+  SBO_PACKAGE=$ITEM
+    if [ -z `find /var/log/packages/ -name "${SBO_PACKAGE}-compat32*"` ]; then
+      . ~/multilib-dev.sh
+      if [ -z `find /var/log/packages/ -name "${SBO_PACKAGE}-*${ARCH}*"` ]; then
+        echo p | sbopkg -B -e continue -i ${SBO_PACKAGE}
+        convertpkg-compat32 -i `find /tmp/ -name "${SBO_PACKAGE}-*-i?86*"`
+        upgradepkg --install-new /tmp/${SBO_PACKAGE}-compat32*
+        . /etc/profile
+        export ARCH=`uname -m`
         if [ -z `find /var/log/packages/ -name "${SBO_PACKAGE}-*${ARCH}*"` ]; then
           echo p | sbopkg -B -e continue -i ${SBO_PACKAGE}
-          convertpkg-compat32 -i `find /tmp/ -name "${SBO_PACKAGE}-*-i?86*"`
-          upgradepkg --install-new /tmp/${SBO_PACKAGE}-compat32*
-          . /etc/profile
-          export ARCH=`uname -m`
-          if [ -z `find /var/log/packages/ -name "${SBO_PACKAGE}-*${ARCH}*"` ]; then
-            echo p | sbopkg -B -e continue -i ${SBO_PACKAGE}
-          fi
         fi
       fi
-    done
-  fi
+    fi
+  done
 }
 
 ## this library is necessary for several games,
