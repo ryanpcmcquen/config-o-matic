@@ -8,7 +8,7 @@
 ## note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files
-CONFIGOMATICVERSION=7.2.10
+CONFIGOMATICVERSION=7.2.11
 
 
 if [ ! $UID = 0 ]; then
@@ -1062,7 +1062,11 @@ if [ "$SPPLUSISINSTALLED" = true ] && [ "$SBOPKGISINSTALLED" = true ]; then
     curl $GETJAVA | sh
 
     ## install any true multilib packages with a separate script
-    curl $MULTILIBINSTALLS | sh
+    if [ "$MULTILIB" = true ]; then
+      curl $MULTILIBINSTALLS | sh
+    else
+      no_prompt_sbo_pkg_install_or_upgrade libtxc_dxtn
+    fi
 
     ## numix stuff is dead sexy
     git clone https://github.com/numixproject/numix-icon-theme.git /var/cache/config-o-matic/themes/numix-icon-theme/
