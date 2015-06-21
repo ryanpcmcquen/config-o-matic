@@ -8,7 +8,7 @@
 ## note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files
-CONFIGOMATICVERSION=7.2.12
+CONFIGOMATICVERSION=7.2.13
 
 
 if [ ! $UID = 0 ]; then
@@ -1086,7 +1086,7 @@ if [ "$SPPLUSISINSTALLED" = true ] && [ "$SBOPKGISINSTALLED" = true ]; then
     git pull
     cp -R /var/cache/config-o-matic/themes/numix-icon-theme-circle/Numix-Circle/ /usr/share/icons/
     ## make the default theme even better
-    cp -R /usr/share/icons/Numix-Circle/* /usr/share/icons/Adwaita/
+    cp -R /usr/share/icons/Numix-Circle/* /usr/share/icons/Oxygen_Zion/
     cd
 
     git clone https://github.com/numixproject/numix-icon-theme-shine.git /var/cache/config-o-matic/themes/numix-icon-theme-shine/
