@@ -8,7 +8,7 @@
 ## note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files
-CONFIGOMATICVERSION=7.2.13
+CONFIGOMATICVERSION=7.2.14
 
 
 if [ ! $UID = 0 ]; then
@@ -73,6 +73,11 @@ TMUXCONF="https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/tmux
 
 GITNAME="Ryan P.C. McQuen"
 GITEMAIL="ryan.q@linux.com"
+
+## alsa volume level for master, headphone and pcm
+ALSAVOLUMEOUTPUTLEVEL="97%"
+## alsa mic capture level
+ALSAMICCAPTURELEVEL="50%"
 
 ## these make you feel like the flash in vim
 XSETKEYDELAY=150
@@ -1258,26 +1263,26 @@ fi
 /etc/rc.d/rc.alsa
 if [ "$(aplay -l | grep Analog | grep 'card 1')" ]; then
   amixer set -c 1 Master 0% unmute
-  amixer set -c 1 Master 97% unmute
+  amixer set -c 1 Master $ALSAVOLUMEOUTPUTLEVEL unmute
   amixer set -c 1 Headphone 0% unmute
-  amixer set -c 1 Headphone 87% unmute
+  amixer set -c 1 Headphone $ALSAVOLUMEOUTPUTLEVEL unmute
   amixer set -c 1 PCM 0% unmute
-  amixer set -c 1 PCM 97% unmute
+  amixer set -c 1 PCM $ALSAVOLUMEOUTPUTLEVEL unmute
   amixer set -c 1 Mic 0% unmute
-  amixer set -c 1 Mic 50% unmute
+  amixer set -c 1 Mic $ALSAMICCAPTURELEVEL unmute
   amixer set -c 1 Capture 0% cap
-  amixer set -c 1 Capture 50% cap
+  amixer set -c 1 Capture $ALSAMICCAPTURELEVEL cap
 else
   amixer set Master 0% unmute
-  amixer set Master 97% unmute
+  amixer set Master $ALSAVOLUMEOUTPUTLEVEL unmute
   amixer set Headphone 0% unmute
-  amixer set Headphone 87% unmute
+  amixer set Headphone $ALSAVOLUMEOUTPUTLEVEL unmute
   amixer set PCM 0% unmute
-  amixer set PCM 97% unmute
+  amixer set PCM $ALSAVOLUMEOUTPUTLEVEL unmute
   amixer set Mic 0% unmute
-  amixer set Mic 50% unmute
+  amixer set Mic $ALSAMICCAPTURELEVEL unmute
   amixer set Capture 0% cap
-  amixer set Capture 50% cap
+  amixer set Capture $ALSAMICCAPTURELEVEL cap
 fi
 
 alsactl store
