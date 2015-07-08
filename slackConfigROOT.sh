@@ -8,7 +8,7 @@
 ## note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files
-CONFIGOMATICVERSION=7.2.14
+CONFIGOMATICVERSION=7.2.15
 
 
 if [ ! $UID = 0 ]; then
@@ -461,7 +461,9 @@ wget -N $SBOPKGDL -P /var/cache/config-o-matic/pkgs/
 if [ "$COMARCH" != "arm" ]; then
   wget -N $SPPLUSDL -P /var/cache/config-o-matic/pkgs/
 fi
-upgradepkg --install-new /var/cache/config-o-matic/pkgs/*.t?z
+## install the latest versions
+find /var/cache/config-o-matic/pkgs/ -name "sbopkg*" | tail -1 | xargs -i upgradepkg --install-new {}
+find /var/cache/config-o-matic/pkgs/ -name "slackpkg+*" | tail -1 | xargs -i upgradepkg --install-new {}
 
 ## a few more vars
 if [ "`find /var/log/packages/ -name xorg-*`" ]; then
