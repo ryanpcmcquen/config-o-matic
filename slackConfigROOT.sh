@@ -199,11 +199,11 @@ echo
 ## go!
 
 ## OGCONFIG introduced in 6.6.0
-if [ `find -name ".config-o-matic*" | tail -1` ] && [ -z `. $(find -name ".config-o-matic*" | tail -1)` ]; then
+if [ `find -name ".config-o-matic*" | sort | tail -1` ] && [ -z `. $(find -name ".config-o-matic*" | sort | tail -1)` ]; then
   read -p "Would you like to use your last CONFIGURATION?  [y/N]: " response
   case $response in
     [yY][eE][sS]|[yY])
-      . "$(find -name '.config-o-matic*' | tail -1)";
+      . "$(find -name '.config-o-matic*' | sort | tail -1)";
       export OGCONFIG=true;
       echo You respect your original choices.;
       ;;
@@ -462,8 +462,8 @@ if [ "$COMARCH" != "arm" ]; then
   wget -N $SPPLUSDL -P /var/cache/config-o-matic/pkgs/
 fi
 ## install the latest versions
-find /var/cache/config-o-matic/pkgs/ -name "sbopkg*" | tail -1 | xargs -i upgradepkg --install-new {}
-find /var/cache/config-o-matic/pkgs/ -name "slackpkg+*" | tail -1 | xargs -i upgradepkg --install-new {}
+find /var/cache/config-o-matic/pkgs/ -name "sbopkg*" | sort | tail -1 | xargs -i upgradepkg --install-new {}
+find /var/cache/config-o-matic/pkgs/ -name "slackpkg+*" | sort | tail -1 | xargs -i upgradepkg --install-new {}
 
 ## a few more vars
 if [ "`find /var/log/packages/ -name xorg-*`" ]; then
