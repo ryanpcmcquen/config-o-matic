@@ -8,7 +8,7 @@
 ## note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files
-CONFIGOMATICVERSION=7.2.17
+CONFIGOMATICVERSION=7.2.18
 
 
 if [ ! $UID = 0 ]; then
@@ -140,13 +140,13 @@ slackpkg_full_upgrade() {
 
 ## actually pretty simple
 set_slackpkg_to_auto() {
-  sed -i 's/^BATCH=off/BATCH=on/g' /etc/slackpkg/slackpkg.conf
-  sed -i 's/^DEFAULT_ANSWER=n/DEFAULT_ANSWER=y/g' /etc/slackpkg/slackpkg.conf
+  sed -i.bak 's/^BATCH=off/BATCH=on/g' /etc/slackpkg/slackpkg.conf
+  sed -i.bak 's/^DEFAULT_ANSWER=n/DEFAULT_ANSWER=y/g' /etc/slackpkg/slackpkg.conf
 }
 
 set_slackpkg_to_manual() {
-  sed -i 's/^BATCH=on/BATCH=off/g' /etc/slackpkg/slackpkg.conf
-  sed -i 's/^DEFAULT_ANSWER=y/DEFAULT_ANSWER=n/g' /etc/slackpkg/slackpkg.conf
+  sed -i.bak 's/^BATCH=on/BATCH=off/g' /etc/slackpkg/slackpkg.conf
+  sed -i.bak 's/^DEFAULT_ANSWER=y/DEFAULT_ANSWER=n/g' /etc/slackpkg/slackpkg.conf
 }
 
 ## install packages from my unofficial github repo
@@ -281,20 +281,20 @@ fi
 ## no need to run this on efi
 if [ -e /etc/lilo.conf ]; then
   ## configure lilo
-  sed -i 's/^#compact/lba32\
+  sed -i.bak 's/^#compact/lba32\
   compact/g' /etc/lilo.conf
 
   ## set to utf8 and pass acpi kernel params
   ## these fix brightness key issues on some comps
   ## and have no negative effects on others (in my testing at least)
-  sed -i 's/^append=" vt.default_utf8=[0-9]"/append=" vt.default_utf8=1 acpi_osi=linux acpi_backlight=vendor"/g' /etc/lilo.conf
-  sed -i 's/^timeout =.*/timeout = 5/g' /etc/lilo.conf
+  sed -i.bak 's/^append=" vt.default_utf8=[0-9]"/append=" vt.default_utf8=1 acpi_osi=linux acpi_backlight=vendor"/g' /etc/lilo.conf
+  sed -i.bak 's/^timeout =.*/timeout = 5/g' /etc/lilo.conf
   if [ "$(cat /etc/lilo.conf | grep 'vga=771')" ]; then
     ## uncomment all vga settings so
     ## we don't end up with conflicts
-    sed -i "s_^vga_#vga_g" /etc/lilo.conf
+    sed -i.bak "s_^vga_#vga_g" /etc/lilo.conf
     ## 800x600x256 (so we can see the penguins!)
-    sed -i "s_^#vga=771_vga=771_g" /etc/lilo.conf
+    sed -i.bak "s_^#vga=771_vga=771_g" /etc/lilo.conf
   fi
 fi
 
@@ -304,8 +304,8 @@ if [ "$(which lilo)" ]; then
 fi
 
 ## change to utf-8 encoding
-sed -i 's/^export LANG=en_US/#export LANG=en_US/g' /etc/profile.d/lang.sh
-sed -i 's/^#export LANG=en_US.UTF-8/export LANG=en_US.UTF-8/g' /etc/profile.d/lang.sh
+sed -i.bak 's/^export LANG=en_US/#export LANG=en_US/g' /etc/profile.d/lang.sh
+sed -i.bak 's/^#export LANG=en_US.UTF-8/export LANG=en_US.UTF-8/g' /etc/profile.d/lang.sh
 ## set a utf8 font and other unicode-y stuff
 wget -N https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/slackware/rc.unicodeMagic -P /etc/rc.d/
 chmod 755 /etc/rc.d/rc.unicodeMagic
@@ -327,11 +327,11 @@ fi
 
 if [ "$CURRENT" = true ]; then
   ## adjust slackpkg blacklist
-  sed -i 's/^aaa_elflibs/#aaa_elflibs/g' /etc/slackpkg/blacklist
+  sed -i.bak 's/^aaa_elflibs/#aaa_elflibs/g' /etc/slackpkg/blacklist
 fi
 
 ## blacklist sbo stuff
-sed -i 's/#\[0-9]+_SBo/\
+sed -i.bak 's/#\[0-9]+_SBo/\
 \[0-9]+_SBo\
 \[0-9]+_sbopkg\
 sbopkg/g' /etc/slackpkg/blacklist
@@ -347,43 +347,43 @@ if [ "$COMARCH" != "arm" ]; then
   if [ "$CURRENT" = true ]; then
     ### undo stable mirrors, do current
     if [ "$(uname -m)" = "x86_64" ]; then
-      sed -i \
+      sed -i.bak \
         "s_^http://ftp.osuosl.org/.2/slackware/slackware64${DASHSLACKSTAVER}/_# http://ftp.osuosl.org/.2/slackware/slackware64${DASHSLACKSTAVER}/_g" /etc/slackpkg/mirrors
-      sed -i \
+      sed -i.bak \
         "s_^# http://ftp.osuosl.org/.2/slackware/slackware64-current/_http://ftp.osuosl.org/.2/slackware/slackware64-current/_g" /etc/slackpkg/mirrors
     else
-      sed -i \
+      sed -i.bak \
         "s_^http://ftp.osuosl.org/.2/slackware/slackware${DASHSLACKSTAVER}/_# http://ftp.osuosl.org/.2/slackware/slackware${DASHSLACKSTAVER}/_g" /etc/slackpkg/mirrors
-      sed -i \
+      sed -i.bak \
         "s_^# http://ftp.osuosl.org/.2/slackware/slackware-current/_http://ftp.osuosl.org/.2/slackware/slackware-current/_g" /etc/slackpkg/mirrors
     fi
   else
     ### undo current, go stable
     if [ "$(uname -m)" = "x86_64" ]; then
-      sed -i \
+      sed -i.bak \
         "s_^http://ftp.osuosl.org/.2/slackware/slackware64-current/_# http://ftp.osuosl.org/.2/slackware/slackware64-current/_g" /etc/slackpkg/mirrors
-      sed -i \
+      sed -i.bak \
         "s_^# http://ftp.osuosl.org/.2/slackware/slackware64${DASHSLACKSTAVER}/_http://ftp.osuosl.org/.2/slackware/slackware64${DASHSLACKSTAVER}/_g" /etc/slackpkg/mirrors
     else
-      sed -i \
+      sed -i.bak \
         "s_^http://ftp.osuosl.org/.2/slackware/slackware-current/_# http://ftp.osuosl.org/.2/slackware/slackware-current/_g" /etc/slackpkg/mirrors
-      sed -i \
+      sed -i.bak \
         "s_^# http://ftp.osuosl.org/.2/slackware/slackware${DASHSLACKSTAVER}/_http://ftp.osuosl.org/.2/slackware/slackware${DASHSLACKSTAVER}/_g" /etc/slackpkg/mirrors
     fi
   fi
 else
   if [ "$CURRENT" = true ]; then
     ### undo stable mirrors
-    sed -i \
+    sed -i.bak \
       "s_^http://mirrors.vbi.vt.edu/mirrors/linux/slackwarearm/slackwarearm${DASHSLACKSTAVER}/_# http://mirrors.vbi.vt.edu/mirrors/linux/slackwarearm/slackwarearm${DASHSLACKSTAVER}/_g" /etc/slackpkg/mirrors
     ### do the current
-    sed -i \
+    sed -i.bak \
       "s_^# http://mirrors.vbi.vt.edu/mirrors/linux/slackwarearm/slackwarearm-current/_http://mirrors.vbi.vt.edu/mirrors/linux/slackwarearm/slackwarearm-current/_g" /etc/slackpkg/mirrors
   else
     ### undo current
-    sed -i \
+    sed -i.bak \
       "s_^http://mirrors.vbi.vt.edu/mirrors/linux/slackwarearm/slackwarearm-current/_# http://mirrors.vbi.vt.edu/mirrors/linux/slackwarearm/slackwarearm-current/_g" /etc/slackpkg/mirrors
-    sed -i \
+    sed -i.bak \
       "s_^# http://mirrors.vbi.vt.edu/mirrors/linux/slackwarearm/slackwarearm${DASHSLACKSTAVER}/_http://mirrors.vbi.vt.edu/mirrors/linux/slackwarearm/slackwarearm${DASHSLACKSTAVER}/_g" /etc/slackpkg/mirrors
   fi
 fi
@@ -487,8 +487,8 @@ if [ "$SBOPKGISINSTALLED" = true ]; then
   ## use SBo-master as default ...
   ## but only comment out the old lines for an easy swap
   if [ -z "$(cat /etc/sbopkg/sbopkg.conf | grep SBo-master)" ]; then
-    sed -i "s@REPO_BRANCH=@#REPO_BRANCH=@g" /etc/sbopkg/sbopkg.conf
-    sed -i "s@REPO_NAME=@#REPO_NAME=@g" /etc/sbopkg/sbopkg.conf
+    sed -i.bak "s@REPO_BRANCH=@#REPO_BRANCH=@g" /etc/sbopkg/sbopkg.conf
+    sed -i.bak "s@REPO_NAME=@#REPO_NAME=@g" /etc/sbopkg/sbopkg.conf
     echo >> /etc/sbopkg/sbopkg.conf
     echo "## use the SBo-master branch as the default" >> /etc/sbopkg/sbopkg.conf
     echo "REPO_BRANCH=\${REPO_BRANCH:-master}" >> /etc/sbopkg/sbopkg.conf
@@ -558,8 +558,8 @@ if [ "$SPPLUSISINSTALLED" = true ]; then
       fi
       cp -v /etc/slackpkg/slackpkgplus.conf.new /etc/slackpkg/slackpkgplus.conf
       cp -v /etc/slackpkg/slackpkgplus.conf /etc/slackpkg/BACKUP-slackpkgplus.conf.old-BACKUP
-      sed -i 's@REPOPLUS=( slackpkgplus restricted alienbob slacky )@#REPOPLUS=( slackpkgplus restricted alienbob slacky )@g' /etc/slackpkg/slackpkgplus.conf
-      sed -i "s@MIRRORPLUS\['slacky'\]@#MIRRORPLUS['slacky']@g" /etc/slackpkg/slackpkgplus.conf
+      sed -i.bak 's@REPOPLUS=( slackpkgplus restricted alienbob slacky )@#REPOPLUS=( slackpkgplus restricted alienbob slacky )@g' /etc/slackpkg/slackpkgplus.conf
+      sed -i.bak "s@MIRRORPLUS\['slacky'\]@#MIRRORPLUS['slacky']@g" /etc/slackpkg/slackpkgplus.conf
     
       echo >> /etc/slackpkg/slackpkgplus.conf
       echo >> /etc/slackpkg/slackpkgplus.conf
@@ -579,12 +579,12 @@ if [ "$SPPLUSISINSTALLED" = true ]; then
     
       if [ "$MULTILIB" = true ] && [ "$(uname -m)" = "x86_64" ]; then
         if [ "$CURRENT" = true ]; then
-          sed -i "s@#MIRRORPLUS\['multilib']=http://taper.alienbase.nl/mirrors/people/alien/multilib/current/@MIRRORPLUS['multilib']=http://taper.alienbase.nl/mirrors/people/alien/multilib/current/@g" \
+          sed -i.bak "s@#MIRRORPLUS\['multilib']=http://taper.alienbase.nl/mirrors/people/alien/multilib/current/@MIRRORPLUS['multilib']=http://taper.alienbase.nl/mirrors/people/alien/multilib/current/@g" \
           /etc/slackpkg/slackpkgplus.conf
           echo >> /etc/slackpkg/slackpkgplus.conf
           echo "PKGS_PRIORITY=( multilib:.* restricted-current:.* alienbob-current:.* )" >> /etc/slackpkg/slackpkgplus.conf
         else
-          sed -i "s@#MIRRORPLUS\['multilib']=http://taper.alienbase.nl/mirrors/people/alien/multilib/${SLACKSTAVER}/@MIRRORPLUS['multilib']=http://taper.alienbase.nl/mirrors/people/alien/multilib/${SLACKSTAVER}/@g" \
+          sed -i.bak "s@#MIRRORPLUS\['multilib']=http://taper.alienbase.nl/mirrors/people/alien/multilib/${SLACKSTAVER}/@MIRRORPLUS['multilib']=http://taper.alienbase.nl/mirrors/people/alien/multilib/${SLACKSTAVER}/@g" \
           /etc/slackpkg/slackpkgplus.conf
           echo >> /etc/slackpkg/slackpkgplus.conf
           echo "PKGS_PRIORITY=( multilib:.* )" >> /etc/slackpkg/slackpkgplus.conf
@@ -723,7 +723,7 @@ if [ "$SPPLUSISINSTALLED" = true ]; then
     ntpdate 0.pool.ntp.org
     ntpdate 1.pool.ntp.org
     hwclock --systohc
-    sed -i 's/#server pool.ntp.org iburst / \
+    sed -i.bak 's/#server pool.ntp.org iburst / \
     server 0.pool.ntp.org iburst \
     server 1.pool.ntp.org iburst \
     server 2.pool.ntp.org iburst \
@@ -1171,23 +1171,23 @@ fi
 
 ## make yourself the flash
 if [ -z "$(cat /etc/X11/xinit/xinitrc.* | grep 'xset r rate')" ]; then
-  sed -i 's@\#\ Start\ the\ window@\
+  sed -i.bak 's@if \[ -z "\$DESKTOP_SESSION"@\
     xset\ r\ rate\ '"$XSETKEYDELAY"'\ '"$XSETKEYRATE"'\
     \
-    \#\ Start\ the\ window@g' \
+    if \[ -z "\$DESKTOP_SESSION"@g' \
   /etc/X11/xinit/xinitrc.*
 fi
 
 ## dwm is its own thing
 if [ -z "$(cat /etc/X11/xinit/xinitrc.dwm | grep 'xset r rate')" ]; then
-  sed -i 's@\#\ Start\ the\ window@\
+  sed -i.bak 's@\#\ Start\ the\ window@\
     xset\ r\ rate\ '"$XSETKEYDELAY"'\ '"$XSETKEYRATE"'\
     \
     \#\ Start\ the\ window@g' \
   /etc/X11/xinit/xinitrc.dwm
 fi
 if [ -z "$(cat /etc/X11/xinit/xinitrc.dwm | grep 'dwm-autostart')" ]; then
-  sed -i 's@xset\ r\ rate.*@\
+  sed -i.bak 's@xset\ r\ rate.*@\
     \#\#\ my\ startup\ file\
     sh\ /usr/local/etc/dwm-autostart\
     \
@@ -1258,7 +1258,7 @@ if [ "$WICD" = true ]; then
   chmod -v -x /etc/rc.d/rc.networkmanager
   ## comment out any lines that are not preceded by: ###
   ## we use 3 #'s to avoid red herrings
-  sed -i '/^###/!s/^/###/g' /etc/rc.d/rc.inet1.conf
+  sed -i.bak '/^###/!s/^/###/g' /etc/rc.d/rc.inet1.conf
 fi
 
 ## let there be sound!
