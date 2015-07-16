@@ -8,7 +8,7 @@
 ## note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files
-CONFIGOMATICVERSION=7.2.19
+CONFIGOMATICVERSION=7.2.20
 
 
 if [ ! $UID = 0 ]; then
@@ -876,7 +876,7 @@ if [ "$SPPLUSISINSTALLED" = true ] && [ "$SBOPKGISINSTALLED" = true ]; then
     ## lumina!
     #no_prompt_sbo_pkg_install_or_upgrade lumina
 
-    if [ -z "$(cat /usr/share/e16/config/bindings.cfg | grep gmrun)" ]; then
+    if [ -e /usr/share/e16/config/bindings.cfg ] && [ -z "$(cat /usr/share/e16/config/bindings.cfg | grep gmrun)" ]; then
       echo >> /usr/share/e16/config/bindings.cfg
       echo "## my bindings" >> /usr/share/e16/config/bindings.cfg
       echo "KeyDown   A    Escape exec gmrun" >> /usr/share/e16/config/bindings.cfg
