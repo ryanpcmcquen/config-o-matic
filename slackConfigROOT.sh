@@ -8,7 +8,7 @@
 ## note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files
-CONFIGOMATICVERSION=7.2.22
+CONFIGOMATICVERSION=7.2.23
 
 
 if [ ! $UID = 0 ]; then
@@ -750,7 +750,7 @@ if [ "$SBOPKGISINSTALLED" = true ]; then
 fi
 
 if [ "$VANILLA" = "yes" ] || [ "$HEADLESS" != "no" ] || [ "$SPPLUSISINSTALLED" != true ]; then
-  echo "Headless or source reader?"
+  echo "Headless, source reader or server errors?"
 elif [ "$SBOPKGISINSTALLED" = true ]; then
   ###########
   ### dwm ###
