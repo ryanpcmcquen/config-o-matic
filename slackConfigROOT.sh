@@ -8,7 +8,7 @@
 ## note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files
-CONFIGOMATICVERSION=7.2.20
+CONFIGOMATICVERSION=7.2.21
 
 
 if [ ! $UID = 0 ]; then
@@ -672,6 +672,12 @@ git clone https://github.com/ryanpcmcquen/ryanpc-slackbuilds.git
 
 ## ponce's repo with -current fixes
 git clone https://github.com/Ponce/slackbuilds.git ponce-sbo
+
+## a script to allow promptless saving of xfce
+## screenshots, with a nice timestamp
+wget -N https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/xfceScreenshotSaver \
+  -P /usr/local/bin/
+chmod 755 /usr/local/bin/xfceScreenshotSaver
 
 ## script to download tarballs from SlackBuild .info files
 wget -N https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/slackware/sboGizmos/sbdl \
