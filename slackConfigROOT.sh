@@ -8,7 +8,7 @@
 ## note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files
-CONFIGOMATICVERSION=7.2.23
+CONFIGOMATICVERSION=7.2.24
 
 
 if [ ! $UID = 0 ]; then
@@ -929,6 +929,16 @@ if [ "$SPPLUSISINSTALLED" = true ] && [ "$SBOPKGISINSTALLED" = true ]; then
 
     no_prompt_sbo_pkg_install_or_upgrade rar
     no_prompt_sbo_pkg_install_or_upgrade unrar
+
+    ## a whole bunch of archive-y stuff i
+    ## probably won't use much :-)
+    no_prompt_sbo_pkg_install_or_upgrade libisofs
+    no_prompt_sbo_pkg_install_or_upgrade libburn
+    no_prompt_sbo_pkg_install_or_upgrade libisoburn
+    no_prompt_sbo_pkg_install_or_upgrade file-roller
+    no_prompt_sbo_pkg_install_or_upgrade isomaster
+    no_prompt_sbo_pkg_install_or_upgrade xarchiver
+    no_prompt_sbo_pkg_install_or_upgrade thunar-archive-plugin
 
     no_prompt_sbo_pkg_install_or_upgrade p7zip
     no_prompt_sbo_pkg_install_or_upgrade libmspack
