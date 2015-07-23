@@ -10,8 +10,10 @@ no_prompt_sbo_pkg_multilib_install_or_upgrade() {
       . ~/multilib-dev.sh
       if [ -z `find /var/log/packages/ -name "${SBO_PACKAGE}-*${ARCH}*"` ]; then
         echo p | sbopkg -B -e continue -i ${SBO_PACKAGE}
-        convertpkg-compat32 -i `find /tmp/ -name "${SBO_PACKAGE}-*-i?86*"`
-        upgradepkg --install-new /tmp/${SBO_PACKAGE}-compat32*
+        OLDARCHPKG=`find /tmp/ -name "${SBO_PACKAGE}-*i?86*" | sort | tail -1`
+        convertpkg-compat32 -i "${OLDARCHPKG}"
+        COMPAT32PKG=`find /tmp/ -name "${SBO_PACKAGE}-compat32*" | sort | tail -1`
+        upgradepkg --install-new "${COMPAT32PKG}"
         . /etc/profile
         export ARCH=`uname -m`
         if [ -z `find /var/log/packages/ -name "${SBO_PACKAGE}-*${ARCH}*"` ]; then

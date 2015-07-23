@@ -8,7 +8,7 @@
 ## note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files
-CONFIGOMATICVERSION=7.2.24
+CONFIGOMATICVERSION=7.2.25
 
 
 if [ ! $UID = 0 ]; then
@@ -98,9 +98,6 @@ GETJAVA="https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/slack
 
 MINECRAFTDL="https://s3.amazonaws.com/Minecraft.Download/launcher/Minecraft.jar"
 
-## eric hameleers has updated multilib to include this package
-#LIBXSHM="libxshmfence-1.1-i486-1.txz"
-
 ## we need this to determine if the system can install wine
 if [ -z "$COMARCH" ]; then
   case "$(uname -m)" in
@@ -173,7 +170,9 @@ my_repo_install() {
       fi
       ## finally run the build
       sh ${MY_REPO}/${MY_REPO_PKG}/${MY_REPO_PKG}.SlackBuild
-      ls -t --color=never /tmp/${MY_REPO_PKG}-*_SBo.tgz | head -1 | xargs -i upgradepkg --install-new {}
+      ##ls -t --color=never /tmp/${MY_REPO_PKG}-*_SBo.tgz | head -1 | xargs -i upgradepkg --install-new {}
+      ## everyone hates ls, so we use this fancy find command
+      find /tmp/ -maxdepth 1 -printf "%T@ %Tc=%p\n" | sort -n | grep "${MY_REPO_PKG}-*" | tail -1 | cut -d'=' -f2 | xargs -i upgradepkg --install-new {}
       cd
     fi
   done
@@ -714,14 +713,6 @@ if [ "$SPPLUSISINSTALLED" = true ]; then
       -P /etc/cron.daily/
     chmod -v 755 /etc/cron.daily/daily-slackup
 
-    ## eric hameleers has updated multilib to include this package
-    #  if [ "$(uname -m)" = "x86_64" ]; then
-    #    wget -N http://mirrors.slackware.com/slackware/slackware-current/slackware/x/$LIBXSHM -P ~/
-    #    upgradepkg --install-new ~/$LIBXSHM
-    #    rm ~/$LIBXSHM
-    #    slackpkg blacklist libxshmfence
-    #  fi
-
     ## set up ntp daemon (the good way)
     if [ -x /etc/rc.d/rc.ntpd ]; then
       /etc/rc.d/rc.ntpd stop
@@ -1061,7 +1052,7 @@ if [ "$SPPLUSISINSTALLED" = true ] && [ "$SBOPKGISINSTALLED" = true ]; then
     ## grab latest steam package
     if [ -z "`find /var/log/packages/ -name steamclient-*`" ]; then
       rsync -avz rsync://taper.alienbase.nl/mirrors/people/alien/slackbuilds/steamclient/pkg/current/ /var/cache/config-o-matic/steamclient/
-      upgradepkg --install-new /var/cache/config-o-matic/steamclient/steamclient-*.tgz
+      find /var/cache/config-o-matic/steamclient/ -name "steamclient*" | sort | tail -1 | xargs -i upgradepkg --install-new {}
       if [ -z "$(cat /etc/slackpkg/blacklist | grep steamclient)" ]; then
         echo steamclient >> /etc/slackpkg/blacklist
         echo >> /etc/slackpkg/blacklist
