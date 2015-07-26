@@ -8,7 +8,7 @@
 ## note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files
-CONFIGOMATICVERSION=7.2.26
+CONFIGOMATICVERSION=7.2.27
 
 
 if [ ! $UID = 0 ]; then
@@ -956,6 +956,9 @@ if [ "$SPPLUSISINSTALLED" = true ] && [ "$SBOPKGISINSTALLED" = true ]; then
     no_prompt_sbo_pkg_install_or_upgrade soundtouch
     no_prompt_sbo_pkg_install_or_upgrade vamp-plugin-sdk
     my_repo_install audacity
+
+    ## great text editor
+    my_repo_install atom
 
     ## i may make stuff someday
     no_prompt_sbo_pkg_install_or_upgrade blender
