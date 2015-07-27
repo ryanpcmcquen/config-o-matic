@@ -8,7 +8,7 @@
 ## note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files
-CONFIGOMATICVERSION=7.2.27
+CONFIGOMATICVERSION=7.2.28
 
 
 if [ ! $UID = 0 ]; then
@@ -801,6 +801,7 @@ elif [ "$SBOPKGISINSTALLED" = true ]; then
   ## webDev stuff
   npm install -g uglify-js
   npm install -g grunt-cli
+  npm install -g http-server
 fi
 
 if [ "$SPPLUSISINSTALLED" = true ] && [ "$SBOPKGISINSTALLED" = true ]; then
