@@ -8,7 +8,7 @@
 ## note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files
-CONFIGOMATICVERSION=7.2.30
+CONFIGOMATICVERSION=7.2.31
 
 
 if [ ! $UID = 0 ]; then
@@ -1184,6 +1184,11 @@ if [ "$SPPLUSISINSTALLED" = true ] && [ "$SBOPKGISINSTALLED" = true ]; then
       -exec ln -sf {} /usr/share/backgrounds/mate/custom/ \;
     find /usr/share/wallpapers -type f -a \( -iname '*.jpg' -o -iname '*.jpeg' -o -iname '*.jpe' -o -iname '*.gif' -o -iname '*.png' \) \
       -exec ln -sf {} /usr/share/backgrounds/xfce/ \;
+
+    ## create an icon cache for all the new goodies
+    for DIR in `find /usr/share/icons/ -name index.theme | cut -d/ -f1-5`
+      do gtk-update-icon-cache $DIR
+    done
   else
     echo "You have gone VANILLA."
   fi
