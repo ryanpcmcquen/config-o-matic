@@ -8,7 +8,7 @@
 ## note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files
-CONFIGOMATICVERSION=7.2.29
+CONFIGOMATICVERSION=7.2.30
 
 
 if [ ! $UID = 0 ]; then
@@ -461,8 +461,8 @@ if [ "$COMARCH" != "arm" ]; then
   wget -N $SPPLUSDL -P /var/cache/config-o-matic/pkgs/
 fi
 ## install the latest versions
-find /var/cache/config-o-matic/pkgs/ -name "sbopkg*" | sort | tail -1 | xargs -i upgradepkg --install-new {}
-find /var/cache/config-o-matic/pkgs/ -name "slackpkg+*" | sort | tail -1 | xargs -i upgradepkg --install-new {}
+find /var/cache/config-o-matic/pkgs/ -name "sbopkg-*.t?z" | sort | tail -1 | xargs -i upgradepkg --install-new {}
+find /var/cache/config-o-matic/pkgs/ -name "slackpkg+-*.t?z" | sort | tail -1 | xargs -i upgradepkg --install-new {}
 
 ## a few more vars
 if [ "`find /var/log/packages/ -name xorg-*`" ]; then
@@ -1062,7 +1062,7 @@ if [ "$SPPLUSISINSTALLED" = true ] && [ "$SBOPKGISINSTALLED" = true ]; then
     ## grab latest steam package
     if [ -z "`find /var/log/packages/ -name steamclient-*`" ]; then
       rsync -avz rsync://taper.alienbase.nl/mirrors/people/alien/slackbuilds/steamclient/pkg/current/ /var/cache/config-o-matic/steamclient/
-      find /var/cache/config-o-matic/steamclient/ -name "steamclient*" | sort | tail -1 | xargs -i upgradepkg --install-new {}
+      find /var/cache/config-o-matic/steamclient/ -name "steamclient-*.t?z" | sort | tail -1 | xargs -i upgradepkg --install-new {}
       if [ -z "$(cat /etc/slackpkg/blacklist | grep steamclient)" ]; then
         echo steamclient >> /etc/slackpkg/blacklist
         echo >> /etc/slackpkg/blacklist
