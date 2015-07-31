@@ -2,32 +2,12 @@
 
 #  cd; wget -N https://raw.githubusercontent.com/ryanpcmcquen/config-o-matic/master/ryan -P ~/; sh ~/ryan; rm ~/ryan
 
-## run standard root script first
-cd
-wget -N https://raw.githubusercontent.com/ryanpcmcquen/config-o-matic/master/slackConfigROOT.sh
-sh slackConfigROOT.sh
-rm slackConfigROOT.sh
-
 if [ ! $UID = 0 ]; then
   cat << EOF
 This script must be run as root.
 EOF
   exit 1
 fi
-
-## enable the wheel group
-if [ ! -e /etc/sudoers.d/wheel-enable ]; then
-  echo > /etc/sudoers.d/wheel-enable
-  echo "%wheel ALL=(ALL) ALL" >> /etc/sudoers.d/wheel-enable
-  echo >> /etc/sudoers.d/wheel-enable
-fi
-
-## add all non-root users (except ftp) to wheel group
-getent passwd | grep "/home" | cut -d: -f1 | sed '/ftp/d' | xargs -i usermod -G wheel -a {}
-## the standard groups in case you forget when you run adduser  ;-)
-getent passwd | grep "/home" | cut -d: -f1 | sed '/ftp/d' | \
-  xargs -i usermod -G audio,cdrom,floppy,plugdev,video,power,netdev,lp,scanner -a {}
-
 
 ## my ssh key
 cd
@@ -48,6 +28,34 @@ if [ -z "$(cat /etc/profile | grep 'SSH_AUTH_SOCK')" ]; then
   echo 'fi' >> /etc/profile
   echo >> /etc/profile
 fi
+
+## start the ssh-agent so we can clone away without
+## entering a passphrase several times
+if [ -z "$SSH_AUTH_SOCK" ]; then
+  eval `ssh-agent`
+  ssh-add
+fi
+
+### STANDARD CONFIG-O-MATIC
+## run standard root script first
+cd
+wget -N https://raw.githubusercontent.com/ryanpcmcquen/config-o-matic/master/slackConfigROOT.sh
+sh slackConfigROOT.sh
+rm slackConfigROOT.sh
+### END OF STANDARD CONFIG-O-MATIC
+
+## enable the wheel group
+if [ ! -e /etc/sudoers.d/wheel-enable ]; then
+  echo > /etc/sudoers.d/wheel-enable
+  echo "%wheel ALL=(ALL) ALL" >> /etc/sudoers.d/wheel-enable
+  echo >> /etc/sudoers.d/wheel-enable
+fi
+
+## add all non-root users (except ftp) to wheel group
+getent passwd | grep "/home" | cut -d: -f1 | sed '/ftp/d' | xargs -i usermod -G wheel -a {}
+## the standard groups in case you forget when you run adduser  ;-)
+getent passwd | grep "/home" | cut -d: -f1 | sed '/ftp/d' | \
+  xargs -i usermod -G audio,cdrom,floppy,plugdev,video,power,netdev,lp,scanner -a {}
 
 ## slackbuilds repo
 if [ ! -d ~/sbo/ ]; then
