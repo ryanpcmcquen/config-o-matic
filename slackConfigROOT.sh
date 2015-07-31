@@ -8,7 +8,7 @@
 ## note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files
-CONFIGOMATICVERSION=7.2.32
+CONFIGOMATICVERSION=7.2.33
 
 
 if [ ! $UID = 0 ]; then
@@ -656,21 +656,41 @@ fi
 slackpkg_full_upgrade
 
 ## mate
-git clone https://github.com/mateslackbuilds/msb.git
+if [ -e ~/ryan ] && [ -d ~/.ssh/ ]; then
+  git clone git@github.com:mateslackbuilds/msb.git
+else
+  git clone https://github.com/mateslackbuilds/msb.git
+fi
 ## add a script to build & blacklist everything for msb
 wget -N https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/slackware/checkmate.sh -P ~/msb/
 
 ## slackbook.org
-git clone https://github.com/ryanpcmcquen/slackbook.org.git
+if [ -e ~/ryan ] && [ -d ~/.ssh/ ]; then
+  git clone git@github.com:ryanpcmcquen/slackbook.org.git
+else
+  git clone https://github.com/ryanpcmcquen/slackbook.org.git
+fi
 
 ## enlightenment!
-git clone https://github.com/ryanpcmcquen/slackENLIGHTENMENT.git
+if [ -e ~/ryan ] && [ -d ~/.ssh/ ]; then
+  git clone git@github.com:ryanpcmcquen/slackENLIGHTENMENT.git
+else
+  git clone https://github.com/ryanpcmcquen/slackENLIGHTENMENT.git
+fi
 
 ## my slackbuilds
-git clone https://github.com/ryanpcmcquen/ryanpc-slackbuilds.git
+if [ -e ~/ryan ] && [ -d ~/.ssh/ ]; then
+  git clone git@github.com:ryanpcmcquen/ryanpc-slackbuilds.git
+else
+  git clone https://github.com/ryanpcmcquen/ryanpc-slackbuilds.git
+fi
 
 ## ponce's repo with -current fixes
-git clone https://github.com/Ponce/slackbuilds.git ponce-sbo
+if [ -e ~/ryan ] && [ -d ~/.ssh/ ]; then
+  git clone git@github.com:Ponce/slackbuilds.git ponce-sbo
+else
+  git clone https://github.com/Ponce/slackbuilds.git ponce-sbo
+fi
 
 ## a script to allow promptless saving of xfce
 ## screenshots, with a nice timestamp
@@ -802,6 +822,7 @@ elif [ "$SBOPKGISINSTALLED" = true ]; then
   npm install -g uglify-js
   npm install -g minify
   npm install -g browserify
+  npm install -g react-tools
   npm install -g gulp
   npm install -g grunt-cli
   npm install -g jshint
@@ -1096,19 +1117,31 @@ if [ "$SPPLUSISINSTALLED" = true ] && [ "$SBOPKGISINSTALLED" = true ]; then
     fi
 
     ## numix stuff is dead sexy
-    git clone https://github.com/numixproject/numix-icon-theme.git /var/cache/config-o-matic/themes/numix-icon-theme/
+    if [ -e ~/ryan ] && [ -d ~/.ssh/ ]; then
+      git clone git@github.com:numixproject/numix-icon-theme.git /var/cache/config-o-matic/themes/numix-icon-theme/
+    else
+      git clone https://github.com/numixproject/numix-icon-theme.git /var/cache/config-o-matic/themes/numix-icon-theme/
+    fi
     cd /var/cache/config-o-matic/themes/numix-icon-theme/
     git pull
     cp -R /var/cache/config-o-matic/themes/numix-icon-theme/Numix/ /usr/share/icons/
     cd
 
-    git clone https://github.com/numixproject/numix-icon-theme-bevel.git /var/cache/config-o-matic/themes/numix-icon-theme-bevel/
+    if [ -e ~/ryan ] && [ -d ~/.ssh/ ]; then
+      git clone git@github.com:numixproject/numix-icon-theme-bevel.git /var/cache/config-o-matic/themes/numix-icon-theme-bevel/
+    else
+      git clone https://github.com/numixproject/numix-icon-theme-bevel.git /var/cache/config-o-matic/themes/numix-icon-theme-bevel/
+    fi
     cd /var/cache/config-o-matic/themes/numix-icon-theme-bevel/
     git pull
     cp -R /var/cache/config-o-matic/themes/numix-icon-theme-bevel/Numix-Bevel/ /usr/share/icons/
     cd
 
-    git clone https://github.com/numixproject/numix-icon-theme-circle.git /var/cache/config-o-matic/themes/numix-icon-theme-circle/
+    if [ -e ~/ryan ] && [ -d ~/.ssh/ ]; then
+      git clone git@github.com:numixproject/numix-icon-theme-circle.git /var/cache/config-o-matic/themes/numix-icon-theme-circle/
+    else
+      git clone https://github.com/numixproject/numix-icon-theme-circle.git /var/cache/config-o-matic/themes/numix-icon-theme-circle/
+    fi
     cd /var/cache/config-o-matic/themes/numix-icon-theme-circle/
     git pull
     cp -R /var/cache/config-o-matic/themes/numix-icon-theme-circle/Numix-Circle/ /usr/share/icons/
@@ -1116,27 +1149,35 @@ if [ "$SPPLUSISINSTALLED" = true ] && [ "$SBOPKGISINSTALLED" = true ]; then
     cp -R /usr/share/icons/Numix-Circle/* /usr/share/icons/Oxygen_Zion/
     cd
 
-    git clone https://github.com/numixproject/numix-icon-theme-shine.git /var/cache/config-o-matic/themes/numix-icon-theme-shine/
+    if [ -e ~/ryan ] && [ -d ~/.ssh/ ]; then
+      git clone git@github.com:numixproject/numix-icon-theme-shine.git /var/cache/config-o-matic/themes/numix-icon-theme-shine/
+    else
+      git clone https://github.com/numixproject/numix-icon-theme-shine.git /var/cache/config-o-matic/themes/numix-icon-theme-shine/
+    fi
     cd /var/cache/config-o-matic/themes/numix-icon-theme-shine/
     git pull
     cp -R /var/cache/config-o-matic/themes/numix-icon-theme-shine/Numix-Shine/ /usr/share/icons/
     cd
 
-    git clone https://github.com/numixproject/numix-icon-theme-utouch.git /var/cache/config-o-matic/themes/numix-icon-theme-utouch/
+    if [ -e ~/ryan ] && [ -d ~/.ssh/ ]; then
+      git clone git@github.com:numixproject/numix-icon-theme-utouch.git /var/cache/config-o-matic/themes/numix-icon-theme-utouch/
+    else
+      git clone https://github.com/numixproject/numix-icon-theme-utouch.git /var/cache/config-o-matic/themes/numix-icon-theme-utouch/
+    fi
     cd /var/cache/config-o-matic/themes/numix-icon-theme-utouch/
     git pull
     cp -R /var/cache/config-o-matic/themes/numix-icon-theme-utouch/Numix-uTouch/ /usr/share/icons/
     cd
 
-    git clone https://github.com/shimmerproject/Numix.git /var/cache/config-o-matic/themes/Numix/
+    if [ -e ~/ryan ] && [ -d ~/.ssh/ ]; then
+      git clone git@github.com:shimmerproject/Numix.git /var/cache/config-o-matic/themes/Numix/
+    else
+      git clone https://github.com/shimmerproject/Numix.git /var/cache/config-o-matic/themes/Numix/
+    fi
     cd /var/cache/config-o-matic/themes/Numix/
     git pull
-    cp -R /var/cache/config-o-matic/themes/numix-icon-theme-utouch/Numix-uTouch/ /usr/share/icons/
-    cd
-
-    git clone https://github.com/shimmerproject/Numix.git /usr/share/themes/Numix/
-    cd /usr/share/themes/Numix/
-    git pull
+    cp -R /var/cache/config-o-matic/themes/Numix/ /usr/share/icons/
+    cp -R /var/cache/config-o-matic/themes/Numix/ /usr/share/themes/
     cd
 
     wget -N \
