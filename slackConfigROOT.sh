@@ -8,7 +8,7 @@
 ## note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files
-CONFIGOMATICVERSION=7.2.33
+CONFIGOMATICVERSION=7.2.34
 
 
 if [ ! $UID = 0 ]; then
@@ -665,11 +665,7 @@ fi
 wget -N https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/slackware/checkmate.sh -P ~/msb/
 
 ## slackbook.org
-if [ -e ~/ryan ] && [ -d ~/.ssh/ ]; then
-  git clone git@github.com:ryanpcmcquen/slackbook.org.git
-else
-  git clone https://github.com/ryanpcmcquen/slackbook.org.git
-fi
+git clone git://slackbook.org/slackbook
 
 ## enlightenment!
 if [ -e ~/ryan ] && [ -d ~/.ssh/ ]; then
