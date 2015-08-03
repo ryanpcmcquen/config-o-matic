@@ -8,7 +8,7 @@
 ## note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files
-CONFIGOMATICVERSION=7.2.34
+CONFIGOMATICVERSION=7.2.35
 
 
 if [ ! $UID = 0 ]; then
@@ -813,6 +813,10 @@ elif [ "$SBOPKGISINSTALLED" = true ]; then
     https://raw.githubusercontent.com/ryanpcmcquen/image-ultimator/master/imgult -P /var/cache/config-o-matic/
   install -v -m755 /var/cache/config-o-matic/imgult /usr/local/bin/
   ## end of imgult stuff
+
+  ## mozilla's html linter
+  wget -N https://raw.githubusercontent.com/mozilla/html5-lint/master/html5check.py -P /usr/local/bin/
+  chmod 755 /usr/local/bin/html5check.py
 
   ## webDev stuff
   npm install -g uglify-js
