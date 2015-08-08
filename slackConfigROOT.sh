@@ -8,7 +8,7 @@
 ## note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files
-CONFIGOMATICVERSION=7.2.35
+CONFIGOMATICVERSION=7.2.36
 
 
 if [ ! $UID = 0 ]; then
@@ -822,7 +822,7 @@ elif [ "$SBOPKGISINSTALLED" = true ]; then
   npm install -g uglify-js
   npm install -g minify
   npm install -g browserify
-  npm install -g react-tools
+  npm install -g babel
   npm install -g gulp
   npm install -g grunt-cli
   npm install -g jshint
