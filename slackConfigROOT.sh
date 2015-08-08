@@ -8,7 +8,7 @@
 ## note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files
-CONFIGOMATICVERSION=7.2.36
+CONFIGOMATICVERSION=7.2.37
 
 
 if [ ! $UID = 0 ]; then
@@ -1325,6 +1325,9 @@ if [ "$WICD" = true ]; then
   ## comment out any lines that are not preceded by: ###
   ## we use 3 #'s to avoid red herrings
   sed -i.bak '/^###/!s/^/###/g' /etc/rc.d/rc.inet1.conf
+else
+  ## make all networkmanager connections accessible system-wide
+  sed -i 's@^permissions=.*@permissions=@g' /etc/NetworkManager/system-connections/*
 fi
 
 ## let there be sound!
