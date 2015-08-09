@@ -8,7 +8,7 @@
 ## note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files
-CONFIGOMATICVERSION=7.2.37
+CONFIGOMATICVERSION=7.2.38
 
 
 if [ ! $UID = 0 ]; then
@@ -901,9 +901,6 @@ if [ "$SPPLUSISINSTALLED" = true ] && [ "$SBOPKGISINSTALLED" = true ]; then
     ## pekwm! (is broken on -current)
     #no_prompt_sbo_pkg_install_or_upgrade pekwm
 
-    ## lumina!
-    #no_prompt_sbo_pkg_install_or_upgrade lumina
-
     if [ -e /usr/share/e16/config/bindings.cfg ] && [ -z "$(cat /usr/share/e16/config/bindings.cfg | grep gmrun)" ]; then
       echo >> /usr/share/e16/config/bindings.cfg
       echo "## my bindings" >> /usr/share/e16/config/bindings.cfg
@@ -1325,9 +1322,13 @@ if [ "$WICD" = true ]; then
   ## comment out any lines that are not preceded by: ###
   ## we use 3 #'s to avoid red herrings
   sed -i.bak '/^###/!s/^/###/g' /etc/rc.d/rc.inet1.conf
-else
-  ## make all networkmanager connections accessible system-wide
-  sed -i 's@^permissions=.*@permissions=@g' /etc/NetworkManager/system-connections/*
+fi
+
+if [ -d /etc/NetworkManager/system-connections ]; then
+  ## make all networkmanager connections available system-wide
+  for NET in `find /etc/NetworkManager/system-connections/ -name "*" | cut -d'/' -f5 | grep -v ^$`
+    do nmcli con mod "$NET" connection.permissions ' '
+  done
 fi
 
 ## let there be sound!
