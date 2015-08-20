@@ -1,6 +1,6 @@
 #!/bin/sh
 
-#  cd; wget -N https://raw.githubusercontent.com/ryanpcmcquen/config-o-matic/master/ryan -P ~/; sh ~/ryan; rm ~/ryan
+# cd; wget -N https://raw.githubusercontent.com/ryanpcmcquen/config-o-matic/master/.ryan -P ~/; sh ~/.ryan
 
 if [ ! $UID = 0 ]; then
   cat << EOF
@@ -39,9 +39,8 @@ fi
 ### STANDARD CONFIG-O-MATIC
 ## run standard root script first
 cd
-wget -N https://raw.githubusercontent.com/ryanpcmcquen/config-o-matic/master/slackConfigROOT.sh
-sh slackConfigROOT.sh
-rm slackConfigROOT.sh
+wget -N https://raw.githubusercontent.com/ryanpcmcquen/config-o-matic/master/.slackConfigROOT.sh -P ~/
+sh ~/.slackConfigROOT.sh
 ### END OF STANDARD CONFIG-O-MATIC
 
 ## enable the wheel group
@@ -82,6 +81,7 @@ if [ -e /usr/bin/asciinema ]; then
   asciinema auth
 fi
 
+echo
 echo "                    ..- - . "
 echo "                   '        '. "
 echo "                  '.- .  .--. . "
@@ -106,4 +106,5 @@ echo "   '.           \  - ....-   |        ' "
 echo "      -.         :   _____   |      .' "
 echo "        ' -.    .'--       --'.   .' "
 echo "            '--                -- "
+echo
 

@@ -1,6 +1,6 @@
 #!/bin/sh
 
-# cd; wget -N https://raw.githubusercontent.com/ryanpcmcquen/config-o-matic/master/slackConfigROOT.sh; sh slackConfigROOT.sh; rm slackConfigROOT.sh
+# cd; wget -N https://raw.githubusercontent.com/ryanpcmcquen/config-o-matic/master/.slackConfigROOT.sh -P ~/; sh ~/.slackConfigROOT.sh
 
 ## BASHGITVIM="https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/bashGitVimROOT.sh"
 
@@ -8,7 +8,7 @@
 ## note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files
-CONFIGOMATICVERSION=7.2.38
+CONFIGOMATICVERSION=7.3.00
 
 
 if [ ! $UID = 0 ]; then
@@ -92,7 +92,7 @@ GETEXTRASLACK="https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master
 GETSOURCESTA="https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/slackware/getSystemSlackBuildsSTABLE.sh"
 GETSOURCECUR="https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/slackware/getSystemSlackBuildsCURRENT.sh"
 
-MULTILIBINSTALLS="https://raw.githubusercontent.com/ryanpcmcquen/config-o-matic/master/multilibInstalls"
+MULTILIBINSTALLS="https://raw.githubusercontent.com/ryanpcmcquen/config-o-matic/master/.multilibInstalls"
 
 GETJAVA="https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/slackware/getJavaSlackBuild.sh"
 

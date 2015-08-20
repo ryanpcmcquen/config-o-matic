@@ -1,9 +1,10 @@
 #!/bin/sh
 
+# cd; wget -N https://raw.githubusercontent.com/ryanpcmcquen/config-o-matic/master/.ryan%24 -P ~/; sh ~/.ryan\$
+
 cd
-wget -N https://raw.githubusercontent.com/ryanpcmcquen/config-o-matic/stable/slackConfig$.sh
-sh slackConfig$.sh
-rm slackConfig$.sh
+wget -N https://raw.githubusercontent.com/ryanpcmcquen/config-o-matic/stable/.slackConfig%24.sh -P ~/
+sh ~/.slackConfig\$.sh
 
 ## my ssh key
 cd
@@ -19,6 +20,7 @@ fi
 wget -N https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/irssi/config -P ~/.irssi/
 wget -N https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/irssi/default.theme -P ~/.irssi/
 
+echo
 echo "                    ..- - . "
 echo "                   '        '. "
 echo "                  '.- .  .--. . "
@@ -43,5 +45,5 @@ echo "   '.           \  - ....-   |        ' "
 echo "      -.         :   _____   |      .' "
 echo "        ' -.    .'--       --'.   .' "
 echo "            '--                -- "
-
+echo
 

@@ -1,6 +1,6 @@
 #!/bin/sh
 
-# cd; curl https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/slackware/config-o-matic/slackConfig$.sh | sh
+# cd; wget -N https://raw.githubusercontent.com/ryanpcmcquen/config-o-matic/stable/.slackConfig%24.sh -P ~/; sh ~/.slackConfig\$.sh
 
 ### BASHGITVIM="https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/bashGitVimNORMAL.sh"
 
