@@ -8,7 +8,7 @@
 ## note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files
-CONFIGOMATICVERSION=7.3.00
+CONFIGOMATICVERSION=7.3.01
 
 
 if [ ! $UID = 0 ]; then
@@ -801,7 +801,9 @@ elif [ "$SBOPKGISINSTALLED" = true ]; then
   ###########
 
   ## these are for the image ultimator
-  no_prompt_sbo_pkg_install_or_upgrade iojs
+  ## switching to node for now
+  #no_prompt_sbo_pkg_install_or_upgrade iojs
+  no_prompt_sbo_pkg_install_or_upgrade node
   no_prompt_sbo_pkg_install_or_upgrade jpegoptim
   no_prompt_sbo_pkg_install_or_upgrade mozjpeg
   no_prompt_sbo_pkg_install_or_upgrade optipng
@@ -835,6 +837,7 @@ if [ "$SPPLUSISINSTALLED" = true ] && [ "$SBOPKGISINSTALLED" = true ]; then
   if [ "$MISCELLANY" = true ]; then
     if [ "$CURRENT" != true ]; then
       no_prompt_sbo_pkg_install_or_upgrade pysetuptools
+      no_prompt_sbo_pkg_install_or_upgrade qpdf
     fi
     pip install --upgrade pip || no_prompt_sbo_pkg_install_or_upgrade pip
 
