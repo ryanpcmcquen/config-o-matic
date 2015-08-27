@@ -8,7 +8,7 @@
 ## note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files
-CONFIGOMATICVERSION=7.3.03
+CONFIGOMATICVERSION=7.3.04
 
 
 if [ ! $UID = 0 ]; then
@@ -286,6 +286,7 @@ if [ -e /etc/lilo.conf ]; then
   ## set to utf8 and pass acpi kernel params
   ## these fix brightness key issues on some comps
   ## and have no negative effects on others (in my testing at least)
+  ## (also, turn off nouveau as it is broken on newer kernels)
   if [ -z "`grep -i vt.default_utf8.*nouveau.modeset.*acpi_osi.*acpi_backlight /etc/lilo.conf`" ]; then
     sed -i.bak 's/^append=.*/append=" vt.default_utf8=1 nouveau.modeset=0 acpi_osi=linux acpi_backlight=vendor"/g' /etc/lilo.conf
   fi
