@@ -8,7 +8,7 @@
 ## note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files
-CONFIGOMATICVERSION=7.3.01
+CONFIGOMATICVERSION=7.3.02
 
 
 if [ ! $UID = 0 ]; then
@@ -286,7 +286,9 @@ if [ -e /etc/lilo.conf ]; then
   ## set to utf8 and pass acpi kernel params
   ## these fix brightness key issues on some comps
   ## and have no negative effects on others (in my testing at least)
-  sed -i.bak 's/^append=" vt.default_utf8=[0-9]"/append=" vt.default_utf8=1 acpi_osi=linux acpi_backlight=vendor"/g' /etc/lilo.conf
+  if [ -z "`grep nouveau.modeset.*acpi_osi.*acpi_backlight /etc/lilo.conf`" ]; then
+    sed -i.bak 's/^append=.*/append=" vt.default_utf8=1 nouveau.modeset=0 acpi_osi=linux acpi_backlight=vendor"/g' /etc/lilo.conf
+  fi
   sed -i.bak 's/^timeout =.*/timeout = 5/g' /etc/lilo.conf
   if [ "$(cat /etc/lilo.conf | grep 'vga=771')" ]; then
     ## uncomment all vga settings so
