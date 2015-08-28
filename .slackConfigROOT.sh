@@ -8,7 +8,7 @@
 ## note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files
-CONFIGOMATICVERSION=7.3.05
+CONFIGOMATICVERSION=7.3.06
 
 
 if [ ! $UID = 0 ]; then
@@ -724,7 +724,6 @@ if [ "$SPPLUSISINSTALLED" = true ]; then
     ## we set again just in case someone overwrites configs
     set_slackpkg_to_auto
     slackpkg_update_only
-    slackpkg install vlc chromium
 
     ## auto-update once a day to keep the doctor away
     wget -N \
@@ -772,6 +771,19 @@ elif [ "$SBOPKGISINSTALLED" = true ]; then
   no_prompt_sbo_pkg_install_or_upgrade trayer-srg
   no_prompt_sbo_pkg_install_or_upgrade tinyterm
   no_prompt_sbo_pkg_install_or_upgrade xbindkeys
+
+  ## hard to live without these
+  set_slackpkg_to_auto
+  slackpkg_update_only
+  slackpkg install vlc chromium
+
+  ## these are essential also
+  ## install any true multilib packages with a separate script
+  if [ "$MULTILIB" = true ]; then
+    curl $MULTILIBINSTALLS | sh
+  else
+    no_prompt_sbo_pkg_install_or_upgrade libtxc_dxtn
+  fi
 
   ## clean, simple text editor
   no_prompt_sbo_pkg_install_or_upgrade textadept
@@ -1110,13 +1122,6 @@ if [ "$SPPLUSISINSTALLED" = true ] && [ "$SBOPKGISINSTALLED" = true ]; then
 
     ## grab Pat's java SlackBuild
     curl $GETJAVA | sh
-
-    ## install any true multilib packages with a separate script
-    if [ "$MULTILIB" = true ]; then
-      curl $MULTILIBINSTALLS | sh
-    else
-      no_prompt_sbo_pkg_install_or_upgrade libtxc_dxtn
-    fi
 
     ## numix stuff is dead sexy
     if [ -e ~/ryan ] && [ -d ~/.ssh/ ]; then
