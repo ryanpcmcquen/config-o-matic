@@ -8,7 +8,7 @@
 ## note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files
-CONFIGOMATICVERSION=7.3.08
+CONFIGOMATICVERSION=7.3.09
 
 
 if [ ! $UID = 0 ]; then
@@ -456,7 +456,7 @@ git config --global core.pager "less -r"
 
 ## give config-o-matic a directory
 ## to store all the crazy stuff we download
-mkdir -pv /var/cache/config-o-matic/{images,pkgs,themes}/
+mkdir -pv /var/cache/config-o-matic/{configs,images,pkgs,themes}/
 
 ## install sbopkg & slackpkg+
 wget -N $SBOPKGDL -P /var/cache/config-o-matic/pkgs/
@@ -1330,10 +1330,14 @@ if [ "$WICD" = true ]; then
   slackpkg install wicd
   chmod -v -x /etc/rc.d/rc.networkmanager
   chmod -v +x /etc/rc.d/rc.wicd
+  ## download a vanilla copy of the inet conf file
+  wget -N http://slackware.osuosl.org/slackware-current/source/n/network-scripts/scripts/rc.inet1.conf -P /var/cache/config-o-matic/configs/
   ## disables any interfaces that may interfere with wicd
   ## comment out any lines that are not preceded by: ###
   ## we use 3 #'s to avoid red herrings
-  sed -i.bak '/^###/!s/^/###/g' /etc/rc.d/rc.inet1.conf
+  if [ -z "`grep '###' /etc/rc.d/rc.inet1.conf`" ]; then
+    sed -i.bak '/^###/!s/^/###/g' /etc/rc.d/rc.inet1.conf
+  fi
 else
   ## restore networkmanager if wicd is not selected
   cp -v /etc/rc.d/rc.inet1.conf.bak /etc/rc.d/rc.inet1.conf
