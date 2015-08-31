@@ -8,7 +8,7 @@
 ## note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files
-CONFIGOMATICVERSION=7.3.09
+CONFIGOMATICVERSION=7.3.10
 
 
 if [ ! $UID = 0 ]; then
@@ -1334,13 +1334,19 @@ if [ "$WICD" = true ]; then
   wget -N http://slackware.osuosl.org/slackware-current/source/n/network-scripts/scripts/rc.inet1.conf -P /var/cache/config-o-matic/configs/
   ## disables any interfaces that may interfere with wicd
   ## comment out any lines that are not preceded by: ###
-  ## we use 3 #'s to avoid red herrings
+  ## we use 3 #'s to avoid red herrings, but check the
+  ## file so we don't just clobber it on re-runs
   if [ -z "`grep '###' /etc/rc.d/rc.inet1.conf`" ]; then
     sed -i.bak '/^###/!s/^/###/g' /etc/rc.d/rc.inet1.conf
   fi
 else
   ## restore networkmanager if wicd is not selected
   cp -v /etc/rc.d/rc.inet1.conf.bak /etc/rc.d/rc.inet1.conf
+  ## check for '###' so we don't clobber the backup file
+  if [ "`grep '###' /etc/rc.d/rc.inet1.conf`" ]; then
+    ## remove triple comments just in case
+    sed -i.bak 's/###//g' /etc/rc.d/rc.inet1.conf
+  fi
   chmod -v -x /etc/rc.d/rc.wicd
   chmod -v +x /etc/rc.d/rc.networkmanager
 fi
