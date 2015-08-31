@@ -8,7 +8,7 @@
 ## note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files
-CONFIGOMATICVERSION=7.3.07
+CONFIGOMATICVERSION=7.3.08
 
 
 if [ ! $UID = 0 ]; then
@@ -1324,14 +1324,21 @@ chmod 755 /usr/local/bin/ff /usr/local/bin/firefox
 
 ## used to be end of SCRIPTS
 
-## disables any interfaces that may interfere with wicd
+
 if [ "$WICD" = true ]; then
   slackpkg_update_only
   slackpkg install wicd
   chmod -v -x /etc/rc.d/rc.networkmanager
+  chmod -v +x /etc/rc.d/rc.wicd
+  ## disables any interfaces that may interfere with wicd
   ## comment out any lines that are not preceded by: ###
   ## we use 3 #'s to avoid red herrings
   sed -i.bak '/^###/!s/^/###/g' /etc/rc.d/rc.inet1.conf
+else
+  ## restore networkmanager if wicd is not selected
+  cp -v /etc/rc.d/rc.inet1.conf.bak /etc/rc.d/rc.inet1.conf
+  chmod -v -x /etc/rc.d/rc.wicd
+  chmod -v +x /etc/rc.d/rc.networkmanager
 fi
 
 if [ -d /etc/NetworkManager/system-connections ]; then
