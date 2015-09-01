@@ -8,7 +8,7 @@
 ## note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files
-CONFIGOMATICVERSION=7.3.10
+CONFIGOMATICVERSION=7.3.11
 
 
 if [ ! $UID = 0 ]; then
@@ -86,6 +86,8 @@ XSETKEYRATE=80
 TOUCHPCONF="https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/51-synaptics.conf"
 
 ASOUNDCONF="https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/asound.conf"
+
+WINECONF="https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/wine.conf"
 
 GETEXTRASLACK="https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/slackware/getExtraSlackBuilds.sh"
 
@@ -442,10 +444,15 @@ wget -N $VIMCOLOR -P ~/.vim/colors/
 
 ## touchpad configuration
 wget -N $TOUCHPCONF -P /etc/X11/xorg.conf.d/
+
+## init script
 wget -N $INSCRPT -P /etc/
 
+## gotta have some tmux
 wget -N $TMUXCONF -P /etc/
 
+## wine configuration, fixes preloader issues
+wget -N $WINECONF -P /etc/sysctl.d/
 
 ## git config
 git config --global user.name "$GITNAME"
