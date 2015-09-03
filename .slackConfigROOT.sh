@@ -8,7 +8,7 @@
 ## note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files
-CONFIGOMATICVERSION=7.3.11
+CONFIGOMATICVERSION=7.3.12
 
 
 if [ ! $UID = 0 ]; then
@@ -807,6 +807,9 @@ elif [ "$SBOPKGISINSTALLED" = true ]; then
   no_prompt_sbo_pkg_install_or_upgrade udevil
   no_prompt_sbo_pkg_install_or_upgrade spacefm
 
+  ## great file syncing service
+  no_prompt_sbo_pkg_install_or_upgrade copy
+
   ## my dwm tweaks
   wget -N https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/slackware/dwm-autostart \
     -P /usr/local/etc/
@@ -970,8 +973,7 @@ if [ "$SPPLUSISINSTALLED" = true ] && [ "$SBOPKGISINSTALLED" = true ]; then
     no_prompt_sbo_pkg_install_or_upgrade rar
     no_prompt_sbo_pkg_install_or_upgrade unrar
 
-    ## a whole bunch of archive-y stuff i
-    ## probably won't use much :-)
+    ## a whole bunch of archive-y/file stuff
     no_prompt_sbo_pkg_install_or_upgrade libisofs
     no_prompt_sbo_pkg_install_or_upgrade libburn
     no_prompt_sbo_pkg_install_or_upgrade libisoburn
@@ -979,6 +981,9 @@ if [ "$SPPLUSISINSTALLED" = true ] && [ "$SBOPKGISINSTALLED" = true ]; then
     no_prompt_sbo_pkg_install_or_upgrade isomaster
     no_prompt_sbo_pkg_install_or_upgrade xarchiver
     no_prompt_sbo_pkg_install_or_upgrade thunar-archive-plugin
+    no_prompt_sbo_pkg_install_or_upgrade dmg2img
+    #no_prompt_sbo_pkg_install_or_upgrade qtfm
+    no_prompt_sbo_pkg_install_or_upgrade mirage
 
     no_prompt_sbo_pkg_install_or_upgrade p7zip
     no_prompt_sbo_pkg_install_or_upgrade libmspack
@@ -1051,9 +1056,11 @@ if [ "$SPPLUSISINSTALLED" = true ] && [ "$SBOPKGISINSTALLED" = true ]; then
     no_prompt_sbo_pkg_install_or_upgrade android-studio
 
     ## librecad
-    no_prompt_sbo_pkg_install_or_upgrade muParser
-    no_prompt_sbo_pkg_install_or_upgrade librecad
-    ##
+    #no_prompt_sbo_pkg_install_or_upgrade muParser
+    #no_prompt_sbo_pkg_install_or_upgrade librecad
+
+    ## open dwg
+    no_prompt_sbo_pkg_install_or_upgrade qcad
 
     ## make gtk stuff elegant
     no_prompt_sbo_pkg_install_or_upgrade murrine
@@ -1066,14 +1073,7 @@ if [ "$SPPLUSISINSTALLED" = true ] && [ "$SBOPKGISINSTALLED" = true ]; then
     fi
     no_prompt_sbo_pkg_install_or_upgrade QtCurve-Gtk2
 
-    no_prompt_sbo_pkg_install_or_upgrade dmg2img
-
-    no_prompt_sbo_pkg_install_or_upgrade qtfm
-
-    no_prompt_sbo_pkg_install_or_upgrade mirage
-
-    no_prompt_sbo_pkg_install_or_upgrade copy
-
+    ## great for making presentations
     no_prompt_sbo_pkg_install_or_upgrade mdp
 
     if [ "$(uname -m)" = "x86_64" ]; then
