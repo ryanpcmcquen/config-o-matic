@@ -8,7 +8,7 @@
 ## note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files
-CONFIGOMATICVERSION=7.3.12
+CONFIGOMATICVERSION=7.3.13
 
 
 if [ ! $UID = 0 ]; then
@@ -790,6 +790,7 @@ elif [ "$SBOPKGISINSTALLED" = true ]; then
     curl $MULTILIBINSTALLS | sh
   else
     no_prompt_sbo_pkg_install_or_upgrade libtxc_dxtn
+    no_prompt_sbo_pkg_install_or_upgrade OpenAL
   fi
 
   ## clean, simple text editor
@@ -935,15 +936,14 @@ if [ "$SPPLUSISINSTALLED" = true ] && [ "$SBOPKGISINSTALLED" = true ]; then
       echo >> /usr/share/e16/config/bindings.cfg
     fi
 
+    ## screenfetch is a great utility, and
+    ## scrot makes it easy to take screenshots with it
     no_prompt_sbo_pkg_install_or_upgrade scrot
-
     no_prompt_sbo_pkg_install_or_upgrade screenfetch
 
+    ## need these for ffmpeg
     no_prompt_sbo_pkg_install_or_upgrade lame
-
     no_prompt_sbo_pkg_install_or_upgrade x264
-
-    no_prompt_sbo_pkg_install_or_upgrade OpenAL
 
     ## SDL ftw!
     ## SDL_Pango broken on current

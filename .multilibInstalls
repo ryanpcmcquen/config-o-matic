@@ -27,5 +27,7 @@ no_prompt_sbo_pkg_multilib_install_or_upgrade() {
 ## this library is necessary for several games,
 ## especially those using wine
 no_prompt_sbo_pkg_multilib_install_or_upgrade libtxc_dxtn
+## another useful gaming library
+no_prompt_sbo_pkg_multilib_install_or_upgrade OpenAL
 
 
