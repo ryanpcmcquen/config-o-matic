@@ -8,7 +8,7 @@
 ## note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files
-CONFIGOMATICVERSION=7.3.14
+CONFIGOMATICVERSION=7.3.15
 
 
 if [ ! $UID = 0 ]; then
@@ -558,6 +558,9 @@ set_slackpkg_to_auto
 ## to reset run with RESETSPPLUSCONF=y prepended,
 ## adds a bunch of mirrors for slackpkg+, as well as other
 ## settings, to the existing config, so updates are clean
+##
+## note that repo names must NOT contain a hyphen (-),
+## use underscores instead (_), fixed in 7.3.15
 if [ "$SPPLUSISINSTALLED" = true ]; then
   if [ "$COMARCH" != "arm" ]; then
     if [ ! -e /etc/slackpkg/BACKUP-slackpkgplus.conf.old-BACKUP ] || [ "$RESETSPPLUSCONF" = y ]; then
@@ -572,18 +575,18 @@ if [ "$SPPLUSISINSTALLED" = true ]; then
     
       echo >> /etc/slackpkg/slackpkgplus.conf
       echo >> /etc/slackpkg/slackpkgplus.conf
-      echo "#PKGS_PRIORITY=( multilib:.* ktown:.* restricted-current:.* alienbob-current:.* )" >> /etc/slackpkg/slackpkgplus.conf
-      echo "#PKGS_PRIORITY=( ktown:.* restricted-current:.* alienbob-current:.* )" >> /etc/slackpkg/slackpkgplus.conf
-      echo "#PKGS_PRIORITY=( multilib:.* ktown-testing:.* restricted-current:.* alienbob-current:.* )" >> /etc/slackpkg/slackpkgplus.conf
-      echo "#PKGS_PRIORITY=( ktown-testing:.* restricted-current:.* alienbob-current:.* )" >> /etc/slackpkg/slackpkgplus.conf
+      echo "#PKGS_PRIORITY=( multilib:.* ktown:.* restricted_current:.* alienbob_current:.* )" >> /etc/slackpkg/slackpkgplus.conf
+      echo "#PKGS_PRIORITY=( ktown:.* restricted_current:.* alienbob_current:.* )" >> /etc/slackpkg/slackpkgplus.conf
+      echo "#PKGS_PRIORITY=( multilib:.* ktown_testing:.* restricted_current:.* alienbob_current:.* )" >> /etc/slackpkg/slackpkgplus.conf
+      echo "#PKGS_PRIORITY=( ktown_testing:.* restricted_current:.* alienbob_current:.* )" >> /etc/slackpkg/slackpkgplus.conf
       if [ "$MULTILIB" != true ]; then
         if [ "$CURRENT" = true ]; then
           echo >> /etc/slackpkg/slackpkgplus.conf
-          echo "PKGS_PRIORITY=( restricted-current:.* alienbob-current:.* )" >> /etc/slackpkg/slackpkgplus.conf
+          echo "PKGS_PRIORITY=( restricted_current:.* alienbob_current:.* )" >> /etc/slackpkg/slackpkgplus.conf
         else
-          echo "#PKGS_PRIORITY=( restricted-current:.* alienbob-current:.* )" >> /etc/slackpkg/slackpkgplus.conf
+          echo "#PKGS_PRIORITY=( restricted_current:.* alienbob_current:.* )" >> /etc/slackpkg/slackpkgplus.conf
         fi
-        echo "#PKGS_PRIORITY=( multilib:.* restricted-current:.* alienbob-current:.* )" >> /etc/slackpkg/slackpkgplus.conf
+        echo "#PKGS_PRIORITY=( multilib:.* restricted_current:.* alienbob_current:.* )" >> /etc/slackpkg/slackpkgplus.conf
       fi
     
       if [ "$MULTILIB" = true ] && [ "$(uname -m)" = "x86_64" ]; then
@@ -591,7 +594,7 @@ if [ "$SPPLUSISINSTALLED" = true ]; then
           sed -i.bak "s@#MIRRORPLUS\['multilib']=http://taper.alienbase.nl/mirrors/people/alien/multilib/current/@MIRRORPLUS['multilib']=http://taper.alienbase.nl/mirrors/people/alien/multilib/current/@g" \
           /etc/slackpkg/slackpkgplus.conf
           echo >> /etc/slackpkg/slackpkgplus.conf
-          echo "PKGS_PRIORITY=( multilib:.* restricted-current:.* alienbob-current:.* )" >> /etc/slackpkg/slackpkgplus.conf
+          echo "PKGS_PRIORITY=( multilib:.* restricted_current:.* alienbob_current:.* )" >> /etc/slackpkg/slackpkgplus.conf
         else
           sed -i.bak "s@#MIRRORPLUS\['multilib']=http://taper.alienbase.nl/mirrors/people/alien/multilib/${SLACKSTAVER}/@MIRRORPLUS['multilib']=http://taper.alienbase.nl/mirrors/people/alien/multilib/${SLACKSTAVER}/@g" \
           /etc/slackpkg/slackpkgplus.conf
@@ -599,15 +602,15 @@ if [ "$SPPLUSISINSTALLED" = true ]; then
           echo "PKGS_PRIORITY=( multilib:.* )" >> /etc/slackpkg/slackpkgplus.conf
         fi
         echo >> /etc/slackpkg/slackpkgplus.conf
-        echo "#PKGS_PRIORITY=( restricted-current:.* alienbob-current:.* )" >> /etc/slackpkg/slackpkgplus.conf
+        echo "#PKGS_PRIORITY=( restricted_current:.* alienbob_current:.* )" >> /etc/slackpkg/slackpkgplus.conf
       fi
     
       echo >> /etc/slackpkg/slackpkgplus.conf
-      echo "#PKGS_PRIORITY=( multilib:.* alienbob-current:.* )" >> /etc/slackpkg/slackpkgplus.conf
-      echo "#PKGS_PRIORITY=( multilib:.* ktown:.* alienbob-current:.* )" >> /etc/slackpkg/slackpkgplus.conf
-      echo "#PKGS_PRIORITY=( ktown:.* alienbob-current:.* )" >> /etc/slackpkg/slackpkgplus.conf
-      echo "#PKGS_PRIORITY=( multilib:.* ktown-testing:.* alienbob-current:.* )" >> /etc/slackpkg/slackpkgplus.conf
-      echo "#PKGS_PRIORITY=( ktown-testing:.* alienbob-current:.* )" >> /etc/slackpkg/slackpkgplus.conf
+      echo "#PKGS_PRIORITY=( multilib:.* alienbob_current:.* )" >> /etc/slackpkg/slackpkgplus.conf
+      echo "#PKGS_PRIORITY=( multilib:.* ktown:.* alienbob_current:.* )" >> /etc/slackpkg/slackpkgplus.conf
+      echo "#PKGS_PRIORITY=( ktown:.* alienbob_current:.* )" >> /etc/slackpkg/slackpkgplus.conf
+      echo "#PKGS_PRIORITY=( multilib:.* ktown_testing:.* alienbob_current:.* )" >> /etc/slackpkg/slackpkgplus.conf
+      echo "#PKGS_PRIORITY=( ktown_testing:.* alienbob_current:.* )" >> /etc/slackpkg/slackpkgplus.conf
       echo >> /etc/slackpkg/slackpkgplus.conf
       echo "#REPOPLUS=( slackpkgplus restricted alienbob slacky )" >> /etc/slackpkg/slackpkgplus.conf
       echo >> /etc/slackpkg/slackpkgplus.conf
@@ -619,25 +622,25 @@ if [ "$SPPLUSISINSTALLED" = true ]; then
       if [ "$(uname -m)" = "x86_64" ]; then
         echo >> /etc/slackpkg/slackpkgplus.conf
         echo "#MIRRORPLUS['ktown']=http://taper.alienbase.nl/mirrors/alien-kde/current/latest/x86_64/" >> /etc/slackpkg/slackpkgplus.conf
-        echo "#MIRRORPLUS['ktown-testing']=http://taper.alienbase.nl/mirrors/alien-kde/current/testing/x86_64/" >> /etc/slackpkg/slackpkgplus.conf
+        echo "#MIRRORPLUS['ktown_testing']=http://taper.alienbase.nl/mirrors/alien-kde/current/testing/x86_64/" >> /etc/slackpkg/slackpkgplus.conf
         if [ "$CURRENT" = true ]; then
-          echo "MIRRORPLUS['alienbob-current']=http://taper.alienbase.nl/mirrors/people/alien/sbrepos/current/x86_64/" >> /etc/slackpkg/slackpkgplus.conf
-          echo "MIRRORPLUS['restricted-current']=http://taper.alienbase.nl/mirrors/people/alien/restricted_sbrepos/current/x86_64/" >> /etc/slackpkg/slackpkgplus.conf
+          echo "MIRRORPLUS['alienbob_current']=http://taper.alienbase.nl/mirrors/people/alien/sbrepos/current/x86_64/" >> /etc/slackpkg/slackpkgplus.conf
+          echo "MIRRORPLUS['restricted_current']=http://taper.alienbase.nl/mirrors/people/alien/restricted_sbrepos/current/x86_64/" >> /etc/slackpkg/slackpkgplus.conf
         else
-          echo "#MIRRORPLUS['alienbob-current']=http://taper.alienbase.nl/mirrors/people/alien/sbrepos/current/x86_64/" >> /etc/slackpkg/slackpkgplus.conf
-          echo "#MIRRORPLUS['restricted-current']=http://taper.alienbase.nl/mirrors/people/alien/restricted_sbrepos/current/x86_64/" >> /etc/slackpkg/slackpkgplus.conf
+          echo "#MIRRORPLUS['alienbob_current']=http://taper.alienbase.nl/mirrors/people/alien/sbrepos/current/x86_64/" >> /etc/slackpkg/slackpkgplus.conf
+          echo "#MIRRORPLUS['restricted_current']=http://taper.alienbase.nl/mirrors/people/alien/restricted_sbrepos/current/x86_64/" >> /etc/slackpkg/slackpkgplus.conf
         fi
         echo >> /etc/slackpkg/slackpkgplus.conf
       else
         echo >> /etc/slackpkg/slackpkgplus.conf
         echo "#MIRRORPLUS['ktown']=http://taper.alienbase.nl/mirrors/alien-kde/current/latest/x86/" >> /etc/slackpkg/slackpkgplus.conf
-        echo "#MIRRORPLUS['ktown-testing']=http://taper.alienbase.nl/mirrors/alien-kde/current/testing/x86/" >> /etc/slackpkg/slackpkgplus.conf
+        echo "#MIRRORPLUS['ktown_testing']=http://taper.alienbase.nl/mirrors/alien-kde/current/testing/x86/" >> /etc/slackpkg/slackpkgplus.conf
         if [ "$CURRENT" = true ]; then
-          echo "MIRRORPLUS['alienbob-current']=http://taper.alienbase.nl/mirrors/people/alien/sbrepos/current/x86/" >> /etc/slackpkg/slackpkgplus.conf
-          echo "MIRRORPLUS['restricted-current']=http://taper.alienbase.nl/mirrors/people/alien/restricted_sbrepos/current/x86/" >> /etc/slackpkg/slackpkgplus.conf
+          echo "MIRRORPLUS['alienbob_current']=http://taper.alienbase.nl/mirrors/people/alien/sbrepos/current/x86/" >> /etc/slackpkg/slackpkgplus.conf
+          echo "MIRRORPLUS['restricted_current']=http://taper.alienbase.nl/mirrors/people/alien/restricted_sbrepos/current/x86/" >> /etc/slackpkg/slackpkgplus.conf
         else
-          echo "#MIRRORPLUS['alienbob-current']=http://taper.alienbase.nl/mirrors/people/alien/sbrepos/current/x86/" >> /etc/slackpkg/slackpkgplus.conf
-          echo "#MIRRORPLUS['restricted-current']=http://taper.alienbase.nl/mirrors/people/alien/restricted_sbrepos/current/x86/" >> /etc/slackpkg/slackpkgplus.conf
+          echo "#MIRRORPLUS['alienbob_current']=http://taper.alienbase.nl/mirrors/people/alien/sbrepos/current/x86/" >> /etc/slackpkg/slackpkgplus.conf
+          echo "#MIRRORPLUS['restricted_current']=http://taper.alienbase.nl/mirrors/people/alien/restricted_sbrepos/current/x86/" >> /etc/slackpkg/slackpkgplus.conf
         fi
         echo >> /etc/slackpkg/slackpkgplus.conf
       fi
