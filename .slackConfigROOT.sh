@@ -8,7 +8,7 @@
 ## note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files
-CONFIGOMATICVERSION=7.3.15
+CONFIGOMATICVERSION=7.3.16
 
 
 if [ ! $UID = 0 ]; then
@@ -862,7 +862,8 @@ elif [ "$SBOPKGISINSTALLED" = true ]; then
   npm install -g grunt-cli
   npm install -g jshint
   npm install -g jslint
-  npm install -g slap@latest
+  ## slap is not well maintained, way too many warnings on install
+  #npm install -g slap@latest
   npm install -g http-server
 fi
 
