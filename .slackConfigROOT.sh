@@ -8,7 +8,7 @@
 ## note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files
-CONFIGOMATICVERSION=7.3.17
+CONFIGOMATICVERSION=7.3.18
 
 
 if [ ! $UID = 0 ]; then
@@ -807,6 +807,8 @@ elif [ "$SBOPKGISINSTALLED" = true ]; then
 
   ## clean, simple text editor
   no_prompt_sbo_pkg_install_or_upgrade textadept
+  ## another awesome editor
+  no_prompt_sbo_pkg_install_or_upgrade zed
 
   ## gists are the coolest
   no_prompt_sbo_pkg_install_or_upgrade gisto
