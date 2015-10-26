@@ -165,6 +165,9 @@ rm -v ~/.local/share/applications/userapp-Firefox-*.desktop
 ## brackets config [2 spaces!]
 wget -N https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/brackets.json -P ~/.config/Brackets/
 
+## zed (2 spaces, and trim whitespace)
+wget -N https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/.config/zed/config/user.json -P ~/.config/zed/config/
+
 echo
 echo
 echo "************************************"
