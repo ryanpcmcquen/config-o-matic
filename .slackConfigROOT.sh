@@ -8,7 +8,7 @@
 ## note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files
-CONFIGOMATICVERSION=7.3.18
+CONFIGOMATICVERSION=7.3.19
 
 
 if [ ! $UID = 0 ]; then
@@ -860,6 +860,7 @@ elif [ "$SBOPKGISINSTALLED" = true ]; then
   chmod 755 /usr/local/bin/html5check.py
 
   ## webDev stuff
+  no_prompt_sbo_pkg_install_or_upgrade jsmin
   npm install -g uglify-js
   npm install -g minify
   npm install -g browserify
