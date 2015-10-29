@@ -8,7 +8,7 @@
 ## note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files
-CONFIGOMATICVERSION=7.3.19
+CONFIGOMATICVERSION=7.3.20
 
 
 if [ ! $UID = 0 ]; then
@@ -893,7 +893,9 @@ if [ "$SPPLUSISINSTALLED" = true ] && [ "$SBOPKGISINSTALLED" = true ]; then
     no_prompt_sbo_pkg_install_or_upgrade json-c
 
     ## hydrogen
-    no_prompt_sbo_pkg_install_or_upgrade scons
+    if [ "$CURRENT" != true ]; then
+      no_prompt_sbo_pkg_install_or_upgrade scons
+    fi
     ## no longer a dependency
     no_prompt_sbo_pkg_install_or_upgrade libtar
     no_prompt_sbo_pkg_install_or_upgrade ladspa_sdk
@@ -1044,8 +1046,6 @@ if [ "$SPPLUSISINSTALLED" = true ] && [ "$SBOPKGISINSTALLED" = true ]; then
     ## inkscape
     no_prompt_sbo_pkg_install_or_upgrade gts
     no_prompt_sbo_pkg_install_or_upgrade graphviz
-    ## broken on current and optional anyways
-    #no_prompt_sbo_pkg_install_or_upgrade libwpg
     no_prompt_sbo_pkg_install_or_upgrade numpy
     no_prompt_sbo_pkg_install_or_upgrade BeautifulSoup
     no_prompt_sbo_pkg_install_or_upgrade lxml
@@ -1056,7 +1056,9 @@ if [ "$SPPLUSISINSTALLED" = true ] && [ "$SBOPKGISINSTALLED" = true ]; then
     no_prompt_sbo_pkg_install_or_upgrade atkmm
     no_prompt_sbo_pkg_install_or_upgrade mm-common
     no_prompt_sbo_pkg_install_or_upgrade gtkmm
-    no_prompt_sbo_pkg_install_or_upgrade gsl
+    if [ "$CURRENT" != true ]; then
+      no_prompt_sbo_pkg_install_or_upgrade gsl
+    fi
     no_prompt_sbo_pkg_install_or_upgrade inkscape
     ##
 
@@ -1109,7 +1111,9 @@ if [ "$SPPLUSISINSTALLED" = true ] && [ "$SBOPKGISINSTALLED" = true ]; then
     ## required
     no_prompt_sbo_pkg_install_or_upgrade pyxdg
     no_prompt_sbo_pkg_install_or_upgrade PyYAML
-    no_prompt_sbo_pkg_install_or_upgrade pygobject3
+    if [ "$CURRENT" != true ]; then
+      no_prompt_sbo_pkg_install_or_upgrade pygobject3
+    fi
     no_prompt_sbo_pkg_install_or_upgrade lutris
 
     ## retro games!
