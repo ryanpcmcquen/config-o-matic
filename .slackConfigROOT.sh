@@ -8,7 +8,7 @@
 ## note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files
-CONFIGOMATICVERSION=7.3.21
+CONFIGOMATICVERSION=7.3.22
 
 
 if [ ! $UID = 0 ]; then
@@ -1096,8 +1096,10 @@ if [ "$SPPLUSISINSTALLED" = true ] && [ "$SBOPKGISINSTALLED" = true ]; then
       no_prompt_sbo_pkg_install_or_upgrade spotify32
     fi
 
+    ## for making game levels
     no_prompt_sbo_pkg_install_or_upgrade tiled-qt
 
+    ## i almost never use this but it sure is neat
     no_prompt_sbo_pkg_install_or_upgrade google-webdesigner
 
     ## lutris
@@ -1116,6 +1118,11 @@ if [ "$SPPLUSISINSTALLED" = true ] && [ "$SBOPKGISINSTALLED" = true ]; then
     no_prompt_sbo_pkg_install_or_upgrade higan
     no_prompt_sbo_pkg_install_or_upgrade mednafen
     no_prompt_sbo_pkg_install_or_upgrade dosbox
+
+    ## this browser keeps getting better, and the
+    ## maintainer does a good job of keeping it up to date
+    ## thanks to Edinaldo P. Silva
+    no_prompt_sbo_pkg_install_or_upgrade vivaldi
 
     ## grab latest steam package
     if [ -z "`find /var/log/packages/ -name steamclient-*`" ]; then
