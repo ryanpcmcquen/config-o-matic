@@ -8,7 +8,7 @@
 ## note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files
-CONFIGOMATICVERSION=7.3.20
+CONFIGOMATICVERSION=7.3.21
 
 
 if [ ! $UID = 0 ]; then
@@ -113,7 +113,7 @@ make_sbo_pkg_upgrade_list() {
   sbopkg -c > ~/sbopkg-upgrade-list.txt
 }
 
-## the echo p keeps sbopkg from prompting you if something goes wrong
+## the 'echo p' keeps sbopkg from prompting you if something goes wrong
 no_prompt_sbo_pkg_install_or_upgrade() {
   for ITEM in "$@"; do
     SBO_PACKAGE=$ITEM
@@ -493,17 +493,13 @@ if [ "`which sbopkg`" ]; then
 fi
 
 if [ "$SBOPKGISINSTALLED" = true ]; then
-  ## use SBo master git branch instead of a specific version
-  wget -N https://raw.githubusercontent.com/sbopkg/sbopkg/master/src/etc/sbopkg/repos.d/90-SBo-master.repo \
-    -P /etc/sbopkg/repos.d/
-  
-  ## use SBo-master as default ...
+  ## use SBo master as default ...
   ## but only comment out the old lines for an easy swap
-  if [ -z "$(cat /etc/sbopkg/sbopkg.conf | grep SBo-master)" ]; then
+  if [ -z "$(egrep 'SBo master|REPO_BRANCH:-master' /etc/sbopkg/sbopkg.conf)" ]; then
     sed -i.bak "s@REPO_BRANCH=@#REPO_BRANCH=@g" /etc/sbopkg/sbopkg.conf
     sed -i.bak "s@REPO_NAME=@#REPO_NAME=@g" /etc/sbopkg/sbopkg.conf
     echo >> /etc/sbopkg/sbopkg.conf
-    echo "## use the SBo-master branch as the default" >> /etc/sbopkg/sbopkg.conf
+    echo "## use the SBo master branch as the default" >> /etc/sbopkg/sbopkg.conf
     echo "REPO_BRANCH=\${REPO_BRANCH:-master}" >> /etc/sbopkg/sbopkg.conf
     echo "REPO_NAME=\${REPO_NAME:-SBo}" >> /etc/sbopkg/sbopkg.conf
     echo >> /etc/sbopkg/sbopkg.conf
