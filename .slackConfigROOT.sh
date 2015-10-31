@@ -8,7 +8,7 @@
 ## note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files
-CONFIGOMATICVERSION=7.3.22
+CONFIGOMATICVERSION=7.3.23
 
 
 if [ ! $UID = 0 ]; then
@@ -669,7 +669,7 @@ fi
 slackpkg_full_upgrade
 
 ## mate
-if [ -e ~/ryan ] && [ -d ~/.ssh/ ]; then
+if [ -e ~/.ryan ] && [ -d ~/.ssh/ ]; then
   git clone git@github.com:mateslackbuilds/msb.git
 else
   git clone https://github.com/mateslackbuilds/msb.git
@@ -681,21 +681,21 @@ wget -N https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/slackw
 git clone git://slackbook.org/slackbook
 
 ## enlightenment!
-if [ -e ~/ryan ] && [ -d ~/.ssh/ ]; then
+if [ -e ~/.ryan ] && [ -d ~/.ssh/ ]; then
   git clone git@github.com:ryanpcmcquen/slackENLIGHTENMENT.git
 else
   git clone https://github.com/ryanpcmcquen/slackENLIGHTENMENT.git
 fi
 
 ## my slackbuilds
-if [ -e ~/ryan ] && [ -d ~/.ssh/ ]; then
+if [ -e ~/.ryan ] && [ -d ~/.ssh/ ]; then
   git clone git@github.com:ryanpcmcquen/ryanpc-slackbuilds.git
 else
   git clone https://github.com/ryanpcmcquen/ryanpc-slackbuilds.git
 fi
 
 ## ponce's repo with -current fixes
-if [ -e ~/ryan ] && [ -d ~/.ssh/ ]; then
+if [ -e ~/.ryan ] && [ -d ~/.ssh/ ]; then
   git clone git@github.com:Ponce/slackbuilds.git ponce-sbo
 else
   git clone https://github.com/Ponce/slackbuilds.git ponce-sbo
@@ -1154,7 +1154,7 @@ if [ "$SPPLUSISINSTALLED" = true ] && [ "$SBOPKGISINSTALLED" = true ]; then
     curl $GETJAVA | sh
 
     ## numix stuff is dead sexy
-    if [ -e ~/ryan ] && [ -d ~/.ssh/ ]; then
+    if [ -e ~/.ryan ] && [ -d ~/.ssh/ ]; then
       git clone git@github.com:numixproject/numix-icon-theme.git /var/cache/config-o-matic/themes/numix-icon-theme/
     else
       git clone https://github.com/numixproject/numix-icon-theme.git /var/cache/config-o-matic/themes/numix-icon-theme/
@@ -1164,7 +1164,7 @@ if [ "$SPPLUSISINSTALLED" = true ] && [ "$SBOPKGISINSTALLED" = true ]; then
     cp -R /var/cache/config-o-matic/themes/numix-icon-theme/Numix/ /usr/share/icons/
     cd
 
-    if [ -e ~/ryan ] && [ -d ~/.ssh/ ]; then
+    if [ -e ~/.ryan ] && [ -d ~/.ssh/ ]; then
       git clone git@github.com:numixproject/numix-icon-theme-bevel.git /var/cache/config-o-matic/themes/numix-icon-theme-bevel/
     else
       git clone https://github.com/numixproject/numix-icon-theme-bevel.git /var/cache/config-o-matic/themes/numix-icon-theme-bevel/
@@ -1174,7 +1174,7 @@ if [ "$SPPLUSISINSTALLED" = true ] && [ "$SBOPKGISINSTALLED" = true ]; then
     cp -R /var/cache/config-o-matic/themes/numix-icon-theme-bevel/Numix-Bevel/ /usr/share/icons/
     cd
 
-    if [ -e ~/ryan ] && [ -d ~/.ssh/ ]; then
+    if [ -e ~/.ryan ] && [ -d ~/.ssh/ ]; then
       git clone git@github.com:numixproject/numix-icon-theme-circle.git /var/cache/config-o-matic/themes/numix-icon-theme-circle/
     else
       git clone https://github.com/numixproject/numix-icon-theme-circle.git /var/cache/config-o-matic/themes/numix-icon-theme-circle/
@@ -1186,7 +1186,7 @@ if [ "$SPPLUSISINSTALLED" = true ] && [ "$SBOPKGISINSTALLED" = true ]; then
     cp -R /usr/share/icons/Numix-Circle/* /usr/share/icons/Oxygen_Zion/
     cd
 
-    if [ -e ~/ryan ] && [ -d ~/.ssh/ ]; then
+    if [ -e ~/.ryan ] && [ -d ~/.ssh/ ]; then
       git clone git@github.com:numixproject/numix-icon-theme-shine.git /var/cache/config-o-matic/themes/numix-icon-theme-shine/
     else
       git clone https://github.com/numixproject/numix-icon-theme-shine.git /var/cache/config-o-matic/themes/numix-icon-theme-shine/
@@ -1196,7 +1196,7 @@ if [ "$SPPLUSISINSTALLED" = true ] && [ "$SBOPKGISINSTALLED" = true ]; then
     cp -R /var/cache/config-o-matic/themes/numix-icon-theme-shine/Numix-Shine/ /usr/share/icons/
     cd
 
-    if [ -e ~/ryan ] && [ -d ~/.ssh/ ]; then
+    if [ -e ~/.ryan ] && [ -d ~/.ssh/ ]; then
       git clone git@github.com:numixproject/numix-icon-theme-utouch.git /var/cache/config-o-matic/themes/numix-icon-theme-utouch/
     else
       git clone https://github.com/numixproject/numix-icon-theme-utouch.git /var/cache/config-o-matic/themes/numix-icon-theme-utouch/
@@ -1206,7 +1206,7 @@ if [ "$SPPLUSISINSTALLED" = true ] && [ "$SBOPKGISINSTALLED" = true ]; then
     cp -R /var/cache/config-o-matic/themes/numix-icon-theme-utouch/Numix-uTouch/ /usr/share/icons/
     cd
 
-    if [ -e ~/ryan ] && [ -d ~/.ssh/ ]; then
+    if [ -e ~/.ryan ] && [ -d ~/.ssh/ ]; then
       git clone git@github.com:shimmerproject/Numix.git /var/cache/config-o-matic/themes/Numix/
     else
       git clone https://github.com/shimmerproject/Numix.git /var/cache/config-o-matic/themes/Numix/
