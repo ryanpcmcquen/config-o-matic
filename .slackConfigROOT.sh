@@ -8,7 +8,7 @@
 ## note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files
-CONFIGOMATICVERSION=7.3.24
+CONFIGOMATICVERSION=7.3.25
 
 
 if [ ! $UID = 0 ]; then
@@ -858,16 +858,14 @@ elif [ "$SBOPKGISINSTALLED" = true ]; then
   ## webDev stuff
   no_prompt_sbo_pkg_install_or_upgrade jsmin
   npm install -g uglify-js
-  npm install -g minify
+  npm install -g uglifycss
   npm install -g browserify
   npm install -g babel
   npm install -g gulp
   npm install -g grunt-cli
-  npm install -g jshint
   npm install -g jslint
-  ## slap is not well maintained, way too many warnings on install
-  #npm install -g slap@latest
   npm install -g http-server
+  npm install -g superstatic
 fi
 
 if [ "$SPPLUSISINSTALLED" = true ] && [ "$SBOPKGISINSTALLED" = true ]; then
@@ -933,22 +931,12 @@ if [ "$SPPLUSISINSTALLED" = true ] && [ "$SBOPKGISINSTALLED" = true ]; then
       no_prompt_sbo_pkg_install_or_upgrade gst1-plugins-base
     fi
 
-    ## e16, so tiny!
+    ## good to have
     no_prompt_sbo_pkg_install_or_upgrade imlib2
     no_prompt_sbo_pkg_install_or_upgrade giblib
-    ## broken on current
-    #no_prompt_sbo_pkg_install_or_upgrade e16
-    no_prompt_sbo_pkg_install_or_upgrade gmrun
 
     ## pekwm! (is broken on -current)
     #no_prompt_sbo_pkg_install_or_upgrade pekwm
-
-    if [ -e /usr/share/e16/config/bindings.cfg ] && [ -z "$(cat /usr/share/e16/config/bindings.cfg | grep gmrun)" ]; then
-      echo >> /usr/share/e16/config/bindings.cfg
-      echo "## my bindings" >> /usr/share/e16/config/bindings.cfg
-      echo "KeyDown   A    Escape exec gmrun" >> /usr/share/e16/config/bindings.cfg
-      echo >> /usr/share/e16/config/bindings.cfg
-    fi
 
     ## screenfetch is a great utility, and
     ## scrot makes it easy to take screenshots with it
@@ -991,12 +979,10 @@ if [ "$SPPLUSISINSTALLED" = true ] && [ "$SBOPKGISINSTALLED" = true ]; then
     no_prompt_sbo_pkg_install_or_upgrade libisofs
     no_prompt_sbo_pkg_install_or_upgrade libburn
     no_prompt_sbo_pkg_install_or_upgrade libisoburn
-    #no_prompt_sbo_pkg_install_or_upgrade file-roller
     no_prompt_sbo_pkg_install_or_upgrade isomaster
     no_prompt_sbo_pkg_install_or_upgrade xarchiver
     no_prompt_sbo_pkg_install_or_upgrade thunar-archive-plugin
     no_prompt_sbo_pkg_install_or_upgrade dmg2img
-    #no_prompt_sbo_pkg_install_or_upgrade qtfm
     no_prompt_sbo_pkg_install_or_upgrade mirage
 
     no_prompt_sbo_pkg_install_or_upgrade p7zip
@@ -1068,10 +1054,6 @@ if [ "$SPPLUSISINSTALLED" = true ] && [ "$SBOPKGISINSTALLED" = true ]; then
     no_prompt_sbo_pkg_install_or_upgrade gmtp
     no_prompt_sbo_pkg_install_or_upgrade android-tools
     no_prompt_sbo_pkg_install_or_upgrade android-studio
-
-    ## librecad
-    #no_prompt_sbo_pkg_install_or_upgrade muParser
-    #no_prompt_sbo_pkg_install_or_upgrade librecad
 
     ## open dwg
     no_prompt_sbo_pkg_install_or_upgrade qcad
