@@ -931,12 +931,19 @@ if [ "$SPPLUSISINSTALLED" = true ] && [ "$SBOPKGISINSTALLED" = true ]; then
       no_prompt_sbo_pkg_install_or_upgrade gst1-plugins-base
     fi
 
-    ## good to have
+    ## e16, so tiny!
     no_prompt_sbo_pkg_install_or_upgrade imlib2
     no_prompt_sbo_pkg_install_or_upgrade giblib
+    ## broken on current
+    #no_prompt_sbo_pkg_install_or_upgrade e16
+    #no_prompt_sbo_pkg_install_or_upgrade gmrun
 
-    ## pekwm! (is broken on -current)
-    #no_prompt_sbo_pkg_install_or_upgrade pekwm
+    if [ -e /usr/share/e16/config/bindings.cfg ] && [ -z "$(cat /usr/share/e16/config/bindings.cfg | grep gmrun)" ]; then
+      echo >> /usr/share/e16/config/bindings.cfg
+      echo "## my bindings" >> /usr/share/e16/config/bindings.cfg
+      echo "KeyDown   A    Escape exec gmrun" >> /usr/share/e16/config/bindings.cfg
+      echo >> /usr/share/e16/config/bindings.cfg
+    fi
 
     ## screenfetch is a great utility, and
     ## scrot makes it easy to take screenshots with it
