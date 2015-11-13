@@ -8,7 +8,7 @@
 ## note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files
-CONFIGOMATICVERSION=7.3.25
+CONFIGOMATICVERSION=7.3.26
 
 
 if [ ! $UID = 0 ]; then
@@ -837,8 +837,7 @@ elif [ "$SBOPKGISINSTALLED" = true ]; then
   ###########
 
   ## these are for the image ultimator
-  #no_prompt_sbo_pkg_install_or_upgrade node
-  no_prompt_sbo_pkg_install_or_upgrade iojs
+  no_prompt_sbo_pkg_install_or_upgrade nodejs
   no_prompt_sbo_pkg_install_or_upgrade jpegoptim
   no_prompt_sbo_pkg_install_or_upgrade mozjpeg
   no_prompt_sbo_pkg_install_or_upgrade optipng
