@@ -29,6 +29,9 @@ XFCECONF="https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/xfce
 
 MATECONF="https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/mateSetup.sh"
 
+BRACKETSCONF="https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/brackets.json"
+ZEDCONF="https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/.config/zed/config/user.json"
+
 GITNAME="Ryan P.C. McQuen"
 GITEMAIL="ryan.q@linux.com"
 
@@ -163,10 +166,10 @@ fi
 rm -v ~/.local/share/applications/userapp-Firefox-*.desktop
 
 ## brackets config [2 spaces!]
-wget -N https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/brackets.json -P ~/.config/Brackets/
+wget -N $BRACKETSCONF -P ~/.config/Brackets/
 
 ## zed (2 spaces, and trim whitespace)
-wget -N https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/.config/zed/config/user.json -P ~/.config/zed/config/
+wget -N $ZEDCONF -P ~/.config/zed/config/
 
 echo
 echo
