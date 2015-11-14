@@ -8,7 +8,7 @@
 ## note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files
-CONFIGOMATICVERSION=7.3.28
+CONFIGOMATICVERSION=7.3.29
 
 
 if [ ! $UID = 0 ]; then
@@ -109,9 +109,9 @@ FLUXBOXTHEME="https://github.com/ryanpcmcquen/themes/raw/master/67966-Stealthy-1
 MULTILIBDEV="https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/slackware/.multilib-dev.sh"
 MASSCONVERTANDINSTALLCOMPAT32CURRENT="https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/slackware/.mass_compat32ConvertAndInstall_CURRENT.sh"
 
-GENERICKERNELSWITCHER="https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/slackware/.switchToGenericKernel.sh"
-
 MAGICALXSET="https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/magicalXSET"
+
+GENERICKERNELSWITCHER="https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/slackware/.switchToGenericKernel.sh"
 
 ## we need this to determine if the system can install wine
 if [ -z "$COMARCH" ]; then
