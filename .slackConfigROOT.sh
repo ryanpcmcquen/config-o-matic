@@ -8,7 +8,7 @@
 ## note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files
-CONFIGOMATICVERSION=7.3.26
+CONFIGOMATICVERSION=7.3.27
 
 
 if [ ! $UID = 0 ]; then
@@ -89,14 +89,14 @@ ASOUNDCONF="https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/as
 
 WINECONF="https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/wine.conf"
 
-GETEXTRASLACK="https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/slackware/getExtraSlackBuilds.sh"
+GETEXTRASLACK="https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/slackware/.getExtraSlackBuilds.sh"
 
-GETSOURCESTA="https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/slackware/getSystemSlackBuildsSTABLE.sh"
-GETSOURCECUR="https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/slackware/getSystemSlackBuildsCURRENT.sh"
+GETSOURCESTA="https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/slackware/.getSystemSlackBuildsSTABLE.sh"
+GETSOURCECUR="https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/slackware/.getSystemSlackBuildsCURRENT.sh"
 
 MULTILIBINSTALLS="https://raw.githubusercontent.com/ryanpcmcquen/config-o-matic/master/.multilibInstalls"
 
-GETJAVA="https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/slackware/getJavaSlackBuild.sh"
+GETJAVA="https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/slackware/.getJavaSlackBuild.sh"
 
 MINECRAFTDL="https://s3.amazonaws.com/Minecraft.Download/launcher/Minecraft.jar"
 
@@ -660,8 +660,12 @@ if [ "$SPPLUSISINSTALLED" = true ]; then
     set_slackpkg_to_auto
 
     ## script to set up the environment for compat32 building
-    wget -N https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/slackware/multilib-dev.sh \
+    wget -N https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/slackware/.multilib-dev.sh \
       -P ~/
+    ## script to build all compat32 packages
+    mkdir -pv ~/compat32/
+    wget -N https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/slackware/.mass_compat32ConvertAndInstall_CURRENT.sh \
+      -P ~/compat32/
   fi
 fi
 
@@ -1308,7 +1312,7 @@ if [ "$(lspci | grep NVIDIA)" ]; then
 fi
 
 ## auto generic-kernel script
-wget -N https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/slackware/switchToGenericKernel.sh -P ~/
+wget -N https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/slackware/.switchToGenericKernel.sh -P ~/
 chmod 755 ~/switchToGenericKernel.sh
 
 ## compile latest mainline/stable/longterm kernel
@@ -1321,7 +1325,7 @@ if [ "`find /var/log/packages/ -name raspi-*`" ]; then
 fi
 
 ## script to install latest firefox developer edition
-wget -N https://raw.githubusercontent.com/ryanpcmcquen/ryanpc-slackbuilds/master/unofficial/fde/getFDE.sh -P ~/
+wget -N https://raw.githubusercontent.com/ryanpcmcquen/ryanpc-slackbuilds/master/unofficial/fde/.getFDE.sh -P ~/
 
 ## run mednafen with sexyal-literal-default
 wget -N https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/slackware/medna \
