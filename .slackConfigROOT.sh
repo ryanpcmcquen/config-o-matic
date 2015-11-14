@@ -8,7 +8,7 @@
 ## note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files
-CONFIGOMATICVERSION=7.3.27
+CONFIGOMATICVERSION=7.3.28
 
 
 if [ ! $UID = 0 ]; then
@@ -99,6 +99,19 @@ MULTILIBINSTALLS="https://raw.githubusercontent.com/ryanpcmcquen/config-o-matic/
 GETJAVA="https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/slackware/.getJavaSlackBuild.sh"
 
 MINECRAFTDL="https://s3.amazonaws.com/Minecraft.Download/launcher/Minecraft.jar"
+
+EFILILO="https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/slackware/EFI/lilo"
+UNICODEMAGIC="https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/slackware/rc.unicodeMagic"
+
+GKRELLM2THEME="https://github.com/ryanpcmcquen/themes/raw/master/egan-gkrellm.tar.gz"
+FLUXBOXTHEME="https://github.com/ryanpcmcquen/themes/raw/master/67966-Stealthy-1.1.tgz"
+
+MULTILIBDEV="https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/slackware/.multilib-dev.sh"
+MASSCONVERTANDINSTALLCOMPAT32CURRENT="https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/slackware/.mass_compat32ConvertAndInstall_CURRENT.sh"
+
+GENERICKERNELSWITCHER="https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/slackware/.switchToGenericKernel.sh"
+
+MAGICALXSET="https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/magicalXSET"
 
 ## we need this to determine if the system can install wine
 if [ -z "$COMARCH" ]; then
@@ -276,7 +289,7 @@ dbus-uuidgen --ensure
 ## detect efi and replace lilo with a script that works
 if [ -d /boot/efi/EFI/boot/ ]; then
   cp -v /sbin/lilo /sbin/lilo.orig
-  wget -N https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/slackware/EFI/lilo -P /sbin/
+  wget -N $EFILILO -P /sbin/
 fi
 
 ## no need to run this on efi
@@ -315,7 +328,7 @@ fi
 sed -i.bak 's/^export LANG=en_US/#export LANG=en_US/g' /etc/profile.d/lang.sh
 sed -i.bak 's/^#export LANG=en_US.UTF-8/export LANG=en_US.UTF-8/g' /etc/profile.d/lang.sh
 ## set a utf8 font and other unicode-y stuff
-wget -N https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/slackware/rc.unicodeMagic -P /etc/rc.d/
+wget -N $UNICODEMAGIC -P /etc/rc.d/
 chmod 755 /etc/rc.d/rc.unicodeMagic
 ## start it!
 /etc/rc.d/rc.unicodeMagic
@@ -545,11 +558,11 @@ fi
 
 ## gkrellm theme
 mkdir -pv /usr/share/gkrellm2/themes/
-wget -N https://github.com/ryanpcmcquen/themes/raw/master/egan-gkrellm.tar.gz -P /var/cache/config-o-matic/themes/
+wget -N $GKRELLM2THEME -P /var/cache/config-o-matic/themes/
 tar xvf /var/cache/config-o-matic/themes/egan-gkrellm.tar.gz -C /usr/share/gkrellm2/themes/
 
 ## amazing stealthy fluxbox
-wget -N https://github.com/ryanpcmcquen/themes/raw/master/67966-Stealthy-1.1.tgz -P /var/cache/config-o-matic/themes/
+wget -N $FLUXBOXTHEME -P /var/cache/config-o-matic/themes/
 tar xvf /var/cache/config-o-matic/themes/67966-Stealthy-1.1.tgz -C /usr/share/fluxbox/styles/
 
 ## set slackpkg to non-interactive mode to run without prompting
@@ -660,11 +673,11 @@ if [ "$SPPLUSISINSTALLED" = true ]; then
     set_slackpkg_to_auto
 
     ## script to set up the environment for compat32 building
-    wget -N https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/slackware/.multilib-dev.sh \
+    wget -N $MULTILIBDEV \
       -P ~/
     ## script to build all compat32 packages
     mkdir -pv ~/compat32/
-    wget -N https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/slackware/.mass_compat32ConvertAndInstall_CURRENT.sh \
+    wget -N $MASSCONVERTANDINSTALLCOMPAT32CURRENT \
       -P ~/compat32/
   fi
 fi
@@ -1291,7 +1304,7 @@ if [ -z "$(cat /etc/X11/xinit/xinitrc.dwm | grep 'dwm-autostart')" ]; then
 fi
 
 ## this file makes it easy to change the xset delay and rate
-wget -N https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/magicalXSET \
+wget -N $MAGICALXSET \
   -P /etc/X11/xinit/
 
 ## used to be beginning of SCRIPTS
@@ -1312,7 +1325,7 @@ if [ "$(lspci | grep NVIDIA)" ]; then
 fi
 
 ## auto generic-kernel script
-wget -N https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/slackware/.switchToGenericKernel.sh -P ~/
+wget -N $GENERICKERNELSWITCHER -P ~/
 chmod 755 ~/switchToGenericKernel.sh
 
 ## compile latest mainline/stable/longterm kernel
