@@ -8,7 +8,7 @@
 ## note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files
-CONFIGOMATICVERSION=7.3.29
+CONFIGOMATICVERSION=7.3.30
 
 
 if [ ! $UID = 0 ]; then
@@ -74,6 +74,7 @@ TMUXCONF="https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/tmux
 GITNAME="Ryan P.C. McQuen"
 GITEMAIL="ryan.q@linux.com"
 
+ASOUNDCONF="https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/asound.conf"
 ## alsa volume level for master, headphone and pcm
 ALSAVOLUMEOUTPUTLEVEL="97%"
 ## alsa mic capture level
@@ -84,8 +85,6 @@ XSETKEYDELAY=150
 XSETKEYRATE=80
 
 TOUCHPCONF="https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/51-synaptics.conf"
-
-ASOUNDCONF="https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/asound.conf"
 
 WINECONF="https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/wine.conf"
 
@@ -100,18 +99,23 @@ GETJAVA="https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/slack
 
 MINECRAFTDL="https://s3.amazonaws.com/Minecraft.Download/launcher/Minecraft.jar"
 
-EFILILO="https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/slackware/EFI/lilo"
-UNICODEMAGIC="https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/slackware/rc.unicodeMagic"
-
 GKRELLM2THEME="https://github.com/ryanpcmcquen/themes/raw/master/egan-gkrellm.tar.gz"
 FLUXBOXTHEME="https://github.com/ryanpcmcquen/themes/raw/master/67966-Stealthy-1.1.tgz"
 
 MULTILIBDEV="https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/slackware/.multilib-dev.sh"
 MASSCONVERTANDINSTALLCOMPAT32CURRENT="https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/slackware/.mass_compat32ConvertAndInstall_CURRENT.sh"
 
-MAGICALXSET="https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/magicalXSET"
+EFILILO="https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/slackware/EFI/lilo"
 
+MSBHELPERSCRIPT="https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/slackware/checkmate.sh"
+
+## update chmod also
+UNICODEMAGIC="https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/slackware/rc.unicodeMagic"
+MAGICALXSET="https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/magicalXSET"
 GENERICKERNELSWITCHER="https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/slackware/.switchToGenericKernel.sh"
+XFCESCREENSHOTSAVER="https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/xfceScreenshotSaver"
+SLACKWARECRONJOBUPDATE="https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/slackware/daily-slackup"
+
 
 ## we need this to determine if the system can install wine
 if [ -z "$COMARCH" ]; then
@@ -692,7 +696,7 @@ else
   git clone https://github.com/mateslackbuilds/msb.git
 fi
 ## add a script to build & blacklist everything for msb
-wget -N https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/slackware/checkmate.sh -P ~/msb/
+wget -N $MSBHELPERSCRIPT -P ~/msb/
 
 ## slackbook.org
 git clone git://slackbook.org/slackbook
@@ -720,7 +724,7 @@ fi
 
 ## a script to allow promptless saving of xfce
 ## screenshots, with a nice timestamp
-wget -N https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/xfceScreenshotSaver \
+wget -N $XFCESCREENSHOTSAVER \
   -P /usr/local/bin/
 chmod 755 /usr/local/bin/xfceScreenshotSaver
 
@@ -754,7 +758,7 @@ if [ "$SPPLUSISINSTALLED" = true ]; then
 
     ## auto-update once a day to keep the doctor away
     wget -N \
-      https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/slackware/daily-slackup \
+      $SLACKWARECRONJOBUPDATE \
       -P /etc/cron.daily/
     chmod -v 755 /etc/cron.daily/daily-slackup
 
@@ -1326,7 +1330,7 @@ fi
 
 ## auto generic-kernel script
 wget -N $GENERICKERNELSWITCHER -P ~/
-chmod 755 ~/switchToGenericKernel.sh
+chmod 755 ~/.switchToGenericKernel.sh
 
 ## compile latest mainline/stable/longterm kernel
 wget -N https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/slackware/kernelMe.sh -P /usr/src/
