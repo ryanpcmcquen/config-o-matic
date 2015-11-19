@@ -8,7 +8,7 @@
 ## note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files
-CONFIGOMATICVERSION=7.3.31
+CONFIGOMATICVERSION=7.4.00
 
 
 if [ ! $UID = 0 ]; then
@@ -74,7 +74,6 @@ TMUXCONF="https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/tmux
 GITNAME="Ryan P.C. McQuen"
 GITEMAIL="ryan.q@linux.com"
 
-ASOUNDCONF="https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/asound.conf"
 ## alsa volume level for master, headphone and pcm
 ALSAVOLUMEOUTPUTLEVEL="97%"
 ## alsa mic capture level
@@ -283,9 +282,12 @@ if [ ! "$OGCONFIG" = true ]; then
 fi
 
 
-if [ "$(aplay -l | grep Analog | grep 'card 1')" ]; then
-  wget -N $ASOUNDCONF -P /etc/
-fi
+## sets the analog card to your default output,
+## helpful with some systems, innocuous otherwise
+egrep '^defaults.*card.*[0-9]$' /usr/share/alsa/alsa.conf > /etc/asound.conf.default
+ALSACARDNUMBER=`aplay -l | grep Analog | head -1 | cut -d: -f1 | sed 's/card //g'`
+sed "s/[0-9]/${ALSACARDNUMBER}/g" /etc/asound.conf.default > /etc/asound.conf
+
 
 ## fix for steam & lutris
 dbus-uuidgen --ensure
