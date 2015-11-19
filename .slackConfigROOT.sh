@@ -8,7 +8,7 @@
 ## note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files
-CONFIGOMATICVERSION=7.4.00
+CONFIGOMATICVERSION=7.4.01
 
 
 if [ ! $UID = 0 ]; then
@@ -281,13 +281,8 @@ if [ ! "$OGCONFIG" = true ]; then
   fi
 fi
 
-
-## sets the analog card to your default output,
-## helpful with some systems, innocuous otherwise
-egrep '^defaults.*card.*[0-9]$' /usr/share/alsa/alsa.conf > /etc/asound.conf.default
-ALSACARDNUMBER=`aplay -l | grep Analog | head -1 | cut -d: -f1 | sed 's/card //g'`
-sed "s/[0-9]/${ALSACARDNUMBER}/g" /etc/asound.conf.default > /etc/asound.conf
-
+## script to make alsa use analog output as default
+curl https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/configureAlsaToUseAnalogOutput.sh | sh
 
 ## fix for steam & lutris
 dbus-uuidgen --ensure
