@@ -8,7 +8,7 @@
 ## note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files
-CONFIGOMATICVERSION=7.4.01
+CONFIGOMATICVERSION=7.5.00
 
 
 if [ ! $UID = 0 ]; then
@@ -23,7 +23,7 @@ fi
 cd
 ## get stable slackware version
 wget www.slackware.com -O ~/slackware-home-page.html
-cat ~/slackware-home-page.html | grep "is released!" | head -1 | sed 's/Slackware//g' | \
+grep "is released!" ~/slackware-home-page.html | head -1 | sed 's/Slackware//g' | \
   sed 's/is released!//g' | sed 's/ //g' > ~/slackwareStableVersion
 rm -v ~/slackware-home-page.html
 
@@ -32,7 +32,7 @@ export DASHSLACKSTAVER=${DASHSLACKSTAVER=-"$(tr -d '\n\r' < ~/slackwareStableVer
 
 ## sbopkg
 wget www.sbopkg.org -O ~/sbopkg-home-page.html
-cat ~/sbopkg-home-page.html | grep sbopkg | grep -G tgz | cut -d= -f2 | \
+grep sbopkg ~/sbopkg-home-page.html | grep -G tgz | cut -d= -f2 | \
   cut -d'"' -f2 > ~/sbopkgVersion
 rm -v ~/sbopkg-home-page.html
 
@@ -40,7 +40,7 @@ export SBOPKGDL=${SBOPKGDL="$(tr -d '\n\r' < ~/sbopkgVersion)"}
 
 ## slackpkg+
 wget sourceforge.net/projects/slackpkgplus/files/ -O ~/slackpkgplus-download-page.html
-cat ~/slackpkgplus-download-page.html | grep slackpkg%2B | head -1 | cut -d= -f2 | sed 's/\/download//' | \
+grep slackpkg%2B ~/slackpkgplus-download-page.html | head -1 | cut -d= -f2 | sed 's/\/download//' | \
   tr -d '"' > ~/slackpkgPlusVersion
 rm -v ~/slackpkgplus-download-page.html
 
@@ -48,9 +48,9 @@ export SPPLUSDL=${SPPLUSDL="$(tr -d '\n\r' < ~/slackpkgPlusVersion)"}
 
 ## caledonia
 wget caledonia.sourceforge.net -O ~/caledonia-home-page.html
-cat ~/caledonia-home-page.html | grep Plasma-KDE%20Theme | cut -d= -f5 | tr -d '"' | tr -d "'" | sed 's@/download>Download <i class@@g' | \
+grep Plasma-KDE%20Theme ~/caledonia-home-page.html | cut -d= -f5 | tr -d '"' | tr -d "'" | sed 's@/download>Download <i class@@g' | \
   sed 's@http://sourceforge.net/projects/caledonia/files/Caledonia%20%28Plasma-KDE%20Theme%29/@@g' > ~/caledoniaPlasmaVersion
-cat ~/caledonia-home-page.html | grep Official%20Wallpapers | cut -d= -f5 | tr -d '"' | tr -d "'" | sed 's@/download>Download <i class@@g' | \
+grep Official%20Wallpapers ~/caledonia-home-page.html | cut -d= -f5 | tr -d '"' | tr -d "'" | sed 's@/download>Download <i class@@g' | \
   sed 's@http://sourceforge.net/projects/caledonia/files/Caledonia%20Official%20Wallpapers/@@g' > ~/caledoniaWallpaperVersion
 rm -v ~/caledonia-home-page.html
 
@@ -133,7 +133,7 @@ make_sbo_pkg_upgrade_list() {
 no_prompt_sbo_pkg_install_or_upgrade() {
   for ITEM in "$@"; do
     SBO_PACKAGE=$ITEM
-    if [ -z "`find /var/log/packages/ -name ${SBO_PACKAGE}-*`" ] || [ "$(cat ~/sbopkg-upgrade-list.txt | grep ${SBO_PACKAGE})" ]; then
+    if [ -z "`find /var/log/packages/ -name ${SBO_PACKAGE}-*`" ] || [ "$(grep ${SBO_PACKAGE} ~/sbopkg-upgrade-list.txt)" ]; then
       echo p | sbopkg -B -e continue -i ${SBO_PACKAGE}
     fi
   done
@@ -311,7 +311,7 @@ if [ -e /etc/lilo.conf ]; then
     fi
   fi
   sed -i.bak 's/^timeout =.*/timeout = 5/g' /etc/lilo.conf
-  if [ "$(cat /etc/lilo.conf | grep 'vga=771')" ]; then
+  if [ "$(grep 'vga=771' /etc/lilo.conf)" ]; then
     ## uncomment all vga settings so
     ## we don't end up with conflicts
     sed -i.bak "s_^vga_#vga_g" /etc/lilo.conf
@@ -334,14 +334,14 @@ chmod 755 /etc/rc.d/rc.unicodeMagic
 ## start it!
 /etc/rc.d/rc.unicodeMagic
 ## make it start on boot
-if [ -z "$(cat /etc/rc.d/rc.local | grep unicodeMagic)" ]; then
+if [ -z "$(grep unicodeMagic /etc/rc.d/rc.local)" ]; then
 echo "if [ -x /etc/rc.d/rc.unicodeMagic ]; then
   /etc/rc.d/rc.unicodeMagic
 fi" >> /etc/rc.d/rc.local
 fi
 
 ## set maximum keyboard repeat rate and shortest delay
-if [ -z "$(cat /etc/rc.d/rc.local | grep kbdrate)" ]; then
+if [ -z "$(grep kbdrate /etc/rc.d/rc.local)" ]; then
   echo >> /etc/rc.d/rc.local
   echo "kbdrate -r 30.0 -d 250" >> /etc/rc.d/rc.local
   echo >> /etc/rc.d/rc.local
@@ -359,7 +359,7 @@ sed -i.bak 's/#\[0-9]+_SBo/\
 sbopkg/g' /etc/slackpkg/blacklist
 
 ## i always install jdk with pat's script
-if [ -z "$(cat /etc/slackpkg/blacklist | grep jdk)" ]; then
+if [ -z "$(grep jdk /etc/slackpkg/blacklist)" ]; then
   echo jdk >> /etc/slackpkg/blacklist
   echo >> /etc/slackpkg/blacklist
 fi
@@ -412,7 +412,7 @@ fi
 
 
 ## set vim as the default editor
-if [ -z "$(cat /etc/profile | grep 'export EDITOR' && cat /etc/profile | grep 'export VISUAL')" ]; then
+if [ -z "$(grep 'export EDITOR' /etc/profile && grep 'export VISUAL' /etc/profile)" ]; then
   echo >> /etc/profile
   echo "export EDITOR=vim" >> /etc/profile
   echo "export VISUAL=vim" >> /etc/profile
@@ -422,7 +422,7 @@ fi
 ## make ls colorful by default,
 ## when parsing ls output, always use:
 ## ls --color=never
-if [ -z "$(cat /etc/profile | grep 'alias ls=')" ]; then
+if [ -z "$(grep 'alias ls=' /etc/profile)" ]; then
   echo >> /etc/profile
   echo "alias ls='ls --color=auto'" >> /etc/profile
   echo >> /etc/profile
@@ -430,14 +430,14 @@ fi
 
 ## make alsamixer go to the card you actually want to edit  ;-)
 if [ "$(aplay -l | grep Analog | grep 'card 1')" ] \
-  && [ -z "$(cat /etc/profile | grep 'alias alsamixer=')" ]; then
+  && [ -z "$(grep 'alias alsamixer=' /etc/profile)" ]; then
     echo >> /etc/profile
     echo "alias alsamixer='alsamixer -c 1'" >> /etc/profile
     echo >> /etc/profile
 fi
 
 ## make compiling faster  ;-)
-if [ -z "$(cat /etc/profile | grep 'MAKEFLAGS')" ]; then
+if [ -z "$(grep 'MAKEFLAGS' /etc/profile)" ]; then
   echo >> /etc/profile
   echo 'if [ "$(nproc)" -gt 2 ]; then' >> /etc/profile
   ## cores--
@@ -520,25 +520,25 @@ if [ "$SBOPKGISINSTALLED" = true ]; then
   fi
   
   ## applies to qemu
-  if [ -z "$(cat /etc/sbopkg/sbopkg.conf | grep TARGETS)" ]; then
+  if [ -z "$(grep TARGETS /etc/sbopkg/sbopkg.conf)" ]; then
     echo "export TARGETS=\${TARGETS:-all}" >> /etc/sbopkg/sbopkg.conf
     echo >> /etc/sbopkg/sbopkg.conf
   fi
   ## applies to google-go-lang
-  if [ -z "$(cat /etc/sbopkg/sbopkg.conf | grep RUN_TEST)" ]; then
+  if [ -z "$(grep RUN_TEST /etc/sbopkg/sbopkg.conf)" ]; then
     echo "export RUN_TEST=\${RUN_TEST:-false}" >> /etc/sbopkg/sbopkg.conf
     echo >> /etc/sbopkg/sbopkg.conf
   fi
   ## applies to a few packages
   if [ "$MULTILIB" = true ]; then
-    if [ -z "$(cat /etc/sbopkg/sbopkg.conf | grep COMPAT32)" ]; then
+    if [ -z "$(grep COMPAT32 /etc/sbopkg/sbopkg.conf)" ]; then
       echo "export COMPAT32=\${COMPAT32:-yes}" >> /etc/sbopkg/sbopkg.conf
       echo >> /etc/sbopkg/sbopkg.conf
     fi
   fi
   ## applies to ssr
   if [ "$MISCELLANY" = true ]; then
-    if [ -z "$(cat /etc/sbopkg/sbopkg.conf | grep JACK)" ]; then
+    if [ -z "$(grep JACK /etc/sbopkg/sbopkg.conf)" ]; then
       echo >> /etc/sbopkg/sbopkg.conf
       echo "export JACK=\${JACK:-on}" >> /etc/sbopkg/sbopkg.conf
       echo >> /etc/sbopkg/sbopkg.conf
@@ -955,7 +955,7 @@ if [ "$SPPLUSISINSTALLED" = true ] && [ "$SBOPKGISINSTALLED" = true ]; then
     #no_prompt_sbo_pkg_install_or_upgrade e16
     #no_prompt_sbo_pkg_install_or_upgrade gmrun
 
-    if [ -e /usr/share/e16/config/bindings.cfg ] && [ -z "$(cat /usr/share/e16/config/bindings.cfg | grep gmrun)" ]; then
+    if [ -e /usr/share/e16/config/bindings.cfg ] && [ -z "$(grep gmrun /usr/share/e16/config/bindings.cfg)" ]; then
       echo >> /usr/share/e16/config/bindings.cfg
       echo "## my bindings" >> /usr/share/e16/config/bindings.cfg
       echo "KeyDown   A    Escape exec gmrun" >> /usr/share/e16/config/bindings.cfg
@@ -1133,7 +1133,7 @@ if [ "$SPPLUSISINSTALLED" = true ] && [ "$SBOPKGISINSTALLED" = true ]; then
     if [ -z "`find /var/log/packages/ -name steamclient-*`" ]; then
       rsync -avz rsync://taper.alienbase.nl/mirrors/people/alien/slackbuilds/steamclient/pkg/current/ /var/cache/config-o-matic/steamclient/
       find /var/cache/config-o-matic/steamclient/ -name "steamclient-*.t?z" | sort | tail -1 | xargs -i upgradepkg --install-new {}
-      if [ -z "$(cat /etc/slackpkg/blacklist | grep steamclient)" ]; then
+      if [ -z "$(grep steamclient /etc/slackpkg/blacklist)" ]; then
         echo steamclient >> /etc/slackpkg/blacklist
         echo >> /etc/slackpkg/blacklist
       fi
@@ -1278,7 +1278,7 @@ if [ "$SPPLUSISINSTALLED" = true ] && [ "$SBOPKGISINSTALLED" = true ]; then
 fi
 
 ## make yourself the flash
-if [ -z "$(cat /etc/X11/xinit/xinitrc.* | grep 'xset r rate')" ]; then
+if [ -z "$(grep 'xset r rate' /etc/X11/xinit/xinitrc.*)" ]; then
   sed -i.bak 's@if \[ -z "\$DESKTOP_SESSION"@\
     xset\ r\ rate\ '"$XSETKEYDELAY"'\ '"$XSETKEYRATE"'\
     \
@@ -1287,14 +1287,14 @@ if [ -z "$(cat /etc/X11/xinit/xinitrc.* | grep 'xset r rate')" ]; then
 fi
 
 ## dwm is its own thing
-if [ -z "$(cat /etc/X11/xinit/xinitrc.dwm | grep 'xset r rate')" ]; then
+if [ -z "$(grep 'xset r rate' /etc/X11/xinit/xinitrc.dwm)" ]; then
   sed -i.bak 's@if \[ -z "\$DESKTOP_SESSION"@\
     xset\ r\ rate\ '"$XSETKEYDELAY"'\ '"$XSETKEYRATE"'\
     \
     if \[ -z "\$DESKTOP_SESSION"@g' \
   /etc/X11/xinit/xinitrc.dwm
 fi
-if [ -z "$(cat /etc/X11/xinit/xinitrc.dwm | grep 'dwm-autostart')" ]; then
+if [ -z "$(grep 'dwm-autostart' /etc/X11/xinit/xinitrc.dwm)" ]; then
   sed -i.bak 's@xset\ r\ rate.*@\
     \#\#\ my\ startup\ file\
     sh\ /usr/local/etc/dwm-autostart\
