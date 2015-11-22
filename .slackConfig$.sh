@@ -138,7 +138,7 @@ fi
 ## e16
 if [ -d /usr/share/e16 ]; then
   if [ -e ~/.e16/e_config--0.0.cfg ]; then
-    if [ -z "$(cat ~/.e16/e_config--0.0.cfg | grep 'focus.all_new_windows_get_focus')" ]; then
+    if [ -z "$(grep 'focus.all_new_windows_get_focus' ~/.e16/e_config--0.0.cfg)" ]; then
       echo "focus.all_new_windows_get_focus = 1" >> ~/.e16/e_config--0.0.cfg
     else
       sed -i.bak 's/focus.all_new_windows_get_focus = 0/focus.all_new_windows_get_focus = 1/g' ~/.e16/e_config--0.0.cfg
