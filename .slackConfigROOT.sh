@@ -8,7 +8,7 @@
 ## note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files
-CONFIGOMATICVERSION=7.5.00
+CONFIGOMATICVERSION=7.5.01
 
 
 if [ ! $UID = 0 ]; then
@@ -115,6 +115,8 @@ GENERICKERNELSWITCHER="https://raw.githubusercontent.com/ryanpcmcquen/linuxTweak
 XFCESCREENSHOTSAVER="https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/xfceScreenshotSaver"
 SLACKWARECRONJOBUPDATE="https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/slackware/daily-slackup"
 
+## change to --utc if that is your thing
+SYSTEMCLOCKSYNCHRONIZATION="--localtime"
 
 ## we need this to determine if the system can install wine
 if [ -z "$COMARCH" ]; then
@@ -765,7 +767,7 @@ if [ "$SPPLUSISINSTALLED" = true ]; then
     fi
     ntpdate 0.pool.ntp.org
     ntpdate 1.pool.ntp.org
-    hwclock --systohc
+    hwclock --systohc ${SYSTEMCLOCKSYNCHRONIZATION}
     sed -i.bak 's/#server pool.ntp.org iburst / \
     server 0.pool.ntp.org iburst \
     server 1.pool.ntp.org iburst \
