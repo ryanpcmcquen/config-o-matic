@@ -8,7 +8,7 @@
 ## note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files
-CONFIGOMATICVERSION=7.5.01
+CONFIGOMATICVERSION=7.5.02
 
 
 if [ ! $UID = 0 ]; then
@@ -1305,6 +1305,11 @@ if [ -z "$(grep 'dwm-autostart' /etc/X11/xinit/xinitrc.dwm)" ]; then
     @g' \
   /etc/X11/xinit/xinitrc.dwm
 fi
+
+## move any backup files to a separate directory,
+## so that `xwmconfig` doesn't become a mess
+mkdir -pv /etc/X11/xinit/BACKUPS/
+mv /etc/X11/xinit/xinitrc.*.bak /etc/X11/xinit/BACKUPS/
 
 ## this file makes it easy to change the xset delay and rate
 wget -N $MAGICALXSET \
