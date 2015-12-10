@@ -2,13 +2,11 @@
 
 # cd; wget -N https://raw.githubusercontent.com/ryanpcmcquen/config-o-matic/master/.slackConfigROOT.sh -P ~/; sh ~/.slackConfigROOT.sh
 
-## BASHGITVIM="https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/bashGitVimROOT.sh"
-
 ## added in 4.2.0
 ## note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files
-CONFIGOMATICVERSION=7.5.02
+CONFIGOMATICVERSION=7.5.03
 
 
 if [ ! $UID = 0 ]; then
@@ -124,6 +122,15 @@ if [ -z "$COMARCH" ]; then
     arm*) COMARCH=arm ;;
     *) COMARCH=$(uname -m) ;;
   esac
+fi
+
+## set github clone source to ssh,
+## if ssh key is there, otherwise
+## use https
+if [ -e ~/.ryan ] && [ -d ~/.ssh/ ]; then
+  GITHUBCLONESOURCE="git@github.com:"
+else
+  GITHUBCLONESOURCE="https://github.com/"
 fi
 
 ### my shell functions  ;^)
@@ -689,11 +696,8 @@ fi
 slackpkg_full_upgrade
 
 ## mate
-if [ -e ~/.ryan ] && [ -d ~/.ssh/ ]; then
-  git clone git@github.com:mateslackbuilds/msb.git
-else
-  git clone https://github.com/mateslackbuilds/msb.git
-fi
+git clone ${GITHUBCLONESOURCE}mateslackbuilds/msb.git
+
 ## add a script to build & blacklist everything for msb
 wget -N $MSBHELPERSCRIPT -P ~/msb/
 
@@ -701,25 +705,13 @@ wget -N $MSBHELPERSCRIPT -P ~/msb/
 git clone git://slackbook.org/slackbook
 
 ## enlightenment!
-if [ -e ~/.ryan ] && [ -d ~/.ssh/ ]; then
-  git clone git@github.com:ryanpcmcquen/slackENLIGHTENMENT.git
-else
-  git clone https://github.com/ryanpcmcquen/slackENLIGHTENMENT.git
-fi
+git clone ${GITHUBCLONESOURCE}ryanpcmcquen/slackENLIGHTENMENT.git
 
 ## my slackbuilds
-if [ -e ~/.ryan ] && [ -d ~/.ssh/ ]; then
-  git clone git@github.com:ryanpcmcquen/ryanpc-slackbuilds.git
-else
-  git clone https://github.com/ryanpcmcquen/ryanpc-slackbuilds.git
-fi
+git clone ${GITHUBCLONESOURCE}ryanpcmcquen/ryanpc-slackbuilds.git
 
 ## ponce's repo with -current fixes
-if [ -e ~/.ryan ] && [ -d ~/.ssh/ ]; then
-  git clone git@github.com:Ponce/slackbuilds.git ponce-sbo
-else
-  git clone https://github.com/Ponce/slackbuilds.git ponce-sbo
-fi
+git clone ${GITHUBCLONESOURCE}Ponce/slackbuilds.git ponce-sbo
 
 ## a script to allow promptless saving of xfce
 ## screenshots, with a nice timestamp
@@ -1161,31 +1153,19 @@ if [ "$SPPLUSISINSTALLED" = true ] && [ "$SBOPKGISINSTALLED" = true ]; then
     curl $GETJAVA | sh
 
     ## numix stuff is dead sexy
-    if [ -e ~/.ryan ] && [ -d ~/.ssh/ ]; then
-      git clone git@github.com:numixproject/numix-icon-theme.git /var/cache/config-o-matic/themes/numix-icon-theme/
-    else
-      git clone https://github.com/numixproject/numix-icon-theme.git /var/cache/config-o-matic/themes/numix-icon-theme/
-    fi
+    git clone ${GITHUBCLONESOURCE}numixproject/numix-icon-theme.git /var/cache/config-o-matic/themes/numix-icon-theme/
     cd /var/cache/config-o-matic/themes/numix-icon-theme/
     git pull
     cp -R /var/cache/config-o-matic/themes/numix-icon-theme/Numix/ /usr/share/icons/
     cd
 
-    if [ -e ~/.ryan ] && [ -d ~/.ssh/ ]; then
-      git clone git@github.com:numixproject/numix-icon-theme-bevel.git /var/cache/config-o-matic/themes/numix-icon-theme-bevel/
-    else
-      git clone https://github.com/numixproject/numix-icon-theme-bevel.git /var/cache/config-o-matic/themes/numix-icon-theme-bevel/
-    fi
+    git clone ${GITHUBCLONESOURCE}numixproject/numix-icon-theme-bevel.git /var/cache/config-o-matic/themes/numix-icon-theme-bevel/
     cd /var/cache/config-o-matic/themes/numix-icon-theme-bevel/
     git pull
     cp -R /var/cache/config-o-matic/themes/numix-icon-theme-bevel/Numix-Bevel/ /usr/share/icons/
     cd
 
-    if [ -e ~/.ryan ] && [ -d ~/.ssh/ ]; then
-      git clone git@github.com:numixproject/numix-icon-theme-circle.git /var/cache/config-o-matic/themes/numix-icon-theme-circle/
-    else
-      git clone https://github.com/numixproject/numix-icon-theme-circle.git /var/cache/config-o-matic/themes/numix-icon-theme-circle/
-    fi
+    git clone ${GITHUBCLONESOURCE}numixproject/numix-icon-theme-circle.git /var/cache/config-o-matic/themes/numix-icon-theme-circle/
     cd /var/cache/config-o-matic/themes/numix-icon-theme-circle/
     git pull
     cp -R /var/cache/config-o-matic/themes/numix-icon-theme-circle/Numix-Circle/ /usr/share/icons/
@@ -1193,31 +1173,19 @@ if [ "$SPPLUSISINSTALLED" = true ] && [ "$SBOPKGISINSTALLED" = true ]; then
     cp -R /usr/share/icons/Numix-Circle/* /usr/share/icons/Oxygen_Zion/
     cd
 
-    if [ -e ~/.ryan ] && [ -d ~/.ssh/ ]; then
-      git clone git@github.com:numixproject/numix-icon-theme-shine.git /var/cache/config-o-matic/themes/numix-icon-theme-shine/
-    else
-      git clone https://github.com/numixproject/numix-icon-theme-shine.git /var/cache/config-o-matic/themes/numix-icon-theme-shine/
-    fi
+    git clone ${GITHUBCLONESOURCE}numixproject/numix-icon-theme-shine.git /var/cache/config-o-matic/themes/numix-icon-theme-shine/
     cd /var/cache/config-o-matic/themes/numix-icon-theme-shine/
     git pull
     cp -R /var/cache/config-o-matic/themes/numix-icon-theme-shine/Numix-Shine/ /usr/share/icons/
     cd
 
-    if [ -e ~/.ryan ] && [ -d ~/.ssh/ ]; then
-      git clone git@github.com:numixproject/numix-icon-theme-utouch.git /var/cache/config-o-matic/themes/numix-icon-theme-utouch/
-    else
-      git clone https://github.com/numixproject/numix-icon-theme-utouch.git /var/cache/config-o-matic/themes/numix-icon-theme-utouch/
-    fi
+    git clone ${GITHUBCLONESOURCE}numixproject/numix-icon-theme-utouch.git /var/cache/config-o-matic/themes/numix-icon-theme-utouch/
     cd /var/cache/config-o-matic/themes/numix-icon-theme-utouch/
     git pull
     cp -R /var/cache/config-o-matic/themes/numix-icon-theme-utouch/Numix-uTouch/ /usr/share/icons/
     cd
 
-    if [ -e ~/.ryan ] && [ -d ~/.ssh/ ]; then
-      git clone git@github.com:shimmerproject/Numix.git /var/cache/config-o-matic/themes/Numix/
-    else
-      git clone https://github.com/shimmerproject/Numix.git /var/cache/config-o-matic/themes/Numix/
-    fi
+    git clone ${GITHUBCLONESOURCE}shimmerproject/Numix.git /var/cache/config-o-matic/themes/Numix/
     cd /var/cache/config-o-matic/themes/Numix/
     git pull
     cp -R /var/cache/config-o-matic/themes/Numix/ /usr/share/icons/
