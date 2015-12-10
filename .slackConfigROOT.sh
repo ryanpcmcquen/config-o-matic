@@ -6,7 +6,7 @@
 ## note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files
-CONFIGOMATICVERSION=7.5.03
+CONFIGOMATICVERSION=7.5.04
 
 
 if [ ! $UID = 0 ]; then
@@ -112,6 +112,8 @@ MAGICALXSET="https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/m
 GENERICKERNELSWITCHER="https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/slackware/.switchToGenericKernel.sh"
 XFCESCREENSHOTSAVER="https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/xfceScreenshotSaver"
 SLACKWARECRONJOBUPDATE="https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/slackware/daily-slackup"
+
+ALSACARDNUMBER=`aplay -l | grep Analog | head -1 | cut -d: -f1 | sed 's/card //g'`
 
 ## change to --utc if that is your thing
 SYSTEMCLOCKSYNCHRONIZATION="--localtime"
@@ -438,10 +440,10 @@ if [ -z "$(grep 'alias ls=' /etc/profile)" ]; then
 fi
 
 ## make alsamixer go to the card you actually want to edit  ;-)
-if [ "$(aplay -l | grep Analog | grep 'card 1')" ] \
+if [ "${ALSACARDNUMBER}" ] \
   && [ -z "$(grep 'alias alsamixer=' /etc/profile)" ]; then
     echo >> /etc/profile
-    echo "alias alsamixer='alsamixer -c 1'" >> /etc/profile
+    echo "alias alsamixer='alsamixer -c ${ALSACARDNUMBER}'" >> /etc/profile
     echo >> /etc/profile
 fi
 
@@ -1370,28 +1372,17 @@ fi
 
 ## let there be sound!
 /etc/rc.d/rc.alsa
-if [ "$(aplay -l | grep Analog | grep 'card 1')" ]; then
-  amixer set -c 1 Master 0% unmute
-  amixer set -c 1 Master $ALSAVOLUMEOUTPUTLEVEL unmute
-  amixer set -c 1 Headphone 0% unmute
-  amixer set -c 1 Headphone $ALSAVOLUMEOUTPUTLEVEL unmute
-  amixer set -c 1 PCM 0% unmute
-  amixer set -c 1 PCM $ALSAVOLUMEOUTPUTLEVEL unmute
-  amixer set -c 1 Mic 0% unmute
-  amixer set -c 1 Mic $ALSAMICCAPTURELEVEL unmute
-  amixer set -c 1 Capture 0% cap
-  amixer set -c 1 Capture $ALSAMICCAPTURELEVEL cap
-else
-  amixer set Master 0% unmute
-  amixer set Master $ALSAVOLUMEOUTPUTLEVEL unmute
-  amixer set Headphone 0% unmute
-  amixer set Headphone $ALSAVOLUMEOUTPUTLEVEL unmute
-  amixer set PCM 0% unmute
-  amixer set PCM $ALSAVOLUMEOUTPUTLEVEL unmute
-  amixer set Mic 0% unmute
-  amixer set Mic $ALSAMICCAPTURELEVEL unmute
-  amixer set Capture 0% cap
-  amixer set Capture $ALSAMICCAPTURELEVEL cap
+if [ "${ALSACARDNUMBER}" ]; then
+  amixer set -c ${ALSACARDNUMBER} Master 0% unmute
+  amixer set -c ${ALSACARDNUMBER} Master $ALSAVOLUMEOUTPUTLEVEL unmute
+  amixer set -c ${ALSACARDNUMBER} Headphone 0% unmute
+  amixer set -c ${ALSACARDNUMBER} Headphone $ALSAVOLUMEOUTPUTLEVEL unmute
+  amixer set -c ${ALSACARDNUMBER} PCM 0% unmute
+  amixer set -c ${ALSACARDNUMBER} PCM $ALSAVOLUMEOUTPUTLEVEL unmute
+  amixer set -c ${ALSACARDNUMBER} Mic 0% unmute
+  amixer set -c ${ALSACARDNUMBER} Mic $ALSAMICCAPTURELEVEL unmute
+  amixer set -c ${ALSACARDNUMBER} Capture 0% cap
+  amixer set -c ${ALSACARDNUMBER} Capture $ALSAMICCAPTURELEVEL cap
 fi
 
 alsactl store
