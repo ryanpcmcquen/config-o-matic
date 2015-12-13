@@ -2,15 +2,13 @@
 
 # cd; wget -N https://raw.githubusercontent.com/ryanpcmcquen/config-o-matic/stable/.slackConfig%24.sh -P ~/; sh ~/.slackConfig\$.sh
 
-### BASHGITVIM="https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/bashGitVimNORMAL.sh"
-
 #### set your config files here:
 
 BASHRC="https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/slackware/normal/.bashrc"
 BASHPR="https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/slackware/normal/.bash_profile"
 
 VIMRC="https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/.vimrc"
-VIMCOLOR="https://raw.githubusercontent.com/ryanpcmcquen/true-monochrome_vim/master/colors/true-monochrome.vim"
+##VIMCOLOR="https://raw.githubusercontent.com/ryanpcmcquen/true-monochrome_vim/master/colors/true-monochrome.vim"
 
 XBINDKEYSRC="https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/.xbindkeysrc"
 
@@ -77,8 +75,9 @@ wget -N $BASHRC -P ~/
 wget -N $BASHPR -P ~/
 
 wget -N $VIMRC -P ~/
-mkdir -pv ~/.vim/colors/
-wget -N $VIMCOLOR -P ~/.vim/colors/
+## i just include my theme in my .vimrc
+##mkdir -pv ~/.vim/colors/
+##wget -N $VIMCOLOR -P ~/.vim/colors/
 
 ## makes keyboard shortcuts easy
 ## while maintaining minimalism
