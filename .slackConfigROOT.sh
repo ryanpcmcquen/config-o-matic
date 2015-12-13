@@ -6,7 +6,7 @@
 ## note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files
-CONFIGOMATICVERSION=7.5.04
+CONFIGOMATICVERSION=7.5.05
 
 
 if [ ! $UID = 0 ]; then
@@ -65,7 +65,7 @@ BASHRC="https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/slackw
 BASHPR="https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/slackware/root/.bash_profile"
 
 VIMRC="https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/.vimrc"
-VIMCOLOR="https://raw.githubusercontent.com/ryanpcmcquen/true-monochrome_vim/master/colors/true-monochrome.vim"
+##VIMCOLOR="https://raw.githubusercontent.com/ryanpcmcquen/true-monochrome_vim/master/colors/true-monochrome.vim"
 
 TMUXCONF="https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/tmux.conf"
 
@@ -468,8 +468,9 @@ fi
 wget -N $BASHRC -P ~/
 wget -N $BASHPR -P ~/
 wget -N $VIMRC -P ~/
-mkdir -p ~/.vim/colors/
-wget -N $VIMCOLOR -P ~/.vim/colors/
+## i just include my theme in my .vimrc
+##mkdir -p ~/.vim/colors/
+##wget -N $VIMCOLOR -P ~/.vim/colors/
 
 ## touchpad configuration
 wget -N $TOUCHPCONF -P /etc/X11/xorg.conf.d/
