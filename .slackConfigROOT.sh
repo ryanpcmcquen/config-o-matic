@@ -6,7 +6,7 @@
 ## note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files
-CONFIGOMATICVERSION=7.5.05
+CONFIGOMATICVERSION=7.5.06
 
 
 if [ ! $UID = 0 ]; then
@@ -880,6 +880,8 @@ elif [ "$SBOPKGISINSTALLED" = true ]; then
   npm install -g jslint
   npm install -g http-server
   npm install -g superstatic
+  ## need this for node stuff
+  my_repo_install krb5
 fi
 
 if [ "$SPPLUSISINSTALLED" = true ] && [ "$SBOPKGISINSTALLED" = true ]; then
