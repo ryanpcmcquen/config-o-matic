@@ -6,7 +6,7 @@
 ## note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files
-CONFIGOMATICVERSION=7.5.06
+CONFIGOMATICVERSION=7.5.07
 
 
 if [ ! $UID = 0 ]; then
@@ -358,10 +358,9 @@ if [ -z "$(grep kbdrate /etc/rc.d/rc.local)" ]; then
   echo >> /etc/rc.d/rc.local
 fi
 
-if [ "$CURRENT" = true ]; then
-  ## adjust slackpkg blacklist
-  sed -i.bak 's/^aaa_elflibs/#aaa_elflibs/g' /etc/slackpkg/blacklist
-fi
+## doesn't matter if this is upgraded on stable,
+## because it never gets upgraded on stable
+sed -i.bak 's/^aaa_elflibs/#aaa_elflibs/g' /etc/slackpkg/blacklist
 
 ## blacklist sbo stuff
 sed -i.bak 's/#\[0-9]+_SBo/\
