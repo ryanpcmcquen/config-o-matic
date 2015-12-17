@@ -171,7 +171,8 @@ wget -N $BRACKETSCONF -P ~/.config/Brackets/
 wget -N $ZEDCONF -P ~/.config/zed/config/
 
 ## install nuclide & atom-beautify for atom
-[ `which atom-apm` ] && atom-apm install nuclide-installer atom-beautify
+##[ `which atom-apm` ] && atom-apm install nuclide-installer atom-beautify
+[ `which atom-apm` ] && atom-apm install atom-beautify
 
 echo
 echo
