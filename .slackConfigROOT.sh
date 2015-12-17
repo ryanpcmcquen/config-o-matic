@@ -6,7 +6,7 @@
 ## note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files
-CONFIGOMATICVERSION=7.5.07
+CONFIGOMATICVERSION=7.5.08
 
 
 if [ ! $UID = 0 ]; then
@@ -1035,6 +1035,8 @@ if [ "$SPPLUSISINSTALLED" = true ] && [ "$SBOPKGISINSTALLED" = true ]; then
 
     ## great text editor
     my_repo_install atom
+    ## install nuclide package for atom
+    [ `which atom-apm` ] && atom-apm install nuclide-installer
 
     ## i may make stuff someday
     no_prompt_sbo_pkg_install_or_upgrade blender
