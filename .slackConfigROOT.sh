@@ -6,7 +6,7 @@
 ## note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files
-CONFIGOMATICVERSION=7.5.09
+CONFIGOMATICVERSION=7.5.10
 
 
 if [ ! $UID = 0 ]; then
@@ -883,8 +883,8 @@ elif [ "$SBOPKGISINSTALLED" = true ]; then
   my_repo_install krb5
   ## great text editor
   my_repo_install atom
-  ## install nuclide package for atom
-  [ `which atom-apm` ] && atom-apm install nuclide-installer
+  ## install nuclide & atom-beautify for atom
+  [ `which atom-apm` ] && atom-apm install nuclide-installer atom-beautify
 fi
 
 if [ "$SPPLUSISINSTALLED" = true ] && [ "$SBOPKGISINSTALLED" = true ]; then
