@@ -6,7 +6,7 @@
 ## note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files
-CONFIGOMATICVERSION=7.5.08
+CONFIGOMATICVERSION=7.5.09
 
 
 if [ ! $UID = 0 ]; then
@@ -881,6 +881,10 @@ elif [ "$SBOPKGISINSTALLED" = true ]; then
   npm install -g superstatic
   ## need this for node stuff
   my_repo_install krb5
+  ## great text editor
+  my_repo_install atom
+  ## install nuclide package for atom
+  [ `which atom-apm` ] && atom-apm install nuclide-installer
 fi
 
 if [ "$SPPLUSISINSTALLED" = true ] && [ "$SBOPKGISINSTALLED" = true ]; then
@@ -1032,11 +1036,6 @@ if [ "$SPPLUSISINSTALLED" = true ] && [ "$SBOPKGISINSTALLED" = true ]; then
     no_prompt_sbo_pkg_install_or_upgrade soundtouch
     no_prompt_sbo_pkg_install_or_upgrade vamp-plugin-sdk
     my_repo_install audacity
-
-    ## great text editor
-    my_repo_install atom
-    ## install nuclide package for atom
-    [ `which atom-apm` ] && atom-apm install nuclide-installer
 
     ## i may make stuff someday
     no_prompt_sbo_pkg_install_or_upgrade blender
