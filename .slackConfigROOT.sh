@@ -6,7 +6,7 @@
 ## note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files
-CONFIGOMATICVERSION=7.5.10
+CONFIGOMATICVERSION=7.5.11
 
 
 if [ ! $UID = 0 ]; then
@@ -884,7 +884,8 @@ elif [ "$SBOPKGISINSTALLED" = true ]; then
   ## great text editor
   my_repo_install atom
   ## install nuclide & atom-beautify for atom
-  [ `which atom-apm` ] && atom-apm install nuclide-installer atom-beautify
+  ##[ `which atom-apm` ] && atom-apm install nuclide-installer atom-beautify
+  [ `which atom-apm` ] && atom-apm install atom-beautify
 fi
 
 if [ "$SPPLUSISINSTALLED" = true ] && [ "$SBOPKGISINSTALLED" = true ]; then
