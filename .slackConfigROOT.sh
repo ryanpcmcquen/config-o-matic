@@ -6,7 +6,7 @@
 ## note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files
-CONFIGOMATICVERSION=7.5.11
+CONFIGOMATICVERSION=7.5.12
 
 
 if [ ! $UID = 0 ]; then
@@ -835,6 +835,13 @@ elif [ "$SBOPKGISINSTALLED" = true ]; then
   ## great file syncing service
   no_prompt_sbo_pkg_install_or_upgrade copy
 
+  no_prompt_sbo_pkg_install_or_upgrade imlib2
+  no_prompt_sbo_pkg_install_or_upgrade giblib
+  ## screenfetch is a great utility, and
+  ## scrot makes it easy to take screenshots with it
+  no_prompt_sbo_pkg_install_or_upgrade scrot
+  no_prompt_sbo_pkg_install_or_upgrade screenfetch
+
   ## my dwm tweaks
   wget -N https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/slackware/dwm-autostart \
     -P /usr/local/etc/
@@ -873,6 +880,7 @@ elif [ "$SBOPKGISINSTALLED" = true ]; then
   npm install -g uglify-js
   npm install -g uglifycss
   npm install -g browserify
+  npm install -g bower
   npm install -g babel
   npm install -g gulp
   npm install -g grunt-cli
@@ -883,8 +891,7 @@ elif [ "$SBOPKGISINSTALLED" = true ]; then
   my_repo_install krb5
   ## great text editor
   my_repo_install atom
-  ## install nuclide & atom-beautify for atom
-  ##[ `which atom-apm` ] && atom-apm install nuclide-installer atom-beautify
+  ## atom goodies
   [ `which atom-apm` ] && atom-apm install atom-beautify
 fi
 
@@ -952,8 +959,6 @@ if [ "$SPPLUSISINSTALLED" = true ] && [ "$SBOPKGISINSTALLED" = true ]; then
     fi
 
     ## e16, so tiny!
-    no_prompt_sbo_pkg_install_or_upgrade imlib2
-    no_prompt_sbo_pkg_install_or_upgrade giblib
     ## broken on current
     #no_prompt_sbo_pkg_install_or_upgrade e16
     #no_prompt_sbo_pkg_install_or_upgrade gmrun
@@ -964,11 +969,6 @@ if [ "$SPPLUSISINSTALLED" = true ] && [ "$SBOPKGISINSTALLED" = true ]; then
       echo "KeyDown   A    Escape exec gmrun" >> /usr/share/e16/config/bindings.cfg
       echo >> /usr/share/e16/config/bindings.cfg
     fi
-
-    ## screenfetch is a great utility, and
-    ## scrot makes it easy to take screenshots with it
-    no_prompt_sbo_pkg_install_or_upgrade scrot
-    no_prompt_sbo_pkg_install_or_upgrade screenfetch
 
     ## need these for ffmpeg
     no_prompt_sbo_pkg_install_or_upgrade lame
