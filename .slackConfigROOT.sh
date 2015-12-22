@@ -6,7 +6,7 @@
 ## note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files
-CONFIGOMATICVERSION=7.5.12
+CONFIGOMATICVERSION=7.5.13
 
 
 if [ ! $UID = 0 ]; then
@@ -892,7 +892,7 @@ elif [ "$SBOPKGISINSTALLED" = true ]; then
   ## great text editor
   my_repo_install atom
   ## atom goodies
-  [ `which atom-apm` ] && atom-apm install atom-beautify
+  [ `which atom-apm` ] && atom-apm install atom-beautify jslint
 fi
 
 if [ "$SPPLUSISINSTALLED" = true ] && [ "$SBOPKGISINSTALLED" = true ]; then
