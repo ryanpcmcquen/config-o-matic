@@ -171,7 +171,7 @@ wget -N $BRACKETSCONF -P ~/.config/Brackets/
 wget -N $ZEDCONF -P ~/.config/zed/config/
 
 ## atom goodies
-[ `which atom-apm` ] && atom-apm install atom-beautify
+[ `which atom-apm` ] && atom-apm install atom-beautify jslint
 
 echo
 echo
