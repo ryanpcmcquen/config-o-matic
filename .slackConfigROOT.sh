@@ -6,7 +6,7 @@
 ## note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files
-CONFIGOMATICVERSION=7.5.13
+CONFIGOMATICVERSION=7.6.00
 
 
 if [ ! $UID = 0 ]; then
@@ -253,19 +253,6 @@ if [ ! "$OGCONFIG" = true ]; then
       echo You are going STABLE.;
       ;;
   esac
-  
-  read -p "Would you like to install WICD? \
-   (NetworkManager will be disabled) \
-   [y/N]: " response
-  case $response in
-    [yY][eE][sS]|[yY])
-      export WICD=true;
-      echo You are installing WICD.;
-      ;;
-    *)
-      echo You are not installing WICD.;
-      ;;
-  esac
   if [ "$COMARCH" != "arm" ]; then
     read -p "Would you like to install a bunch of MISCELLANY?  [y/N]: " response
     case $response in
@@ -310,17 +297,8 @@ if [ -e /etc/lilo.conf ]; then
   sed -i.bak 's/^#compact/lba32\
   compact/g' /etc/lilo.conf
 
-  ## set to utf8 and pass acpi kernel params
-  ## these fix brightness key issues on some comps
-  ## and have no negative effects on others (in my testing at least)
-  ## (also, turn off nouveau as it is broken on newer kernels, but only if already present in lilo.conf)
-  if [ -z "`grep -i vt.default_utf8.*acpi_osi.*acpi_backlight /etc/lilo.conf`" ]; then
-    if [ -z "`grep -i nouveau.modeset=0 /etc/lilo.conf`" ]; then
-      sed -i.bak 's/^append=.*/append=" vt.default_utf8=1 acpi_osi=linux acpi_backlight=vendor"/g' /etc/lilo.conf
-    else
-      sed -i.bak 's/^append=.*/append=" vt.default_utf8=1 nouveau.modeset=0 acpi_osi=linux acpi_backlight=vendor"/g' /etc/lilo.conf
-    fi
-  fi
+  ## set to utf8
+  sed -i.bak 's/vt.default_utf8=0/vt.default_utf8=1/g' /etc/lilo.conf
   sed -i.bak 's/^timeout =.*/timeout = 5/g' /etc/lilo.conf
   if [ "$(grep 'vga=771' /etc/lilo.conf)" ]; then
     ## uncomment all vga settings so
@@ -1340,33 +1318,6 @@ chmod 755 /usr/local/bin/ff /usr/local/bin/firefox
 
 ## used to be end of SCRIPTS
 
-
-if [ "$WICD" = true ]; then
-  slackpkg_update_only
-  slackpkg install wicd
-  chmod -v -x /etc/rc.d/rc.networkmanager
-  chmod -v +x /etc/rc.d/rc.wicd
-  ## download a vanilla copy of the inet conf file
-  wget -N http://slackware.osuosl.org/slackware-current/source/n/network-scripts/scripts/rc.inet1.conf -P /var/cache/config-o-matic/configs/
-  ## disables any interfaces that may interfere with wicd
-  ## comment out any lines that are not preceded by: ###
-  ## we use 3 #'s to avoid red herrings, but check the
-  ## file so we don't just clobber it on re-runs
-  if [ -z "`grep '###' /etc/rc.d/rc.inet1.conf`" ]; then
-    sed -i.bak '/^###/!s/^/###/g' /etc/rc.d/rc.inet1.conf
-  fi
-else
-  ## restore networkmanager if wicd is not selected
-  cp -v /etc/rc.d/rc.inet1.conf.bak /etc/rc.d/rc.inet1.conf
-  ## check for '###' so we don't clobber the backup file
-  if [ "`grep '###' /etc/rc.d/rc.inet1.conf`" ]; then
-    ## remove triple comments just in case
-    sed -i.bak 's/###//g' /etc/rc.d/rc.inet1.conf
-  fi
-  chmod -v -x /etc/rc.d/rc.wicd
-  chmod -v +x /etc/rc.d/rc.networkmanager
-fi
-
 if [ -d /etc/NetworkManager/system-connections ]; then
   ## make all networkmanager connections available system-wide
   for NET in `find /etc/NetworkManager/system-connections/ -name "*" | cut -d'/' -f5 | grep -v ^$`
@@ -1414,7 +1365,6 @@ echo "## SBOPKGISINSTALLED=$SBOPKGISINSTALLED" >> ~/.config-o-matic_$CONFIGOMATI
 echo >> ~/.config-o-matic_$CONFIGOMATICVERSION
 
 echo "CURRENT=$CURRENT" >> ~/.config-o-matic_$CONFIGOMATICVERSION
-echo "WICD=$WICD" >> ~/.config-o-matic_$CONFIGOMATICVERSION
 if [ "$COMARCH" != "arm" ]; then
   echo "MISCELLANY=$MISCELLANY" >> ~/.config-o-matic_$CONFIGOMATICVERSION
 fi
