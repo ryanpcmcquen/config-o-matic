@@ -7,9 +7,8 @@ NEARFREE: This is a separate script that should be run *instead* of the ROOT scr
 Options presented when running the ROOT script:
 
 1. CURRENT: Switches to slackware-current/slackware64-current mirrors instead of stable.
-2. WICD: Installs Wicd, disables NetworkManager.
-3. MISCELLANY: Installs a lot of additional packages, themes and miscellany.
-4. MULTILIB: Adds Eric Hameleer's MULTILIB repo to slackpkg+ and installs/upgrades it (64 bit only).
+2. MISCELLANY: Installs a lot of additional packages, themes and miscellany.
+3. MULTILIB: Adds Eric Hameleer's MULTILIB repo to slackpkg+ and installs/upgrades it (64 bit only).
 
 #####config-o-matic does a lot! You should read through the script and remove any parts you don't want.  ;-)
 ---
