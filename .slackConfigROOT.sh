@@ -6,7 +6,7 @@
 ## note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files
-CONFIGOMATICVERSION=7.6.01
+CONFIGOMATICVERSION=7.7.00
 
 
 if [ ! $UID = 0 ]; then
@@ -72,11 +72,6 @@ TMUXCONF="https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/tmux
 GITNAME="Ryan P.C. McQuen"
 GITEMAIL="ryan.q@linux.com"
 
-## alsa volume level for master, headphone and pcm
-ALSAVOLUMEOUTPUTLEVEL="97%"
-## alsa mic capture level
-ALSAMICCAPTURELEVEL="50%"
-
 ## these make you feel like the flash in vim
 XSETKEYDELAY=150
 XSETKEYRATE=80
@@ -112,8 +107,6 @@ MAGICALXSET="https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/m
 GENERICKERNELSWITCHER="https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/slackware/.switchToGenericKernel.sh"
 XFCESCREENSHOTSAVER="https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/xfceScreenshotSaver"
 SLACKWARECRONJOBUPDATE="https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/slackware/daily-slackup"
-
-ALSACARDNUMBER=`aplay -l | grep Analog | head -1 | cut -d: -f1 | sed 's/card //g'`
 
 ## change to --utc if that is your thing
 SYSTEMCLOCKSYNCHRONIZATION="--localtime"
@@ -279,9 +272,6 @@ if [ ! "$OGCONFIG" = true ]; then
   fi
 fi
 
-## script to make alsa use analog output as default
-curl https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/configureAlsaToUseAnalogOutput.sh | sh
-
 ## fix for steam & lutris
 dbus-uuidgen --ensure
 
@@ -414,14 +404,6 @@ if [ -z "$(grep 'alias ls=' /etc/profile)" ]; then
   echo >> /etc/profile
   echo "alias ls='ls --color=auto'" >> /etc/profile
   echo >> /etc/profile
-fi
-
-## make alsamixer go to the card you actually want to edit  ;-)
-if [ "${ALSACARDNUMBER}" ] \
-  && [ -z "$(grep 'alias alsamixer=' /etc/profile)" ]; then
-    echo >> /etc/profile
-    echo "alias alsamixer='alsamixer -c ${ALSACARDNUMBER}'" >> /etc/profile
-    echo >> /etc/profile
 fi
 
 ## make compiling faster  ;-)
@@ -870,7 +852,7 @@ elif [ "$SBOPKGISINSTALLED" = true ]; then
   ## great text editor
   my_repo_install atom
   ## atom goodies
-  [ `which atom-apm` ] && atom-apm install atom-beautify linter linter-jslint \
+  [ `which atom` ] && apm install atom-beautify linter linter-jslint \
     && wget -N https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/.jsbeautifyrc -P ~/
 fi
 
@@ -949,11 +931,6 @@ if [ "$SPPLUSISINSTALLED" = true ] && [ "$SBOPKGISINSTALLED" = true ]; then
     no_prompt_sbo_pkg_install_or_upgrade SDL2_net
     no_prompt_sbo_pkg_install_or_upgrade SDL2_ttf
 
-    no_prompt_sbo_pkg_install_or_upgrade speex
-    ## script now detects multilib,
-    ## thanks to b. watson
-    no_prompt_sbo_pkg_install_or_upgrade apulse
-
     ## stuff that i roll on my own
     if [ "$CURRENT" = true ]; then
       my_repo_install libgcrypt15
@@ -1018,7 +995,6 @@ if [ "$SPPLUSISINSTALLED" = true ] && [ "$SBOPKGISINSTALLED" = true ]; then
     no_prompt_sbo_pkg_install_or_upgrade numpy
     no_prompt_sbo_pkg_install_or_upgrade BeautifulSoup
     no_prompt_sbo_pkg_install_or_upgrade lxml
-
     no_prompt_sbo_pkg_install_or_upgrade mm-common
     no_prompt_sbo_pkg_install_or_upgrade inkscape
     ##
@@ -1298,24 +1274,6 @@ if [ -d /etc/NetworkManager/system-connections ]; then
     do nmcli con mod "$NET" connection.permissions ' '
   done
 fi
-
-## let there be sound!
-/etc/rc.d/rc.alsa
-if [ "${ALSACARDNUMBER}" ]; then
-  amixer set -c ${ALSACARDNUMBER} Master 0% unmute
-  amixer set -c ${ALSACARDNUMBER} Master $ALSAVOLUMEOUTPUTLEVEL unmute
-  amixer set -c ${ALSACARDNUMBER} Headphone 0% unmute
-  amixer set -c ${ALSACARDNUMBER} Headphone $ALSAVOLUMEOUTPUTLEVEL unmute
-  amixer set -c ${ALSACARDNUMBER} PCM 0% unmute
-  amixer set -c ${ALSACARDNUMBER} PCM $ALSAVOLUMEOUTPUTLEVEL unmute
-  amixer set -c ${ALSACARDNUMBER} Mic 0% unmute
-  amixer set -c ${ALSACARDNUMBER} Mic $ALSAMICCAPTURELEVEL unmute
-  amixer set -c ${ALSACARDNUMBER} Capture 0% cap
-  amixer set -c ${ALSACARDNUMBER} Capture $ALSAMICCAPTURELEVEL cap
-fi
-
-alsactl store
-
 
 ## set slackpkg back to normal
 set_slackpkg_to_manual
