@@ -876,10 +876,6 @@ fi
 
 if [ "$SPPLUSISINSTALLED" = true ] && [ "$SBOPKGISINSTALLED" = true ]; then
   if [ "$MISCELLANY" = true ]; then
-    if [ "$CURRENT" != true ]; then
-      no_prompt_sbo_pkg_install_or_upgrade pysetuptools
-      no_prompt_sbo_pkg_install_or_upgrade qpdf
-    fi
     pip install --upgrade pip || no_prompt_sbo_pkg_install_or_upgrade pip
 
     ## non-sbopkg stuff
@@ -889,13 +885,7 @@ if [ "$SPPLUSISINSTALLED" = true ] && [ "$SBOPKGISINSTALLED" = true ]; then
     ## requires pysetuptools
     no_prompt_sbo_pkg_install_or_upgrade speedtest-cli
 
-    ## useful to have
-    no_prompt_sbo_pkg_install_or_upgrade json-c
-
     ## hydrogen
-    if [ "$CURRENT" != true ]; then
-      no_prompt_sbo_pkg_install_or_upgrade scons
-    fi
     ## no longer a dependency
     no_prompt_sbo_pkg_install_or_upgrade libtar
     no_prompt_sbo_pkg_install_or_upgrade ladspa_sdk
@@ -930,12 +920,6 @@ if [ "$SPPLUSISINSTALLED" = true ] && [ "$SBOPKGISINSTALLED" = true ]; then
     ## i don't even have optical drives on all my comps, but ...
     no_prompt_sbo_pkg_install_or_upgrade libdvdcss
     no_prompt_sbo_pkg_install_or_upgrade libbluray
-
-    if [ "$CURRENT" != true ]; then
-      no_prompt_sbo_pkg_install_or_upgrade orc
-      no_prompt_sbo_pkg_install_or_upgrade gstreamer1
-      no_prompt_sbo_pkg_install_or_upgrade gst1-plugins-base
-    fi
 
     ## e16, so tiny!
     ## broken on current
@@ -1034,16 +1018,8 @@ if [ "$SPPLUSISINSTALLED" = true ] && [ "$SBOPKGISINSTALLED" = true ]; then
     no_prompt_sbo_pkg_install_or_upgrade numpy
     no_prompt_sbo_pkg_install_or_upgrade BeautifulSoup
     no_prompt_sbo_pkg_install_or_upgrade lxml
-    no_prompt_sbo_pkg_install_or_upgrade libsigc++
-    no_prompt_sbo_pkg_install_or_upgrade glibmm
-    no_prompt_sbo_pkg_install_or_upgrade cairomm
-    no_prompt_sbo_pkg_install_or_upgrade pangomm
-    no_prompt_sbo_pkg_install_or_upgrade atkmm
+
     no_prompt_sbo_pkg_install_or_upgrade mm-common
-    no_prompt_sbo_pkg_install_or_upgrade gtkmm
-    if [ "$CURRENT" != true ]; then
-      no_prompt_sbo_pkg_install_or_upgrade gsl
-    fi
     no_prompt_sbo_pkg_install_or_upgrade inkscape
     ##
 
@@ -1093,9 +1069,6 @@ if [ "$SPPLUSISINSTALLED" = true ] && [ "$SBOPKGISINSTALLED" = true ]; then
     ## required
     no_prompt_sbo_pkg_install_or_upgrade pyxdg
     no_prompt_sbo_pkg_install_or_upgrade PyYAML
-    if [ "$CURRENT" != true ]; then
-      no_prompt_sbo_pkg_install_or_upgrade pygobject3
-    fi
     no_prompt_sbo_pkg_install_or_upgrade lutris
 
     ## retro games!
