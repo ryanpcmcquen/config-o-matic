@@ -33,6 +33,12 @@ ZEDCONF="https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/.conf
 GITNAME="Ryan P.C. McQuen"
 GITEMAIL="ryan.q@linux.com"
 
+run_and_save_config() {
+  for ITEM in "$@"; do
+    wget -N $ITEM -P ~/
+    sh ~/`basename $ITEM`
+  done
+}
 
 if [ $UID = 0 ]; then
 cat << EOF
@@ -101,37 +107,37 @@ pkill gkrellm &
 
 ## fluxbox
 if [ -d ~/.fluxbox ]; then
-  curl $FLUXBOXCONF | sh
+  run_and_save_config $FLUXBOXCONF
 fi
 
 ## window maker
 if [ -d ~/GNUstep ]; then
-  curl $WMAKERCONF | sh
+  run_and_save_config $WMAKERCONF
 fi
 
 ## pekwm
 if [ -d ~/.pekwm ]; then
-  curl $PEKWMCONF | sh
+  run_and_save_config $PEKWMCONF
 fi
 
 ## lumina
 if [ -d ~/.lumina ]; then
-  curl $LUMINACONF | sh
+  run_and_save_config $LUMINACONF
 fi
 
 ## kde
 if [ "`find /var/log/packages/ -name kdelibs-*`" ]; then
-  curl $KDECONF | sh
+  run_and_save_config $KDECONF
 fi
 
 ## mate
 if [ "`find /var/log/packages/ -name pluma-*`" ]; then
-  curl $MATECONF | sh
+  run_and_save_config $MATECONF
 fi
 
 ## xfce
 if [ "`find /var/log/packages/ -name Thunar-*`" ]; then
-  curl $XFCECONF | sh
+  run_and_save_config $XFCECONF
 fi
 
 ## e16
