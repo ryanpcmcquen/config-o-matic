@@ -6,7 +6,7 @@
 ## note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files
-CONFIGOMATICVERSION=7.7.00
+CONFIGOMATICVERSION=7.7.01
 
 
 if [ ! $UID = 0 ]; then
@@ -848,7 +848,7 @@ elif [ "$SBOPKGISINSTALLED" = true ]; then
   npm install -g http-server
   npm install -g superstatic
   ## need this for node stuff
-  my_repo_install krb5
+  no_prompt_sbo_pkg_install_or_upgrade krb5
   ## great text editor
   my_repo_install atom
   ## atom goodies
