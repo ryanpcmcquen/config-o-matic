@@ -6,7 +6,7 @@
 ## note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files
-CONFIGOMATICVERSION=7.7.01
+CONFIGOMATICVERSION=7.7.02
 
 
 if [ ! $UID = 0 ]; then
@@ -672,9 +672,6 @@ git clone ${GITHUBCLONESOURCE}ryanpcmcquen/slackENLIGHTENMENT.git
 ## my slackbuilds
 git clone ${GITHUBCLONESOURCE}ryanpcmcquen/ryanpc-slackbuilds.git
 
-## ponce's repo with -current fixes
-git clone ${GITHUBCLONESOURCE}Ponce/slackbuilds.git ponce-sbo
-
 ## a script to allow promptless saving of xfce
 ## screenshots, with a nice timestamp
 wget -N $XFCESCREENSHOTSAVER \
@@ -864,7 +861,6 @@ if [ "$SPPLUSISINSTALLED" = true ] && [ "$SBOPKGISINSTALLED" = true ]; then
     gem install bundler
     pip install --upgrade asciinema
 
-    ## requires pysetuptools
     no_prompt_sbo_pkg_install_or_upgrade speedtest-cli
 
     ## hydrogen
@@ -904,9 +900,8 @@ if [ "$SPPLUSISINSTALLED" = true ] && [ "$SBOPKGISINSTALLED" = true ]; then
     no_prompt_sbo_pkg_install_or_upgrade libbluray
 
     ## e16, so tiny!
-    ## broken on current
-    #no_prompt_sbo_pkg_install_or_upgrade e16
-    #no_prompt_sbo_pkg_install_or_upgrade gmrun
+    no_prompt_sbo_pkg_install_or_upgrade e16
+    no_prompt_sbo_pkg_install_or_upgrade gmrun
 
     if [ -e /usr/share/e16/config/bindings.cfg ] && [ -z "$(grep gmrun /usr/share/e16/config/bindings.cfg)" ]; then
       echo >> /usr/share/e16/config/bindings.cfg
@@ -920,8 +915,7 @@ if [ "$SPPLUSISINSTALLED" = true ] && [ "$SBOPKGISINSTALLED" = true ]; then
     no_prompt_sbo_pkg_install_or_upgrade x264
 
     ## SDL ftw!
-    ## SDL_Pango broken on current
-    #no_prompt_sbo_pkg_install_or_upgrade SDL_Pango
+    no_prompt_sbo_pkg_install_or_upgrade SDL_Pango
     no_prompt_sbo_pkg_install_or_upgrade SDL_gfx
     no_prompt_sbo_pkg_install_or_upgrade SDL_sound
     no_prompt_sbo_pkg_install_or_upgrade SDL2
@@ -931,10 +925,8 @@ if [ "$SPPLUSISINSTALLED" = true ] && [ "$SBOPKGISINSTALLED" = true ]; then
     no_prompt_sbo_pkg_install_or_upgrade SDL2_net
     no_prompt_sbo_pkg_install_or_upgrade SDL2_ttf
 
-    ## stuff that i roll on my own
-    if [ "$CURRENT" = true ]; then
-      my_repo_install libgcrypt15
-    fi
+    no_prompt_sbo_pkg_install_or_upgrade libgcrypt15
+
     my_repo_install ffmpeg
 
     JACK=on no_prompt_sbo_pkg_install_or_upgrade ssr
