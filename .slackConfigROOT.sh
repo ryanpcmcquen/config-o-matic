@@ -6,7 +6,7 @@
 ## note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files
-CONFIGOMATICVERSION=7.7.02
+CONFIGOMATICVERSION=7.7.03
 
 
 if [ ! $UID = 0 ]; then
@@ -851,6 +851,10 @@ elif [ "$SBOPKGISINSTALLED" = true ]; then
   ## atom goodies
   [ `which atom` ] && apm install atom-beautify linter linter-jslint \
     && wget -N https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/.jsbeautifyrc -P ~/
+  ## dev tools (ocaml is a flow dep)
+  no_prompt_sbo_pkg_install_or_upgrade ocaml
+  no_prompt_sbo_pkg_install_or_upgrade flow
+  no_prompt_sbo_pkg_install_or_upgrade watchman
 fi
 
 if [ "$SPPLUSISINSTALLED" = true ] && [ "$SBOPKGISINSTALLED" = true ]; then
