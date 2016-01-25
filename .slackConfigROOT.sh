@@ -6,7 +6,7 @@
 ## note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files
-CONFIGOMATICVERSION=7.7.04
+CONFIGOMATICVERSION=7.7.05
 
 
 if [ ! $UID = 0 ]; then
@@ -1024,11 +1024,7 @@ if [ "$SPPLUSISINSTALLED" = true ] && [ "$SBOPKGISINSTALLED" = true ]; then
     ## great for making presentations
     no_prompt_sbo_pkg_install_or_upgrade mdp
 
-    if [ "$(uname -m)" = "x86_64" ]; then
-      no_prompt_sbo_pkg_install_or_upgrade spotify64
-    else
-      no_prompt_sbo_pkg_install_or_upgrade spotify32
-    fi
+    no_prompt_sbo_pkg_install_or_upgrade spotify
 
     ## for making game levels
     no_prompt_sbo_pkg_install_or_upgrade tiled-qt
@@ -1069,7 +1065,7 @@ if [ "$SPPLUSISINSTALLED" = true ] && [ "$SBOPKGISINSTALLED" = true ]; then
       wget -N http://www.desura.com/desura-x86_64.tar.gz \
         -P /var/cache/config-o-matic/
     else
-      wget -N http://www.desura.com/desura-x86_64.tar.gz \
+      wget -N http://www.desura.com/desura-i686.tar.gz \
         -P /var/cache/config-o-matic/
     fi
     tar xvf /var/cache/config-o-matic/desura-*.tar.gz -C /opt/
