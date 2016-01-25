@@ -70,7 +70,7 @@ fi
 
 xdg-mime default mozilla-firefox.desktop x-scheme-handler/http
 xdg-mime default mozilla-firefox.desktop x-scheme-handler/https
-xdg-mime default mozilla-thunderbird.desktop x-scheme-handler/mailto
+xdg-mime default seamonkey-mail.desktop x-scheme-handler/mailto
 
 gkrellm &
 
