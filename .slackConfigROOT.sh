@@ -6,7 +6,7 @@
 ## note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files
-CONFIGOMATICVERSION=7.8.01
+CONFIGOMATICVERSION=7.8.02
 
 
 if [ ! $UID = 0 ]; then
@@ -836,6 +836,9 @@ elif [ "$SBOPKGISINSTALLED" = true ]; then
   ## mozilla's html linter
   wget -N https://raw.githubusercontent.com/mozilla/html5-lint/master/html5check.py -P /usr/local/bin/
   chmod 755 /usr/local/bin/html5check.py
+
+  ## needed for the clip handler
+  no_prompt_sbo_pkg_install_or_upgrade xclip
 
   ## webDev stuff
   no_prompt_sbo_pkg_install_or_upgrade jsmin
