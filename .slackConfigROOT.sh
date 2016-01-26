@@ -6,7 +6,7 @@
 ## note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files
-CONFIGOMATICVERSION=7.7.06
+CONFIGOMATICVERSION=7.8.00
 
 
 if [ ! $UID = 0 ]; then
@@ -677,6 +677,11 @@ git clone ${GITHUBCLONESOURCE}ryanpcmcquen/ryanpc-slackbuilds.git
 wget -N $XFCESCREENSHOTSAVER \
   -P /usr/local/bin/
 chmod 755 /usr/local/bin/xfceScreenshotSaver
+
+## copy email addresses to the clipboard (and remove spaces)
+wget -N https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/clip-handler -P /usr/local/bin/
+chmod 755 /usr/local/bin/clip-handler
+wget -N https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/clip-handler.desktop -P /usr/share/applications/
 
 ## script to download tarballs from SlackBuild .info files
 wget -N https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/slackware/sboGizmos/sbdl \
