@@ -68,9 +68,11 @@ if [ -e "$DBUS_SESSION_FILE" ]; then
   export DBUS_SESSION_BUS_ADDRESS DBUS_SESSION_BUS_PID
 fi
 
-xdg-mime default mozilla-firefox.desktop x-scheme-handler/http
-xdg-mime default mozilla-firefox.desktop x-scheme-handler/https
-xdg-mime default seamonkey-mail.desktop x-scheme-handler/mailto
+## copies email addresses to the clipboard,
+## rather than trying to open some slow email
+## client that i don't use
+## (https://github.com/ryanpcmcquen/linuxTweaks/blob/master/clip-handler)
+xdg-mime default clip-handler.desktop x-scheme-handler/mailto
 
 gkrellm &
 
