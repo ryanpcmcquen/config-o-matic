@@ -6,7 +6,7 @@
 ## note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files
-CONFIGOMATICVERSION=7.8.00
+CONFIGOMATICVERSION=7.8.01
 
 
 if [ ! $UID = 0 ]; then
@@ -1259,7 +1259,7 @@ wget -N https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/slackw
   -P /usr/local/bin/
 chmod 755 /usr/local/bin/cxo
 
-## fix firefox's endless default browser prompts; also less typing  ;-)
+## fast fox!
 wget -N https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/ff \
   -P /usr/local/bin/
 cp -v /usr/local/bin/ff /usr/local/bin/firefox
