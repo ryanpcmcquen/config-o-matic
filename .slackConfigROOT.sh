@@ -6,7 +6,7 @@
 ## note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files
-CONFIGOMATICVERSION=7.8.02
+CONFIGOMATICVERSION=7.8.03
 
 
 if [ ! $UID = 0 ]; then
@@ -43,17 +43,6 @@ grep slackpkg%2B ~/slackpkgplus-download-page.html | head -1 | cut -d= -f2 | sed
 rm -v ~/slackpkgplus-download-page.html
 
 export SPPLUSDL=${SPPLUSDL="$(tr -d '\n\r' < ~/slackpkgPlusVersion)"}
-
-## caledonia
-wget caledonia.sourceforge.net -O ~/caledonia-home-page.html
-grep Plasma-KDE%20Theme ~/caledonia-home-page.html | cut -d= -f5 | tr -d '"' | tr -d "'" | sed 's@/download>Download <i class@@g' | \
-  sed 's@http://sourceforge.net/projects/caledonia/files/Caledonia%20%28Plasma-KDE%20Theme%29/@@g' > ~/caledoniaPlasmaVersion
-grep Official%20Wallpapers ~/caledonia-home-page.html | cut -d= -f5 | tr -d '"' | tr -d "'" | sed 's@/download>Download <i class@@g' | \
-  sed 's@http://sourceforge.net/projects/caledonia/files/Caledonia%20Official%20Wallpapers/@@g' > ~/caledoniaWallpaperVersion
-rm -v ~/caledonia-home-page.html
-
-export CALPLAS=${CALPLAS="$(tr -d '\n\r' < ~/caledoniaPlasmaVersion)"}
-export CALWALL=${CALWALL="$(tr -d '\n\r' < ~/caledoniaWallpaperVersion)"}
 
 
 ## set config files:
@@ -1135,24 +1124,6 @@ if [ "$SPPLUSISINSTALLED" = true ] && [ "$SBOPKGISINSTALLED" = true ]; then
       https://raw.githubusercontent.com/numixproject/numix-kde-theme/master/Numix.qtcurve -P /usr/share/apps/QtCurve/
     mv /usr/share/apps/QtCurve/Numix.qtcurve /usr/share/apps/QtCurve/Numix-KDE.qtcurve
 
-    ## caledonia kde theme
-    wget -N \
-      http://sourceforge.net/projects/caledonia/files/Caledonia%20%28Plasma-KDE%20Theme%29/$CALPLAS \
-      -P /usr/share/apps/desktoptheme/
-    tar xf /usr/share/apps/desktoptheme/$CALPLAS -C /usr/share/apps/desktoptheme/
-
-    ## caledonia color scheme
-    wget -N http://sourceforge.net/projects/caledonia/files/Caledonia%20Color%20Scheme/Caledonia.colors \
-      -P /usr/share/apps/color-schemes/
-
-    ## get caledonia wallpapers, who doesn't like nice wallpapers?
-    wget -N \
-      http://sourceforge.net/projects/caledonia/files/Caledonia%20Official%20Wallpapers/$CALWALL \
-      -P /usr/share/wallpapers/
-    tar xf /usr/share/wallpapers/$CALWALL -C /usr/share/wallpapers/
-    cp -R /usr/share/wallpapers/Caledonia_Official_Wallpaper_Collection/* /usr/share/wallpapers/
-    rm -Rf /usr/share/wallpapers/Caledonia_Official_Wallpaper_Collection/
-
     ## a few numix wallpapers also
     wget -N \
       http://fc03.deviantart.net/fs71/f/2013/305/3/6/numix___halloween___wallpaper_by_satya164-d6skv0g.zip -P /var/cache/config-o-matic/
@@ -1314,8 +1285,6 @@ rm -v ~/slackwareStableVersion
 rm -v ~/sbopkgVersion
 rm -v ~/sbopkg-upgrade-list.txt
 rm -v ~/slackpkgPlusVersion
-rm -v ~/caledoniaPlasmaVersion
-rm -v ~/caledoniaWallpaperVersion
 
 ## thanks!
 echo
