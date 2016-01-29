@@ -6,7 +6,7 @@
 ## note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files
-CONFIGOMATICVERSION=7.8.03
+CONFIGOMATICVERSION=7.8.04
 
 
 if [ ! $UID = 0 ]; then
@@ -89,6 +89,8 @@ MASSCONVERTANDINSTALLCOMPAT32CURRENT="https://raw.githubusercontent.com/ryanpcmc
 EFILILO="https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/slackware/EFI/lilo"
 
 MSBHELPERSCRIPT="https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/slackware/checkmate.sh"
+
+MIMEAPPSLIST="https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/mimeapps.list"
 
 ## update chmod also
 UNICODEMAGIC="https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/slackware/rc.unicodeMagic"
@@ -307,6 +309,9 @@ echo "if [ -x /etc/rc.d/rc.unicodeMagic ]; then
   /etc/rc.d/rc.unicodeMagic
 fi" >> /etc/rc.d/rc.local
 fi
+
+## set some sane defaults for apps
+wget -N $MIMEAPPSLIST -P /etc/xdg/
 
 ## set maximum keyboard repeat rate and shortest delay
 if [ -z "$(grep kbdrate /etc/rc.d/rc.local)" ]; then
