@@ -151,12 +151,6 @@ if [ ! -e ~/.icons/default ]; then
   fi
 fi
 
-## make copyagent launch at startup in some environments
-if [ -e /usr/share/applications/CopyAgent.desktop ]; then
-  mkdir -pv ~/.config/autostart/
-  ln -sfv /usr/share/applications/CopyAgent.desktop ~/.config/autostart/
-fi
-
 ## fixes kde firefox icon
 rm -v ~/.local/share/applications/userapp-Firefox-*.desktop
 
