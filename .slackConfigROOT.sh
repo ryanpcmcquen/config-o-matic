@@ -6,7 +6,7 @@
 ## note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files
-CONFIGOMATICVERSION=7.8.04
+CONFIGOMATICVERSION=7.8.05
 
 
 if [ ! $UID = 0 ]; then
@@ -787,9 +787,6 @@ elif [ "$SBOPKGISINSTALLED" = true ]; then
   no_prompt_sbo_pkg_install_or_upgrade zenity
   no_prompt_sbo_pkg_install_or_upgrade udevil
   no_prompt_sbo_pkg_install_or_upgrade spacefm
-
-  ## great file syncing service
-  no_prompt_sbo_pkg_install_or_upgrade copy
 
   no_prompt_sbo_pkg_install_or_upgrade imlib2
   no_prompt_sbo_pkg_install_or_upgrade giblib
