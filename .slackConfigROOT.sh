@@ -6,7 +6,7 @@
 ## note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files
-CONFIGOMATICVERSION=7.8.05
+CONFIGOMATICVERSION=7.9.00
 
 
 if [ ! $UID = 0 ]; then
@@ -666,6 +666,18 @@ git clone ${GITHUBCLONESOURCE}ryanpcmcquen/slackENLIGHTENMENT.git
 ## my slackbuilds
 git clone ${GITHUBCLONESOURCE}ryanpcmcquen/ryanpc-slackbuilds.git
 
+## a way to connect to WPA wifi without networkmanager
+wget -N https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/slackware/wifir \
+  -P /usr/local/bin
+chmod 755 /usr/local/bin/wifir
+if [ -z "$(grep wifir /etc/rc.d/rc.local)" ]; then
+  echo >> /etc/rc.d/rc.local
+  echo "if [ -x /usr/local/bin/wifir ]; then" >> /etc/rc.d/rc.local
+  echo "  /usr/local/bin/wifir" >> /etc/rc.d/rc.local
+  echo "fi" >> /etc/rc.d/rc.local
+  echo >> /etc/rc.d/rc.local
+fi
+
 ## a script to allow promptless saving of xfce
 ## screenshots, with a nice timestamp
 wget -N $XFCESCREENSHOTSAVER \
@@ -1243,7 +1255,7 @@ chmod 755 /usr/local/bin/ff /usr/local/bin/firefox
 
 ## used to be end of SCRIPTS
 
-if [ -d /etc/NetworkManager/system-connections ]; then
+if [ -d /etc/NetworkManager/system-connections ] && [ -x /etc/rc.d/rc.networkmanager ]; then
   ## make all networkmanager connections available system-wide
   for NET in `find /etc/NetworkManager/system-connections/ -name "*" | cut -d'/' -f5 | grep -v ^$`
     do nmcli con mod "$NET" connection.permissions ' '
