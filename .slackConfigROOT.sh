@@ -6,7 +6,7 @@
 ## note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files
-CONFIGOMATICVERSION=7.9.00
+CONFIGOMATICVERSION=7.9.01
 
 
 if [ ! $UID = 0 ]; then
@@ -668,12 +668,12 @@ git clone ${GITHUBCLONESOURCE}ryanpcmcquen/ryanpc-slackbuilds.git
 
 ## a way to connect to WPA wifi without networkmanager
 wget -N https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/slackware/wifir \
-  -P /usr/local/bin
-chmod 755 /usr/local/bin/wifir
+  -P /sbin/
+chmod 755 /sbin/wifir
 if [ -z "$(grep wifir /etc/rc.d/rc.local)" ]; then
   echo >> /etc/rc.d/rc.local
-  echo "if [ -x /usr/local/bin/wifir ]; then" >> /etc/rc.d/rc.local
-  echo "  /usr/local/bin/wifir" >> /etc/rc.d/rc.local
+  echo "if [ -x /sbin/wifir ]; then" >> /etc/rc.d/rc.local
+  echo "  /sbin/wifir" >> /etc/rc.d/rc.local
   echo "fi" >> /etc/rc.d/rc.local
   echo >> /etc/rc.d/rc.local
 fi
