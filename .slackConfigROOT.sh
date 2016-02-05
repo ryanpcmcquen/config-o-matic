@@ -6,7 +6,7 @@
 ## note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files
-CONFIGOMATICVERSION=7.9.02
+CONFIGOMATICVERSION=7.9.03
 
 
 if [ ! $UID = 0 ]; then
@@ -1158,6 +1158,10 @@ if [ "$SPPLUSISINSTALLED" = true ] && [ "$SBOPKGISINSTALLED" = true ]; then
       -exec ln -sf {} /usr/share/backgrounds/mate/custom/ \;
     find /usr/share/wallpapers -type f -a \( -iname '*.jpg' -o -iname '*.jpeg' -o -iname '*.jpe' -o -iname '*.gif' -o -iname '*.png' \) \
       -exec ln -sf {} /usr/share/backgrounds/xfce/ \;
+
+    ## icon caches are a bad idea (thanks to Pat)
+    ## http://www.linuxquestions.org/questions/slackware-14/since-going-multilib-boot-time-really-slow-4175460903/page2.html#post4949839
+    find /usr/share/icons -name icon-theme.cache -exec rm "{}" \;
   else
     echo "You have gone VANILLA."
   fi
