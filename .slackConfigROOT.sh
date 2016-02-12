@@ -6,7 +6,7 @@
 ## note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files
-CONFIGOMATICVERSION=7.9.04
+CONFIGOMATICVERSION=7.9.05
 
 
 if [ ! $UID = 0 ]; then
@@ -932,6 +932,7 @@ if [ "$SPPLUSISINSTALLED" = true ] && [ "$SBOPKGISINSTALLED" = true ]; then
     fi
 
     ## need these for ffmpeg
+    no_prompt_sbo_pkg_install_or_upgrade speex
     no_prompt_sbo_pkg_install_or_upgrade lame
     no_prompt_sbo_pkg_install_or_upgrade x264
 
