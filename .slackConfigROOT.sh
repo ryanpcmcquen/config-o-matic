@@ -6,7 +6,7 @@
 ## note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files
-CONFIGOMATICVERSION=7.9.05
+CONFIGOMATICVERSION=7.9.06
 
 
 if [ ! $UID = 0 ]; then
@@ -677,10 +677,6 @@ if [ -z "$(grep wifir /etc/rc.d/rc.local)" ]; then
   echo "fi" >> /etc/rc.d/rc.local
   echo >> /etc/rc.d/rc.local
 fi
-
-## fix pulseaudio issues (especially microphone operation)
-wget -N https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/slackware/asound.conf \
-  -P /etc/
 
 ## a script to allow promptless saving of xfce
 ## screenshots, with a nice timestamp
