@@ -6,7 +6,7 @@
 ## note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files
-CONFIGOMATICVERSION=7.9.06
+CONFIGOMATICVERSION=7.9.07
 
 
 if [ ! $UID = 0 ]; then
@@ -57,6 +57,8 @@ VIMRC="https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/.vimrc"
 ##VIMCOLOR="https://raw.githubusercontent.com/ryanpcmcquen/true-monochrome_vim/master/colors/true-monochrome.vim"
 
 TMUXCONF="https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/tmux.conf"
+
+SCITECONF="https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/.SciTEUser.properties"
 
 GITNAME="Ryan P.C. McQuen"
 GITEMAIL="ryan.q@linux.com"
@@ -783,6 +785,10 @@ elif [ "$SBOPKGISINSTALLED" = true ]; then
     ln -sfv /usr/lib/libOSMesa.so /usr/lib/libOSMesa.so.6
   fi
 
+  ## love this editor!
+  no_prompt_sbo_pkg_install_or_upgrade scite
+  wget -N $SCITECONF \
+    -P ~/
   ## clean, simple text editor
   no_prompt_sbo_pkg_install_or_upgrade textadept
   ## another awesome editor
