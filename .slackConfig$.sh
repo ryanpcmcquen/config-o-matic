@@ -10,6 +10,8 @@ BASHPR="https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/slackw
 VIMRC="https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/.vimrc"
 ##VIMCOLOR="https://raw.githubusercontent.com/ryanpcmcquen/true-monochrome_vim/master/colors/true-monochrome.vim"
 
+SCITECONF="https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/.SciTEUser.properties"
+
 XBINDKEYSRC="https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/.xbindkeysrc"
 
 FLUXBOXCONF="https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/.restoreFluxbox.sh"
@@ -159,6 +161,10 @@ wget -N $BRACKETSCONF -P ~/.config/Brackets/
 
 ## zed (2 spaces, and trim whitespace)
 wget -N $ZEDCONF -P ~/.config/zed/config/
+
+## scite!
+wget -N $SCITECONF \
+  -P ~/
 
 ## atom goodies
 [ `which atom` ] && apm install atom-beautify nuclide linter-jslint \
