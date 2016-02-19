@@ -6,7 +6,7 @@
 ## note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files
-CONFIGOMATICVERSION=7.9.07
+CONFIGOMATICVERSION=7.9.08
 
 
 if [ ! $UID = 0 ]; then
@@ -813,6 +813,9 @@ elif [ "$SBOPKGISINSTALLED" = true ]; then
   no_prompt_sbo_pkg_install_or_upgrade scrot
   no_prompt_sbo_pkg_install_or_upgrade screenfetch
 
+  ## great image viewer/editor, simple and fast
+  no_prompt_sbo_pkg_install_or_upgrade mirage
+
   ## my dwm tweaks
   wget -N https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/slackware/dwm-autostart \
     -P /usr/local/etc/
@@ -966,11 +969,16 @@ if [ "$SPPLUSISINSTALLED" = true ] && [ "$SBOPKGISINSTALLED" = true ]; then
     no_prompt_sbo_pkg_install_or_upgrade xarchiver
     no_prompt_sbo_pkg_install_or_upgrade thunar-archive-plugin
     no_prompt_sbo_pkg_install_or_upgrade dmg2img
-    no_prompt_sbo_pkg_install_or_upgrade mirage
 
-    no_prompt_sbo_pkg_install_or_upgrade p7zip
-    no_prompt_sbo_pkg_install_or_upgrade libmspack
+    ## codeblocks & playonlinux need this
     no_prompt_sbo_pkg_install_or_upgrade wxPython
+    ## audacity needs this
+    no_prompt_sbo_pkg_install_or_upgrade wxGTK3
+
+    ## if you want the gui here, pass GUI=yes
+    no_prompt_sbo_pkg_install_or_upgrade p7zip
+
+    no_prompt_sbo_pkg_install_or_upgrade libmspack
 
     ## wineing
     if [ "$MULTILIB" = true ] || [ `getconf LONG_BIT` = "32" ]; then
