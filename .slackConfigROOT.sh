@@ -6,7 +6,7 @@
 ## note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files
-CONFIGOMATICVERSION=7.9.08
+CONFIGOMATICVERSION=7.9.09
 
 
 if [ ! $UID = 0 ]; then
@@ -1079,7 +1079,10 @@ if [ "$SPPLUSISINSTALLED" = true ] && [ "$SBOPKGISINSTALLED" = true ]; then
 
     ## grab latest steam package
     if [ -z "`find /var/log/packages/ -name steamclient-*`" ]; then
-      rsync -avz rsync://taper.alienbase.nl/mirrors/people/alien/slackbuilds/steamclient/pkg/current/ /var/cache/config-o-matic/steamclient/
+      wget -N http://taper.alienbase.nl/mirrors/people/alien/slackbuilds/steamclient/pkg/current/ \
+        -P /var/cache/config-o-matic/steamclient/
+      wget -N http://taper.alienbase.nl/mirrors/people/alien/slackbuilds/steamclient/pkg/current/$(egrep '*alien.tgz"' /var/cache/config-o-matic/steamclient/index.html | cut -d'"' -f8 | tr -d '\n\r') \
+        -P /var/cache/config-o-matic/steamclient/
       find /var/cache/config-o-matic/steamclient/ -name "steamclient-*.t?z" | sort | tail -1 | xargs -i upgradepkg --install-new {}
       if [ -z "$(grep steamclient /etc/slackpkg/blacklist)" ]; then
         echo steamclient >> /etc/slackpkg/blacklist
