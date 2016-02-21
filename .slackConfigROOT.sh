@@ -6,7 +6,7 @@
 ## note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files
-CONFIGOMATICVERSION=7.9.09
+CONFIGOMATICVERSION=7.9.10
 
 
 if [ ! $UID = 0 ]; then
@@ -769,7 +769,8 @@ elif [ "$SBOPKGISINSTALLED" = true ]; then
   ## hard to live without these
   set_slackpkg_to_auto
   slackpkg_update_only
-  slackpkg install vlc chromium
+  ## qt5 is a dep of vlc
+  slackpkg install qt5 vlc chromium
 
   ## these are essential also
   ## install any true multilib packages with a separate script
