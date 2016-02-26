@@ -6,7 +6,7 @@
 ## note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files
-CONFIGOMATICVERSION=7.9.11
+CONFIGOMATICVERSION=7.9.12
 
 
 if [ ! $UID = 0 ]; then
@@ -132,6 +132,14 @@ no_prompt_sbo_pkg_install_or_upgrade() {
     SBO_PACKAGE=$ITEM
     if [ -z "`find /var/log/packages/ -name ${SBO_PACKAGE}-*`" ] || [ "$(grep ${SBO_PACKAGE} ~/sbopkg-upgrade-list.txt)" ]; then
       echo p | sbopkg -B -e continue -i ${SBO_PACKAGE}
+      ## if there are two tarballs of the same name
+      ## in the sbopkg cache, it will get confused and
+      ## will not download the new one, this checks for a failure
+      ## in the last 20 lines of the build log, and calls the
+      ## 'Retry' to work around this
+      if [ "`tail -20 /var/log/sbopkg/sbopkg-build-log | grep FAILED!`" ]; then
+        echo r | sbopkg -B -i ${SBO_PACKAGE}
+      fi
     fi
   done
 }
