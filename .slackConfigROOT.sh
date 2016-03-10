@@ -6,7 +6,7 @@
 ## note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files
-CONFIGOMATICVERSION=7.9.14
+CONFIGOMATICVERSION=7.9.15
 
 
 if [ ! $UID = 0 ]; then
@@ -1079,18 +1079,8 @@ if [ "$SPPLUSISINSTALLED" = true ] && [ "$SBOPKGISINSTALLED" = true ]; then
     ## thanks to Edinaldo P. Silva
     no_prompt_sbo_pkg_install_or_upgrade vivaldi
 
-    ## grab latest steam package
-    if [ -z "`find /var/log/packages/ -name steamclient-*`" ]; then
-      wget -N http://taper.alienbase.nl/mirrors/people/alien/slackbuilds/steamclient/pkg/current/ \
-        -P /var/cache/config-o-matic/steamclient/
-      wget -N http://taper.alienbase.nl/mirrors/people/alien/slackbuilds/steamclient/pkg/current/$(egrep '*alien.tgz"' /var/cache/config-o-matic/steamclient/index.html | cut -d'"' -f8 | tr -d '\n\r') \
-        -P /var/cache/config-o-matic/steamclient/
-      find /var/cache/config-o-matic/steamclient/ -name "steamclient-*.t?z" | sort | tail -1 | xargs -i upgradepkg --install-new {}
-      if [ -z "$(grep steamclient /etc/slackpkg/blacklist)" ]; then
-        echo steamclient >> /etc/slackpkg/blacklist
-        echo >> /etc/slackpkg/blacklist
-      fi
-    fi
+    ## steam!
+    no_prompt_sbo_pkg_install_or_upgrade steam
 
     if [ "$(uname -m)" = "x86_64" ]; then
       wget -N http://www.desura.com/desura-x86_64.tar.gz \
