@@ -6,7 +6,7 @@
 ## note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files
-CONFIGOMATICVERSION=7.9.15
+CONFIGOMATICVERSION=7.9.16
 
 
 if [ ! $UID = 0 ]; then
@@ -506,14 +506,6 @@ if [ "$SBOPKGISINSTALLED" = true ]; then
       echo >> /etc/sbopkg/sbopkg.conf
     fi
   fi
-  ## applies to ssr
-  if [ "$MISCELLANY" = true ]; then
-    if [ -z "$(grep JACK /etc/sbopkg/sbopkg.conf)" ]; then
-      echo >> /etc/sbopkg/sbopkg.conf
-      echo "export JACK=\${JACK:-on}" >> /etc/sbopkg/sbopkg.conf
-      echo >> /etc/sbopkg/sbopkg.conf
-    fi
-  fi
   
   ## create sbopkg directories
   mkdir -pv /var/lib/sbopkg/{SBo,queues}/
@@ -899,7 +891,6 @@ if [ "$SPPLUSISINSTALLED" = true ] && [ "$SBOPKGISINSTALLED" = true ]; then
     no_prompt_sbo_pkg_install_or_upgrade liblrdf
     ## celt is broken
     #no_prompt_sbo_pkg_install_or_upgrade celt
-    no_prompt_sbo_pkg_install_or_upgrade jack-audio-connection-kit
     no_prompt_sbo_pkg_install_or_upgrade lash
     no_prompt_sbo_pkg_install_or_upgrade hydrogen
     ##
@@ -958,7 +949,7 @@ if [ "$SPPLUSISINSTALLED" = true ] && [ "$SBOPKGISINSTALLED" = true ]; then
 
     my_repo_install ffmpeg
 
-    JACK=on no_prompt_sbo_pkg_install_or_upgrade ssr
+    no_prompt_sbo_pkg_install_or_upgrade ssr
 
     no_prompt_sbo_pkg_install_or_upgrade rar
     no_prompt_sbo_pkg_install_or_upgrade unrar
