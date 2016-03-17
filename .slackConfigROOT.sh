@@ -6,7 +6,7 @@
 ## note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files
-CONFIGOMATICVERSION=7.9.16
+CONFIGOMATICVERSION=8.0.00
 
 
 if [ ! $UID = 0 ]; then
@@ -271,6 +271,16 @@ if [ ! "$OGCONFIG" = true ]; then
         ;;
     esac
   fi
+  read -p "Would you like to install WIFIR (easy wifi script)?  [y/N]: " response
+  case $response in
+    [yY][eE][sS]|[yY])
+      export WIFIRINSTALL=true;
+      echo You have chosen to install WIFIR.;
+      ;;
+    *)
+      echo You are not installing WIFIR.;
+      ;;
+  esac
 fi
 
 ## fix for steam & lutris
@@ -663,16 +673,18 @@ git clone ${GITHUBCLONESOURCE}ryanpcmcquen/slackENLIGHTENMENT.git
 ## my slackbuilds
 git clone ${GITHUBCLONESOURCE}ryanpcmcquen/ryanpc-slackbuilds.git
 
-## a way to connect to WPA wifi without networkmanager
-wget -N https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/slackware/wifir \
-  -P /sbin/
-chmod 755 /sbin/wifir
-if [ -z "$(grep wifir /etc/rc.d/rc.local)" ]; then
-  echo >> /etc/rc.d/rc.local
-  echo "if [ -x /sbin/wifir ]; then" >> /etc/rc.d/rc.local
-  echo "  /sbin/wifir" >> /etc/rc.d/rc.local
-  echo "fi" >> /etc/rc.d/rc.local
-  echo >> /etc/rc.d/rc.local
+if [ "${WIFIR}" = true ]; then
+  ## a way to connect to WPA wifi without networkmanager
+  wget -N https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/slackware/wifir \
+    -P /sbin/
+  chmod 755 /sbin/wifir
+  if [ -z "$(grep wifir /etc/rc.d/rc.local)" ]; then
+    echo >> /etc/rc.d/rc.local
+    echo "if [ -x /sbin/wifir ]; then" >> /etc/rc.d/rc.local
+    echo "  /sbin/wifir" >> /etc/rc.d/rc.local
+    echo "fi" >> /etc/rc.d/rc.local
+    echo >> /etc/rc.d/rc.local
+  fi
 fi
 
 ## a script to allow promptless saving of xfce
