@@ -6,7 +6,7 @@
 ## note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files
-CONFIGOMATICVERSION=8.0.00
+CONFIGOMATICVERSION=8.0.01
 
 
 if [ ! $UID = 0 ]; then
@@ -274,7 +274,7 @@ if [ ! "$OGCONFIG" = true ]; then
   read -p "Would you like to install WIFIR (easy wifi script)?  [y/N]: " response
   case $response in
     [yY][eE][sS]|[yY])
-      export WIFIRINSTALL=true;
+      export WIFIR=true;
       echo You have chosen to install WIFIR.;
       ;;
     *)
@@ -1302,6 +1302,7 @@ fi
 if [ "$(uname -m)" = "x86_64" ]; then
   echo "MULTILIB=$MULTILIB" >> ~/.config-o-matic_$CONFIGOMATICVERSION
 fi
+echo "WIFIR=$WIFIR" >> ~/.config-o-matic_$CONFIGOMATICVERSION
 
 echo >> ~/.config-o-matic_$CONFIGOMATICVERSION
 echo "########################################" >> ~/.config-o-matic_$CONFIGOMATICVERSION
