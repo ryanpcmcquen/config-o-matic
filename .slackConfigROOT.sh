@@ -6,7 +6,7 @@
 ## note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files
-CONFIGOMATICVERSION=8.0.02
+CONFIGOMATICVERSION=8.0.03
 
 
 if [ ! $UID = 0 ]; then
@@ -1083,7 +1083,7 @@ if [ "$SPPLUSISINSTALLED" = true ] && [ "$SBOPKGISINSTALLED" = true ]; then
     no_prompt_sbo_pkg_install_or_upgrade vivaldi
 
     ## steam!
-    no_prompt_sbo_pkg_install_or_upgrade steam
+    my_repo_install steam
 
     if [ "$(uname -m)" = "x86_64" ]; then
       wget -N http://www.desura.com/desura-x86_64.tar.gz \
