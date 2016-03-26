@@ -6,7 +6,7 @@
 ## note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files
-CONFIGOMATICVERSION=8.0.04
+CONFIGOMATICVERSION=8.0.05
 
 
 if [ ! $UID = 0 ]; then
@@ -1091,15 +1091,16 @@ if [ "$SPPLUSISINSTALLED" = true ] && [ "$SBOPKGISINSTALLED" = true ]; then
     ## steam!
     my_repo_install steam
 
-    if [ "$(uname -m)" = "x86_64" ]; then
-      wget -N http://www.desura.com/desura-x86_64.tar.gz \
-        -P /var/cache/config-o-matic/
-    else
-      wget -N http://www.desura.com/desura-i686.tar.gz \
-        -P /var/cache/config-o-matic/
-    fi
-    tar xvf /var/cache/config-o-matic/desura-*.tar.gz -C /opt/
-    ln -sfv /opt/desura/desura /usr/local/bin/
+    ## desura is down
+    # if [ "$(uname -m)" = "x86_64" ]; then
+    #   wget -N http://www.desura.com/desura-x86_64.tar.gz \
+    #     -P /var/cache/config-o-matic/
+    # else
+    #   wget -N http://www.desura.com/desura-i686.tar.gz \
+    #     -P /var/cache/config-o-matic/
+    # fi
+    # tar xvf /var/cache/config-o-matic/desura-*.tar.gz -C /opt/
+    # ln -sfv /opt/desura/desura /usr/local/bin/
 
     ## minecraft!!
     mkdir -pv /opt/minecraft/
