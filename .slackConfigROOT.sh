@@ -6,7 +6,7 @@
 ## note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files
-CONFIGOMATICVERSION=8.0.05
+CONFIGOMATICVERSION=8.0.06
 
 
 if [ ! $UID = 0 ]; then
@@ -558,9 +558,7 @@ if [ "$SPPLUSISINSTALLED" = true ]; then
       cp -v /etc/slackpkg/slackpkgplus.conf /etc/slackpkg/BACKUP-slackpkgplus.conf.old-BACKUP
       sed -i.bak 's@REPOPLUS=( slackpkgplus restricted alienbob slacky )@#REPOPLUS=( slackpkgplus restricted alienbob slacky )@g' /etc/slackpkg/slackpkgplus.conf
       sed -i.bak "s@MIRRORPLUS\['slacky'\]@#MIRRORPLUS['slacky']@g" /etc/slackpkg/slackpkgplus.conf
-      ## remove all references to taper.alienbase.nl
-      sed -i.bak 's@MIRRORPLUS.*taper.alienbase.nl.*@##DO_NOT_USE_TAPER@g' /etc/slackpkg/slackpkgplus.conf
-    
+
       echo >> /etc/slackpkg/slackpkgplus.conf
       echo >> /etc/slackpkg/slackpkgplus.conf
       echo "#PKGS_PRIORITY=( multilib:.* ktown:.* restricted_current:.* alienbob_current:.* )" >> /etc/slackpkg/slackpkgplus.conf
@@ -611,8 +609,6 @@ if [ "$SPPLUSISINSTALLED" = true ]; then
         echo >> /etc/slackpkg/slackpkgplus.conf
         echo "#MIRRORPLUS['ktown']=http://slackware.uk/people/alien-kde/current/latest/x86_64/" >> /etc/slackpkg/slackpkgplus.conf
         echo "#MIRRORPLUS['ktown_testing']=http://slackware.uk/people/alien-kde/current/testing/x86_64/" >> /etc/slackpkg/slackpkgplus.conf
-        echo "MIRRORPLUS['alienbob']=http://slackware.uk/people/alien/sbrepos/${SLACKSTAVER}/x86_64/" >> /etc/slackpkg/slackpkgplus.conf
-        echo "MIRRORPLUS['restricted']=http://slackware.uk/people/alien/restricted_sbrepos/${SLACKSTAVER}/x86_64/" >> /etc/slackpkg/slackpkgplus.conf
         if [ "$CURRENT" = true ]; then
           echo "MIRRORPLUS['alienbob_current']=http://slackware.uk/people/alien/sbrepos/current/x86_64/" >> /etc/slackpkg/slackpkgplus.conf
           echo "MIRRORPLUS['restricted_current']=http://slackware.uk/people/alien/restricted_sbrepos/current/x86_64/" >> /etc/slackpkg/slackpkgplus.conf
@@ -625,8 +621,6 @@ if [ "$SPPLUSISINSTALLED" = true ]; then
         echo >> /etc/slackpkg/slackpkgplus.conf
         echo "#MIRRORPLUS['ktown']=http://slackware.uk/people/alien-kde/current/latest/x86/" >> /etc/slackpkg/slackpkgplus.conf
         echo "#MIRRORPLUS['ktown_testing']=http://slackware.uk/people/alien-kde/current/testing/x86/" >> /etc/slackpkg/slackpkgplus.conf
-        echo "MIRRORPLUS['alienbob']=http://slackware.uk/people/alien/sbrepos/${SLACKSTAVER}/x86/" >> /etc/slackpkg/slackpkgplus.conf
-        echo "MIRRORPLUS['restricted']=http://slackware.uk/people/alien/restricted_sbrepos/${SLACKSTAVER}/x86/" >> /etc/slackpkg/slackpkgplus.conf
         if [ "$CURRENT" = true ]; then
           echo "MIRRORPLUS['alienbob_current']=http://slackware.uk/people/alien/sbrepos/current/x86/" >> /etc/slackpkg/slackpkgplus.conf
           echo "MIRRORPLUS['restricted_current']=http://slackware.uk/people/alien/restricted_sbrepos/current/x86/" >> /etc/slackpkg/slackpkgplus.conf
