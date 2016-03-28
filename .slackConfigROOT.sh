@@ -6,7 +6,7 @@
 ## note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files
-CONFIGOMATICVERSION=8.0.06
+CONFIGOMATICVERSION=8.0.07
 
 
 if [ ! $UID = 0 ]; then
@@ -903,7 +903,8 @@ if [ "$SPPLUSISINSTALLED" = true ] && [ "$SBOPKGISINSTALLED" = true ]; then
     no_prompt_sbo_pkg_install_or_upgrade liblrdf
     ## celt is broken
     #no_prompt_sbo_pkg_install_or_upgrade celt
-    no_prompt_sbo_pkg_install_or_upgrade lash
+    ## lash requires jack
+    #no_prompt_sbo_pkg_install_or_upgrade lash
     no_prompt_sbo_pkg_install_or_upgrade hydrogen
     ##
 
