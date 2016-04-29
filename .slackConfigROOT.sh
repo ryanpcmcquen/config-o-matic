@@ -6,7 +6,7 @@
 ## note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files
-CONFIGOMATICVERSION=8.0.08
+CONFIGOMATICVERSION=8.0.09
 
 
 if [ ! $UID = 0 ]; then
@@ -776,7 +776,7 @@ elif [ "$SBOPKGISINSTALLED" = true ]; then
   ## hard to live without these
   set_slackpkg_to_auto
   slackpkg_update_only
-  slackpkg install vlc chromium
+  slackpkg install bash-completion vlc chromium
 
   ## these are essential also
   ## install any true multilib packages with a separate script
