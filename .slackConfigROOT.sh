@@ -6,7 +6,7 @@
 ## note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files
-CONFIGOMATICVERSION=8.0.10
+CONFIGOMATICVERSION=8.0.11
 
 
 if [ ! $UID = 0 ]; then
@@ -889,6 +889,17 @@ elif [ "$SBOPKGISINSTALLED" = true ]; then
   ## seems to help battery life significantly  :^)
   [ "lspci | grep -i intel | grep -i processor" ] \
     && no_prompt_sbo_pkg_install_or_upgrade intel-microcode
+
+  ## always improve battery life!
+  no_prompt_sbo_pkg_install_or_upgrade TLP
+  chmod 755 /etc/rc.d/rc.tlp
+  if [ -z "$(grep 'rc.tlp' /etc/rc.d/rc.local)" ]; then
+    echo >> /etc/rc.d/rc.local
+    echo "if [ -x /etc/rc.d/rc.tlp ]; then" >> /etc/rc.d/rc.local
+    echo "  /etc/rc.d/rc.tlp start" >> /etc/rc.d/rc.local
+    echo "fi" >> /etc/rc.d/rc.local
+    echo >> /etc/rc.d/rc.local
+  fi
 
 fi
 
