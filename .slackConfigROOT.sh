@@ -6,7 +6,7 @@
 ## note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files
-CONFIGOMATICVERSION=8.0.09
+CONFIGOMATICVERSION=8.0.10
 
 
 if [ ! $UID = 0 ]; then
@@ -884,6 +884,12 @@ elif [ "$SBOPKGISINSTALLED" = true ]; then
   no_prompt_sbo_pkg_install_or_upgrade ocaml
   no_prompt_sbo_pkg_install_or_upgrade flow
   no_prompt_sbo_pkg_install_or_upgrade watchman
+
+  ## if using an intel processor, grab the microcode,
+  ## seems to help battery life significantly  :^)
+  [ "lspci | grep -i intel | grep -i processor" ] \
+    && no_prompt_sbo_pkg_install_or_upgrade intel-microcode
+
 fi
 
 if [ "$SPPLUSISINSTALLED" = true ] && [ "$SBOPKGISINSTALLED" = true ]; then
