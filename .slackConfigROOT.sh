@@ -6,7 +6,7 @@
 ## note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files
-CONFIGOMATICVERSION=8.0.11
+CONFIGOMATICVERSION=8.0.12
 
 
 if [ ! $UID = 0 ]; then
@@ -868,7 +868,7 @@ elif [ "$SBOPKGISINSTALLED" = true ]; then
   npm install -g babel
   npm install -g gulp
   npm install -g grunt-cli
-  npm install -g jslint
+  npm install -g jshint
   npm install -g http-server
   npm install -g superstatic
   ## needed for remote connections with nuclide
@@ -878,7 +878,7 @@ elif [ "$SBOPKGISINSTALLED" = true ]; then
   ## great text editor
   my_repo_install atom
   ## atom goodies
-  [ `which atom` ] && apm install atom-beautify nuclide linter-jslint language-diff remote-edit \
+  [ `which atom` ] && apm install atom-beautify nuclide linter-jshint language-diff remote-edit \
     && wget -N https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/.jsbeautifyrc -P ~/
   ## dev tools (ocaml is a flow dep)
   no_prompt_sbo_pkg_install_or_upgrade ocaml
