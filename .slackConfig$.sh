@@ -167,7 +167,7 @@ wget -N $SCITECONF \
   -P ~/
 
 ## atom goodies
-[ `which atom` ] && apm install atom-beautify nuclide linter-jslint language-diff remote-edit \
+[ `which atom` ] && apm install atom-beautify nuclide linter-jshint language-diff remote-edit \
   && wget -N https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/.jsbeautifyrc -P ~/
 
 echo
