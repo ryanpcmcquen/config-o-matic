@@ -22,6 +22,8 @@ KDECONF="https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/.kdeS
 XFCECONF="https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/.xfceSetup.sh"
 MATECONF="https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/.mateSetup.sh"
 
+GEANYCONF="https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/.geanyConfig.sh"
+
 GKRELLCFIL="https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/slackware/gkrellm2/user-config"
 GKRELLTFIL="https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/slackware/gkrellm2/theme_config"
 GKRELLCONF="https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/.gkrellmConfig.sh"
@@ -70,7 +72,23 @@ if [ -e "$DBUS_SESSION_FILE" ]; then
   export DBUS_SESSION_BUS_ADDRESS DBUS_SESSION_BUS_PID
 fi
 
-gkrellm &
+## These directories have to be created by launching the applications.
+if [ ! -d ~/.gkrellm2/ ]; then
+  gkrellm &
+  pkill gkrellm &
+fi
+if [ "`which geany`" ] && [ ! -d ~/.config/geany/ ]; then
+  geany &
+  pkill geany &
+fi
+
+## This is not a saved config file,
+## but rather some sed commands to replace
+## properties in the file. Since `geany`
+## dynamically adds to this file.
+if [ -d ~/.config/geany/ ]; then
+  save_and_execute $GEANYCONF
+fi
 
 wget -N $BASHRC -P ~/
 wget -N $BASHPR -P ~/
@@ -94,8 +112,6 @@ git config --global core.pager "less -r"
 wget -N $GKRELLCFIL -P ~/.gkrellm2/
 wget -N $GKRELLTFIL -P ~/.gkrellm2/
 save_and_execute $GKRELLCONF
-
-pkill gkrellm &
 
 ## fluxbox
 if [ -d ~/.fluxbox ]; then
