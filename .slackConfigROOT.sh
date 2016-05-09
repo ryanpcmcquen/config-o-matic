@@ -6,7 +6,7 @@
 ## note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files
-CONFIGOMATICVERSION=8.0.15
+CONFIGOMATICVERSION=8.1.00
 
 
 if [ ! $UID = 0 ]; then
@@ -875,9 +875,6 @@ elif [ "$SBOPKGISINSTALLED" = true ]; then
   no_prompt_sbo_pkg_install_or_upgrade krb5
   ## great text editor
   my_repo_install atom
-  ## atom goodies
-  [ `which atom` ] && apm install atom-beautify linter linter-jshint language-diff atom-ternjs \
-    && wget -N https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/.jsbeautifyrc -P ~/
   ## dev tools (ocaml is a flow dep)
   no_prompt_sbo_pkg_install_or_upgrade ocaml
   no_prompt_sbo_pkg_install_or_upgrade flow
