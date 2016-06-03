@@ -6,7 +6,7 @@
 ## note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files
-CONFIGOMATICVERSION=8.1.04
+CONFIGOMATICVERSION=8.1.05
 
 
 if [ ! $UID = 0 ]; then
@@ -1081,11 +1081,6 @@ if [ "$SPPLUSISINSTALLED" = true ] && [ "$SBOPKGISINSTALLED" = true ]; then
     no_prompt_sbo_pkg_install_or_upgrade higan
     no_prompt_sbo_pkg_install_or_upgrade mednafen
     no_prompt_sbo_pkg_install_or_upgrade dosbox
-
-    ## this browser keeps getting better, and the
-    ## maintainer does a good job of keeping it up to date
-    ## thanks to Edinaldo P. Silva
-    no_prompt_sbo_pkg_install_or_upgrade vivaldi
 
     ## steam!
     my_repo_install steam
