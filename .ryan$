@@ -1,6 +1,13 @@
 #!/bin/sh
 
-# cd; wget -N https://raw.githubusercontent.com/ryanpcmcquen/config-o-matic/master/.ryan%24 -P ~/; sh ~/.ryan\$
+if [ $UID = 0 ]; then
+cat << EOF
+
+This script must not be run as root.
+
+EOF
+  exit 1
+fi
 
 cd
 wget -N https://raw.githubusercontent.com/ryanpcmcquen/config-o-matic/stable/.slackConfig%24.sh -P ~/
