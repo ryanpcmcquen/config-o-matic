@@ -6,7 +6,7 @@
 ## note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files
-CONFIGOMATICVERSION=8.1.07
+CONFIGOMATICVERSION=8.1.08
 
 
 if [ ! $UID = 0 ]; then
@@ -856,11 +856,8 @@ elif [ "$SBOPKGISINSTALLED" = true ]; then
   npm install -g uglify-js
   npm install -g uglifycss
   npm install -g browserify
-  npm install -g bower
-  npm install -g babel
   npm install -g gulp
   npm install -g grunt-cli
-  npm install -g jshint
   npm install -g http-server
   npm install -g superstatic
   ## need this for node stuff
@@ -915,7 +912,9 @@ if [ "$SPPLUSISINSTALLED" = true ] && [ "$SBOPKGISINSTALLED" = true ]; then
     ## build qemu with all the architectures
     TARGETS=all no_prompt_sbo_pkg_install_or_upgrade qemu
 
-    no_prompt_sbo_pkg_install_or_upgrade google-go-lang
+    ## slackware has a built in go at /usr/bin/go,
+    ## that is good enough for me
+    #no_prompt_sbo_pkg_install_or_upgrade google-go-lang
 
     ## more compilers, more fun!
     no_prompt_sbo_pkg_install_or_upgrade pcc
