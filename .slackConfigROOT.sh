@@ -6,7 +6,7 @@
 ## note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files
-CONFIGOMATICVERSION=8.1.06
+CONFIGOMATICVERSION=8.1.07
 
 
 if [ ! $UID = 0 ]; then
@@ -1014,7 +1014,6 @@ if [ "$SPPLUSISINSTALLED" = true ] && [ "$SBOPKGISINSTALLED" = true ]; then
 
     ## i may make stuff someday
     no_prompt_sbo_pkg_install_or_upgrade blender
-    no_prompt_sbo_pkg_install_or_upgrade pitivi
 
     ## scribus
     ## cppunit breaks podofo on 32-bit
