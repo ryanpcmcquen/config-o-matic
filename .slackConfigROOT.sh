@@ -6,7 +6,7 @@
 ## note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files
-CONFIGOMATICVERSION=8.1.08
+CONFIGOMATICVERSION=8.1.09
 
 
 if [ ! $UID = 0 ]; then
@@ -21,8 +21,8 @@ fi
 cd
 ## get stable slackware version
 wget www.slackware.com -O ~/slackware-home-page.html
-grep "is released!" ~/slackware-home-page.html | head -1 | sed 's/Slackware//g' | \
-  sed 's/is released!//g' | sed 's/ //g' > ~/slackwareStableVersion
+grep "is released\!" ~/slackware-home-page.html | head -1 | sed 's/Slackware//g' | \
+  sed 's/is released\!//g' | sed 's/ //g' > ~/slackwareStableVersion
 rm -v ~/slackware-home-page.html
 
 export SLACKSTAVER=${SLACKSTAVER="$(tr -d '\n\r' < ~/slackwareStableVersion)"}
