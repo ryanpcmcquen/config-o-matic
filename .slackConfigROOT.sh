@@ -6,7 +6,7 @@
 ## note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files
-CONFIGOMATICVERSION=8.1.10
+CONFIGOMATICVERSION=8.1.11
 
 
 if [ ! $UID = 0 ]; then
@@ -871,6 +871,7 @@ elif [ "$SBOPKGISINSTALLED" = true ]; then
   my_repo_install atom
   ## dev tools (ocaml is a flow dep)
   no_prompt_sbo_pkg_install_or_upgrade ocaml
+  no_prompt_sbo_pkg_install_or_upgrade ocamlbuild
   no_prompt_sbo_pkg_install_or_upgrade flow
   no_prompt_sbo_pkg_install_or_upgrade watchman
 
