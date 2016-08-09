@@ -183,7 +183,7 @@ wget -N $SCITECONF \
   -P ~/
 
 ## atom goodies
-[ `which atom` ] && apm install atom-beautify linter linter-jshint atom-ternjs language-diff language-haskell atomic-chrome emmet-simplified \
+[ `which atom` ] && apm install atom-beautify nuclide atom-ternjs language-diff language-haskell atomic-chrome emmet-simplified \
   && wget -N https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/.jsbeautifyrc -P ~/
 
 echo
