@@ -6,7 +6,7 @@
 ## note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files
-CONFIGOMATICVERSION=8.1.13
+CONFIGOMATICVERSION=8.1.14
 
 
 if [ ! $UID = 0 ]; then
@@ -1036,6 +1036,10 @@ if [ "$SPPLUSISINSTALLED" = true ] && [ "$SBOPKGISINSTALLED" = true ]; then
     no_prompt_sbo_pkg_install_or_upgrade mm-common
     no_prompt_sbo_pkg_install_or_upgrade inkscape
     ##
+
+    ## Works great with drawing tablets.
+    ## It also requires `numpy`.
+    no_prompt_sbo_pkg_install_or_upgrade mypaint
 
     ## open non-1337 stuff
     no_prompt_sbo_pkg_install_or_upgrade libreoffice
