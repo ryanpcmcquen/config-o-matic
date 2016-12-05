@@ -6,7 +6,7 @@
 ## note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files
-CONFIGOMATICVERSION=8.1.14
+CONFIGOMATICVERSION=8.1.15
 
 
 if [ ! $UID = 0 ]; then
@@ -897,9 +897,9 @@ if [ "$SPPLUSISINSTALLED" = true ] && [ "$SBOPKGISINSTALLED" = true ]; then
   if [ "$MISCELLANY" = true ]; then
     pip install --upgrade pip || no_prompt_sbo_pkg_install_or_upgrade pip
 
-    ## non-sbopkg stuff
-    gem install bundler
-    pip install --upgrade asciinema
+    ## python is amazing!
+    no_prompt_sbo_pkg_install_or_upgrade python3
+    no_prompt_sbo_pkg_install_or_upgrade asciinema
 
     no_prompt_sbo_pkg_install_or_upgrade speedtest-cli
 
@@ -1112,67 +1112,6 @@ if [ "$SPPLUSISINSTALLED" = true ] && [ "$SBOPKGISINSTALLED" = true ]; then
 
     ## grab Pat's java SlackBuild
     curl $GETJAVA | sh
-
-    ## numix stuff is dead sexy
-    git clone ${GITHUBCLONESOURCE}numixproject/numix-icon-theme.git /var/cache/config-o-matic/themes/numix-icon-theme/
-    cd /var/cache/config-o-matic/themes/numix-icon-theme/
-    git pull
-    cp -R /var/cache/config-o-matic/themes/numix-icon-theme/Numix/ /usr/share/icons/
-    cd
-
-    git clone ${GITHUBCLONESOURCE}numixproject/numix-icon-theme-bevel.git /var/cache/config-o-matic/themes/numix-icon-theme-bevel/
-    cd /var/cache/config-o-matic/themes/numix-icon-theme-bevel/
-    git pull
-    cp -R /var/cache/config-o-matic/themes/numix-icon-theme-bevel/Numix-Bevel/ /usr/share/icons/
-    cd
-
-    git clone ${GITHUBCLONESOURCE}numixproject/numix-icon-theme-circle.git /var/cache/config-o-matic/themes/numix-icon-theme-circle/
-    cd /var/cache/config-o-matic/themes/numix-icon-theme-circle/
-    git pull
-    cp -R /var/cache/config-o-matic/themes/numix-icon-theme-circle/Numix-Circle/ /usr/share/icons/
-    ## make the default theme even better
-    cp -R /usr/share/icons/Numix-Circle/* /usr/share/icons/Oxygen_Zion/
-    cd
-
-    git clone ${GITHUBCLONESOURCE}numixproject/numix-icon-theme-shine.git /var/cache/config-o-matic/themes/numix-icon-theme-shine/
-    cd /var/cache/config-o-matic/themes/numix-icon-theme-shine/
-    git pull
-    cp -R /var/cache/config-o-matic/themes/numix-icon-theme-shine/Numix-Shine/ /usr/share/icons/
-    cd
-
-    git clone ${GITHUBCLONESOURCE}numixproject/numix-icon-theme-utouch.git /var/cache/config-o-matic/themes/numix-icon-theme-utouch/
-    cd /var/cache/config-o-matic/themes/numix-icon-theme-utouch/
-    git pull
-    cp -R /var/cache/config-o-matic/themes/numix-icon-theme-utouch/Numix-uTouch/ /usr/share/icons/
-    cd
-
-    git clone ${GITHUBCLONESOURCE}shimmerproject/Numix.git /var/cache/config-o-matic/themes/Numix/
-    cd /var/cache/config-o-matic/themes/Numix/
-    git pull
-    cp -R /var/cache/config-o-matic/themes/Numix/ /usr/share/icons/
-    cp -R /var/cache/config-o-matic/themes/Numix/ /usr/share/themes/
-    cd
-
-    wget -N \
-      https://raw.githubusercontent.com/numixproject/numix-kde-theme/master/Numix.colors -P /usr/share/apps/color-schemes/
-    mv /usr/share/apps/color-schemes/Numix.colors /usr/share/apps/color-schemes/Numix-KDE.colors
-    wget -N \
-      https://raw.githubusercontent.com/numixproject/numix-kde-theme/master/Numix.qtcurve -P /usr/share/apps/QtCurve/
-    mv /usr/share/apps/QtCurve/Numix.qtcurve /usr/share/apps/QtCurve/Numix-KDE.qtcurve
-
-    ## a few numix wallpapers also
-    wget -N \
-      http://fc03.deviantart.net/fs71/f/2013/305/3/6/numix___halloween___wallpaper_by_satya164-d6skv0g.zip -P /var/cache/config-o-matic/
-    wget -N \
-      http://fc00.deviantart.net/fs70/f/2013/249/7/6/numix___fragmented_space_by_me4oslav-d6l8ihd.zip -P /var/cache/config-o-matic/
-    wget -N \
-      http://fc09.deviantart.net/fs70/f/2013/224/b/6/numix___name_of_the_doctor___wallpaper_by_satya164-d6hvzh7.zip -P /var/cache/config-o-matic/
-    unzip -o /var/cache/config-o-matic/numix___halloween___wallpaper_by_satya164-d6skv0g.zip -d /var/cache/config-o-matic/images/
-    unzip -o /var/cache/config-o-matic/numix___fragmented_space_by_me4oslav-d6l8ihd.zip -d /var/cache/config-o-matic/images/
-    unzip -o /var/cache/config-o-matic/numix___name_of_the_doctor___wallpaper_by_satya164-d6hvzh7.zip -d /var/cache/config-o-matic/images/
-
-    cp /var/cache/config-o-matic/images/*.png /usr/share/wallpapers/
-    cp /var/cache/config-o-matic/images/*.jpg /usr/share/wallpapers/
 
     ## symlink all wallpapers so they show up in other DE's
     mkdir -pv /usr/share/backgrounds/mate/custom/
