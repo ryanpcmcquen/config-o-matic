@@ -6,7 +6,7 @@
 ## note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files
-CONFIGOMATICVERSION=8.1.15
+CONFIGOMATICVERSION=8.1.16
 
 
 if [ ! $UID = 0 ]; then
@@ -1079,10 +1079,11 @@ if [ "$SPPLUSISINSTALLED" = true ] && [ "$SBOPKGISINSTALLED" = true ]; then
     ## lutris
     ## recommended
     no_prompt_sbo_pkg_install_or_upgrade eawpats
-    no_prompt_sbo_pkg_install_or_upgrade allegro
+    no_prompt_sbo_pkg_install_or_upgrade allegro4
     ## required
-    no_prompt_sbo_pkg_install_or_upgrade pyxdg
     no_prompt_sbo_pkg_install_or_upgrade PyYAML
+    no_prompt_sbo_pkg_install_or_upgrade py3cairo
+    no_prompt_sbo_pkg_install_or_upgrade pygobject3-python3
     no_prompt_sbo_pkg_install_or_upgrade lutris
 
     ## retro games!
