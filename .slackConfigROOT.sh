@@ -6,7 +6,7 @@
 ## note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files
-CONFIGOMATICVERSION=8.1.18
+CONFIGOMATICVERSION=8.1.19
 
 
 if [ ! $UID = 0 ]; then
@@ -84,6 +84,8 @@ MINECRAFTDL="https://s3.amazonaws.com/Minecraft.Download/launcher/Minecraft.jar"
 
 GKRELLM2THEME="https://github.com/ryanpcmcquen/themes/raw/master/egan-gkrellm.tar.gz"
 FLUXBOXTHEME="https://github.com/ryanpcmcquen/themes/raw/master/67966-Stealthy-1.1.tgz"
+
+GEANYCONF="https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/geany.conf"
 
 MULTILIBDEV="https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/slackware/.multilib-dev.sh"
 MASSCONVERTANDINSTALLCOMPAT32CURRENT="https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/slackware/.mass_compat32ConvertAndInstall_CURRENT.sh"
@@ -1011,6 +1013,9 @@ if [ "$SPPLUSISINSTALLED" = true ] && [ "$SBOPKGISINSTALLED" = true ]; then
     no_prompt_sbo_pkg_install_or_upgrade codeblocks
     no_prompt_sbo_pkg_install_or_upgrade geany
     no_prompt_sbo_pkg_install_or_upgrade geany-plugins
+
+    ## add global geany configuration
+    wget -N $GEANYCONF -P /usr/share/geany/
 
     ## good ol' audacity
     no_prompt_sbo_pkg_install_or_upgrade soundtouch
