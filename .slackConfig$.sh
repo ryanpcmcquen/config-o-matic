@@ -22,8 +22,6 @@ KDECONF="https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/.kdeS
 XFCECONF="https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/.xfceSetup.sh"
 MATECONF="https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/.mateSetup.sh"
 
-GEANYCONF="https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/.geanyConfig.sh"
-
 GKRELLCFIL="https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/slackware/gkrellm2/user-config"
 GKRELLTFIL="https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/slackware/gkrellm2/theme_config"
 GKRELLCONF="https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/.gkrellmConfig.sh"
@@ -76,18 +74,6 @@ fi
 if [ ! -d ~/.gkrellm2/ ]; then
   gkrellm &
   pkill gkrellm &
-fi
-if [ "`which geany`" ] && [ ! -d ~/.config/geany/ ]; then
-  geany &
-  pkill geany &
-fi
-
-## This is not a saved config file,
-## but rather some sed commands to replace
-## properties in the file. Since `geany`
-## dynamically adds to this file.
-if [ -d ~/.config/geany/ ]; then
-  save_and_execute $GEANYCONF
 fi
 
 wget -N $BASHRC -P ~/
