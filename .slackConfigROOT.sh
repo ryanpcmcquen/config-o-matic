@@ -6,7 +6,7 @@
 ## note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files
-CONFIGOMATICVERSION=8.1.20
+CONFIGOMATICVERSION=8.1.21
 
 
 if [ ! $UID = 0 ]; then
@@ -804,12 +804,6 @@ elif [ "$SBOPKGISINSTALLED" = true ]; then
   ## everyone needs patchutils!
   no_prompt_sbo_pkg_install_or_upgrade patchutils
 
-  ## great lightweight file manager with optional DEPS
-  no_prompt_sbo_pkg_install_or_upgrade libgnomecanvas
-  no_prompt_sbo_pkg_install_or_upgrade zenity
-  no_prompt_sbo_pkg_install_or_upgrade udevil
-  no_prompt_sbo_pkg_install_or_upgrade spacefm
-
   no_prompt_sbo_pkg_install_or_upgrade imlib2
   no_prompt_sbo_pkg_install_or_upgrade giblib
   ## screenfetch is a great utility, and
@@ -939,17 +933,6 @@ if [ "$SPPLUSISINSTALLED" = true ] && [ "$SBOPKGISINSTALLED" = true ]; then
     ## i don't even have optical drives on all my comps, but ...
     no_prompt_sbo_pkg_install_or_upgrade libdvdcss
     no_prompt_sbo_pkg_install_or_upgrade libbluray
-
-    ## e16, so tiny!
-    no_prompt_sbo_pkg_install_or_upgrade e16
-    no_prompt_sbo_pkg_install_or_upgrade gmrun
-
-    if [ -e /usr/share/e16/config/bindings.cfg ] && [ -z "$(grep gmrun /usr/share/e16/config/bindings.cfg)" ]; then
-      echo >> /usr/share/e16/config/bindings.cfg
-      echo "## my bindings" >> /usr/share/e16/config/bindings.cfg
-      echo "KeyDown   A    Escape exec gmrun" >> /usr/share/e16/config/bindings.cfg
-      echo >> /usr/share/e16/config/bindings.cfg
-    fi
 
     ## need these for ffmpeg
     no_prompt_sbo_pkg_install_or_upgrade speex
