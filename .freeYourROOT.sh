@@ -701,6 +701,9 @@ elif [ "$SBOPKGISINSTALLED" = true ]; then
   ## Great image viewer/editor, simple and fast:
   no_prompt_sbo_pkg_install_or_upgrade mirage
 
+  ## For freedom!
+  no_prompt_sbo_pkg_install_or_upgrade dwm
+
   ## My dwm tweaks:
   wget -N https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/slackware/dwm-autostart \
     -P /usr/local/etc/
