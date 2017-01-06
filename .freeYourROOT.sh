@@ -702,7 +702,7 @@ elif [ "$SBOPKGISINSTALLED" = true ]; then
   no_prompt_sbo_pkg_install_or_upgrade mirage
 
   ## For freedom!
-  no_prompt_sbo_pkg_install_or_upgrade dwm
+  no_prompt_sbo_pkg_install_or_upgrade icecat
 
   ## My dwm tweaks:
   wget -N https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/slackware/dwm-autostart \
