@@ -71,11 +71,6 @@ TOUCHPCONF="https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/51
 
 WINECONF="https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/wine.conf"
 
-GETEXTRASLACK="https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/slackware/.getExtraSlackBuilds.sh"
-
-GETSOURCESTA="https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/slackware/.getSystemSlackBuildsSTABLE.sh"
-GETSOURCECUR="https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/slackware/.getSystemSlackBuildsCURRENT.sh"
-
 MULTILIBINSTALLS="https://raw.githubusercontent.com/ryanpcmcquen/config-o-matic/libre/.multilibInstalls"
 
 GETJAVA="https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/slackware/.getJavaSlackBuild.sh"
@@ -88,7 +83,6 @@ FLUXBOXTHEME="https://github.com/ryanpcmcquen/themes/raw/master/67966-Stealthy-1
 GEANYCONF="https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/geany.conf"
 
 MULTILIBDEV="https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/slackware/.multilib-dev.sh"
-MASSCONVERTANDINSTALLCOMPAT32CURRENT="https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/slackware/.mass_compat32ConvertAndInstall_CURRENT.sh"
 
 EFILILO="https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/slackware/EFI/lilo"
 
@@ -492,27 +486,15 @@ if [ "$SPPLUSISINSTALLED" = true ]; then
     echo "#PKGS_PRIORITY=( multilib:.* ktown_testing:.* restricted_current:.* alienbob_current:.* )" >> /etc/slackpkg/slackpkgplus.conf
     echo "#PKGS_PRIORITY=( ktown_testing:.* restricted_current:.* alienbob_current:.* )" >> /etc/slackpkg/slackpkgplus.conf
     if [ "$MULTILIB" != true ]; then
-      if [ "$CURRENT" = true ]; then
-        echo >> /etc/slackpkg/slackpkgplus.conf
-        echo "PKGS_PRIORITY=( restricted_current:.* alienbob_current:.* )" >> /etc/slackpkg/slackpkgplus.conf
-      else
-        echo "#PKGS_PRIORITY=( restricted_current:.* alienbob_current:.* )" >> /etc/slackpkg/slackpkgplus.conf
-      fi
+      echo "#PKGS_PRIORITY=( restricted_current:.* alienbob_current:.* )" >> /etc/slackpkg/slackpkgplus.conf
       echo "#PKGS_PRIORITY=( multilib:.* restricted_current:.* alienbob_current:.* )" >> /etc/slackpkg/slackpkgplus.conf
     fi
   
     if [ "$MULTILIB" = true ] && [ "$(uname -m)" = "x86_64" ]; then
-      if [ "$CURRENT" = true ]; then
-        echo "MIRRORPLUS['multilib']=http://slackware.uk/people/alien/multilib/current/" \
-          >> /etc/slackpkg/slackpkgplus.conf
-        echo >> /etc/slackpkg/slackpkgplus.conf
-        echo "PKGS_PRIORITY=( multilib:.* restricted_current:.* alienbob_current:.* )" >> /etc/slackpkg/slackpkgplus.conf
-      else
-        echo "MIRRORPLUS['multilib']=http://slackware.uk/people/alien/multilib/${SLACKSTAVER}/" \
-          >> /etc/slackpkg/slackpkgplus.conf
-        echo >> /etc/slackpkg/slackpkgplus.conf
-        echo "PKGS_PRIORITY=( multilib:.* )" >> /etc/slackpkg/slackpkgplus.conf
-      fi
+      echo "MIRRORPLUS['multilib']=http://slackware.uk/people/alien/multilib/${SLACKSTAVER}/" \
+        >> /etc/slackpkg/slackpkgplus.conf
+      echo >> /etc/slackpkg/slackpkgplus.conf
+      echo "PKGS_PRIORITY=( multilib:.* )" >> /etc/slackpkg/slackpkgplus.conf
       echo >> /etc/slackpkg/slackpkgplus.conf
       echo "#PKGS_PRIORITY=( restricted_current:.* alienbob_current:.* )" >> /etc/slackpkg/slackpkgplus.conf
     fi
@@ -530,36 +512,15 @@ if [ "$SPPLUSISINSTALLED" = true ]; then
     echo >> /etc/slackpkg/slackpkgplus.conf
     echo "#REPOPLUS=( slackpkgplus alienbob )" >> /etc/slackpkg/slackpkgplus.conf
     echo >> /etc/slackpkg/slackpkgplus.conf
-    
-    if [ "$(uname -m)" = "x86_64" ]; then
-      echo >> /etc/slackpkg/slackpkgplus.conf
-      echo "#MIRRORPLUS['ktown']=http://slackware.uk/people/alien-kde/current/latest/x86_64/" >> /etc/slackpkg/slackpkgplus.conf
-      echo "#MIRRORPLUS['ktown_testing']=http://slackware.uk/people/alien-kde/current/testing/x86_64/" >> /etc/slackpkg/slackpkgplus.conf
-      echo "MIRRORPLUS['alienbob']=http://bear.alienbase.nl/mirrors/people/alien/sbrepos/14.2/x86_64/" >> /etc/slackpkg/slackpkgplus.conf
-      echo "MIRRORPLUS['restricted']=http://bear.alienbase.nl/mirrors/people/alien/restricted_sbrepos/14.2/x86_64/" >> /etc/slackpkg/slackpkgplus.conf
-      if [ "$CURRENT" = true ]; then
-        echo "MIRRORPLUS['alienbob_current']=http://slackware.uk/people/alien/sbrepos/current/x86_64/" >> /etc/slackpkg/slackpkgplus.conf
-        echo "MIRRORPLUS['restricted_current']=http://slackware.uk/people/alien/restricted_sbrepos/current/x86_64/" >> /etc/slackpkg/slackpkgplus.conf
-      else
-        echo "#MIRRORPLUS['alienbob_current']=http://slackware.uk/people/alien/sbrepos/current/x86_64/" >> /etc/slackpkg/slackpkgplus.conf
-        echo "#MIRRORPLUS['restricted_current']=http://slackware.uk/people/alien/restricted_sbrepos/current/x86_64/" >> /etc/slackpkg/slackpkgplus.conf
-      fi
-      echo >> /etc/slackpkg/slackpkgplus.conf
-    else
-      echo >> /etc/slackpkg/slackpkgplus.conf
-      echo "#MIRRORPLUS['ktown']=http://slackware.uk/people/alien-kde/current/latest/x86/" >> /etc/slackpkg/slackpkgplus.conf
-      echo "#MIRRORPLUS['ktown_testing']=http://slackware.uk/people/alien-kde/current/testing/x86/" >> /etc/slackpkg/slackpkgplus.conf
-      echo "MIRRORPLUS['alienbob']=http://bear.alienbase.nl/mirrors/people/alien/sbrepos/14.2/x86/" >> /etc/slackpkg/slackpkgplus.conf
-      echo "MIRRORPLUS['restricted']=http://bear.alienbase.nl/mirrors/people/alien/restricted_sbrepos/14.2/x86/" >> /etc/slackpkg/slackpkgplus.conf
-      if [ "$CURRENT" = true ]; then
-        echo "MIRRORPLUS['alienbob_current']=http://slackware.uk/people/alien/sbrepos/current/x86/" >> /etc/slackpkg/slackpkgplus.conf
-        echo "MIRRORPLUS['restricted_current']=http://slackware.uk/people/alien/restricted_sbrepos/current/x86/" >> /etc/slackpkg/slackpkgplus.conf
-      else
-        echo "#MIRRORPLUS['alienbob_current']=http://slackware.uk/people/alien/sbrepos/current/x86/" >> /etc/slackpkg/slackpkgplus.conf
-        echo "#MIRRORPLUS['restricted_current']=http://slackware.uk/people/alien/restricted_sbrepos/current/x86/" >> /etc/slackpkg/slackpkgplus.conf
-      fi
-      echo >> /etc/slackpkg/slackpkgplus.conf
-    fi
+  
+    echo >> /etc/slackpkg/slackpkgplus.conf
+    echo "#MIRRORPLUS['ktown']=http://slackware.uk/people/alien-kde/current/latest/x86_64/" >> /etc/slackpkg/slackpkgplus.conf
+    echo "#MIRRORPLUS['ktown_testing']=http://slackware.uk/people/alien-kde/current/testing/x86_64/" >> /etc/slackpkg/slackpkgplus.conf
+    echo "MIRRORPLUS['alienbob']=http://bear.alienbase.nl/mirrors/people/alien/sbrepos/14.2/x86_64/" >> /etc/slackpkg/slackpkgplus.conf
+    echo "MIRRORPLUS['restricted']=http://bear.alienbase.nl/mirrors/people/alien/restricted_sbrepos/14.2/x86_64/" >> /etc/slackpkg/slackpkgplus.conf
+    echo "#MIRRORPLUS['alienbob_current']=http://slackware.uk/people/alien/sbrepos/current/x86_64/" >> /etc/slackpkg/slackpkgplus.conf
+    echo "#MIRRORPLUS['restricted_current']=http://slackware.uk/people/alien/restricted_sbrepos/current/x86_64/" >> /etc/slackpkg/slackpkgplus.conf
+    echo >> /etc/slackpkg/slackpkgplus.conf  
   fi
 fi
 
@@ -577,10 +538,6 @@ if [ "$SPPLUSISINSTALLED" = true ]; then
     ## Script to set up the environment for compat32 building:
     wget -N $MULTILIBDEV \
       -P ~/
-    ## Script to build all compat32 packages:
-    mkdir -pv ~/compat32/
-    wget -N $MASSCONVERTANDINSTALLCOMPAT32CURRENT \
-      -P ~/compat32/
   fi
 fi
 
@@ -1029,14 +986,6 @@ wget -N $MAGICALXSET \
 
 ## Used to be beginning of SCRIPTS.
 
-wget -N $GETEXTRASLACK -P ~/
-
-if [ "$CURRENT" = true ]; then
-  wget -N $GETSOURCECUR -P ~/
-else
-  wget -N $GETSOURCESTA -P ~/
-fi
-
 wget -N $GETJAVA -P ~/
 
 ## Auto generic-kernel script:
@@ -1078,7 +1027,6 @@ fi
 ## Set slackpkg back to normal.
 set_slackpkg_to_manual
 
-
 ## Create an info file:
 echo >> ~/.config-o-matic_$CONFIGOMATICVERSION
 echo "########################################" >> ~/.config-o-matic_$CONFIGOMATICVERSION
@@ -1096,20 +1044,15 @@ echo "## SBOPKGISINSTALLED=$SBOPKGISINSTALLED" >> ~/.config-o-matic_$CONFIGOMATI
 
 echo >> ~/.config-o-matic_$CONFIGOMATICVERSION
 
-echo "CURRENT=$CURRENT" >> ~/.config-o-matic_$CONFIGOMATICVERSION
-if [ "$COMARCH" != "arm" ]; then
-  echo "MISCELLANY=$MISCELLANY" >> ~/.config-o-matic_$CONFIGOMATICVERSION
-fi
-if [ "$(uname -m)" = "x86_64" ]; then
-  echo "MULTILIB=$MULTILIB" >> ~/.config-o-matic_$CONFIGOMATICVERSION
-fi
+echo "MISCELLANY=$MISCELLANY" >> ~/.config-o-matic_$CONFIGOMATICVERSION
+echo "MULTILIB=$MULTILIB" >> ~/.config-o-matic_$CONFIGOMATICVERSION
 echo "WIFIR=$WIFIR" >> ~/.config-o-matic_$CONFIGOMATICVERSION
 
 echo >> ~/.config-o-matic_$CONFIGOMATICVERSION
 echo "########################################" >> ~/.config-o-matic_$CONFIGOMATICVERSION
 echo >> ~/.config-o-matic_$CONFIGOMATICVERSION
 
-rm -v ~/slackwareStableVersion
+rm -v ~/freeslackStableVersion
 rm -v ~/sbopkgVersion
 rm -v ~/sbopkg-upgrade-list.txt
 rm -v ~/slackpkgPlusVersion
@@ -1127,4 +1070,3 @@ echo "Thank you for using config-o-matic!"
 echo
 echo "You should now run the standard user script."
 echo
-
