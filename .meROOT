@@ -1,6 +1,6 @@
 #!/bin/sh
 
-# cd; wget -N https://raw.githubusercontent.com/ryanpcmcquen/config-o-matic/master/.ryan -P ~/; sh ~/.ryan
+# cd; wget -N https://raw.githubusercontent.com/ryanpcmcquen/config-o-matic/libre/.meROOT -P ~/; sh ~/.meROOT
 
 if [ ! $UID = 0 ]; then
   cat << EOF
@@ -9,7 +9,7 @@ EOF
   exit 1
 fi
 
-## my ssh key
+## My ssh key:
 cd
 if [ ! -d ~/.ssh/ ]; then
   git clone https://ryanpcmcquen@bitbucket.org/ryanpcmcquen/.ssh.git
@@ -19,7 +19,7 @@ if [ ! -d ~/.ssh/ ]; then
   chmod 644 .ssh/known_hosts
 fi
 
-## make ssh less annoying
+## Make ssh less annoying:
 if [ -z "$(grep 'SSH_AUTH_SOCK' /etc/profile)" ]; then
   echo >> /etc/profile
   echo 'if [ -z "$SSH_AUTH_SOCK" ]; then' >> /etc/profile
@@ -29,34 +29,34 @@ if [ -z "$(grep 'SSH_AUTH_SOCK' /etc/profile)" ]; then
   echo >> /etc/profile
 fi
 
-## start the ssh-agent so we can clone away without
-## entering a passphrase several times
+## Start the ssh-agent so we can clone away without,
+## entering a passphrase several times:
 if [ -z "$SSH_AUTH_SOCK" ]; then
   eval `ssh-agent`
   ssh-add
 fi
 
 ### STANDARD CONFIG-O-MATIC
-## run standard root script first
+## Run standard root script first:
 cd
-wget -N https://raw.githubusercontent.com/ryanpcmcquen/config-o-matic/master/.slackConfigROOT.sh -P ~/
-sh ~/.slackConfigROOT.sh
+wget -N https://raw.githubusercontent.com/ryanpcmcquen/config-o-matic/libre/.freeYourROOT.sh -P ~/
+sh ~/.freeYourROOT.sh
 ### END OF STANDARD CONFIG-O-MATIC
 
-## enable the wheel group
+## Enable the wheel group:
 if [ ! -e /etc/sudoers.d/wheel-enable ]; then
   echo > /etc/sudoers.d/wheel-enable
   echo "%wheel ALL=(ALL) ALL" >> /etc/sudoers.d/wheel-enable
   echo >> /etc/sudoers.d/wheel-enable
 fi
 
-## add all non-root users (except ftp) to wheel group
+## Add all non-root users (except ftp) to wheel group:
 getent passwd | grep "/home" | cut -d: -f1 | sed '/ftp/d' | xargs -i usermod -G wheel -a {}
-## the standard groups in case you forget when you run adduser  ;-)
+## The standard groups in case you forgot when you run adduser.  ;-)
 getent passwd | grep "/home" | cut -d: -f1 | sed '/ftp/d' | \
   xargs -i usermod -G audio,cdrom,floppy,plugdev,video,power,netdev,lp,scanner -a {}
 
-## slackbuilds repo
+## Slackbuilds repo:
 if [ ! -d ~/sbo/ ]; then
   git clone git@slackbuilds.org:slackbuilds.git sbo
   cd sbo
@@ -67,13 +67,13 @@ if [ ! -d ~/sbo/ ]; then
   cd
 fi
 
-## sbo git hooks
+## sbo git hooks:
 wget -N https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/slackware/sbo/hooks/commit-msg \
   -P ~/sbo/.git/hooks/
 wget -N https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/slackware/sbo/hooks/pre-commit \
   -P ~/sbo/.git/hooks/
-## this is just in case permissions are incorrect,
-## these files should already be 755  ;^)
+## This is just in case permissions are incorrect,
+## these files should already be 755.  ;^)
 chmod 755 ~/sbo/.git/hooks/*
 
 
@@ -107,4 +107,3 @@ echo "      -.         :   _____   |      .' "
 echo "        ' -.    .'--       --'.   .' "
 echo "            '--                -- "
 echo
-
