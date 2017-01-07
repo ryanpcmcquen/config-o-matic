@@ -2,6 +2,8 @@
 
 Configure Slackware installs in no time with config-o-matic! (patent pending)
 
+NEARFREE: This is a separate script that should be run *instead* of the ROOT script. It follows http://freeslack.net/, but does not remove the kernel.
+
 Options presented when running the ROOT script:
 
 1. CURRENT: Switches to slackware-current/slackware64-current mirrors instead of stable.
