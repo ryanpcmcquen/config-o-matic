@@ -146,8 +146,7 @@ fi
 rm -v ~/.local/share/applications/userapp-Firefox-*.desktop
 
 ## Scite!
-wget -N $SCITECONF \
-  -P ~/
+wget -N $SCITECONF -P ~/
 
 ## Atom goodies:
 [ `which atom` ] && apm install atom-beautify nuclide atom-ternjs language-diff language-haskell language-lua emmet-simplified \
