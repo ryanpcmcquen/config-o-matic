@@ -26,9 +26,6 @@ GKRELLCFIL="https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/sl
 GKRELLTFIL="https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/slackware/gkrellm2/theme_config"
 GKRELLCONF="https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/.gkrellmConfig.sh"
 
-BRACKETSCONF="https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/brackets.json"
-ZEDCONF="https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/.config/zed/config/user.json"
-
 GITNAME="Ryan P.C. McQuen"
 GITEMAIL="ryanpcmcquen@member.fsf.org"
 

@@ -481,14 +481,6 @@ if [ "$SPPLUSISINSTALLED" = true ]; then
 
     echo >> /etc/slackpkg/slackpkgplus.conf
     echo >> /etc/slackpkg/slackpkgplus.conf
-    echo "#PKGS_PRIORITY=( multilib:.* ktown:.* restricted_current:.* alienbob_current:.* )" >> /etc/slackpkg/slackpkgplus.conf
-    echo "#PKGS_PRIORITY=( ktown:.* restricted_current:.* alienbob_current:.* )" >> /etc/slackpkg/slackpkgplus.conf
-    echo "#PKGS_PRIORITY=( multilib:.* ktown_testing:.* restricted_current:.* alienbob_current:.* )" >> /etc/slackpkg/slackpkgplus.conf
-    echo "#PKGS_PRIORITY=( ktown_testing:.* restricted_current:.* alienbob_current:.* )" >> /etc/slackpkg/slackpkgplus.conf
-    if [ "$MULTILIB" != true ]; then
-      echo "#PKGS_PRIORITY=( restricted_current:.* alienbob_current:.* )" >> /etc/slackpkg/slackpkgplus.conf
-      echo "#PKGS_PRIORITY=( multilib:.* restricted_current:.* alienbob_current:.* )" >> /etc/slackpkg/slackpkgplus.conf
-    fi
   
     if [ "$MULTILIB" = true ] && [ "$(uname -m)" = "x86_64" ]; then
       echo "MIRRORPLUS['multilib']=http://slackware.uk/people/alien/multilib/${SLACKSTAVER}/" \
@@ -496,15 +488,8 @@ if [ "$SPPLUSISINSTALLED" = true ]; then
       echo >> /etc/slackpkg/slackpkgplus.conf
       echo "PKGS_PRIORITY=( multilib:.* )" >> /etc/slackpkg/slackpkgplus.conf
       echo >> /etc/slackpkg/slackpkgplus.conf
-      echo "#PKGS_PRIORITY=( restricted_current:.* alienbob_current:.* )" >> /etc/slackpkg/slackpkgplus.conf
     fi
   
-    echo >> /etc/slackpkg/slackpkgplus.conf
-    echo "#PKGS_PRIORITY=( multilib:.* alienbob_current:.* )" >> /etc/slackpkg/slackpkgplus.conf
-    echo "#PKGS_PRIORITY=( multilib:.* ktown:.* alienbob_current:.* )" >> /etc/slackpkg/slackpkgplus.conf
-    echo "#PKGS_PRIORITY=( ktown:.* alienbob_current:.* )" >> /etc/slackpkg/slackpkgplus.conf
-    echo "#PKGS_PRIORITY=( multilib:.* ktown_testing:.* alienbob_current:.* )" >> /etc/slackpkg/slackpkgplus.conf
-    echo "#PKGS_PRIORITY=( ktown_testing:.* alienbob_current:.* )" >> /etc/slackpkg/slackpkgplus.conf
     echo >> /etc/slackpkg/slackpkgplus.conf
     echo "#REPOPLUS=( slackpkgplus restricted alienbob slacky )" >> /etc/slackpkg/slackpkgplus.conf
     echo >> /etc/slackpkg/slackpkgplus.conf
@@ -514,12 +499,8 @@ if [ "$SPPLUSISINSTALLED" = true ]; then
     echo >> /etc/slackpkg/slackpkgplus.conf
   
     echo >> /etc/slackpkg/slackpkgplus.conf
-    echo "#MIRRORPLUS['ktown']=http://slackware.uk/people/alien-kde/current/latest/x86_64/" >> /etc/slackpkg/slackpkgplus.conf
-    echo "#MIRRORPLUS['ktown_testing']=http://slackware.uk/people/alien-kde/current/testing/x86_64/" >> /etc/slackpkg/slackpkgplus.conf
     echo "MIRRORPLUS['alienbob']=http://bear.alienbase.nl/mirrors/people/alien/sbrepos/14.2/x86_64/" >> /etc/slackpkg/slackpkgplus.conf
     echo "MIRRORPLUS['restricted']=http://bear.alienbase.nl/mirrors/people/alien/restricted_sbrepos/14.2/x86_64/" >> /etc/slackpkg/slackpkgplus.conf
-    echo "#MIRRORPLUS['alienbob_current']=http://slackware.uk/people/alien/sbrepos/current/x86_64/" >> /etc/slackpkg/slackpkgplus.conf
-    echo "#MIRRORPLUS['restricted_current']=http://slackware.uk/people/alien/restricted_sbrepos/current/x86_64/" >> /etc/slackpkg/slackpkgplus.conf
     echo >> /etc/slackpkg/slackpkgplus.conf  
   fi
 fi
@@ -818,8 +799,6 @@ if [ "$SPPLUSISINSTALLED" = true ] && [ "$SBOPKGISINSTALLED" = true ]; then
     no_prompt_sbo_pkg_install_or_upgrade SDL2_mixer
     no_prompt_sbo_pkg_install_or_upgrade SDL2_net
     no_prompt_sbo_pkg_install_or_upgrade SDL2_ttf
-
-    no_prompt_sbo_pkg_install_or_upgrade libgcrypt15
 
     my_repo_install ffmpeg
 
