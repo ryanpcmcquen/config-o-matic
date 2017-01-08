@@ -6,7 +6,7 @@
 ## Note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files.
-CONFIGOMATICVERSION=9.0.00
+CONFIGOMATICVERSION=9.0.01
 
 
 if [ ! $UID = 0 ]; then
@@ -975,8 +975,8 @@ wget -N $GENERICKERNELSWITCHER -P ~/
 chmod 755 ~/.switchToGenericKernel.sh
 
 ## Compile latest mainline/stable/longterm kernel:
-wget -N https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/slackware/kernelMe.sh -P /usr/src/
-chmod 755 /usr/src/kernelMe.sh
+wget -N https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/slackware/kernelLibreLatestMe.sh -P /usr/src/
+chmod 755 /usr/src/kernelLibreLatestMe.sh
 
 ## Script to install latest Firefox developer edition:
 wget -N https://raw.githubusercontent.com/ryanpcmcquen/ryanpc-slackbuilds/master/unofficial/fde/.getFDE.sh -P ~/
