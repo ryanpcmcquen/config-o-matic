@@ -6,7 +6,7 @@
 ## Note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files.
-CONFIGOMATICVERSION=9.0.01
+CONFIGOMATICVERSION=9.0.02
 
 
 if [ ! $UID = 0 ]; then
@@ -869,19 +869,8 @@ if [ "$SPPLUSISINSTALLED" = true ] && [ "$SBOPKGISINSTALLED" = true ]; then
     no_prompt_sbo_pkg_install_or_upgrade android-tools
     no_prompt_sbo_pkg_install_or_upgrade android-studio
 
-    ## Open dwg:
-    no_prompt_sbo_pkg_install_or_upgrade qcad
-
-    ## Because QtCurve looks amazing:
-    if [ "`find /var/log/packages/ -name kdelibs-*`" ]; then
-      no_prompt_sbo_pkg_install_or_upgrade QtCurve-KDE4
-    fi
-    no_prompt_sbo_pkg_install_or_upgrade QtCurve-Gtk2
-
     ## Great for making presentations:
     no_prompt_sbo_pkg_install_or_upgrade mdp
-
-    no_prompt_sbo_pkg_install_or_upgrade spotify
 
     ## For making game levels:
     no_prompt_sbo_pkg_install_or_upgrade tiled-qt
