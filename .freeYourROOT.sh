@@ -6,7 +6,7 @@
 ## Note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files.
-CONFIGOMATICVERSION=9.0.02
+CONFIGOMATICVERSION=9.0.03
 
 
 if [ ! $UID = 0 ]; then
@@ -725,11 +725,13 @@ elif [ "$SBOPKGISINSTALLED" = true ]; then
   no_prompt_sbo_pkg_install_or_upgrade jsmin
   npm install -g uglify-js
   npm install -g uglifycss
+  npm install -g html-minifier
   npm install -g browserify
   npm install -g gulp
   npm install -g grunt-cli
   npm install -g http-server
   npm install -g superstatic
+  npm install -g standard
   ## Need this for node stuff:
   no_prompt_sbo_pkg_install_or_upgrade krb5
   ## Great text editor:
