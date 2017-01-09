@@ -6,7 +6,7 @@
 ## Note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files.
-CONFIGOMATICVERSION=9.0.05
+CONFIGOMATICVERSION=9.1.00
 
 
 if [ ! $UID = 0 ]; then
@@ -680,7 +680,9 @@ elif [ "$SBOPKGISINSTALLED" = true ]; then
   no_prompt_sbo_pkg_install_or_upgrade mirage
 
   ## For freedom!
-  no_prompt_sbo_pkg_install_or_upgrade icecat
+  wget -N https://freeslack.net/fxp/freeslack64${DASHSLACKSTAVER}/fxp/freepkg -P /sbin/
+  chmod +x /sbin/freepkg
+  freepkg ir icecat
 
   ## My dwm tweaks:
   wget -N https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/slackware/dwm-autostart \
