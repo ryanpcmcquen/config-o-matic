@@ -6,7 +6,7 @@
 ## Note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files.
-CONFIGOMATICVERSION=9.0.04
+CONFIGOMATICVERSION=9.0.05
 
 
 if [ ! $UID = 0 ]; then
@@ -132,9 +132,6 @@ slackpkg_update_only() {
 ## A function in a function!
 slackpkg_full_upgrade() {
   slackpkg_update_only
-  if [ "$HEADLESS" = "no" ]; then
-    slackpkg install-new
-  fi
   slackpkg upgrade-all
 }
 
