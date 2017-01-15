@@ -6,7 +6,7 @@
 ## Note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files.
-CONFIGOMATICVERSION=9.1.01
+CONFIGOMATICVERSION=9.1.02
 
 
 if [ ! $UID = 0 ]; then
@@ -103,7 +103,7 @@ SYSTEMCLOCKSYNCHRONIZATION="--localtime"
 ## Set GitHub clone source to ssh,
 ## if the ssh key is there, otherwise
 ## use https.
-if [ -e ~/.ryan ] && [ -d ~/.ssh/ ]; then
+if [ -e ~/.meROOT ] && [ -d ~/.ssh/ ]; then
   GITHUBCLONESOURCE="git@github.com:"
 else
   GITHUBCLONESOURCE="https://github.com/"
@@ -527,12 +527,6 @@ git clone ${GITHUBCLONESOURCE}mateslackbuilds/msb.git
 
 ## Add a script to build & blacklist everything for msb:
 wget -N $MSBHELPERSCRIPT -P ~/msb/
-
-## Slackbook.org:
-git clone git://slackbook.org/slackbook
-
-## Enlightenment!
-git clone ${GITHUBCLONESOURCE}ryanpcmcquen/slackENLIGHTENMENT.git
 
 ## My slackbuilds:
 git clone ${GITHUBCLONESOURCE}ryanpcmcquen/ryanpc-slackbuilds.git
