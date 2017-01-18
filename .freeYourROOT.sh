@@ -6,7 +6,7 @@
 ## Note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files.
-CONFIGOMATICVERSION=9.2.01
+CONFIGOMATICVERSION=9.2.02
 
 
 if [ ! $UID = 0 ]; then
@@ -257,9 +257,9 @@ fi
 if [ -e /etc/lilo.conf ]; then
   ## Add the FreeSlack bitmap splash:
   wget -N https://freeslack.net/dokuwiki/lib/exe/fetch.php?media=freeslack.bmp --content-disposition -P /boot/
-  sed -i.bak 's_^bitmap =.*_bitmap = /boot/freeslack.bmp_g' /etc/lilo.conf
-  sed -i.bak 's_^bmp-colors =.*_bmp-colors = 0,255,0,255,0,255_g' /etc/lilo.conf
-  sed -i.bak 's_^bmp-timer =.*_bmp-timer = 65,27,255,0_g' /etc/lilo.conf
+  sed -i.bak 's_^  bitmap =.*_bitmap = /boot/freeslack.bmp_g' /etc/lilo.conf
+  sed -i.bak 's_^  bmp-colors =.*_bmp-colors = 0,255,0,255,0,255_g' /etc/lilo.conf
+  sed -i.bak 's_^  bmp-timer =.*_bmp-timer = 65,27,255,0_g' /etc/lilo.conf
 
   ## These options improve boot times and get rid of some warnings:
   sed -i.bak 's/^#compact/lba32\
