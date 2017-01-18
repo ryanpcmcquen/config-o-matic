@@ -6,7 +6,7 @@
 ## Note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files.
-CONFIGOMATICVERSION=9.1.02
+CONFIGOMATICVERSION=9.2.00
 
 
 if [ ! $UID = 0 ]; then
@@ -255,13 +255,19 @@ fi
 
 ## No need to run this on efi:
 if [ -e /etc/lilo.conf ]; then
-  ## Configure lilo.
+  ## Add the FreeSlack bitmap splash:
+  wget -N https://freeslack.net/dokuwiki/lib/exe/fetch.php?media=freeslack.bmp -P /boot/
+  sed -i.bak 's_^bitmap =.*_bitmap = /boot/freeslack.bmp_g' /etc/lilo.conf
+  sed -i.bak 's_^bmp-colors =.*_bmp-colors = 0,255,0,255,0,255_g' /etc/lilo.conf
+  sed -i.bak 's_^bmp-timer =.*_bmp-timer = 65,27,255,0_g' /etc/lilo.conf
+
+  ## These options improve boot times and get rid of some warnings:
   sed -i.bak 's/^#compact/lba32\
   compact/g' /etc/lilo.conf
 
   ## Set to utf8:
   sed -i.bak 's/vt.default_utf8=0/vt.default_utf8=1/g' /etc/lilo.conf
-  sed -i.bak 's/^timeout =.*/timeout = 5/g' /etc/lilo.conf
+  sed -i.bak 's/^timeout =.*/timeout = 10/g' /etc/lilo.conf
   if [ "$(grep 'vga=771' /etc/lilo.conf)" ]; then
     ## Uncomment all vga settings so,
     ## we do not end up with conflicts.
