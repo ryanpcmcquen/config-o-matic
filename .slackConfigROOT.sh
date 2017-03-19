@@ -6,7 +6,7 @@
 ## note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files
-CONFIGOMATICVERSION=8.1.23
+CONFIGOMATICVERSION=8.1.24
 
 
 if [ ! $UID = 0 ]; then
@@ -65,7 +65,7 @@ GITEMAIL="ryan.q@linux.com"
 
 ## these make you feel like the flash in vim
 XSETKEYDELAY=110
-XSETKEYRATE=110
+XSETKEYRATE=100
 
 TOUCHPCONF="https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/51-synaptics.conf"
 
