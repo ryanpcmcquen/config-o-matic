@@ -149,7 +149,7 @@ rm -v ~/.local/share/applications/userapp-Firefox-*.desktop
 wget -N $SCITECONF -P ~/
 
 ## Atom goodies:
-[ `which atom` ] && apm install atom-beautify nuclide atom-ternjs language-diff language-haskell language-lua emmet-simplified \
+[ `which atom` ] && apm install atom-beautify nuclide atom-ternjs language-diff language-haskell language-lua \
   && wget -N https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/.jsbeautifyrc -P ~/
 
 echo
