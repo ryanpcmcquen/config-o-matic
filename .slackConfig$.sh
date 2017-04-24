@@ -169,7 +169,7 @@ wget -N $SCITECONF \
   -P ~/
 
 ## atom goodies
-[ `which atom` ] && apm install atom-beautify atom-ternjs language-diff language-haskell language-lua \
+[ `which atom` ] && apm install atom-beautify language-diff language-haskell language-lua \
   && wget -N https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/.jsbeautifyrc -P ~/
 
 echo
