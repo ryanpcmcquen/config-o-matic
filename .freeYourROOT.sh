@@ -6,7 +6,7 @@
 ## Note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files.
-CONFIGOMATICVERSION=9.2.08
+CONFIGOMATICVERSION=9.2.09
 
 
 if [ ! $UID = 0 ]; then
@@ -763,9 +763,9 @@ if [ "$SPPLUSISINSTALLED" = true ] && [ "$SBOPKGISINSTALLED" = true ]; then
     ## Build qemu with all the architectures:
     TARGETS=all no_prompt_sbo_pkg_install_or_upgrade qemu
 
-    ## Slackware has a built in go at /usr/bin/go,
-    ## that is good enough for me.
-    #no_prompt_sbo_pkg_install_or_upgrade google-go-lang
+    ## Encrypt all the things!
+    no_prompt_sbo_pkg_install_or_upgrade google-go-lang
+    no_prompt_sbo_pkg_install_or_upgrade keybase
 
     ## More compilers, more fun!
     no_prompt_sbo_pkg_install_or_upgrade pcc
