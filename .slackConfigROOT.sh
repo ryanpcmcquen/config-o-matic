@@ -6,7 +6,7 @@
 ## note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files
-CONFIGOMATICVERSION=8.1.32
+CONFIGOMATICVERSION=8.1.33
 
 
 if [ ! $UID = 0 ]; then
@@ -323,6 +323,9 @@ echo "if [ -x /etc/rc.d/rc.unicodeMagic ]; then
   /etc/rc.d/rc.unicodeMagic
 fi" >> /etc/rc.d/rc.local
 fi
+
+# U2F:
+wget -N https://raw.githubusercontent.com/Yubico/libu2f-host/master/70-u2f.rules -P /etc/udev/rules.d/
 
 ## set some sane defaults for apps
 wget -N $MIMEAPPSLIST -P /etc/xdg/
