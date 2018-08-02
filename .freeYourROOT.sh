@@ -60,7 +60,7 @@ TMUXCONF="https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/tmux
 
 SCITECONF="https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/.SciTEUser.properties"
 
-GITNAME="Ryan P.C. McQuen"
+GITNAME="Ryan P. C. McQuen"
 GITEMAIL="ryanpcmcquen@member.fsf.org"
 
 ## These make you feel like the flash in vim:
