@@ -60,8 +60,8 @@ TMUXCONF="https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/tmux
 
 SCITECONF="https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/.SciTEUser.properties"
 
-GITNAME="Ryan P.C. McQuen"
-GITEMAIL="ryan.q@linux.com"
+GITNAME="Ryan P. C. McQuen"
+GITEMAIL="ryanpcmcquen@member.fsf.org"
 
 ## these make you feel like the flash in vim
 XSETKEYDELAY=120
