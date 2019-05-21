@@ -6,7 +6,7 @@
 ## note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files
-CONFIGOMATICVERSION=8.1.35
+CONFIGOMATICVERSION=8.1.36
 
 
 if [ ! $UID = 0 ]; then
@@ -16,6 +16,8 @@ EOF
   exit 1
 fi
 
+wget -N https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/.__KEY_REPEAT_SETTINGS__ -P ~/
+. ~/.__KEY_REPEAT_SETTINGS__
 
 ## versions!
 cd
@@ -64,8 +66,8 @@ GITNAME="Ryan P. C. McQuen"
 GITEMAIL="ryanpcmcquen@member.fsf.org"
 
 ## these make you feel like the flash in vim
-XSETKEYDELAY=140
-XSETKEYRATE=100
+XSETKEYDELAY=${KEY_REPEAT_DELAY}
+XSETKEYRATE=${KEY_REPEAT_RATE}
 
 TOUCHPCONF="https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/51-synaptics.conf"
 
