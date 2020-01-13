@@ -763,8 +763,6 @@ if [ "$SPPLUSISINSTALLED" = true ] && [ "$SBOPKGISINSTALLED" = true ]; then
     no_prompt_sbo_pkg_install_or_upgrade libbluray
 
     ## Need these for ffmpeg:
-    no_prompt_sbo_pkg_install_or_upgrade speex
-    no_prompt_sbo_pkg_install_or_upgrade lame
     no_prompt_sbo_pkg_install_or_upgrade x264
 
     no_prompt_sbo_pkg_install_or_upgrade ssr
