@@ -2,7 +2,7 @@
 
 # cd; wget -N https://raw.githubusercontent.com/ryanpcmcquen/config-o-matic/stable/.slackConfig%24.sh -P ~/; sh ~/.slackConfig\$.sh
 
-#### set your config files here:
+#### Set your config files here:
 
 BASHRC="https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/slackware/normal/.bashrc"
 BASHPR="https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/slackware/normal/.bash_profile"
@@ -60,10 +60,10 @@ echo "*************************************************************"
 echo
 echo
 
-## not really necessary, but maybe someday  ;-)
+## Not really necessary, but maybe someday:
 cd
 
-## fixes some gsettings/dconf/xfconf errors
+## Fixes some gsettings/dconf/xfconf errors:
 DBUS_SESSION_FILE=~/.dbus/session-bus/$(cat /var/lib/dbus/machine-id)-0
 if [ -e "$DBUS_SESSION_FILE" ]; then
   . "$DBUS_SESSION_FILE"
@@ -80,15 +80,15 @@ wget -N $BASHRC -P ~/
 wget -N $BASHPR -P ~/
 
 wget -N $VIMRC -P ~/
-## i just include my theme in my .vimrc
+## I just include my theme in my .vimrc.
 ##mkdir -pv ~/.vim/colors/
 ##wget -N $VIMCOLOR -P ~/.vim/colors/
 
-## makes keyboard shortcuts easy
-## while maintaining minimalism
+## Makes keyboard shortcuts easy
+## while maintaining minimalism.
 wget -N $XBINDKEYSRC -P ~/
 
-## git config
+## Git config:
 git config --global user.name "$GITNAME"
 git config --global user.email "$GITEMAIL"
 git config --global credential.helper 'cache --timeout=3600'
@@ -99,42 +99,42 @@ wget -N $GKRELLCFIL -P ~/.gkrellm2/
 wget -N $GKRELLTFIL -P ~/.gkrellm2/
 save_and_execute $GKRELLCONF
 
-## fluxbox
+## Fluxbox:
 if [ -d ~/.fluxbox ]; then
   save_and_execute $FLUXBOXCONF
 fi
 
-## window maker
+## Window Maker:
 if [ -d ~/GNUstep ]; then
   save_and_execute $WMAKERCONF
 fi
 
-## pekwm
+## PeKWM:
 if [ -d ~/.pekwm ]; then
   save_and_execute $PEKWMCONF
 fi
 
-## lumina
+## Lumina:
 if [ -d ~/.lumina ]; then
   save_and_execute $LUMINACONF
 fi
 
-## kde
+## KDE:
 if [ "`find /var/log/packages/ -name kdelibs-*`" ]; then
   save_and_execute $KDECONF
 fi
 
-## mate
+## Mate:
 if [ "`find /var/log/packages/ -name pluma-*`" ]; then
   save_and_execute $MATECONF
 fi
 
-## xfce
+## XFCE:
 if [ "`find /var/log/packages/ -name Thunar-*`" ]; then
   save_and_execute $XFCECONF
 fi
 
-## e16
+## E16:
 if [ -d /usr/share/e16 ]; then
   if [ -e ~/.e16/e_config--0.0.cfg ]; then
     if [ -z "$(grep 'focus.all_new_windows_get_focus' ~/.e16/e_config--0.0.cfg)" ]; then
@@ -145,7 +145,7 @@ if [ -d /usr/share/e16 ]; then
   fi
 fi
 
-## beautiful minimalism
+## Beautiful minimalism:
 mkdir -pv ~/.icons/
 if [ ! -e ~/.icons/default ]; then
   if [ -d "/usr/share/icons/Oxygen_Zion/" ]; then
@@ -155,20 +155,20 @@ if [ ! -e ~/.icons/default ]; then
   fi
 fi
 
-## fixes kde firefox icon
+## Fixes KDE firefox icon:
 rm -v ~/.local/share/applications/userapp-Firefox-*.desktop
 
-## brackets config [2 spaces!]
+## Brackets config [2 spaces!]:
 wget -N $BRACKETSCONF -P ~/.config/Brackets/
 
-## zed (2 spaces, and trim whitespace)
+## Zed (2 spaces, and trim whitespace):
 wget -N $ZEDCONF -P ~/.config/zed/config/
 
-## scite!
+## SciTE!
 wget -N $SCITECONF \
   -P ~/
 
-## atom goodies
+## Atom goodies:
 [ `which atom` ] && apm install atom-beautify language-diff language-haskell language-lua \
   && wget -N https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/.jsbeautifyrc -P ~/
 
