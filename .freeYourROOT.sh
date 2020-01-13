@@ -6,7 +6,7 @@
 ## Note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files.
-CONFIGOMATICVERSION=9.2.14
+CONFIGOMATICVERSION=9.3.00
 
 
 if [ ! $UID = 0 ]; then
@@ -639,13 +639,13 @@ elif [ "$SBOPKGISINSTALLED" = true ]; then
   no_prompt_sbo_pkg_install_or_upgrade dwm
   no_prompt_sbo_pkg_install_or_upgrade dmenu
   no_prompt_sbo_pkg_install_or_upgrade trayer-srg
-  no_prompt_sbo_pkg_install_or_upgrade tinyterm
+  #no_prompt_sbo_pkg_install_or_upgrade tinyterm
   no_prompt_sbo_pkg_install_or_upgrade xbindkeys
 
   ## Hard to live without these:
   set_slackpkg_to_auto
   slackpkg_update_only
-  slackpkg install bash-completion vlc chromium
+  slackpkg install bash-completion vlc
 
   ## These are essential also, but we
   ## install any true multilib packages with a separate script
@@ -667,9 +667,6 @@ elif [ "$SBOPKGISINSTALLED" = true ]; then
     -P ~/
   ## Clean, simple text editor.
   no_prompt_sbo_pkg_install_or_upgrade textadept
-
-  ## Gists are the coolest:
-  no_prompt_sbo_pkg_install_or_upgrade gisto
 
   ## Everyone needs patchutils!
   no_prompt_sbo_pkg_install_or_upgrade patchutils
@@ -694,16 +691,18 @@ elif [ "$SBOPKGISINSTALLED" = true ]; then
     -P /usr/local/etc/
 
   ## Make tinyterm the default:
-  ln -sfv /usr/bin/tinyterm /usr/local/bin/uxterm
-  ln -sfv /usr/bin/tinyterm /usr/local/bin/xterm
-  ln -sfv /usr/bin/tinyterm /usr/local/bin/Eterm
-  ln -sfv /usr/bin/tinyterm /usr/local/bin/st
+  #ln -sfv /usr/bin/tinyterm /usr/local/bin/uxterm
+  #ln -sfv /usr/bin/tinyterm /usr/local/bin/xterm
+  #ln -sfv /usr/bin/tinyterm /usr/local/bin/Eterm
+  #ln -sfv /usr/bin/tinyterm /usr/local/bin/st
 
   ###########
   ### end ###
   ### dwm ###
   ###########
 
+  ## Need this for node stuff:
+  no_prompt_sbo_pkg_install_or_upgrade krb5
   ## These are for the image ultimator:
   no_prompt_sbo_pkg_install_or_upgrade nodejs
   no_prompt_sbo_pkg_install_or_upgrade jpegoptim
@@ -727,24 +726,10 @@ elif [ "$SBOPKGISINSTALLED" = true ]; then
 
   ## webDev stuff.
   no_prompt_sbo_pkg_install_or_upgrade jsmin
-  npm install -g uglify-js
-  npm install -g uglifycss
-  npm install -g html-minifier
-  npm install -g browserify
-  npm install -g gulp
-  npm install -g grunt-cli
-  npm install -g http-server
-  npm install -g superstatic
-  npm install -g standard
-  ## Need this for node stuff:
-  no_prompt_sbo_pkg_install_or_upgrade krb5
-  ## Great text editor:
-  my_repo_install atom
-  ## Dev tools (ocaml is a flow dep):
-  no_prompt_sbo_pkg_install_or_upgrade ocaml
-  no_prompt_sbo_pkg_install_or_upgrade ocamlbuild
-  no_prompt_sbo_pkg_install_or_upgrade flow
-  no_prompt_sbo_pkg_install_or_upgrade watchman
+  npm install -g prettier
+  ## These are my jam:
+  no_prompt_sbo_pkg_install_or_upgrade sublime_text
+  no_prompt_sbo_pkg_install_or_upgrade sublime_merge
 
 fi
 
@@ -753,20 +738,7 @@ if [ "$SPPLUSISINSTALLED" = true ] && [ "$SBOPKGISINSTALLED" = true ]; then
     pip install --upgrade pip || no_prompt_sbo_pkg_install_or_upgrade pip
 
     ## Python is amazing!
-    no_prompt_sbo_pkg_install_or_upgrade python3
     no_prompt_sbo_pkg_install_or_upgrade asciinema
-
-    no_prompt_sbo_pkg_install_or_upgrade speedtest-cli
-
-    ## Hydrogen
-    no_prompt_sbo_pkg_install_or_upgrade libtar
-    no_prompt_sbo_pkg_install_or_upgrade ladspa_sdk
-    no_prompt_sbo_pkg_install_or_upgrade liblrdf
-    no_prompt_sbo_pkg_install_or_upgrade hydrogen
-    ##
-
-    ## Build qemu with all the architectures:
-    TARGETS=all no_prompt_sbo_pkg_install_or_upgrade qemu
 
     ## Encrypt all the things!
     no_prompt_sbo_pkg_install_or_upgrade google-go-lang
@@ -795,19 +767,6 @@ if [ "$SPPLUSISINSTALLED" = true ] && [ "$SBOPKGISINSTALLED" = true ]; then
     no_prompt_sbo_pkg_install_or_upgrade lame
     no_prompt_sbo_pkg_install_or_upgrade x264
 
-    ## SDL ftw!
-    no_prompt_sbo_pkg_install_or_upgrade SDL_Pango
-    no_prompt_sbo_pkg_install_or_upgrade SDL_gfx
-    no_prompt_sbo_pkg_install_or_upgrade SDL_sound
-    no_prompt_sbo_pkg_install_or_upgrade SDL2
-    no_prompt_sbo_pkg_install_or_upgrade SDL2_gfx
-    no_prompt_sbo_pkg_install_or_upgrade SDL2_image
-    no_prompt_sbo_pkg_install_or_upgrade SDL2_mixer
-    no_prompt_sbo_pkg_install_or_upgrade SDL2_net
-    no_prompt_sbo_pkg_install_or_upgrade SDL2_ttf
-
-    my_repo_install ffmpeg
-
     no_prompt_sbo_pkg_install_or_upgrade ssr
 
     no_prompt_sbo_pkg_install_or_upgrade rar
@@ -819,7 +778,6 @@ if [ "$SPPLUSISINSTALLED" = true ] && [ "$SBOPKGISINSTALLED" = true ]; then
     no_prompt_sbo_pkg_install_or_upgrade libisoburn
     no_prompt_sbo_pkg_install_or_upgrade isomaster
     no_prompt_sbo_pkg_install_or_upgrade xarchiver
-    no_prompt_sbo_pkg_install_or_upgrade thunar-archive-plugin
     no_prompt_sbo_pkg_install_or_upgrade dmg2img
 
     ## Codeblocks & playonlinux need this:
@@ -843,55 +801,24 @@ if [ "$SPPLUSISINSTALLED" = true ] && [ "$SBOPKGISINSTALLED" = true ]; then
     ## Good ol' Audacity:
     no_prompt_sbo_pkg_install_or_upgrade soundtouch
     no_prompt_sbo_pkg_install_or_upgrade vamp-plugin-sdk
-    my_repo_install audacity
+    no_prompt_sbo_pkg_install_or_upgrade audacity
 
     ## I may make stuff someday:
     no_prompt_sbo_pkg_install_or_upgrade blender
 
-    ## Scribus:
-    no_prompt_sbo_pkg_install_or_upgrade podofo
-    no_prompt_sbo_pkg_install_or_upgrade scribus
-    ##
-
-    ## Inkscape:
-    no_prompt_sbo_pkg_install_or_upgrade gts
-    no_prompt_sbo_pkg_install_or_upgrade graphviz
-    no_prompt_sbo_pkg_install_or_upgrade numpy
-    no_prompt_sbo_pkg_install_or_upgrade BeautifulSoup
-    no_prompt_sbo_pkg_install_or_upgrade lxml
-    no_prompt_sbo_pkg_install_or_upgrade mm-common
-    no_prompt_sbo_pkg_install_or_upgrade inkscape
-    ##
-
     ## Works great with drawing tablets.
     ## It also requires `numpy`.
+    no_prompt_sbo_pkg_install_or_upgrade numpy
     no_prompt_sbo_pkg_install_or_upgrade mypaint
 
     ## Open non-1337 stuff:
     no_prompt_sbo_pkg_install_or_upgrade libreoffice
-
-    ## Android stuff!
-    no_prompt_sbo_pkg_install_or_upgrade gmtp
-    no_prompt_sbo_pkg_install_or_upgrade android-tools
-    no_prompt_sbo_pkg_install_or_upgrade android-studio
 
     ## Great for making presentations:
     no_prompt_sbo_pkg_install_or_upgrade mdp
 
     ## For making game levels:
     no_prompt_sbo_pkg_install_or_upgrade tiled-qt
-
-    ## Lutris stuff.
-    ## Recommended dependencies:
-    no_prompt_sbo_pkg_install_or_upgrade eawpats
-    no_prompt_sbo_pkg_install_or_upgrade allegro4
-    ## Required dependencies:
-    no_prompt_sbo_pkg_install_or_upgrade py3cairo
-    no_prompt_sbo_pkg_install_or_upgrade pygobject3-python3
-    no_prompt_sbo_pkg_install_or_upgrade dbus-python3
-    no_prompt_sbo_pkg_install_or_upgrade python3-PyYAML
-    no_prompt_sbo_pkg_install_or_upgrade pyxdg
-    no_prompt_sbo_pkg_install_or_upgrade lutris
 
     ## Retro games!
     no_prompt_sbo_pkg_install_or_upgrade higan
