@@ -1,4 +1,4 @@
-#config-o-matic
+# config-o-matic
 
 Configure Slackware installs in no time with config-o-matic! (patent pending)
 
@@ -9,7 +9,7 @@ Options presented when running the ROOT script:
 3. MULTILIB: Adds Eric Hameleer's MULTILIB repo to slackpkg+ and installs/upgrades it (64 bit only).
 4. WIFIR: An easy wifi connection script. Reliable and simple. See it [here](https://github.com/ryanpcmcquen/linuxTweaks/blob/master/slackware/wifir).
 
-#####config-o-matic does a lot! You should read through the script and remove any parts you don't want.  ;-)
+##### config-o-matic does a lot! You should read through the script and remove any parts you don't want.  ;-)
 ---
 
 (#):
@@ -37,13 +37,13 @@ getent passwd | grep "/home" | cut -d: -f1 | sed '/ftp/d' | \
 ```
 ---
 
-#NOTES:
+# NOTES:
  - You should either fork this project or download it and set it to YOUR config files, just running my scripts will set up my preferred configs.
 
  - $ user configuration is the same regardless of using stable or current.
 
 ---
-####ryan:
+#### Me:
 
 (#):
 
