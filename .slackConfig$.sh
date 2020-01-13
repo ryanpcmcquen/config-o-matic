@@ -1,6 +1,6 @@
 #!/bin/sh
 
-# cd; wget -N https://raw.githubusercontent.com/ryanpcmcquen/config-o-matic/stable/.slackConfig%24.sh -P ~/; sh ~/.slackConfig\$.sh
+# cd; wget -N https://raw.githubusercontent.com/ryanpcmcquen/config-o-matic/master/.slackConfig%24.sh -P ~/; sh ~/.slackConfig\$.sh
 
 #### Set your config files here:
 
