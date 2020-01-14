@@ -9,15 +9,10 @@ EOF
   exit 1
 fi
 
-## My ssh key:
 cd
-if [ ! -d ~/.ssh/ ] && [ "`which run_keybase`" ]; then
-  git clone keybase://private/rpcm/ssh ~/.ssh
-  chmod 700 ~/.ssh/
-  chmod 400 ~/.ssh/*
-  chmod 444 ~/.ssh/id_rsa.pub
-  chmod 644 ~/.ssh/known_hosts
-fi
+
+# Generic script, that does a bunch of stuff:
+wget -N https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/.genericLinuxConfig.sh -P ~/; sh ~/.genericLinuxConfig.sh
 
 ## Make ssh less annoying:
 if [ -z "$(grep 'SSH_AUTH_SOCK' /etc/profile)" ]; then
