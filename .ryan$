@@ -13,15 +13,7 @@ cd
 wget -N https://raw.githubusercontent.com/ryanpcmcquen/config-o-matic/master/.slackConfig%24.sh -P ~/
 sh ~/.slackConfig\$.sh
 
-## My ssh key:
 cd
-if [ ! -d ~/.ssh/ ] && [ "`which run_keybase`" ]; then
-  git clone keybase://private/rpcm/ssh ~/.ssh
-  chmod 700 ~/.ssh/
-  chmod 400 ~/.ssh/*
-  chmod 444 ~/.ssh/id_rsa.pub
-  chmod 644 ~/.ssh/known_hosts
-fi
 
 ## Irssi!
 wget -N https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/irssi/config -P ~/.irssi/
