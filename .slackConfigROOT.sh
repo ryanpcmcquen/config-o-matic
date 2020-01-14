@@ -6,7 +6,7 @@
 ## Note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files.
-CONFIGOMATICVERSION=10.0.05
+CONFIGOMATICVERSION=10.0.06
 
 
 if [ ! $UID = 0 ]; then
@@ -360,27 +360,27 @@ if [ "$COMARCH" != "arm" ]; then
         ### Undo stable mirrors, do current:
         if [ "$(uname -m)" = "x86_64" ]; then
             sed -i.bak \
-                "s_^http://ftp.osuosl.org/.2/slackware/slackware64${DASHSLACKSTAVER}/_# http://ftp.osuosl.org/.2/slackware/slackware64${DASHSLACKSTAVER}/_g" /etc/slackpkg/mirrors
+                "s_^http://mirrors.us.kernel.org/slackware/slackware64${DASHSLACKSTAVER}/_# http://mirrors.us.kernel.org/slackware/slackware64${DASHSLACKSTAVER}/_g" /etc/slackpkg/mirrors
             sed -i.bak \
-                "s_^# http://ftp.osuosl.org/.2/slackware/slackware64-current/_http://ftp.osuosl.org/.2/slackware/slackware64-current/_g" /etc/slackpkg/mirrors
+                "s_^# http://mirrors.us.kernel.org/slackware/slackware64-current/_http://mirrors.us.kernel.org/slackware/slackware64-current/_g" /etc/slackpkg/mirrors
         else
             sed -i.bak \
-                "s_^http://ftp.osuosl.org/.2/slackware/slackware${DASHSLACKSTAVER}/_# http://ftp.osuosl.org/.2/slackware/slackware${DASHSLACKSTAVER}/_g" /etc/slackpkg/mirrors
+                "s_^http://mirrors.us.kernel.org/slackware/slackware${DASHSLACKSTAVER}/_# http://mirrors.us.kernel.org/slackware/slackware${DASHSLACKSTAVER}/_g" /etc/slackpkg/mirrors
             sed -i.bak \
-                "s_^# http://ftp.osuosl.org/.2/slackware/slackware-current/_http://ftp.osuosl.org/.2/slackware/slackware-current/_g" /etc/slackpkg/mirrors
+                "s_^# http://mirrors.us.kernel.org/slackware/slackware-current/_http://mirrors.us.kernel.org/slackware/slackware-current/_g" /etc/slackpkg/mirrors
         fi
     else
         ### Undo current, go stable:
         if [ "$(uname -m)" = "x86_64" ]; then
             sed -i.bak \
-                "s_^http://ftp.osuosl.org/.2/slackware/slackware64-current/_# http://ftp.osuosl.org/.2/slackware/slackware64-current/_g" /etc/slackpkg/mirrors
+                "s_^http://mirrors.us.kernel.org/slackware/slackware64-current/_# http://mirrors.us.kernel.org/slackware/slackware64-current/_g" /etc/slackpkg/mirrors
             sed -i.bak \
-                "s_^# http://ftp.osuosl.org/.2/slackware/slackware64${DASHSLACKSTAVER}/_http://ftp.osuosl.org/.2/slackware/slackware64${DASHSLACKSTAVER}/_g" /etc/slackpkg/mirrors
+                "s_^# http://mirrors.us.kernel.org/slackware/slackware64${DASHSLACKSTAVER}/_http://mirrors.us.kernel.org/slackware/slackware64${DASHSLACKSTAVER}/_g" /etc/slackpkg/mirrors
         else
             sed -i.bak \
-                "s_^http://ftp.osuosl.org/.2/slackware/slackware-current/_# http://ftp.osuosl.org/.2/slackware/slackware-current/_g" /etc/slackpkg/mirrors
+                "s_^http://mirrors.us.kernel.org/slackware/slackware-current/_# http://mirrors.us.kernel.org/slackware/slackware-current/_g" /etc/slackpkg/mirrors
             sed -i.bak \
-                "s_^# http://ftp.osuosl.org/.2/slackware/slackware${DASHSLACKSTAVER}/_http://ftp.osuosl.org/.2/slackware/slackware${DASHSLACKSTAVER}/_g" /etc/slackpkg/mirrors
+                "s_^# http://mirrors.us.kernel.org/slackware/slackware${DASHSLACKSTAVER}/_http://mirrors.us.kernel.org/slackware/slackware${DASHSLACKSTAVER}/_g" /etc/slackpkg/mirrors
         fi
     fi
 else
