@@ -6,7 +6,7 @@
 ## Note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files.
-CONFIGOMATICVERSION=9.3.04
+CONFIGOMATICVERSION=9.3.05
 
 
 if [ ! $UID = 0 ]; then
@@ -40,7 +40,7 @@ export SBOPKGDL=${SBOPKGDL="$(tr -d '\n\r' < ~/sbopkgVersion)"}
 
 ## Slackpkg+:
 wget sourceforge.net/projects/slackpkgplus/files/ -O ~/slackpkgplus-download-page.html
-grep slackpkg%2B ~/slackpkgplus-download-page.html | head -1 | cut -d= -f2 | sed 's/\/download//' | \
+grep slackpkg%2B ~/slackpkgplus-download-page.html | head -1 | cut -d= -f4 | sed 's/\/download//' | \
   tr -d '"' > ~/slackpkgPlusVersion
 rm -v ~/slackpkgplus-download-page.html
 
