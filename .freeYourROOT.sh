@@ -6,7 +6,7 @@
 ## Note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files.
-CONFIGOMATICVERSION=9.3.01
+CONFIGOMATICVERSION=9.3.02
 
 
 if [ ! $UID = 0 ]; then
@@ -638,6 +638,7 @@ elif [ "$SBOPKGISINSTALLED" = true ]; then
   ## Sweet, sweet dwm.
   no_prompt_sbo_pkg_install_or_upgrade dwm
   no_prompt_sbo_pkg_install_or_upgrade dmenu
+  no_prompt_sbo_pkg_install_or_upgrade st
   no_prompt_sbo_pkg_install_or_upgrade trayer-srg
   #no_prompt_sbo_pkg_install_or_upgrade tinyterm
   no_prompt_sbo_pkg_install_or_upgrade xbindkeys
