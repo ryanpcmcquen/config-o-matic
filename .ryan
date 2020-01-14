@@ -9,9 +9,6 @@ fi
 
 cd
 
-# Generic script FTW!
-wget -N https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/.genericLinuxConfig.sh -P ~/; sh ~/.genericLinuxConfig.sh
-
 ## Make ssh less annoying:
 if [ -z "$(grep 'SSH_AUTH_SOCK' /etc/profile)" ]; then
     echo >> /etc/profile
@@ -35,6 +32,9 @@ cd
 wget -N https://raw.githubusercontent.com/ryanpcmcquen/config-o-matic/master/.slackConfigROOT.sh -P ~/
 sh ~/.slackConfigROOT.sh
 ### END OF STANDARD CONFIG-O-MATIC
+
+# Generic script FTW!
+wget -N https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/.genericLinuxConfig.sh -P ~/; sh ~/.genericLinuxConfig.sh
 
 ## Enable the wheel group:
 if [ ! -e /etc/sudoers.d/wheel-enable ]; then
