@@ -1,27 +1,27 @@
 #!/bin/sh
 
-## Multilib stuff is placed in its own file so 
+## Multilib stuff is placed in its own file so
 ## that the user's path doesn't get messed up.
 
 no_prompt_sbo_pkg_multilib_install_or_upgrade() {
-  for ITEM in "$@"; do
-  SBO_PACKAGE=$ITEM
-    if [ -z `find /var/log/packages/ -name "${SBO_PACKAGE}-compat32*"` ]; then
-      . ~/.multilib-dev.sh
-      if [ -z `find /var/log/packages/ -name "${SBO_PACKAGE}-*${ARCH}*"` ]; then
-        echo p | sbopkg -B -e continue -i ${SBO_PACKAGE}
-        OLDARCHPKG=`find /tmp/ -name "${SBO_PACKAGE}-*i?86*" | sort | tail -1`
-        convertpkg-compat32 -i "${OLDARCHPKG}"
-        COMPAT32PKG=`find /tmp/ -name "${SBO_PACKAGE}-compat32*" | sort | tail -1`
-        upgradepkg --install-new "${COMPAT32PKG}"
-        . /etc/profile
-        export ARCH=`uname -m`
-        if [ -z `find /var/log/packages/ -name "${SBO_PACKAGE}-*${ARCH}*"` ]; then
-          echo p | sbopkg -B -e continue -i ${SBO_PACKAGE}
+    for ITEM in "$@"; do
+        SBO_PACKAGE=$ITEM
+        if [ -z `find /var/log/packages/ -name "${SBO_PACKAGE}-compat32*"` ]; then
+            . ~/.multilib-dev.sh
+            if [ -z `find /var/log/packages/ -name "${SBO_PACKAGE}-*${ARCH}*"` ]; then
+                echo p | sbopkg -B -e continue -i ${SBO_PACKAGE}
+                OLDARCHPKG=`find /tmp/ -name "${SBO_PACKAGE}-*i?86*" | sort | tail -1`
+                convertpkg-compat32 -i "${OLDARCHPKG}"
+                COMPAT32PKG=`find /tmp/ -name "${SBO_PACKAGE}-compat32*" | sort | tail -1`
+                upgradepkg --install-new "${COMPAT32PKG}"
+                . /etc/profile
+                export ARCH=`uname -m`
+                if [ -z `find /var/log/packages/ -name "${SBO_PACKAGE}-*${ARCH}*"` ]; then
+                    echo p | sbopkg -B -e continue -i ${SBO_PACKAGE}
+                fi
+            fi
         fi
-      fi
-    fi
-  done
+    done
 }
 
 ## This library is necessary for several games,

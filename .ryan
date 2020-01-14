@@ -3,37 +3,30 @@
 # cd; wget -N https://raw.githubusercontent.com/ryanpcmcquen/config-o-matic/master/.ryan -P ~/; sh ~/.ryan
 
 if [ ! $UID = 0 ]; then
-  cat << EOF
-This script must be run as root.
-EOF
+  echo "This script must be run as root."
   exit 1
 fi
 
-## My ssh key:
 cd
-if [ ! -d ~/.ssh/ ] && [ "`which run_keybase`" ]; then
-  git clone keybase://private/rpcm/ssh ~/.ssh
-  chmod 700 ~/.ssh/
-  chmod 400 ~/.ssh/*
-  chmod 444 ~/.ssh/id_rsa.pub
-  chmod 644 ~/.ssh/known_hosts
-fi
+
+# Generic script FTW!
+wget -N https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/.genericLinuxConfig.sh -P ~/; sh ~/.genericLinuxConfig.sh
 
 ## Make ssh less annoying:
 if [ -z "$(grep 'SSH_AUTH_SOCK' /etc/profile)" ]; then
-  echo >> /etc/profile
-  echo 'if [ -z "$SSH_AUTH_SOCK" ]; then' >> /etc/profile
-  echo '  eval `ssh-agent`' >> /etc/profile
-  echo '  ssh-add' >> /etc/profile
-  echo 'fi' >> /etc/profile
-  echo >> /etc/profile
+    echo >> /etc/profile
+    echo 'if [ -z "$SSH_AUTH_SOCK" ]; then' >> /etc/profile
+    echo '    eval `ssh-agent`' >> /etc/profile
+    echo '    ssh-add' >> /etc/profile
+    echo 'fi' >> /etc/profile
+    echo >> /etc/profile
 fi
 
 ## Start the ssh-agent so we can clone away without
 ## entering a passphrase several times:
 if [ -z "$SSH_AUTH_SOCK" ]; then
-  eval `ssh-agent`
-  ssh-add
+    eval `ssh-agent`
+    ssh-add
 fi
 
 ### STANDARD CONFIG-O-MATIC
@@ -45,40 +38,40 @@ sh ~/.slackConfigROOT.sh
 
 ## Enable the wheel group:
 if [ ! -e /etc/sudoers.d/wheel-enable ]; then
-  echo > /etc/sudoers.d/wheel-enable
-  echo "%wheel ALL=(ALL) ALL" >> /etc/sudoers.d/wheel-enable
-  echo >> /etc/sudoers.d/wheel-enable
+    echo > /etc/sudoers.d/wheel-enable
+    echo "%wheel ALL=(ALL) ALL" >> /etc/sudoers.d/wheel-enable
+    echo >> /etc/sudoers.d/wheel-enable
 fi
 
 ## Add all non-root users (except ftp) to wheel group:
 getent passwd | grep "/home" | cut -d: -f1 | sed '/ftp/d' | xargs -i usermod -G wheel -a {}
 ## The standard groups in case you forget when you run adduser.  ;-)
 getent passwd | grep "/home" | cut -d: -f1 | sed '/ftp/d' | \
-  xargs -i usermod -G audio,cdrom,floppy,plugdev,video,power,netdev,lp,scanner -a {}
+    xargs -i usermod -G audio,cdrom,floppy,plugdev,video,power,netdev,lp,scanner -a {}
 
 ## SlackBuilds repo:
 if [ ! -d ~/sbo/ ]; then
-  git clone git@slackbuilds.org:slackbuilds.git sbo
-  cd sbo
-  git checkout -b user/ryan/updates
-  git checkout user/ryan/updates
-  git branch --set-upstream-to=origin/user/ryan/updates user/ryan/updates
-  git pull
-  cd
+    git clone git@slackbuilds.org:slackbuilds.git sbo
+    cd sbo
+    git checkout -b user/ryan/updates
+    git checkout user/ryan/updates
+    git branch --set-upstream-to=origin/user/ryan/updates user/ryan/updates
+    git pull
+    cd
 fi
 
 ## SBo git hooks:
 wget -N https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/slackware/sbo/hooks/commit-msg \
-  -P ~/sbo/.git/hooks/
+    -P ~/sbo/.git/hooks/
 wget -N https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/slackware/sbo/hooks/pre-commit \
-  -P ~/sbo/.git/hooks/
+    -P ~/sbo/.git/hooks/
 ## This is just in case permissions are incorrect,
 ## these files should already be 755.
 chmod 755 ~/sbo/.git/hooks/*
 
 
 if [ -e /usr/bin/asciinema ]; then
-  asciinema auth
+    asciinema auth
 fi
 
 echo

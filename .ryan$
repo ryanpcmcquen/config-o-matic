@@ -1,12 +1,12 @@
 #!/bin/sh
 
 if [ $UID = 0 ]; then
-cat << EOF
+    cat << EOF
 
 This script must not be run as root.
 
 EOF
-  exit 1
+    exit 1
 fi
 
 cd
@@ -19,6 +19,7 @@ cd
 wget -N https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/irssi/config -P ~/.irssi/
 wget -N https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/irssi/default.theme -P ~/.irssi/
 
+# Generic script FTW!
 wget -N https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/.genericLinuxConfig.sh -P ~/; sh ~/.genericLinuxConfig.sh
 
 echo

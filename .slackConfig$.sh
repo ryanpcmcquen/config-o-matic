@@ -33,19 +33,15 @@ GITNAME="Ryan P. C. McQuen"
 GITEMAIL="ryanpcmcquen@member.fsf.org"
 
 save_and_execute() {
-  for ITEM in "$@"; do
-    wget -N $ITEM -P ~/
-    sh ~/`basename $ITEM`
-  done
+    for ITEM in "$@"; do
+        wget -N $ITEM -P ~/
+        sh ~/`basename $ITEM`
+    done
 }
 
 if [ $UID = 0 ]; then
-cat << EOF
-
-This script must not be run as root.
-
-EOF
-  exit 1
+    echo "This script must not be run as root."
+    exit 1
 fi
 
 
@@ -66,14 +62,14 @@ cd
 ## Fixes some gsettings/dconf/xfconf errors:
 DBUS_SESSION_FILE=~/.dbus/session-bus/$(cat /var/lib/dbus/machine-id)-0
 if [ -e "$DBUS_SESSION_FILE" ]; then
-  . "$DBUS_SESSION_FILE"
-  export DBUS_SESSION_BUS_ADDRESS DBUS_SESSION_BUS_PID
+    . "$DBUS_SESSION_FILE"
+    export DBUS_SESSION_BUS_ADDRESS DBUS_SESSION_BUS_PID
 fi
 
 ## These directories have to be created by launching the applications.
 if [ ! -d ~/.gkrellm2/ ]; then
-  gkrellm &
-  pkill gkrellm &
+    gkrellm &
+    pkill gkrellm &
 fi
 
 wget -N $BASHRC -P ~/
@@ -101,76 +97,75 @@ save_and_execute $GKRELLCONF
 
 ## Fluxbox:
 if [ -d ~/.fluxbox ]; then
-  save_and_execute $FLUXBOXCONF
+    save_and_execute $FLUXBOXCONF
 fi
 
 ## Window Maker:
 if [ -d ~/GNUstep ]; then
-  save_and_execute $WMAKERCONF
+    save_and_execute $WMAKERCONF
 fi
 
 ## PeKWM:
 if [ -d ~/.pekwm ]; then
-  save_and_execute $PEKWMCONF
+    save_and_execute $PEKWMCONF
 fi
 
 ## Lumina:
 if [ -d ~/.lumina ]; then
-  save_and_execute $LUMINACONF
+    save_and_execute $LUMINACONF
 fi
 
 ## KDE:
 if [ "`find /var/log/packages/ -name kdelibs-*`" ]; then
-  save_and_execute $KDECONF
+    save_and_execute $KDECONF
 fi
 
 ## Mate:
 if [ "`find /var/log/packages/ -name pluma-*`" ]; then
-  save_and_execute $MATECONF
+    save_and_execute $MATECONF
 fi
 
 ## XFCE:
 if [ "`find /var/log/packages/ -name Thunar-*`" ]; then
-  save_and_execute $XFCECONF
+    save_and_execute $XFCECONF
 fi
 
 ## E16:
 if [ -d /usr/share/e16 ]; then
-  if [ -e ~/.e16/e_config--0.0.cfg ]; then
-    if [ -z "$(grep 'focus.all_new_windows_get_focus' ~/.e16/e_config--0.0.cfg)" ]; then
-      echo "focus.all_new_windows_get_focus = 1" >> ~/.e16/e_config--0.0.cfg
-    else
-      sed -i.bak 's/focus.all_new_windows_get_focus = 0/focus.all_new_windows_get_focus = 1/g' ~/.e16/e_config--0.0.cfg
+    if [ -e ~/.e16/e_config--0.0.cfg ]; then
+        if [ -z "$(grep 'focus.all_new_windows_get_focus' ~/.e16/e_config--0.0.cfg)" ]; then
+            echo "focus.all_new_windows_get_focus = 1" >> ~/.e16/e_config--0.0.cfg
+        else
+            sed -i.bak 's/focus.all_new_windows_get_focus = 0/focus.all_new_windows_get_focus = 1/g' ~/.e16/e_config--0.0.cfg
+        fi
     fi
-  fi
 fi
 
 ## Beautiful minimalism:
 mkdir -pv ~/.icons/
 if [ ! -e ~/.icons/default ]; then
-  if [ -d "/usr/share/icons/Oxygen_Zion/" ]; then
-    ln -sfv /usr/share/icons/Oxygen_Zion/ ~/.icons/default
-  else
-    ln -sfv /usr/share/icons/nuvola/ ~/.icons/default
-  fi
+    if [ -d "/usr/share/icons/Oxygen_Zion/" ]; then
+        ln -sfv /usr/share/icons/Oxygen_Zion/ ~/.icons/default
+    else
+        ln -sfv /usr/share/icons/nuvola/ ~/.icons/default
+    fi
 fi
 
 ## Fixes KDE firefox icon:
 rm -v ~/.local/share/applications/userapp-Firefox-*.desktop
 
-## Brackets config [2 spaces!]:
+## Brackets config:
 wget -N $BRACKETSCONF -P ~/.config/Brackets/
 
-## Zed (2 spaces, and trim whitespace):
+## Zed config:
 wget -N $ZEDCONF -P ~/.config/zed/config/
 
 ## SciTE!
-wget -N $SCITECONF \
-  -P ~/
+wget -N $SCITECONF -P ~/
 
 ## Atom goodies:
 [ `which atom` ] && apm install atom-beautify language-diff language-haskell language-lua \
-  && wget -N https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/.jsbeautifyrc -P ~/
+&& wget -N https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/.jsbeautifyrc -P ~/
 
 echo
 echo
