@@ -6,7 +6,7 @@
 ## Note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files.
-CONFIGOMATICVERSION=10.0.09
+CONFIGOMATICVERSION=10.0.10
 
 
 if [ ! $UID = 0 ]; then
@@ -864,6 +864,10 @@ elif [ "$SBOPKGISINSTALLED" = true ]; then
     no_prompt_sbo_pkg_install_or_upgrade sublime_text
     no_prompt_sbo_pkg_install_or_upgrade sublime_merge
 
+    ## Encrypt all the things!
+    no_prompt_sbo_pkg_install_or_upgrade google-go-lang
+    no_prompt_sbo_pkg_install_or_upgrade keybase
+
     ## If using an intel processor, grab the microcode,
     ## seems to help battery life significantly.
     [ "lspci | grep -i intel | grep -i processor" ] \
@@ -887,10 +891,6 @@ if [ "$SPPLUSISINSTALLED" = true ] && [ "$SBOPKGISINSTALLED" = true ]; then
         pip install --upgrade pip || no_prompt_sbo_pkg_install_or_upgrade pip
 
         no_prompt_sbo_pkg_install_or_upgrade asciinema
-
-        ## Encrypt all the things!
-        no_prompt_sbo_pkg_install_or_upgrade google-go-lang
-        no_prompt_sbo_pkg_install_or_upgrade keybase
 
         ## More compilers, more fun!
         no_prompt_sbo_pkg_install_or_upgrade pcc
