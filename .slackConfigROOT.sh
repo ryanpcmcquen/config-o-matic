@@ -6,7 +6,7 @@
 ## Note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files.
-CONFIGOMATICVERSION=10.0.11
+CONFIGOMATICVERSION=10.0.12
 
 
 if [ ! $UID = 0 ]; then
@@ -903,10 +903,6 @@ if [ "$SPPLUSISINSTALLED" = true ] && [ "$SBOPKGISINSTALLED" = true ]; then
 
         ## Helps with webkit and some other things:
         no_prompt_sbo_pkg_install_or_upgrade libwebp
-
-        ## I don't even have optical drives on all my comps, but ...
-        no_prompt_sbo_pkg_install_or_upgrade libdvdcss
-        no_prompt_sbo_pkg_install_or_upgrade libbluray
 
         ## Need these for ffmpeg:
         no_prompt_sbo_pkg_install_or_upgrade x264
