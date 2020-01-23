@@ -6,7 +6,7 @@
 ## Note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files.
-CONFIGOMATICVERSION=10.0.10
+CONFIGOMATICVERSION=10.0.11
 
 
 if [ ! $UID = 0 ]; then
@@ -834,8 +834,6 @@ elif [ "$SBOPKGISINSTALLED" = true ]; then
     ### dwm ###
     ###########
 
-    ## Need this for node stuff:
-    no_prompt_sbo_pkg_install_or_upgrade krb5
     ## These are for the image ultimator
     no_prompt_sbo_pkg_install_or_upgrade nodejs
     no_prompt_sbo_pkg_install_or_upgrade jpegoptim
