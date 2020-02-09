@@ -6,7 +6,7 @@
 ## Note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files.
-CONFIGOMATICVERSION=10.0.12
+CONFIGOMATICVERSION=10.0.13
 
 
 if [ ! $UID = 0 ]; then
@@ -959,9 +959,6 @@ if [ "$SPPLUSISINSTALLED" = true ] && [ "$SBOPKGISINSTALLED" = true ]; then
 
         ## Great for making presentations:
         no_prompt_sbo_pkg_install_or_upgrade mdp
-
-        ## For making game levels:
-        no_prompt_sbo_pkg_install_or_upgrade tiled-qt
 
         ## Retro games!
         no_prompt_sbo_pkg_install_or_upgrade higan
