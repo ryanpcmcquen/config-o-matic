@@ -29,8 +29,8 @@ GKRELLCONF="https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/.g
 BRACKETSCONF="https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/brackets.json"
 ZEDCONF="https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/.config/zed/config/user.json"
 
-GITNAME="Ryan P. C. McQuen"
-GITEMAIL="ryanpcmcquen@member.fsf.org"
+GITNAME="Ryan McQuen"
+GITEMAIL="rpcm@linux.com"
 
 save_and_execute() {
     for ITEM in "$@"; do
