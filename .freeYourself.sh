@@ -26,8 +26,8 @@ GKRELLCFIL="https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/sl
 GKRELLTFIL="https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/slackware/gkrellm2/theme_config"
 GKRELLCONF="https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/.gkrellmConfig.sh"
 
-GITNAME="Ryan P. C. McQuen"
-GITEMAIL="ryanpcmcquen@member.fsf.org"
+GITNAME="Ryan McQuen"
+GITEMAIL="rpcm@linux.com"
 
 save_and_execute() {
   for ITEM in "$@"; do
