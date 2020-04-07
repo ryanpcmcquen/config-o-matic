@@ -6,7 +6,7 @@
 ## Note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files.
-CONFIGOMATICVERSION=9.3.06
+CONFIGOMATICVERSION=9.3.07
 
 
 if [ ! $UID = 0 ]; then
@@ -62,8 +62,8 @@ TMUXCONF="https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/tmux
 
 SCITECONF="https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/.SciTEUser.properties"
 
-GITNAME="Ryan P. C. McQuen"
-GITEMAIL="ryanpcmcquen@member.fsf.org"
+GITNAME="Ryan McQuen"
+GITEMAIL="rpcm@linux.com"
 
 ## These make you feel like the flash in vim:
 XSETKEYDELAY=${KEY_REPEAT_DELAY}
