@@ -6,7 +6,7 @@
 ## Note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files.
-CONFIGOMATICVERSION=10.0.14
+CONFIGOMATICVERSION=10.0.15
 
 
 if [ ! $UID = 0 ]; then
@@ -877,7 +877,7 @@ elif [ "$SBOPKGISINSTALLED" = true ]; then
     if [ -z "$(grep 'rc.tlp' /etc/rc.d/rc.local)" ]; then
         echo >> /etc/rc.d/rc.local
         echo "if [ -x /etc/rc.d/rc.tlp ]; then" >> /etc/rc.d/rc.local
-        echo "  /etc/rc.d/rc.tlp start" >> /etc/rc.d/rc.local
+        echo "    /etc/rc.d/rc.tlp start" >> /etc/rc.d/rc.local
         echo "fi" >> /etc/rc.d/rc.local
         echo >> /etc/rc.d/rc.local
     fi
