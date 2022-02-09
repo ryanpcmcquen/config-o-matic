@@ -6,7 +6,7 @@
 ## Note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files.
-CONFIGOMATICVERSION=10.0.16
+CONFIGOMATICVERSION=10.0.17
 
 
 if [ ! $UID = 0 ]; then
@@ -94,7 +94,7 @@ EFILILO="https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/slack
 
 MSBHELPERSCRIPT="https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/slackware/checkmate.sh"
 
-MIMEAPPSLIST="https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/mimeapps.list"
+#MIMEAPPSLIST="https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/mimeapps.list"
 
 ## Update chmod also:
 UNICODEMAGIC="https://raw.githubusercontent.com/ryanpcmcquen/linuxTweaks/master/slackware/rc.unicodeMagic"
@@ -329,7 +329,7 @@ fi
 wget -N https://raw.githubusercontent.com/Yubico/libu2f-host/master/70-u2f.rules -P /etc/udev/rules.d/
 
 ## Set some sane defaults for apps:
-wget -N $MIMEAPPSLIST -P /etc/xdg/
+#wget -N $MIMEAPPSLIST -P /etc/xdg/
 
 ## Set maximum keyboard repeat rate and shortest delay:
 if [ -z "$(grep kbdrate /etc/rc.d/rc.local)" ]; then
