@@ -6,7 +6,7 @@
 ## Note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files.
-CONFIGOMATICVERSION=10.0.17
+CONFIGOMATICVERSION=10.1.00
 
 
 if [ ! $UID = 0 ]; then
@@ -790,7 +790,6 @@ elif [ "$SBOPKGISINSTALLED" = true ]; then
         curl $MULTILIBINSTALLS | sh
     else
         no_prompt_sbo_pkg_install_or_upgrade libtxc_dxtn
-        no_prompt_sbo_pkg_install_or_upgrade OpenAL
     fi
 
     ## Allow wine/crossover to use osmesa libs:
@@ -886,7 +885,7 @@ fi
 
 if [ "$SPPLUSISINSTALLED" = true ] && [ "$SBOPKGISINSTALLED" = true ]; then
     if [ "$MISCELLANY" = true ]; then
-        pip install --upgrade pip || no_prompt_sbo_pkg_install_or_upgrade pip
+        pip install --upgrade pip
 
         no_prompt_sbo_pkg_install_or_upgrade asciinema
 
@@ -901,20 +900,14 @@ if [ "$SPPLUSISINSTALLED" = true ] && [ "$SBOPKGISINSTALLED" = true ]; then
         ## I can't remember why this is here:
         no_prompt_sbo_pkg_install_or_upgrade bullet
 
-        ## Helps with webkit and some other things:
-        no_prompt_sbo_pkg_install_or_upgrade libwebp
-
         ## Need these for ffmpeg:
         no_prompt_sbo_pkg_install_or_upgrade x264
-
-        no_prompt_sbo_pkg_install_or_upgrade ssr
 
         no_prompt_sbo_pkg_install_or_upgrade rar
         no_prompt_sbo_pkg_install_or_upgrade unrar
 
         ## A whole bunch of archive-y/file stuff:
         no_prompt_sbo_pkg_install_or_upgrade libisofs
-        no_prompt_sbo_pkg_install_or_upgrade libburn
         no_prompt_sbo_pkg_install_or_upgrade libisoburn
         no_prompt_sbo_pkg_install_or_upgrade isomaster
         no_prompt_sbo_pkg_install_or_upgrade xarchiver
