@@ -6,7 +6,7 @@
 ## Note that some configuration options may not match
 ## depending on the system, as config-o-matic tries
 ## to avoid overwriting most files.
-CONFIGOMATICVERSION=10.1.00
+CONFIGOMATICVERSION=10.1.01
 
 
 if [ ! $UID = 0 ]; then
@@ -402,12 +402,12 @@ fi
 
 
 ## Set vim as the default editor:
-if [ -z "$(grep 'export EDITOR' /etc/profile && grep 'export VISUAL' /etc/profile)" ]; then
-    echo >> /etc/profile
-    echo "export EDITOR=vim" >> /etc/profile
-    echo "export VISUAL=vim" >> /etc/profile
-    echo >> /etc/profile
-fi
+# if [ -z "$(grep 'export EDITOR' /etc/profile && grep 'export VISUAL' /etc/profile)" ]; then
+#     echo >> /etc/profile
+#     echo "export EDITOR=vim" >> /etc/profile
+#     echo "export VISUAL=vim" >> /etc/profile
+#     echo >> /etc/profile
+# fi
 
 ## Make ls colorful by default, when
 ## parsing ls output, always use:
